@@ -8,7 +8,6 @@ public class Menu_principal extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //prova laura No FUNCIONA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
     }
