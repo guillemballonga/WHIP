@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Menu_principal"></activity>
+        <activity android:name=".Menu_principal" />
+        <activity android:name=".ListadoPerdida"></activity>
     </application>
 
 </manifest>
