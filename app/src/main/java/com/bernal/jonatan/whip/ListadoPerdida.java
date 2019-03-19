@@ -16,6 +16,8 @@ public class ListadoPerdida extends AppCompatActivity {
         setContentView(R.layout.activity_listado_perdida);
 
         ArrayList<Fuente> Posts_perdidos = new ArrayList<Fuente>();
+
+        //Posts harcodeados
         Posts_perdidos.add(new Fuente("Toby perdido1", R.drawable.perro,"He perdido a mi perro por la zona de Barcelona. Blablablablablabalbalablabal...",0));
         Posts_perdidos.add(new Fuente("Gatito perdido2", R.drawable.gatito,"He perdido a mi gatito por la zona de Barcelona. Blablablablablabalbalablabal...",0));
         Posts_perdidos.add(new Fuente("Toby perdido3", R.drawable.perro,"He perdido a mi perro por la zona de Barcelona. Blablablablablabalbalablabal...",0));
