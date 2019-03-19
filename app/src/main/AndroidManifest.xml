@@ -11,6 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <uses-library android:name="com.google.android.things" />
+
+        <activity android:name=".loginGoogle">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +28,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".Menu_principal" />
+<<<<<<< HEAD
         <activity android:name=".ListadoPerdida"></activity>
+=======
+>>>>>>> 09edbc22bda9a88b345b62bff7aab331c400b9ad
     </application>
 
 </manifest>

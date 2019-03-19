@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "316779947263",
+    "firebase_url": "https://whip-4cb9d.firebaseio.com",
+    "project_id": "whip-4cb9d",
+    "storage_bucket": "whip-4cb9d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316779947263:android:815cd531b514b305",
+        "android_client_info": {
+          "package_name": "com.bernal.jonatan.whip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "316779947263-o5v2btsivq7h4p7gvjsbua2ip8shlbp6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bernal.jonatan.whip",
+            "certificate_hash": "f2fbdbdc4d8966ce7e17daf73b5ef0403b8113f5"
+          }
+        },
+        {
+          "client_id": "316779947263-0bmetdss5eop9gl4ch4krpbvoeduia05.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFj-nrTG8ddeuHRtWKKPbqwFmu9oxL1S0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "316779947263-0bmetdss5eop9gl4ch4krpbvoeduia05.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
