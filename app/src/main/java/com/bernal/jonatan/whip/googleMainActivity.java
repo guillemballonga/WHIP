@@ -27,6 +27,6 @@ public class googleMainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_google_main2);
+        setContentView(R.layout.activity_google_main);
     }
 }
