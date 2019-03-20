@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">WHIP</string>
+    <string name="title_activity_google_main">googleMainActivity</string>
+    <string name="not_log_in_cat">\"No es pot iniciar sessio\"</string>
 </resources>
