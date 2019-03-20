@@ -22,6 +22,11 @@
 
 
         </activity>
+        <activity android:name=".Menu_principal" />
+<<<<<<< HEAD
+        <activity android:name=".ListadoPerdida"></activity>
+=======
+>>>>>>> 09edbc22bda9a88b345b62bff7aab331c400b9ad
     </application>
 
 </manifest>
