@@ -1,20 +1,21 @@
 package com.bernal.jonatan.whip;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
+
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import android.widget.Toast;
-
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 
 
 /**
@@ -36,12 +37,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
  *
  * @see <a href="https://github.com/androidthings/contrib-drivers#readme">https://github.com/androidthings/contrib-drivers#readme</a>
  */
-public class loginGoogle extends Activity implements GoogleApiClient.OnConnectionFailedListener {
+public class LogInActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     //private static final GoogleApiClient GoogleSignIn = ;
     private GoogleApiClient googleApiClient;
     private SignInButton signInButton;
     public static final int SIGN_IN_CODE = 777;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +54,12 @@ public class loginGoogle extends Activity implements GoogleApiClient.OnConnectio
                 .requestEmail()
                 .build();
         //TODO
-/*
+
         googleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-                */
+
 
         signInButton = (SignInButton) findViewById(R.id.signInButton);
 
@@ -100,8 +102,23 @@ public class loginGoogle extends Activity implements GoogleApiClient.OnConnectio
     }
 
     private void goMainScreen() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LogInProva.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }
