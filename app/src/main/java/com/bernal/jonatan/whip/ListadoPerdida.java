@@ -1,9 +1,13 @@
 package com.bernal.jonatan.whip;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -14,6 +18,9 @@ public class ListadoPerdida extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listado_perdida);
+
+        Toolbar tool = (Toolbar) findViewById(R.id.toolbar_listadoPerd);
+        setSupportActionBar(tool);
 
         ArrayList<Fuente> Posts_perdidos = new ArrayList<Fuente>();
 
@@ -30,6 +37,20 @@ public class ListadoPerdida extends AppCompatActivity {
         contenedor.setAdapter(new Adaptador(Posts_perdidos));
         contenedor.setLayoutManager(layout);
 
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menus,menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem menuItem){
+        switch (menuItem.getItemId()){
+            case R.id.icono_añadir:
+                startActivity(new Intent(ListadoPerdida.this, NuevoPostPerdido.class));
+                break;
+        }
+        return true;
     }
 
 
