@@ -2,4 +2,9 @@
     <string name="app_name">WHIP</string>
     <string name="title_activity_google_main">googleMainActivity</string>
     <string name="not_log_in_cat">\"No es pot iniciar sessio\"</string>
+    <string name="not_log_in">No se pudo iniciar sesión</string>
+    <string name="log_out">Log Out</string>
+    <string name="revoke">Revoke</string>
+    <string name="not_close_session">No se pudo cerrar sesión</string>
+    <string name="not_revoke">No se pudo revocar el acceso</string>
 </resources>

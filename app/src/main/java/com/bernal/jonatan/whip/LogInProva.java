@@ -15,8 +15,8 @@ public class LogInProva extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        login_button = (Button) findViewById(R.id.login);
-        signin_button = (Button) findViewById(R.id.signin);
+        //login_button = (Button) findViewById(R.id.activity_log_in);
+        //signin_button = (Button) findViewById(R.id.signin);
 
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
