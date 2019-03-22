@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -34,8 +35,17 @@ public class ListadoPerdida extends AppCompatActivity {
         RecyclerView contenedor = (RecyclerView) findViewById(R.id.contenedor);
         LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-        contenedor.setAdapter(new Adaptador(Posts_perdidos));
+        Adaptador adapt = new Adaptador(Posts_perdidos);
+        contenedor.setAdapter(adapt);
         contenedor.setLayoutManager(layout);
+
+        adapt.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ListadoPerdida.this, InfoPost.class));
+            }
+        });
 
     }
 
