@@ -1,5 +1,6 @@
 package com.bernal.jonatan.whip;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class ListadoPerdida extends AppCompatActivity {
 
         Toolbar tool = (Toolbar) findViewById(R.id.toolbar_listadoPerd);
         setSupportActionBar(tool);
+        getSupportActionBar().setTitle("ABANDONO O PÉRDIDA");
 
         ArrayList<Fuente> Posts_perdidos = new ArrayList<Fuente>();
 

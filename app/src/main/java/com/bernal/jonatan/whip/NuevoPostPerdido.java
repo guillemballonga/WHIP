@@ -1,13 +1,77 @@
 package com.bernal.jonatan.whip;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.Spinner;
 
 public class NuevoPostPerdido extends AppCompatActivity {
+
+    ImageView foto;
+    Spinner especie,tipo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_post_perdido);
+
+        Toolbar tool = (Toolbar) findViewById(R.id.toolbar_nuevoPostPerd);
+        setSupportActionBar(tool);
+        getSupportActionBar().setTitle("ABANDONO O PÉRDIDA");
+
+        foto = (ImageView) findViewById(R.id.perfil_perroPerd);
+
+        especie = (Spinner) findViewById(R.id.especie_postPerd);
+        tipo = (Spinner) findViewById(R.id.tipo_postPerd);
+
+
+        // Spinner per a seleccionar els items
+        String[] itemsEspecie = new String[]{"Perro", "Gato", "Otro"};
+        String[] itemsTipo = new String[]{"Abandono", "Pérdida"};
+
+        ArrayAdapter<String> adapterEspecie = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsEspecie);
+        ArrayAdapter<String> adapterTipo = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsTipo);
+
+        especie.setAdapter(adapterEspecie);
+        tipo.setAdapter(adapterTipo);
+
+
+        //Obrir la galeria d'imatges
+        foto.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                openGallery();
+            }
+        });
+
     }
+
+    public void openGallery() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        gallery.setType("image/");
+        startActivityForResult(gallery.createChooser(gallery,"Seleccione la Aplicación"),10);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            Uri path = data.getData();
+            foto.setImageURI(path);
+
+            //Guardar el path de la foto en IMGUR
+        }
+    }
+
+
+
 }
