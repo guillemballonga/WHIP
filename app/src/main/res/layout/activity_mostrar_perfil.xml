@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MostrarPerfil">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,14 +56,14 @@
         android:paddingBottom="23dp">
 
 
-    <ImageView
-        android:id="@+id/camp_username"
-        android:paddingLeft="1dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/perfilrosa"
-        tools:layout_editor_absoluteX="26dp"
-        tools:layout_editor_absoluteY="552dp" />
+        <ImageView
+            android:id="@+id/camp_username"
+            android:paddingLeft="1dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/perfilrosa"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="552dp" />
         <EditText
             android:id="@+id/escr_username"
             android:layout_width="wrap_content"
@@ -164,8 +166,5 @@
             tools:layout_editor_absoluteX="184dp"
             tools:layout_editor_absoluteY="491dp" />
     </LinearLayout>
-
-
-
 
 </LinearLayout>

@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/fondoformlargo"
-            android:hint="Añade el título..."
+            android:hint="Añade el título...*"
             android:paddingLeft="10dp"
             />
     </LinearLayout>
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/fondoform"
             android:layout_marginLeft="5dp"
-            android:hint="Añade el C.P..."
+            android:hint="Añade el C.P...*"
             android:paddingLeft="10dp"/>
 
     </LinearLayout>
@@ -106,7 +106,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/fondoform"
             android:layout_marginLeft="5dp"
-            android:hint="Añade la raza..."
+            android:hint="Añade la raza...*"
             android:paddingLeft="10dp"/>
 
     </LinearLayout>
@@ -140,6 +140,7 @@
         android:layout_marginBottom="30dp">
 
         <Button
+            android:id="@+id/boton_create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/botonredondo"
@@ -150,6 +151,7 @@
             />
 
         <Button
+            android:id="@+id/boton_cancelNewPostPerd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/botonredondo"

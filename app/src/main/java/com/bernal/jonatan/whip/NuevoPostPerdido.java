@@ -8,11 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,6 +33,8 @@ public class NuevoPostPerdido extends AppCompatActivity {
 
     ImageView foto;
     Spinner especie,tipo;
+    Button create,cancel;
+    EditText titulo,cp,raza;
 
     private OkHttpClient httpClient;
 
@@ -46,10 +52,51 @@ public class NuevoPostPerdido extends AppCompatActivity {
         especie = (Spinner) findViewById(R.id.especie_postPerd);
         tipo = (Spinner) findViewById(R.id.tipo_postPerd);
 
+        titulo = (EditText) findViewById(R.id.titulo_postPerd);
+        cp = (EditText) findViewById(R.id.cp_postPerd);
+        raza = (EditText) findViewById(R.id.raza_postPerd);
+
+
+        //Botons
+
+        create = (Button) findViewById(R.id.boton_create);
+        cancel = (Button) findViewById(R.id.boton_cancelNewPostPerd);
+
+        create.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                if(titulo.getText().toString().equals("") || cp.getText().toString().equals("") || raza.getText().toString().equals("") || especie.getSelectedItem().toString().equals("") || tipo.getSelectedItem().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(),"Los campos con * son obligatorios",Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    //Guardar los datos del formulario en BACK
+
+
+                    //Ir a ver el post en concreto
+                    Toast.makeText(getApplicationContext(),"Post guardado correctamente",Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(NuevoPostPerdido.this, InfoPost.class));
+                    finish();
+
+                }
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
+
 
         // Spinner per a seleccionar els items
-        String[] itemsEspecie = new String[]{"Perro", "Gato", "Otro"};
-        String[] itemsTipo = new String[]{"Abandono", "Pérdida"};
+        String[] itemsEspecie = new String[]{"Perro*", "Gato*", "Otro*"};
+        String[] itemsTipo = new String[]{"Abandono*", "Pérdida*"};
 
         ArrayAdapter<String> adapterEspecie = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsEspecie);
         ArrayAdapter<String> adapterTipo = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsTipo);
