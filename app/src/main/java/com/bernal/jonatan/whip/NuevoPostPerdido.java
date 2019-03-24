@@ -7,16 +7,30 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class NuevoPostPerdido extends AppCompatActivity {
 
     ImageView foto;
     Spinner especie,tipo;
+
+    private OkHttpClient httpClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +67,10 @@ public class NuevoPostPerdido extends AppCompatActivity {
             }
         });
 
+
+        //IMGUR
+        fetchData();
+
     }
 
     public void openGallery() {
@@ -69,7 +87,18 @@ public class NuevoPostPerdido extends AppCompatActivity {
             foto.setImageURI(path);
 
             //Guardar el path de la foto en IMGUR
+
+            Request request = new Request.Builder()
+                    .url("https://api.imgur.com/3/image")
+                    .header("Authorization", "b85b2517d6df7fb")
+                    .header("User-Agent", "WHIP")
+                    .build();
         }
+    }
+
+
+    private void fetchData() {
+        httpClient = new OkHttpClient.Builder().build();
     }
 
 
