@@ -1,5 +1,6 @@
 package com.bernal.jonatan.whip;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+
+import static android.support.v4.content.ContextCompat.startActivity;
 
 public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
