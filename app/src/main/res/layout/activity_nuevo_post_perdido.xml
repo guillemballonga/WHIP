@@ -53,7 +53,7 @@
             android:id="@+id/titulo_postPerd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/fondoformlargo"
+            android:background="@drawable/fondoform"
             android:hint="Añade el título..."
             android:paddingLeft="10dp"
             />
