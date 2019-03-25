@@ -71,7 +71,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
 
                 }
                 else {
-                    //Guardar los datos del formulario en BACK
+                    //Guardar los datos del formulario en BACK. NOTA: No olvidar guardar la fecha de creación del Post
 
 
                     //Ir a ver el post en concreto

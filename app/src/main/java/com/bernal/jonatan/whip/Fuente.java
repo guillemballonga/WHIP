@@ -2,6 +2,7 @@ package com.bernal.jonatan.whip;
 
 public class Fuente {
 
+    String ID;
     String nombre;
     int imagen;
     String contenido;
