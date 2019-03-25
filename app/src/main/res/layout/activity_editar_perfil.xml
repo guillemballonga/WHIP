@@ -35,7 +35,7 @@
             android:id="@+id/camp_nom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/perfilrosa"
+            app:srcCompat="@drawable/barranombre"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="360dp" />
         <EditText
@@ -61,7 +61,7 @@
             android:paddingLeft="1dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/perfilrosa"
+            app:srcCompat="@drawable/barrausername"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="552dp" />
         <EditText
@@ -85,7 +85,7 @@
             android:paddingLeft="1dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/perfilrosa"
+            app:srcCompat="@drawable/barracorreo"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="552dp" />
         <EditText
@@ -107,7 +107,7 @@
             android:id="@+id/camp_telef"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/perfilrosa"
+            app:srcCompat="@drawable/barratelefono"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="360dp" />
 
@@ -130,7 +130,7 @@
             android:id="@+id/camp_CP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/perfilrosa"
+            app:srcCompat="@drawable/barracp"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="360dp" />
 
@@ -153,18 +153,19 @@
             android:id="@+id/boto_guardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/botonredondo"
+            app:srcCompat="@drawable/botoguardar"
             tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="360dp" />
+            tools:layout_editor_absoluteY="360dp"/>
 
         <ImageButton
             android:id="@+id/boto_cancelar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            app:srcCompat="@drawable/botonredondo"
+            app:srcCompat="@drawable/botocancelar"
             tools:layout_editor_absoluteX="184dp"
-            tools:layout_editor_absoluteY="491dp" />
+            tools:layout_editor_absoluteY="491dp"
+            />
     </LinearLayout>
 
 </LinearLayout>

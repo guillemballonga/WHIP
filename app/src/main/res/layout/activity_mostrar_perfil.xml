@@ -35,16 +35,17 @@
             android:id="@+id/camp_nom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/perfilrosa"
+            app:srcCompat="@drawable/barranombre"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="360dp" />
-        <EditText
+
+        <TextView
             android:id="@+id/escr_nom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/perfilblanc"
             android:gravity="center"
-            />
+             />
 
 
     </LinearLayout>
@@ -61,10 +62,10 @@
             android:paddingLeft="1dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/perfilrosa"
+            app:srcCompat="@drawable/barrausername"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="552dp" />
-        <EditText
+        <TextView
             android:id="@+id/escr_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,10 +86,10 @@
             android:paddingLeft="1dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/perfilrosa"
+            app:srcCompat="@drawable/barracorreo"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="552dp" />
-        <EditText
+        <TextView
             android:id="@+id/escr_correu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,11 +108,11 @@
             android:id="@+id/camp_telef"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/perfilrosa"
+            app:srcCompat="@drawable/barratelefono"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="360dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/escr_telef"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -130,11 +131,11 @@
             android:id="@+id/camp_CP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/perfilrosa"
+            app:srcCompat="@drawable/barracp"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="360dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/escr_CP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -150,19 +151,19 @@
         android:paddingBottom="23dp">
 
         <ImageButton
-            android:id="@+id/boto_guardar"
+            android:id="@+id/boto_editar_perfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/botonredondo"
+            app:srcCompat="@drawable/botoeditperf"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="360dp" />
 
         <ImageButton
-            android:id="@+id/boto_cancelar"
+            android:id="@+id/boto_mis_posts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            app:srcCompat="@drawable/botonredondo"
+            app:srcCompat="@drawable/botomisposts"
             tools:layout_editor_absoluteX="184dp"
             tools:layout_editor_absoluteY="491dp" />
     </LinearLayout>
