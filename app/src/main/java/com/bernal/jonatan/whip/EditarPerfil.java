@@ -1,16 +1,23 @@
 package com.bernal.jonatan.whip;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+
+import okhttp3.Request;
 
 public class EditarPerfil extends AppCompatActivity {
 
 
     Button goToMostrarPerfilGuardant, goToMostrarPerfilCancelar;
+    ImageView fotoperfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +26,8 @@ public class EditarPerfil extends AppCompatActivity {
 
         goToMostrarPerfilGuardant = (Button) findViewById(R.id.boto_guardar);
         goToMostrarPerfilCancelar = (Button) findViewById(R.id.boto_cancelar);
+
+        fotoperfil = (ImageView) findViewById(R.id.imagen_perfil);
 
         goToMostrarPerfilGuardant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,8 +38,14 @@ public class EditarPerfil extends AppCompatActivity {
                 finish();
             }
             
-            
-            
+        });
+
+        fotoperfil.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                obrirgaleria();
+            }
         });
 
         goToMostrarPerfilCancelar.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +58,32 @@ public class EditarPerfil extends AppCompatActivity {
 
 
     }
+
+    private void obrirgaleria() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        gallery.setType("image/");
+        startActivityForResult(gallery.createChooser(gallery,"Seleccione la Aplicación"),10);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            Uri path = data.getData();
+            fotoperfil.setImageURI(path);
+
+            //Guardar el path de la foto en IMGUR
+
+
+            Request request = new Request.Builder()
+                    .url("https://api.imgur.com/3/image")
+                    .header("Authorization", "b85b2517d6df7fb")
+                    .header("User-Agent", "WHIP")
+                    .build();
+        }
+    }
+
 
     private void setNousParametres() {
 
