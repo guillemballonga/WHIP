@@ -8,36 +8,48 @@
     android:layout_height="match_parent"
     tools:context=".MostrarPerfil">
 
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="30dp"
-        android:paddingTop="30dp">
+        android:layout_marginTop="20dp">
 
         <ImageView
             android:id="@+id/imagen_perfil"
             android:layout_width="match_parent"
-            android:layout_height="196dp"
-            tools:layout_editor_absoluteX="128dp"
-            tools:layout_editor_absoluteY="108dp"
-            tools:srcCompat="@drawable/usuario" />
+            android:layout_height="156dp"
+            android:src="@drawable/icono_usuario" />
     </LinearLayout>
 
-
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="23dp">
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/camp_nom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/barranombre"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="360dp" />
+            android:src="@drawable/barranombre" />
 
         <TextView
             android:id="@+id/escr_nom"
@@ -54,66 +66,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingBottom="23dp">
+        android:layout_marginTop="20dp">
 
 
         <ImageView
             android:id="@+id/camp_username"
-            android:paddingLeft="1dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/barrausername"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="552dp" />
+            android:src="@drawable/barrausername"/>
         <TextView
             android:id="@+id/escr_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/perfilgris"
-            android:gravity="center"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="23dp">
-
-
-        <ImageView
-            android:id="@+id/camp_correu"
-            android:paddingLeft="1dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/barracorreo"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="552dp" />
-        <TextView
-            android:id="@+id/escr_correu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/perfilgris"
-            android:gravity="center"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="23dp">
-
-        <ImageView
-            android:id="@+id/camp_telef"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/barratelefono"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="360dp" />
-
-        <TextView
-            android:id="@+id/escr_telef"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/perfilblanc"
@@ -125,15 +87,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingBottom="23dp">
+        android:layout_marginTop="20dp">
+
+
+        <ImageView
+            android:id="@+id/camp_correu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/barracorreo" />
+        <TextView
+            android:id="@+id/escr_correu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/perfilblanc"
+            android:gravity="center"
+            />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp">
 
         <ImageView
             android:id="@+id/camp_CP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/barracp"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="360dp" />
+            android:src="@drawable/barracp" />
 
         <TextView
             android:id="@+id/escr_CP"
@@ -144,28 +127,53 @@
             />
     </LinearLayout>
 
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingBottom="23dp">
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp">
 
-        <ImageButton
+        <Button
             android:id="@+id/boto_editar_perfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/botoeditperf"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="360dp" />
+            android:background="@drawable/botonredondopeq"
+            android:text="EDITAR PERFIL"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"/>
 
-        <ImageButton
+        <Button
             android:id="@+id/boto_mis_posts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/botonredondopeq"
+            android:text="MIS POSTS"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"/>
 
-            app:srcCompat="@drawable/botomisposts"
-            tools:layout_editor_absoluteX="184dp"
-            tools:layout_editor_absoluteY="491dp" />
+
+        <Button
+            android:id="@+id/boto_mis_mensajes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/botonredondopeq"
+            android:text="MENSAJES"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_weight="1"/>
     </LinearLayout>
+
+
+    </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

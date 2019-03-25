@@ -10,16 +10,15 @@ import android.widget.ImageButton;
 
 public class MostrarPerfil extends AppCompatActivity {
 
-    ImageButton goToEditarPerfil;
-    ImageButton goToMisPosts;
+    Button goToEditarPerfil, goToMisPosts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mostrar_perfil);
 
-        goToEditarPerfil = (ImageButton) findViewById(R.id.boto_editar_perfil);
-        goToMisPosts = (ImageButton) findViewById(R.id.boto_mis_posts);
+        goToEditarPerfil = (Button) findViewById(R.id.boto_editar_perfil);
+        goToMisPosts = (Button) findViewById(R.id.boto_mis_posts);
 
         goToEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override

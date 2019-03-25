@@ -10,25 +10,23 @@ import android.widget.ImageButton;
 public class EditarPerfil extends AppCompatActivity {
 
 
-    ImageButton goToMostrarPerfilGuardant;
-    ImageButton goToMostrarPerfilCancelar;
+    Button goToMostrarPerfilGuardant, goToMostrarPerfilCancelar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_perfil);
 
-        goToMostrarPerfilGuardant = (ImageButton) findViewById(R.id.boto_guardar);
-        goToMostrarPerfilCancelar = (ImageButton) findViewById(R.id.boto_cancelar);
+        goToMostrarPerfilGuardant = (Button) findViewById(R.id.boto_guardar);
+        goToMostrarPerfilCancelar = (Button) findViewById(R.id.boto_cancelar);
 
         goToMostrarPerfilGuardant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(EditarPerfil.this, MostrarPerfil.class));
-                //finish();
-                
+               // startActivity(new Intent(EditarPerfil.this, MostrarPerfil.class));
                 setNousParametres();
+                finish();
             }
             
             
@@ -38,9 +36,7 @@ public class EditarPerfil extends AppCompatActivity {
         goToMostrarPerfilCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                startActivity(new Intent(EditarPerfil.this, MostrarPerfil.class));
-                //finish();
+                finish();
             }
         });
 

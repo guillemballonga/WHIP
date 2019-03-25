@@ -8,164 +8,161 @@
     android:layout_height="match_parent"
     tools:context=".EditarPerfil">
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="30dp"
-        android:paddingTop="30dp">
+        android:layout_marginTop="20dp">
 
         <ImageView
             android:id="@+id/imagen_perfil"
             android:layout_width="match_parent"
-            android:layout_height="196dp"
-            tools:layout_editor_absoluteX="128dp"
-            tools:layout_editor_absoluteY="108dp"
-            tools:srcCompat="@drawable/usuario" />
+            android:layout_height="156dp"
+            android:src="@drawable/icono_usuario" />
     </LinearLayout>
 
-
-
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="23dp">
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp">
 
-        <ImageView
-            android:id="@+id/camp_nom"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/barranombre"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="360dp" />
-        <EditText
-            android:id="@+id/escr_nom"
-            android:layout_width="wrap_content"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/camp_nom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/barranombre" />
+
+            <EditText
+                android:id="@+id/escr_nom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/perfilblanc"
+                android:gravity="center"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/perfilblanc"
             android:gravity="center"
-            />
+            android:layout_marginTop="20dp">
 
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/camp_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/barrausername"/>
+            <TextView
+                android:id="@+id/escr_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/perfilgris"
+                android:gravity="center"
+                />
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="23dp">
-
-
-        <ImageView
-            android:id="@+id/camp_username"
-            android:paddingLeft="1dp"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/barrausername"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="552dp" />
-        <EditText
-            android:id="@+id/escr_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/perfilgris"
             android:gravity="center"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="23dp">
+            android:layout_marginTop="20dp">
 
 
-        <ImageView
-            android:id="@+id/camp_correu"
-            android:paddingLeft="1dp"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/camp_correu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/barracorreo" />
+            <EditText
+                android:id="@+id/escr_correu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/perfilblanc"
+                android:gravity="center"
+                />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/barracorreo"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="552dp" />
-        <EditText
-            android:id="@+id/escr_correu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/perfilgris"
             android:gravity="center"
-            />
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/camp_CP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/barracp" />
+
+            <EditText
+                android:id="@+id/escr_CP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/perfilblanc"
+                android:gravity="center"
+                />
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingBottom="23dp">
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp">
 
-        <ImageView
-            android:id="@+id/camp_telef"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/barratelefono"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="360dp" />
-
-        <EditText
-            android:id="@+id/escr_telef"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/perfilblanc"
-            android:gravity="center"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="23dp">
-
-        <ImageView
-            android:id="@+id/camp_CP"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/barracp"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="360dp" />
-
-        <EditText
-            android:id="@+id/escr_CP"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/perfilblanc"
-            android:gravity="center"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="23dp">
-
-        <ImageButton
+        <Button
             android:id="@+id/boto_guardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/botoguardar"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="360dp"/>
+            android:background="@drawable/botonredondo"
+            android:text="GUARDAR"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"/>
 
-        <ImageButton
+        <Button
             android:id="@+id/boto_cancelar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            app:srcCompat="@drawable/botocancelar"
-            tools:layout_editor_absoluteX="184dp"
-            tools:layout_editor_absoluteY="491dp"
+            android:background="@drawable/botonredondo"
+            android:text="CANCELAR"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
             />
     </LinearLayout>
+
+    </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
