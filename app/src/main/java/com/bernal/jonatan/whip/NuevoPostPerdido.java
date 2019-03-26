@@ -1,5 +1,6 @@
 package com.bernal.jonatan.whip;
 
+import android.app.VoiceInteractor;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -18,6 +19,14 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -26,8 +35,6 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class NuevoPostPerdido extends AppCompatActivity {
 
@@ -37,11 +44,21 @@ public class NuevoPostPerdido extends AppCompatActivity {
     EditText titulo,cp,raza;
 
     private OkHttpClient httpClient;
+    private String URL;
+    private RequestQueue requestqueue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_post_perdido);
+
+        //Coneixón con la API
+        URL = "https://whip-api.herokuapp.com/contributions/lostposts/new";
+        requestqueue = Volley.newRequestQueue(this);
+
+
+
 
         Toolbar tool = (Toolbar) findViewById(R.id.toolbar_nuevoPostPerd);
         setSupportActionBar(tool);
@@ -72,10 +89,29 @@ public class NuevoPostPerdido extends AppCompatActivity {
                 }
                 else {
                     //Guardar los datos del formulario en BACK. NOTA: No olvidar guardar la fecha de creación del Post
+                    JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                            JsonRequest.Method.POST,
+                            URL,
+                            null,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    Toast.makeText(getApplicationContext(),"Post guardado correctamente",Toast.LENGTH_SHORT).show();
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(getApplicationContext(),"ERROOOOOOOR",Toast.LENGTH_SHORT).show();
+
+                                }
+                            }
+                    );
+
+                    requestqueue.add(objectJsonrequest);
 
 
                     //Ir a ver el post en concreto
-                    Toast.makeText(getApplicationContext(),"Post guardado correctamente",Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(NuevoPostPerdido.this, InfoPost.class));
                     finish();
 
@@ -135,11 +171,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
 
             //Guardar el path de la foto en IMGUR
 
-            Request request = new Request.Builder()
-                    .url("https://api.imgur.com/3/image")
-                    .header("Authorization", "b85b2517d6df7fb")
-                    .header("User-Agent", "WHIP")
-                    .build();
+
         }
     }
 
