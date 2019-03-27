@@ -8,8 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import okhttp3.Request;
 
@@ -18,6 +21,8 @@ public class EditarPerfil extends AppCompatActivity {
 
     Button goToMostrarPerfilGuardant, goToMostrarPerfilCancelar;
     ImageView fotoperfil;
+    EditText nom, correu, CP;
+    TextView nomTV, correuTV, CPTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +37,18 @@ public class EditarPerfil extends AppCompatActivity {
         goToMostrarPerfilGuardant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-               // startActivity(new Intent(EditarPerfil.this, MostrarPerfil.class));
-                setNousParametres();
-                finish();
+                nom = (EditText) findViewById(R.id.escr_nom);
+                correu = (EditText) findViewById(R.id.escr_correu);
+                CP = (EditText) findViewById(R.id.escr_CP);
+                if(nom.getText().toString().equals("") || correu.getText().toString().equals("") || CP.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(),"Hay algun campo vacío, rellenalo para modificar la información de tu perfil",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    // startActivity(new Intent(EditarPerfil.this, MostrarPerfil.class));
+                    setNousParametres();
+                    Toast.makeText(getApplicationContext(),"Perfil Modificado con Éxito",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
             
         });
@@ -87,7 +100,7 @@ public class EditarPerfil extends AppCompatActivity {
 
     private void setNousParametres() {
 
-
+        //enviar contingut dels nous parametres a back
     }
 
 
