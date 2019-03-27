@@ -2,6 +2,7 @@ package com.bernal.jonatan.whip;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -40,6 +41,7 @@ public class ListadoPerdida extends AppCompatActivity {
     private JSONArray resultat;
     private ArrayList<Fuente> Posts_perdidos;
     private Adaptador adapt;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
 
@@ -47,6 +49,18 @@ public class ListadoPerdida extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listado_perdida);
+
+        //Recarregar la pàgina
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayoutt);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+                    @Override
+                    public void onRefresh() {
+                        finish();
+                        startActivity(getIntent());
+                    }
+        });
 
 
         //Coneixón con la API

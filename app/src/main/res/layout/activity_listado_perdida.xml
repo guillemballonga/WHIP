@@ -10,12 +10,18 @@
     <include layout="@layout/toolbar"
         android:id="@+id/toolbar_listadoPerd"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/contenedor"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayoutt"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/contenedor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </android.support.v7.widget.RecyclerView>
 
-    </android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>
