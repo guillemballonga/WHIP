@@ -9,11 +9,15 @@ public class InfoPost extends AppCompatActivity {
 
     TextView titulo,fecha,especie,tipo,raza,contenido;
     ImageView foto_post, foto_user;
+    String Identificador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_post);
+
+        //Obtengo el ID del post
+        Identificador = getIntent().getStringExtra("identificadorPost");
 
         titulo = (TextView) findViewById(R.id.titulo_postPerd);
         fecha = (TextView) findViewById(R.id.fecha_postPerd);
@@ -30,7 +34,7 @@ public class InfoPost extends AppCompatActivity {
 
 
         //Harcoded
-        titulo.setText("Toby-Perdido");
+        titulo.setText(Identificador);
         fecha.setText("15/20/1999");
         especie.setText("Perro");
         tipo.setText("ABANDONO");
