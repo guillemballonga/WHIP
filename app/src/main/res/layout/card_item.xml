@@ -4,9 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="15dp"
-    app:cardCornerRadius="75dp"
-    app:cardBackgroundColor="#EA9999">
+    android:layout_margin="15dp">
 
 
     <LinearLayout
@@ -26,33 +24,33 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                       android:id="@+id/imagen_postPerd"
-                       android:layout_width="75dp"
-                       android:layout_height="75dp"/>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imagen_postPerd"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"/>
 
-                    <TextView
-                        android:id="@+id/Nombre_postPerd"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:padding="16dp"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
-                        android:textColor="#434040"/>
+                <TextView
+                    android:id="@+id/Nombre_postPerd"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:padding="16dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textColor="#434040"/>
 
             </LinearLayout>
 
 
             <TextView
-                    android:id="@+id/Contenido_postPerd"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_gravity="bottom"
-                    android:padding="16dp"
-                    android:textSize="14dp"
-                    android:textStyle="bold"
-                    android:textColor="#434040"/>
+                android:id="@+id/Contenido_postPerd"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_gravity="bottom"
+                android:padding="16dp"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:textColor="#434040"/>
 
 
 
