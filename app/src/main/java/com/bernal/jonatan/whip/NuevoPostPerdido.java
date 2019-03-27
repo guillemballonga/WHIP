@@ -98,8 +98,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
         });
 
 
-        //IMGUR
-        fetchData();
+
 
 
 
@@ -210,12 +209,5 @@ public class NuevoPostPerdido extends AppCompatActivity {
 
         }
     }
-
-
-    private void fetchData() {
-        httpClient = new OkHttpClient.Builder().build();
-    }
-
-
 
 }
