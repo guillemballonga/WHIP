@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
+    private Button goToVeurePerfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         signInButton.setColorScheme(SignInButton.COLOR_LIGHT);
         // [END customize_button]
+
+
+
+        goToVeurePerfil = (Button) findViewById(R.id.veurePerfilButton);
+
+
+        goToVeurePerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(MainActivity.this, MostrarPerfil.class));
+                //finish();
+            }
+        });
     }
 
     @Override
