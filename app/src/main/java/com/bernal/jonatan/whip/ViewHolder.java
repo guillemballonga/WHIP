@@ -16,7 +16,15 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
 
     ImageView imagen_postPerdi;
     TextView contenido_postPerdi, nombre_postPerdi;
-    List<Fuente> listaObjetos;
+    String id;
+
+    public String getIdentificador() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
 
 
@@ -26,14 +34,13 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
         imagen_postPerdi = (ImageView) itemView.findViewById(R.id.imagen_postPerd);
         contenido_postPerdi = (TextView) itemView.findViewById(R.id.Contenido_postPerd);
         nombre_postPerdi = (TextView) itemView.findViewById(R.id.Nombre_postPerd);
-        listaObjetos = datos;
+
     }
 
 
     @Override
     public void onClick(View v) {
         int position = getAdapterPosition();
-        Fuente post = listaObjetos.get(position);
         //aquí puedo usar los datos del post para lo que se necesite
     }
 }

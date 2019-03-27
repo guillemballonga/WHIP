@@ -2,13 +2,15 @@ package com.bernal.jonatan.whip;
 
 public class Fuente {
 
-    String ID;
+
     String nombre;
     int imagen;
     String contenido;
     int estado;
+    String id;
 
-    public Fuente(String nombre, int imagen, String contenido, int estado) {
+    public Fuente(String id, String nombre, int imagen, String contenido, int estado) {
+        this.id = id;
         this.nombre = nombre;
         this.imagen = imagen;
         this.contenido = contenido;
@@ -45,5 +47,9 @@ public class Fuente {
 
     public void setEstado(int estado) {
         this.estado = estado;
+    }
+
+    public String getId() {
+        return id;
     }
 }
