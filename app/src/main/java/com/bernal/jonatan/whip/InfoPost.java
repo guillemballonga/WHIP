@@ -14,6 +14,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -59,14 +60,29 @@ public class InfoPost extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        
+
+                        try {
+                            JSONObject lostpost = response.getJSONObject("lostpost");
+                            titulo.setText(lostpost.getString("title"));
+                            String[] data = (lostpost.getString("createdAt")).split("T");
+                            fecha.setText(data[0]);
+                            especie.setText(lostpost.getString("specie"));
+                            tipo.setText(lostpost.getString("type"));
+                            raza.setText(lostpost.getString("race"));
+                            contenido.setText(lostpost.getString("text"));
+                            //Fotografías con IMGUR
+                            foto_user.setBackgroundResource(R.drawable.icono_usuario);
+                            foto_post.setBackgroundResource(R.drawable.perfilperro);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getApplicationContext(),"ERROOOOOOOR",Toast.LENGTH_SHORT).show();
-
                     }
                 }
         ) {
@@ -77,8 +93,6 @@ public class InfoPost extends AppCompatActivity {
                 return params;
             }
         };
-
-
-
+        requestqueue.add(objectJsonrequest);
     }
 }
