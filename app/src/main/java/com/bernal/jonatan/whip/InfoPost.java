@@ -4,16 +4,38 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class InfoPost extends AppCompatActivity {
 
     TextView titulo,fecha,especie,tipo,raza,contenido;
     ImageView foto_post, foto_user;
+    String Identificador;
+
+    private String URL;
+    private RequestQueue requestqueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_post);
+
+        //Obtengo el ID del post
+        Identificador = getIntent().getStringExtra("identificadorPost");
 
         titulo = (TextView) findViewById(R.id.titulo_postPerd);
         fecha = (TextView) findViewById(R.id.fecha_postPerd);
@@ -27,17 +49,50 @@ public class InfoPost extends AppCompatActivity {
 
 
         //Recoger los datos de Back y cargarlos en la vista
+        URL = "https://whip-api.herokuapp.com/contributions/lostposts/"+Identificador;
+        requestqueue = Volley.newRequestQueue(this);
 
+        JSONObject info_post = new JSONObject();
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.GET,
+                URL,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
 
-        //Harcoded
-        titulo.setText("Toby-Perdido");
-        fecha.setText("15/20/1999");
-        especie.setText("Perro");
-        tipo.setText("ABANDONO");
-        raza.setText("Hasky de las nieves");
-        contenido.setText("Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen");
-        foto_user.setBackgroundResource(R.drawable.icono_usuario);
-        foto_post.setBackgroundResource(R.drawable.perfilperro);
+                        try {
+                            JSONObject lostpost = response.getJSONObject("lostpost");
+                            titulo.setText(lostpost.getString("title"));
+                            String[] data = (lostpost.getString("createdAt")).split("T");
+                            fecha.setText(data[0]);
+                            especie.setText(lostpost.getString("specie"));
+                            tipo.setText(lostpost.getString("type"));
+                            raza.setText(lostpost.getString("race"));
+                            contenido.setText(lostpost.getString("text"));
+                            //Fotografías con IMGUR
+                            foto_user.setBackgroundResource(R.drawable.icono_usuario);
+                            foto_post.setBackgroundResource(R.drawable.perfilperro);
 
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(),"ERROOOOOOOR",Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "2C4T55N-4SY40G3-JBG7QMB-4PYNJ9P"); //valor de V ha de ser el de la var global
+                return params;
+            }
+        };
+        requestqueue.add(objectJsonrequest);
     }
 }

@@ -100,7 +100,9 @@ public class ListadoPerdida extends AppCompatActivity {
                                 public void onClick(View view) {
                                     //((ViewHolder) view).getIdentificador();
                                     String id_post = Posts_perdidos.get(contenedor.getChildAdapterPosition(view)).getId();
-                                    startActivity(new Intent(ListadoPerdida.this, InfoPost.class));
+                                    Intent i = new Intent(ListadoPerdida.this, InfoPost.class);
+                                    i.putExtra("identificadorPost",id_post);
+                                    startActivity(i);
                                 }
                             });
                         } catch (JSONException e) {
