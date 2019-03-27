@@ -116,6 +116,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
                 JSONObject post = new JSONObject();
                 JSONArray k = new JSONArray();
 
+                //falta afegir imatge IMGUR
                 k.put("");
                 k.put("");
                 k.put("");
@@ -123,40 +124,15 @@ public class NuevoPostPerdido extends AppCompatActivity {
 
                 try {
                     post.put("specie", especie.getSelectedItem().toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
                     post.put("urls", k );
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
                     post.put("race", raza.getText().toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
                     post.put("post_code", cp.getText().toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
                     post.put("text", contenido.getText().toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
                     post.put("title", titulo.getText().toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
                     post.put("type", tipo.getSelectedItem().toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
 
                 if(titulo.getText().toString().equals("") || cp.getText().toString().equals("") || raza.getText().toString().equals("") || especie.getSelectedItem().toString().equals("") || tipo.getSelectedItem().toString().equals("")) {
                     Toast.makeText(getApplicationContext(),"Los campos con * son obligatorios",Toast.LENGTH_SHORT).show();
