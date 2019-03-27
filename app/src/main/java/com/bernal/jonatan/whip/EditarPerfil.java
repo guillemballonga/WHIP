@@ -8,10 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import okhttp3.Request;
+
 
 public class EditarPerfil extends AppCompatActivity {
 
@@ -75,12 +74,6 @@ public class EditarPerfil extends AppCompatActivity {
 
             //Guardar el path de la foto en IMGUR
 
-
-            Request request = new Request.Builder()
-                    .url("https://api.imgur.com/3/image")
-                    .header("Authorization", "b85b2517d6df7fb")
-                    .header("User-Agent", "WHIP")
-                    .build();
         }
     }
 

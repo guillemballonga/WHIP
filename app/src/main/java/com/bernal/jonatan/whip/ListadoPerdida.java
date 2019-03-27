@@ -1,17 +1,15 @@
 package com.bernal.jonatan.whip;
 
-import android.app.ActionBar;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -19,16 +17,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +37,7 @@ public class ListadoPerdida extends AppCompatActivity {
     private ArrayList<Fuente> Posts_perdidos;
     private Adaptador adapt;
     private SwipeRefreshLayout swipeRefreshLayout;
+    RecyclerView contenedor;
 
 
 
@@ -49,6 +45,8 @@ public class ListadoPerdida extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listado_perdida);
+
+        contenedor =  findViewById(R.id.contenedor);
 
         //Recarregar la pàgina
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayoutt);
@@ -85,21 +83,23 @@ public class ListadoPerdida extends AppCompatActivity {
                         try {
                             Toast.makeText(getApplicationContext(),"Listado mostrado correctamente",Toast.LENGTH_SHORT).show();
                             resultat = response;
-                            Posts_perdidos = new ArrayList<Fuente>();
+                            Posts_perdidos = new ArrayList<>();
+                            LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
+                            layout.setOrientation(LinearLayoutManager.VERTICAL);
+                            JSONObject postite;
                             for (int i = 0; i < resultat.length();i++) {
-                                JSONObject postite = resultat.getJSONObject(i);
-                                Posts_perdidos.add(new Fuente(postite.getString("title"),R.drawable.perro,postite.getString("text"),0));
-                                RecyclerView contenedor = (RecyclerView) findViewById(R.id.contenedor);
-                                LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
-                                layout.setOrientation(LinearLayoutManager.VERTICAL);
-                                adapt = new Adaptador(Posts_perdidos);
-                                contenedor.setAdapter(adapt);
-                                contenedor.setLayoutManager(layout);
+                                postite = resultat.getJSONObject(i);
+                                Posts_perdidos.add(new Fuente(postite.getString("id"),postite.getString("title"),R.drawable.perro,postite.getString("text"),0));
                             }
+                            adapt = new Adaptador(Posts_perdidos);
+                            contenedor.setAdapter(adapt);
+                            contenedor.setLayoutManager(layout);
                             adapt.setOnClickListener(new View.OnClickListener() {
 
                                 @Override
                                 public void onClick(View view) {
+                                    //((ViewHolder) view).getIdentificador();
+                                    String id_post = Posts_perdidos.get(contenedor.getChildAdapterPosition(view)).getId();
                                     startActivity(new Intent(ListadoPerdida.this, InfoPost.class));
                                 }
                             });
