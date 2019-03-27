@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,9 +29,13 @@ import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -41,7 +46,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
     ImageView foto;
     Spinner especie,tipo;
     Button create,cancel;
-    EditText titulo,cp,raza;
+    EditText titulo,cp,raza,contenido;
 
     private OkHttpClient httpClient;
     private String URL;
@@ -57,9 +62,6 @@ public class NuevoPostPerdido extends AppCompatActivity {
         URL = "https://whip-api.herokuapp.com/contributions/lostposts/new";
         requestqueue = Volley.newRequestQueue(this);
 
-
-
-
         Toolbar tool = (Toolbar) findViewById(R.id.toolbar_nuevoPostPerd);
         setSupportActionBar(tool);
         getSupportActionBar().setTitle("ABANDONO O PÉRDIDA");
@@ -72,62 +74,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
         titulo = (EditText) findViewById(R.id.titulo_postPerd);
         cp = (EditText) findViewById(R.id.cp_postPerd);
         raza = (EditText) findViewById(R.id.raza_postPerd);
-
-
-        //Botons
-
-        create = (Button) findViewById(R.id.boton_create);
-        cancel = (Button) findViewById(R.id.boton_cancelNewPostPerd);
-
-        create.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                if(titulo.getText().toString().equals("") || cp.getText().toString().equals("") || raza.getText().toString().equals("") || especie.getSelectedItem().toString().equals("") || tipo.getSelectedItem().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(),"Los campos con * son obligatorios",Toast.LENGTH_SHORT).show();
-
-                }
-                else {
-                    //Guardar los datos del formulario en BACK. NOTA: No olvidar guardar la fecha de creación del Post
-                    JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                            JsonRequest.Method.POST,
-                            URL,
-                            null,
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    Toast.makeText(getApplicationContext(),"Post guardado correctamente",Toast.LENGTH_SHORT).show();
-                                }
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getApplicationContext(),"ERROOOOOOOR",Toast.LENGTH_SHORT).show();
-
-                                }
-                            }
-                    );
-
-                    requestqueue.add(objectJsonrequest);
-
-
-                    //Ir a ver el post en concreto
-                    startActivity(new Intent(NuevoPostPerdido.this, InfoPost.class));
-                    finish();
-
-                }
-            }
-        });
-
-        cancel.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-
+        contenido = (EditText) findViewById(R.id.descripcion_postPerd);
 
 
         // Spinner per a seleccionar els items
@@ -153,6 +100,119 @@ public class NuevoPostPerdido extends AppCompatActivity {
 
         //IMGUR
         fetchData();
+
+
+
+        //Botons
+
+        create = (Button) findViewById(R.id.boton_create);
+        cancel = (Button) findViewById(R.id.boton_cancelNewPostPerd);
+
+        create.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+
+                JSONObject post = new JSONObject();
+                JSONArray k = new JSONArray();
+
+                k.put("");
+                k.put("");
+                k.put("");
+                k.put("");
+
+                try {
+                    post.put("specie", especie.getSelectedItem().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    post.put("urls", k );
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    post.put("race", raza.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    post.put("post_code", cp.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    post.put("text", contenido.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    post.put("title", titulo.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    post.put("type", tipo.getSelectedItem().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                if(titulo.getText().toString().equals("") || cp.getText().toString().equals("") || raza.getText().toString().equals("") || especie.getSelectedItem().toString().equals("") || tipo.getSelectedItem().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(),"Los campos con * son obligatorios",Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    //Guardar los datos del formulario en BACK. NOTA: No olvidar guardar la fecha de creación del Post
+                    JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                            JsonRequest.Method.POST,
+                            URL,
+                            post,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    Toast.makeText(getApplicationContext(),"Post guardado correctamente",Toast.LENGTH_SHORT).show();
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(getApplicationContext(),"ERROOOOOOOR",Toast.LENGTH_SHORT).show();
+
+                                }
+                            }
+                    ) {
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("Content-Type", "application/json");
+                            params.put("Authorization", "2C4T55N-4SY40G3-JBG7QMB-4PYNJ9P"); //valor de V ha de ser el de la var global
+                            return params;
+                        }
+                    };
+                    requestqueue.add(objectJsonrequest);
+
+
+                    //Ir a ver el post en concreto
+                    startActivity(new Intent(NuevoPostPerdido.this, InfoPost.class));
+                    finish();
+
+                }
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
+
+
+
 
     }
 
