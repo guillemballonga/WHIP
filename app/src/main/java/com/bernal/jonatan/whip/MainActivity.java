@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
-    private Button goToVeurePerfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,18 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // [END customize_button]
 
 
-
-        goToVeurePerfil = (Button) findViewById(R.id.veurePerfilButton);
-
-
-        goToVeurePerfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startActivity(new Intent(MainActivity.this, MostrarPerfil.class));
-                //finish();
-            }
-        });
     }
 
     @Override

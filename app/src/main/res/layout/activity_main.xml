@@ -63,12 +63,6 @@
             tools:text="Optional Action"
             tools:visibility="visible" />
 
-        <Button
-            android:id="@+id/veurePerfilButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Veure perfil" />
-
     </LinearLayout>
 
 
