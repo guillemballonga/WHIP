@@ -56,7 +56,7 @@ public class InfoPost extends AppCompatActivity {
         //Gestión toolbar
         Toolbar tool = (Toolbar) findViewById(R.id.toolbar_infoPostPerd);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("ABANDONO O PÉRDIDA");
+        getSupportActionBar().setTitle("ENCONTRADO O PÉRDIDA");
 
 
         //Recoger los datos de Back y cargarlos en la vista
@@ -78,7 +78,11 @@ public class InfoPost extends AppCompatActivity {
                             String[] data = (lostpost.getString("createdAt")).split("T");
                             fecha.setText(data[0]);
                             especie.setText(lostpost.getString("specie"));
-                            tipo.setText(lostpost.getString("type"));
+                            if (lostpost.getString("type").equals("F")) {
+                                tipo.setText("Encontrado");
+                            }
+                            else  tipo.setText("Pérdida");
+
                             raza.setText(lostpost.getString("race"));
                             contenido.setText(lostpost.getString("text"));
                             //Fotografías con IMGUR

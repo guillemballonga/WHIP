@@ -71,7 +71,7 @@ public class ListadoPerdida extends AppCompatActivity {
 
         Toolbar tool = (Toolbar) findViewById(R.id.toolbar_listadoPerd);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("ABANDONO O PÉRDIDA");
+        getSupportActionBar().setTitle("ENCONTRADO O PÉRDIDA");
 
         Toast.makeText(getApplicationContext(),ul.getAPI_KEY(),Toast.LENGTH_SHORT).show();
 

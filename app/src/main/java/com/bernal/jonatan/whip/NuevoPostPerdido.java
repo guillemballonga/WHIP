@@ -65,7 +65,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
         //Gestión de toolbar
         Toolbar tool = (Toolbar) findViewById(R.id.toolbar_nuevoPostPerd);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("ABANDONO O PÉRDIDA");
+        getSupportActionBar().setTitle("ENCONTRADO O PÉRDIDA");
 
         foto = (ImageView) findViewById(R.id.perfil_perroPerd);
 
@@ -79,7 +79,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
 
 
         // Spinner per a seleccionar els items
-        String[] itemsEspecie = new String[]{"Perro", "Gato", "Otro"};
+        String[] itemsEspecie = new String[]{"Dog", "Cat", "Other"};
         String[] itemsTipo = new String[]{"Encontrado", "Perdido"};
 
         ArrayAdapter<String> adapterEspecie = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsEspecie);
@@ -131,7 +131,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
                     post.put("text", contenido.getText().toString());
                     post.put("title", titulo.getText().toString());
                     if (tipo.getSelectedItem().toString().equals("Encontrado"))
-                        post.put("type", "T");
+                        post.put("type", "F");
                     else post.put("type", "L");
                 } catch (JSONException e) {
                     e.printStackTrace();
