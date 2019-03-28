@@ -9,7 +9,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -18,6 +26,12 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Activity to demonstrate basic retrieval of the Google user's ID, email address, and basic
@@ -31,10 +45,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
 
+    private String URL;
+    private RequestQueue requestqueue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        //Coneixón con la API
+        URL = "https://whip-api.herokuapp.com/users/login";
+        requestqueue = Volley.newRequestQueue(this);
 
         // Views
         mStatusTextView = findViewById(R.id.status);
@@ -99,6 +121,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
+            //dona d alta aqui
+            Toast.makeText(getApplicationContext(),"login  per iniciar ",Toast.LENGTH_SHORT).show();
+
+            guardarUsuari(account);
+
             // Signed in successfully, show authenticated UI.
             updateUI(account);
         } catch (ApiException e) {
@@ -108,16 +135,65 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             updateUI(null);
         }
     }
+
+    private void guardarUsuari(GoogleSignInAccount account) {
+
+        JSONObject user = new JSONObject();
+        try {
+            user.put("mail", account.getEmail());
+            user.put("name", account.getDisplayName() );
+            user.put("fam_name", account.getFamilyName());
+            user.put("username", "");
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (true ) {
+            JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                    JsonRequest.Method.POST,
+                    URL,
+                    user,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Toast.makeText(getApplicationContext(),"usuari logejat  correctament",Toast.LENGTH_SHORT).show();
+                            //hem de guardar el q retorna
+                            //todo guardar api key en el singleton
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(),"guardarUsuari : ERROOOOOOOR",Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+            ) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("Content-Type", "application/json");
+                    //todo:posar api key amb el de l usuari
+                    params.put("Authorization", "2C4T55N-4SY40G3-JBG7QMB-4PYNJ9P"); //valor de V ha de ser el de la var global
+                    return params;
+                }
+            };
+            requestqueue.add(objectJsonrequest);
+
+        }
+
+
+    }
     // [END handleSignInResult]
 
     // [START signIn]
     private void signIn() {
-        //Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        //startActivityForResult(signInIntent, RC_SIGN_IN); --> AIXÒ ÉS LO TEU LAURA NO T'ESPANTIS. HO HE FET PER A PODER VEURE LES PANTALLES.
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN); // --> AIXÒ ÉS LO TEU LAURA NO T'ESPANTIS. HO HE FET PER A PODER VEURE LES PANTALLES.
 
 
-        startActivity(new Intent(MainActivity.this, EditarPerfil.class));
-        finish();
     }
     // [END signIn]
 
@@ -151,10 +227,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void updateUI(@Nullable GoogleSignInAccount account) {
         if (account != null) {
-            mStatusTextView.setText(getString(R.string.signed_in_fmt, account.getDisplayName()));
 
-            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
+            //mStatusTextView.setText(getString(R.string.signed_in_fmt, account.getDisplayName()));
+
+            //findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+            //findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
+
+            startActivity(new Intent(MainActivity.this, EditarPerfil.class));
+
+           // finish();
         } else {
             mStatusTextView.setText(R.string.signed_out);
 
@@ -168,6 +249,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.sign_in_button:
                 signIn();
+
+
                 break;
             case R.id.sign_out_button:
                 signOut();
