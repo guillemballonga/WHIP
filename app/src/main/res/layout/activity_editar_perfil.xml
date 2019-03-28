@@ -73,13 +73,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/barrausername"/>
-            <TextView
-                android:id="@+id/escr_username"
+            <EditText
+                android:id="@+id/escr_correu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/perfilgris"
+                android:background="@drawable/perfilblanc"
                 android:gravity="center"
                 />
+
         </LinearLayout>
 
         <LinearLayout
@@ -94,11 +95,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/barracorreo" />
-            <EditText
-                android:id="@+id/escr_correu"
+            <TextView
+                android:id="@+id/escr_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/perfilblanc"
+                android:background="@drawable/perfilgris"
                 android:gravity="center"
                 />
         </LinearLayout>
