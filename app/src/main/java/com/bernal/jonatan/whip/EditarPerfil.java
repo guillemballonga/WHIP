@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -94,7 +95,7 @@ public class EditarPerfil extends AppCompatActivity {
                 else{
                     //Guardar los datos del formulario en BACK. NOTA: No olvidar guardar la fecha de creación del Post
                     JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                            JsonRequest.Method.POST,
+                            JsonRequest.Method.PATCH,
                             URL,
                             perfil_editat,
                             new Response.Listener<JSONObject>() {
