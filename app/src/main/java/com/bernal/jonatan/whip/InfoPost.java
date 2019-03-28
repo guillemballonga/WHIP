@@ -30,7 +30,7 @@ public class InfoPost extends AppCompatActivity {
     ImageView foto_post, foto_user;
     String Identificador;
 
-    private String URL;
+    private String URL,URL_favs;
     private RequestQueue requestqueue;
 
     private Usuari_Logejat ul = Usuari_Logejat.getUsuariLogejat("");
@@ -61,9 +61,10 @@ public class InfoPost extends AppCompatActivity {
 
         //Recoger los datos de Back y cargarlos en la vista
         URL = "https://whip-api.herokuapp.com/contributions/lostposts/"+Identificador;
+        URL_favs = "";
         requestqueue = Volley.newRequestQueue(this);
 
-        
+
         JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                 JsonRequest.Method.GET,
                 URL,
@@ -122,6 +123,36 @@ public class InfoPost extends AppCompatActivity {
             case R.id.icono_fav:
                 //comunicacion con back + cambiar color de la estrella
 
+                /*JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                        JsonRequest.Method.GET,
+                        URL_favs,
+                        null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+
+                                try {
+
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getApplicationContext(),"ERROOOOOOOR",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                ) {
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
+                        return params;
+                    }
+                };*/
 
                 Toast.makeText(getApplicationContext(),"Funciona estrellita",Toast.LENGTH_SHORT).show();
                 break;
