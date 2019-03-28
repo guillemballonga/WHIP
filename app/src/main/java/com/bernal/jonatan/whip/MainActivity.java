@@ -113,7 +113,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // [START signIn]
     private void signIn() {
         //Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        //startActivityForResult(signInIntent, RC_SIGN_IN);
+        //startActivityForResult(signInIntent, RC_SIGN_IN); --> AIXÒ ÉS LO TEU LAURA NO T'ESPANTIS. HO HE FET PER A PODER VEURE LES PANTALLES.
+
+
         startActivity(new Intent(MainActivity.this, EditarPerfil.class));
         finish();
     }
