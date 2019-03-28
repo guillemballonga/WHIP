@@ -63,7 +63,7 @@ public class InfoPost extends AppCompatActivity {
         URL = "https://whip-api.herokuapp.com/contributions/lostposts/"+Identificador;
         requestqueue = Volley.newRequestQueue(this);
 
-        JSONObject info_post = new JSONObject();
+        
         JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                 JsonRequest.Method.GET,
                 URL,
