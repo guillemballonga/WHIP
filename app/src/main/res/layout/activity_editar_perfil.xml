@@ -23,7 +23,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="40dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imagen_perfil"
@@ -113,7 +113,7 @@
                 android:textStyle="bold"
                 android:text="Username"/>
             <EditText
-                android:id="@+id/escr_correu"
+                android:id="@+id/escr_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/perfilblanc"
@@ -140,7 +140,7 @@
                 android:textStyle="bold"
                 android:text="Correo"/>
             <TextView
-                android:id="@+id/escr_username"
+                android:id="@+id/escr_correu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/perfilgris"

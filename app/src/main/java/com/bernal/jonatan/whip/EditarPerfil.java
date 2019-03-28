@@ -8,8 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-
+import android.widget.Toast;
 
 
 public class EditarPerfil extends AppCompatActivity {
@@ -17,6 +18,7 @@ public class EditarPerfil extends AppCompatActivity {
 
     Button goToMostrarPerfilGuardant, goToMostrarPerfilCancelar;
     ImageView fotoperfil;
+    EditText nom,cognom,user,cp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,15 +28,25 @@ public class EditarPerfil extends AppCompatActivity {
         goToMostrarPerfilGuardant = (Button) findViewById(R.id.boto_guardar);
         goToMostrarPerfilCancelar = (Button) findViewById(R.id.boto_cancelar);
 
+        nom = (EditText) findViewById(R.id.escr_nom);
+        cognom = (EditText) findViewById(R.id.escr_cognom);
+        user = (EditText) findViewById(R.id.escr_user);
+        cp = (EditText) findViewById(R.id.escr_CP);
+
         fotoperfil = (ImageView) findViewById(R.id.imagen_perfil);
 
         goToMostrarPerfilGuardant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Comunicacion con Back
-                setNousParametres();
-                startActivity(new Intent(EditarPerfil.this, MostrarPerfil.class));
-                finish();
+
+                if(nom.getText().toString().equals("") || cp.getText().toString().equals("") || cognom.getText().toString().equals("") || user.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(),"Todos los campos son obligatorios",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    startActivity(new Intent(EditarPerfil.this, MostrarPerfil.class));
+                    finish();
+                }
             }
             
         });
@@ -50,6 +62,7 @@ public class EditarPerfil extends AppCompatActivity {
         goToMostrarPerfilCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(EditarPerfil.this, MostrarPerfil.class));
                 finish();
             }
         });
@@ -76,12 +89,5 @@ public class EditarPerfil extends AppCompatActivity {
 
         }
     }
-
-
-    private void setNousParametres() {
-
-
-    }
-
 
 }
