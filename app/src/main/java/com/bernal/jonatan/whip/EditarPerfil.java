@@ -31,9 +31,9 @@ public class EditarPerfil extends AppCompatActivity {
         goToMostrarPerfilGuardant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-               // startActivity(new Intent(EditarPerfil.this, MostrarPerfil.class));
+                //Comunicacion con Back
                 setNousParametres();
+                startActivity(new Intent(EditarPerfil.this, MostrarPerfil.class));
                 finish();
             }
             

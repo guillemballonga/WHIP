@@ -112,8 +112,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // [START signIn]
     private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+        //Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        //startActivityForResult(signInIntent, RC_SIGN_IN);
+        startActivity(new Intent(MainActivity.this, EditarPerfil.class));
+        finish();
     }
     // [END signIn]
 
