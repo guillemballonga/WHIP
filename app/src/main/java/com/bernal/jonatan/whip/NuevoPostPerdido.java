@@ -48,6 +48,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
     Button create,cancel;
     EditText titulo,cp,raza,contenido;
 
+    //variables para comucicación back
     private String URL;
     private RequestQueue requestqueue;
     private Usuari_Logejat ul = Usuari_Logejat.getUsuariLogejat("");
@@ -61,6 +62,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
         URL = "https://whip-api.herokuapp.com/contributions/lostposts/new";
         requestqueue = Volley.newRequestQueue(this);
 
+        //Gestión de toolbar
         Toolbar tool = (Toolbar) findViewById(R.id.toolbar_nuevoPostPerd);
         setSupportActionBar(tool);
         getSupportActionBar().setTitle("ABANDONO O PÉRDIDA");
@@ -111,6 +113,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                //jason para comunicación con back
                 JSONObject post = new JSONObject();
                 JSONArray k = new JSONArray();
 
@@ -119,7 +122,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
                 k.put("");
                 k.put("");
                 k.put("");
-
+//JASON
                 try {
                     post.put("specie", especie.getSelectedItem().toString());
                     post.put("urls", k );
@@ -176,7 +179,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
                         }
                     };
                     requestqueue.add(objectJsonrequest);
-
+//JASON
 
                     //Ir a ver el post en concreto
 
