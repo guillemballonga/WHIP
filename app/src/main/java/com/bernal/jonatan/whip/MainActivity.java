@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //startActivityForResult(signInIntent, RC_SIGN_IN); --> AIXÒ ÉS LO TEU LAURA NO T'ESPANTIS. HO HE FET PER A PODER VEURE LES PANTALLES.
 
 
-        startActivity(new Intent(MainActivity.this, EditarPerfil.class));
+        startActivity(new Intent(MainActivity.this, Menu_principal.class));
         finish();
     }
     // [END signIn]
