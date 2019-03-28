@@ -45,11 +45,16 @@
         android:layout_height="wrap_content"
         android:gravity="center">
 
-        <ImageView
+        <TextView
             android:id="@+id/camp_nom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/barranombre" />
+            android:background="@drawable/botonrosa"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Nombre"/>
 
         <TextView
             android:id="@+id/escr_nom"
@@ -62,6 +67,35 @@
 
     </LinearLayout>
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/camp_cognom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/botonrosa"
+                android:gravity="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="Apellido"/>
+
+            <TextView
+                android:id="@+id/escr_cognom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/perfilblanc"
+                android:gravity="center"
+                />
+
+
+        </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,11 +103,16 @@
         android:layout_marginTop="20dp">
 
 
-        <ImageView
+        <TextView
             android:id="@+id/camp_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/barrausername"/>
+            android:background="@drawable/botonrosa"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Username"/>
         <TextView
             android:id="@+id/escr_username"
             android:layout_width="wrap_content"
@@ -90,11 +129,16 @@
         android:layout_marginTop="20dp">
 
 
-        <ImageView
+        <TextView
             android:id="@+id/camp_correu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/barracorreo" />
+            android:background="@drawable/botonrosa"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Correo" />
         <TextView
             android:id="@+id/escr_correu"
             android:layout_width="wrap_content"
@@ -112,11 +156,16 @@
         android:gravity="center"
         android:layout_marginTop="20dp">
 
-        <ImageView
+        <TextView
             android:id="@+id/camp_CP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/barracp" />
+            android:background="@drawable/botonrosa"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="C.P." />
 
         <TextView
             android:id="@+id/escr_CP"
