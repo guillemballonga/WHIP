@@ -48,7 +48,6 @@ public class NuevoPostPerdido extends AppCompatActivity {
     Button create,cancel;
     EditText titulo,cp,raza,contenido;
 
-    private OkHttpClient httpClient;
     private String URL;
     private RequestQueue requestqueue;
 
@@ -78,8 +77,8 @@ public class NuevoPostPerdido extends AppCompatActivity {
 
 
         // Spinner per a seleccionar els items
-        String[] itemsEspecie = new String[]{"Perro*", "Gato*", "Otro*"};
-        String[] itemsTipo = new String[]{"Abandono*", "Pérdida*"};
+        String[] itemsEspecie = new String[]{"Perro", "Gato", "Otro"};
+        String[] itemsTipo = new String[]{"Encontrado", "Perdido"};
 
         ArrayAdapter<String> adapterEspecie = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsEspecie);
         ArrayAdapter<String> adapterTipo = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsTipo);
@@ -128,7 +127,9 @@ public class NuevoPostPerdido extends AppCompatActivity {
                     post.put("post_code", cp.getText().toString());
                     post.put("text", contenido.getText().toString());
                     post.put("title", titulo.getText().toString());
-                    post.put("type", tipo.getSelectedItem().toString());
+                    if (tipo.getSelectedItem().toString().equals("Encontrado"))
+                        post.put("type", "T");
+                    else post.put("type", "L");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -147,6 +148,15 @@ public class NuevoPostPerdido extends AppCompatActivity {
                                 @Override
                                 public void onResponse(JSONObject response) {
                                     Toast.makeText(getApplicationContext(),"Post guardado correctamente",Toast.LENGTH_SHORT).show();
+                                    try {
+                                        Intent i = new Intent(NuevoPostPerdido.this, InfoPost.class);
+                                        i.putExtra("identificadorPost",response.getString("id"));
+                                        startActivity(i);
+                                        finish();
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             },
                             new Response.ErrorListener() {
@@ -169,8 +179,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
 
 
                     //Ir a ver el post en concreto
-                    startActivity(new Intent(NuevoPostPerdido.this, InfoPost.class));
-                    finish();
+
 
                 }
             }
