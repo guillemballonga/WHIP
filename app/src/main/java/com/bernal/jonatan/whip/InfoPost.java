@@ -33,6 +33,8 @@ public class InfoPost extends AppCompatActivity {
     private String URL;
     private RequestQueue requestqueue;
 
+    private Usuari_Logejat ul = Usuari_Logejat.getUsuariLogejat("");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +100,7 @@ public class InfoPost extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "2C4T55N-4SY40G3-JBG7QMB-4PYNJ9P"); //valor de V ha de ser el de la var global
+                params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
                 return params;
             }
         };

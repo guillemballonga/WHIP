@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private String URL;
     private RequestQueue requestqueue;
+    Usuari_Logejat ul;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,9 +158,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Toast.makeText(getApplicationContext(),"usuari logejat  correctament",Toast.LENGTH_SHORT).show();
-                            //hem de guardar el q retorna
+                            Toast.makeText(getApplicationContext(),"Usuari logejat  correctament",Toast.LENGTH_SHORT).show();
                             //todo guardar api key en el singleton
+                            try {
+                                ul = Usuari_Logejat.getUsuariLogejat(response.getString("api_key"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
 
                         }
                     },
@@ -175,8 +180,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("Content-Type", "application/json");
-                    //todo:posar api key amb el de l usuari
-                    params.put("Authorization", "2C4T55N-4SY40G3-JBG7QMB-4PYNJ9P"); //valor de V ha de ser el de la var global
                     return params;
                 }
             };
@@ -191,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // [START signIn]
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN); // --> AIXÒ ÉS LO TEU LAURA NO T'ESPANTIS. HO HE FET PER A PODER VEURE LES PANTALLES.
+        startActivityForResult(signInIntent, RC_SIGN_IN);
 
 
     }
