@@ -6,6 +6,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +35,14 @@ public class EditarPerfil extends AppCompatActivity {
         cp = (EditText) findViewById(R.id.escr_CP);
 
         fotoperfil = (ImageView) findViewById(R.id.imagen_perfil);
+
+
+        //Gestión de las Toolbars
+        Toolbar tool = (Toolbar) findViewById(R.id.toolbar_editarPerfil);
+        setSupportActionBar(tool);
+        getSupportActionBar().setTitle("PERFIL");
+
+
 
         goToMostrarPerfilGuardant.setOnClickListener(new View.OnClickListener() {
             @Override

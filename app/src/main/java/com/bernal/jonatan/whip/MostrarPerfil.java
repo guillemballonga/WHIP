@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -19,6 +20,16 @@ public class MostrarPerfil extends AppCompatActivity {
 
         goToEditarPerfil = (Button) findViewById(R.id.boto_editar_perfil);
         goToMisPosts = (Button) findViewById(R.id.boto_mis_posts);
+
+        //Gestión de la toolbar
+        Toolbar tool = (Toolbar) findViewById(R.id.toolbar_mostrarPerfil);
+        setSupportActionBar(tool);
+        getSupportActionBar().setTitle("PERFIL");
+
+
+
+
+
 
         goToEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override

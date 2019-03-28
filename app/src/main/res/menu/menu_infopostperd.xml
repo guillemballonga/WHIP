@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:icon="@drawable/icono_anadir"
-        android:id="@+id/icono_añadir"
+        android:icon="@drawable/estrella_fav"
+        android:id="@+id/icono_fav"
         app:showAsAction="always"
-        android:title="Añadir" />
+        android:title="Favorito" />
+
+
 
 </menu>

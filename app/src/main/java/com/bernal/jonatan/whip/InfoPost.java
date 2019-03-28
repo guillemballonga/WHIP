@@ -1,7 +1,11 @@
 package com.bernal.jonatan.whip;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +50,11 @@ public class InfoPost extends AppCompatActivity {
 
         foto_post = (ImageView) findViewById(R.id.foto_postPerd);
         foto_user = (ImageView) findViewById(R.id.imagen_coment_user);
+
+        //Gestión toolbar
+        Toolbar tool = (Toolbar) findViewById(R.id.toolbar_infoPostPerd);
+        setSupportActionBar(tool);
+        getSupportActionBar().setTitle("ABANDONO O PÉRDIDA");
 
 
         //Recoger los datos de Back y cargarlos en la vista
@@ -94,5 +103,23 @@ public class InfoPost extends AppCompatActivity {
             }
         };
         requestqueue.add(objectJsonrequest);
+    }
+
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_infopostperd,menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem menuItem){
+        switch (menuItem.getItemId()){
+            case R.id.icono_fav:
+                //comunicacion con back + cambiar color de la estrella
+
+
+                Toast.makeText(getApplicationContext(),"Funciona estrellita",Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return true;
     }
 }

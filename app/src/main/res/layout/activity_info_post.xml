@@ -8,6 +8,9 @@
     android:background="#EA9999"
     tools:context=".InfoPost">
 
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar_infoPostPerd"/>
+
 
     <ScrollView
         android:layout_width="match_parent"

@@ -9,6 +9,10 @@
     tools:context=".MostrarPerfil">
 
 
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar_mostrarPerfil"/>
+
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp">
 
 
     <LinearLayout
@@ -184,7 +189,8 @@
         android:gravity="center"
         android:layout_marginTop="40dp"
         android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp">
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="20dp">
 
         <Button
             android:id="@+id/boto_editar_perfil"

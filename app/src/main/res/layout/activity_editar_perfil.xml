@@ -8,6 +8,10 @@
     android:layout_height="match_parent"
     tools:context=".EditarPerfil">
 
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar_editarPerfil"/>
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,7 +21,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp">
 
 
     <LinearLayout
