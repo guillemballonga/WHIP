@@ -81,7 +81,7 @@ public class EditarPerfil extends AppCompatActivity {
                 try {
                     perfil_editat.put("post_code", cp.getText().toString());
                     perfil_editat.put("name", nom.getText().toString() );
-                    perfil_editat.put("about","");
+                    perfil_editat.put("about","hola");
                     perfil_editat.put("fam_name", cognom.getText().toString());
                     perfil_editat.put("username", user.getText().toString());
 
@@ -98,6 +98,7 @@ public class EditarPerfil extends AppCompatActivity {
                             JsonRequest.Method.PATCH,
                             URL,
                             perfil_editat,
+
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
@@ -111,7 +112,9 @@ public class EditarPerfil extends AppCompatActivity {
                             new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getApplicationContext(),"ERROOOOOOOR",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+                                    error.printStackTrace();
+
 
                                 }
                             }
