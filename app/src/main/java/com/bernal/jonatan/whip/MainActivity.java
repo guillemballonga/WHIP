@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             //todo guardar api key en el singleton
                             try {
                                 ul = Usuari_Logejat.getUsuariLogejat(response.getString("api_key"));
+                                ul.setAPI_KEY(response.getString("api_key"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

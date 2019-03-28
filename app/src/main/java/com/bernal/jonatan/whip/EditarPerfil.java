@@ -40,6 +40,8 @@ public class EditarPerfil extends AppCompatActivity {
     //variables para comucicación back
     private String URL;
     private RequestQueue requestqueue;
+    private Usuari_Logejat ul = Usuari_Logejat.getUsuariLogejat("");
+    private String api = ul.getAPI_KEY();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +125,7 @@ public class EditarPerfil extends AppCompatActivity {
                         public Map<String, String> getHeaders() throws AuthFailureError {
                             Map<String, String> params = new HashMap<String, String>();
                             params.put("Content-Type", "application/json");
-                            params.put("Authorization", "2C4T55N-4SY40G3-JBG7QMB-4PYNJ9P"); //valor de V ha de ser el de la var global
+                            params.put("Authorization", api); //valor de V ha de ser el de la var global
                             return params;
                         }
                     };
