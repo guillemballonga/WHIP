@@ -100,11 +100,11 @@
                 android:theme="@style/Widget.AppCompat.ButtonBar" />
 
             <Button
-                android:id="@+id/disconnect_button"
+                android:id="@+id/perfil_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/disconnect"
+                android:text="PERFIL"
                 android:theme="@style/Widget.AppCompat.ButtonBar" />
         </LinearLayout>
 

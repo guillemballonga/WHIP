@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         findViewById(R.id.sign_out_button).setOnClickListener(this);
-        findViewById(R.id.disconnect_button).setOnClickListener(this);
+        findViewById(R.id.perfil_button).setOnClickListener(this);
 
         // [START configure_signin]
         // Configure sign-in to request the user's ID, email address, and basic
@@ -231,12 +231,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void updateUI(@Nullable GoogleSignInAccount account) {
         if (account != null) {
 
-            //mStatusTextView.setText(getString(R.string.signed_in_fmt, account.getDisplayName()));
+            mStatusTextView.setText(getString(R.string.signed_in_fmt, account.getDisplayName()));
 
-            //findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-            //findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
+            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
 
-            startActivity(new Intent(MainActivity.this, EditarPerfil.class));
+            //startActivity(new Intent(MainActivity.this, EditarPerfil.class));
 
            // finish();
         } else {
@@ -258,8 +258,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.sign_out_button:
                 signOut();
                 break;
-            case R.id.disconnect_button:
-                revokeAccess();
+            case R.id.perfil_button:
+                startActivity(new Intent(MainActivity.this, MostrarPerfil.class));
                 break;
         }
     }
