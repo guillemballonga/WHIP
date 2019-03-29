@@ -9,6 +9,9 @@ public class Fuente {
     int estado;
     String id;
 
+
+
+
     public Fuente(String id, String nombre, int imagen, String contenido, int estado) {
         this.id = id;
         this.nombre = nombre;

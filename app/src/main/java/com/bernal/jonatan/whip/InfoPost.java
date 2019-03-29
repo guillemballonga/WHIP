@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -30,7 +31,7 @@ public class InfoPost extends AppCompatActivity {
     ImageView foto_post, foto_user;
     String Identificador;
 
-    private String URL,URL_favs;
+    private String URL,URL_favs,URL_like;
     private RequestQueue requestqueue;
 
     private Usuari_Logejat ul = Usuari_Logejat.getUsuariLogejat("");
@@ -61,7 +62,8 @@ public class InfoPost extends AppCompatActivity {
 
         //Recoger los datos de Back y cargarlos en la vista
         URL = "https://whip-api.herokuapp.com/contributions/lostposts/"+Identificador;
-        URL_favs = "";
+        URL_favs = "https://whip-api.herokuapp.com/contributions/lostposts/"+Identificador+"/getlike";
+        URL_like = "https://whip-api.herokuapp.com/contributions/lostposts/"+Identificador+"/like";
         requestqueue = Volley.newRequestQueue(this);
 
 
@@ -118,21 +120,43 @@ public class InfoPost extends AppCompatActivity {
         return true;
     }
 
+
+
     public boolean onOptionsItemSelected(MenuItem menuItem){
         switch (menuItem.getItemId()){
             case R.id.icono_fav:
                 //comunicacion con back + cambiar color de la estrella
 
-                /*JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                boolean esfav = BackFavs("get",URL_favs);
+                if (esfav) {
+                    BackFavs("delete",URL_like);
+                }
+                else BackFavs("post",URL_like);
+
+
+                Toast.makeText(getApplicationContext(),"Funciona estrellita",Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return true;
+    }
+
+    public boolean BackFavs(String tipus, String url){
+
+        final boolean[] b = new boolean[1];
+
+        switch (tipus) {
+            case "get": {
+
+                JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                         JsonRequest.Method.GET,
-                        URL_favs,
+                        url,
                         null,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
 
                                 try {
-
+                                    b[0] = response.getBoolean("isFavorite");
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -142,7 +166,7 @@ public class InfoPost extends AppCompatActivity {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getApplicationContext(),"ERROOOOOOOR",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
                             }
                         }
                 ) {
@@ -152,11 +176,76 @@ public class InfoPost extends AppCompatActivity {
                         params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
                         return params;
                     }
-                };*/
+                };
+                requestqueue.add(objectJsonrequest);
 
-                Toast.makeText(getApplicationContext(),"Funciona estrellita",Toast.LENGTH_SHORT).show();
                 break;
+            }
+            case "delete": {
+                JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                        JsonRequest.Method.DELETE,
+                        url,
+                        null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+
+                                b[0] = true;
+
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                ) {
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("Content-Type", "application/json");
+                        params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
+                        return params;
+                    }
+                };
+                requestqueue.add(objectJsonrequest);
+                break;
+            }
+            default: {
+                JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                        JsonRequest.Method.POST,
+                        url,
+                        null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+
+                                b[0] = true;
+
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                ) {
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("Content-Type", "application/json");
+                        params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
+                        return params;
+                    }
+                };
+                requestqueue.add(objectJsonrequest);
+                break;
+            }
         }
-        return true;
+
+        return b[0];
+
     }
 }

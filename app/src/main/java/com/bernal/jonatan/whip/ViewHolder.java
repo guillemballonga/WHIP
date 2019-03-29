@@ -27,7 +27,6 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
     }
 
 
-
     public ViewHolder(@NonNull View itemView, List<Fuente> datos) {
         super(itemView);
 
