@@ -27,11 +27,11 @@ import java.util.Map;
 
 public class InfoPost extends AppCompatActivity {
 
-    TextView titulo,fecha,especie,tipo,raza,contenido;
+    TextView titulo, fecha, especie, tipo, raza, contenido;
     ImageView foto_post, foto_user;
     String Identificador;
 
-    private String URL,URL_favs,URL_like;
+    private String URL, URL_favs, URL_like;
     private RequestQueue requestqueue;
 
     private Usuari_Logejat ul = Usuari_Logejat.getUsuariLogejat("");
@@ -61,9 +61,9 @@ public class InfoPost extends AppCompatActivity {
 
 
         //Recoger los datos de Back y cargarlos en la vista
-        URL = "https://whip-api.herokuapp.com/contributions/lostposts/"+Identificador;
-        URL_favs = "https://whip-api.herokuapp.com/contributions/lostposts/"+Identificador+"/getlike";
-        URL_like = "https://whip-api.herokuapp.com/contributions/lostposts/"+Identificador+"/like";
+        URL = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador;
+        URL_favs = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador + "/getlike";
+        URL_like = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador + "/like";
         requestqueue = Volley.newRequestQueue(this);
 
 
@@ -83,8 +83,7 @@ public class InfoPost extends AppCompatActivity {
                             especie.setText(lostpost.getString("specie"));
                             if (lostpost.getString("type").equals("F")) {
                                 tipo.setText("Encontrado");
-                            }
-                            else  tipo.setText("Pérdida");
+                            } else tipo.setText("Pérdida");
 
                             raza.setText(lostpost.getString("race"));
                             contenido.setText(lostpost.getString("text"));
@@ -100,7 +99,7 @@ public class InfoPost extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),"ERROOOOOOOR",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
@@ -115,137 +114,119 @@ public class InfoPost extends AppCompatActivity {
     }
 
 
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_infopostperd,menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_infopostperd, menu);
         return true;
     }
 
 
-
-    public boolean onOptionsItemSelected(MenuItem menuItem){
-        switch (menuItem.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
             case R.id.icono_fav:
                 //comunicacion con back + cambiar color de la estrella
 
-                boolean esfav = BackFavs("get",URL_favs);
-                if (esfav) {
-                    BackFavs("delete",URL_like);
-                }
-                else BackFavs("post",URL_like);
+                BackFavs();
 
-
-                Toast.makeText(getApplicationContext(),"Funciona estrellita",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Funciona estrellita", Toast.LENGTH_SHORT).show();
                 break;
         }
         return true;
     }
 
-    public boolean BackFavs(String tipus, String url){
+    public void BackFavs() {
 
-        final boolean[] b = new boolean[1];
-
-        switch (tipus) {
-            case "get": {
-
-                JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                        JsonRequest.Method.GET,
-                        url,
-                        null,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-
-                                try {
-                                    b[0] = response.getBoolean("isFavorite");
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                ) {
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.GET,
+                URL_favs,
+                null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
-                        return params;
-                    }
-                };
-                requestqueue.add(objectJsonrequest);
+                    public void onResponse(JSONObject response) {
 
-                break;
-            }
-            case "delete": {
-                JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                        JsonRequest.Method.DELETE,
-                        url,
-                        null,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
+                        try {
+                            boolean b = response.getBoolean("isFavorite");
 
-                                b[0] = true;
+                            if (b) {
+                                JsonObjectRequest objectJsonrequest2 = new JsonObjectRequest(
+                                        JsonRequest.Method.DELETE,
+                                        URL_like,
+                                        null,
+                                        new Response.Listener<JSONObject>() {
+                                            @Override
+                                            public void onResponse(JSONObject response) {
+
+                                                Toast.makeText(getApplicationContext(), "DISLIKE", Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        },
+                                        new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+                                                Toast.makeText(getApplicationContext(), "ERROOOOOOOR DISLIKE", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                ) {
+                                    @Override
+                                    public Map<String, String> getHeaders() throws AuthFailureError {
+                                        Map<String, String> params = new HashMap<String, String>();
+                                        params.put("Content-Type", "application/json");
+                                        params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
+                                        return params;
+                                    }
+                                };
+                                requestqueue.add(objectJsonrequest2);
+
+                            } else {
+
+                                JsonObjectRequest objectJsonrequest2 = new JsonObjectRequest(
+                                        JsonRequest.Method.POST,
+                                        URL_like,
+                                        null,
+                                        new Response.Listener<JSONObject>() {
+                                            @Override
+                                            public void onResponse(JSONObject response) {
+                                                Toast.makeText(getApplicationContext(), "LIKE", Toast.LENGTH_SHORT).show();
+                                            }
+                                        },
+                                        new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+                                                Toast.makeText(getApplicationContext(), "ERROOOOOOOR LIKE", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                ) {
+                                    @Override
+                                    public Map<String, String> getHeaders() throws AuthFailureError {
+                                        Map<String, String> params = new HashMap<String, String>();
+                                        params.put("Content-Type", "application/json");
+                                        params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
+                                        return params;
+                                    }
+                                };
+                                requestqueue.add(objectJsonrequest2);
 
                             }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
-                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                ) {
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("Content-Type", "application/json");
-                        params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
-                        return params;
                     }
-                };
-                requestqueue.add(objectJsonrequest);
-                break;
-            }
-            default: {
-                JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                        JsonRequest.Method.POST,
-                        url,
-                        null,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-
-                                b[0] = true;
-
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                ) {
+                },
+                new Response.ErrorListener() {
                     @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("Content-Type", "application/json");
-                        params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
-                        return params;
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR GET", Toast.LENGTH_SHORT).show();
                     }
-                };
-                requestqueue.add(objectJsonrequest);
-                break;
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
+                return params;
             }
-        }
-
-        return b[0];
-
+        };
+        requestqueue.add(objectJsonrequest);
     }
+
 }
