@@ -99,10 +99,6 @@ public class NuevoPostPerdido extends AppCompatActivity {
         });
 
 
-
-
-
-
         //Botons
 
         create = (Button) findViewById(R.id.boton_create);

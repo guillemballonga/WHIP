@@ -142,7 +142,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         JSONObject user = new JSONObject();
         try {
             user.put("mail", account.getEmail());
-            user.put("name", account.getDisplayName() );
+            String[] name = account.getDisplayName().split(" ");
+            user.put("name", name[0]);
             user.put("fam_name", account.getFamilyName());
             user.put("username", "");
 
