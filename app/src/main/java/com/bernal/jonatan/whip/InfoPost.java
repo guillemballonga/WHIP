@@ -114,8 +114,48 @@ public class InfoPost extends AppCompatActivity {
     }
 
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_infopostperd, menu);
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        JsonObjectRequest objectJsonrequest3 = new JsonObjectRequest(
+                JsonRequest.Method.GET,
+                URL_favs,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+                            boolean fav = response.getBoolean("isFavorite");
+
+                            if (fav) {
+                                Toast.makeText(getApplicationContext(), "MENU FAVORITO", Toast.LENGTH_SHORT).show();
+                                getMenuInflater().inflate(R.menu.menu_infopostperd, menu);
+                            } else {
+                                Toast.makeText(getApplicationContext(), "MENU NO FAVORITO", Toast.LENGTH_SHORT).show();
+                                getMenuInflater().inflate(R.menu.menu_infopostperdlike, menu);
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR EN MOSTRAR MENU", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", ul.getAPI_KEY());
+                return params;
+            }
+        };
+        requestqueue.add(objectJsonrequest3);
         return true;
     }
 
@@ -125,103 +165,73 @@ public class InfoPost extends AppCompatActivity {
             case R.id.icono_fav:
                 //comunicacion con back + cambiar color de la estrella
 
-                BackFavs();
+                BackFavs_like();
 
-                Toast.makeText(getApplicationContext(), "Funciona estrellita", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.icono_fav_rell:
+
+                BackFavs_dislike();
+
                 break;
         }
         return true;
     }
 
-    public void BackFavs() {
-
+    private void BackFavs_dislike() {
         JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                JsonRequest.Method.GET,
-                URL_favs,
+                JsonRequest.Method.DELETE,
+                URL_like,
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
-                        try {
-                            boolean b = response.getBoolean("isFavorite");
-
-                            if (b) {
-                                JsonObjectRequest objectJsonrequest2 = new JsonObjectRequest(
-                                        JsonRequest.Method.DELETE,
-                                        URL_like,
-                                        null,
-                                        new Response.Listener<JSONObject>() {
-                                            @Override
-                                            public void onResponse(JSONObject response) {
-
-                                                Toast.makeText(getApplicationContext(), "DISLIKE", Toast.LENGTH_SHORT).show();
-
-                                            }
-                                        },
-                                        new Response.ErrorListener() {
-                                            @Override
-                                            public void onErrorResponse(VolleyError error) {
-                                                Toast.makeText(getApplicationContext(), "ERROOOOOOOR DISLIKE", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                ) {
-                                    @Override
-                                    public Map<String, String> getHeaders() throws AuthFailureError {
-                                        Map<String, String> params = new HashMap<String, String>();
-                                        params.put("Content-Type", "application/json");
-                                        params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
-                                        return params;
-                                    }
-                                };
-                                requestqueue.add(objectJsonrequest2);
-
-                            } else {
-
-                                JsonObjectRequest objectJsonrequest2 = new JsonObjectRequest(
-                                        JsonRequest.Method.POST,
-                                        URL_like,
-                                        null,
-                                        new Response.Listener<JSONObject>() {
-                                            @Override
-                                            public void onResponse(JSONObject response) {
-                                                Toast.makeText(getApplicationContext(), "LIKE", Toast.LENGTH_SHORT).show();
-                                            }
-                                        },
-                                        new Response.ErrorListener() {
-                                            @Override
-                                            public void onErrorResponse(VolleyError error) {
-                                                Toast.makeText(getApplicationContext(), "ERROOOOOOOR LIKE", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                ) {
-                                    @Override
-                                    public Map<String, String> getHeaders() throws AuthFailureError {
-                                        Map<String, String> params = new HashMap<String, String>();
-                                        params.put("Content-Type", "application/json");
-                                        params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
-                                        return params;
-                                    }
-                                };
-                                requestqueue.add(objectJsonrequest2);
-
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        Toast.makeText(getApplicationContext(), "DISLIKE", Toast.LENGTH_SHORT).show();
+                        recreate();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR GET", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR DISLIKE", Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", ul.getAPI_KEY());
+                return params;
+            }
+        };
+        requestqueue.add(objectJsonrequest);
+    }
+
+
+    public void BackFavs_like() {
+
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.POST,
+                URL_like,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(getApplicationContext(), "LIKE", Toast.LENGTH_SHORT).show();
+                        recreate();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR LIKE", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json");
                 params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
                 return params;
             }
