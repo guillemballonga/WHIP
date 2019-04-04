@@ -1,9 +1,12 @@
 package com.bernal.jonatan.whip;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -28,6 +31,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class EditarPerfil extends AppCompatActivity {
@@ -43,27 +47,28 @@ public class EditarPerfil extends AppCompatActivity {
     private Usuari_Logejat ul = Usuari_Logejat.getUsuariLogejat("");
     private String api = ul.getAPI_KEY();
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_perfil);
 
-        goToMostrarPerfilGuardant = (Button) findViewById(R.id.boto_guardar);
-        goToMostrarPerfilCancelar = (Button) findViewById(R.id.boto_cancelar);
+        goToMostrarPerfilGuardant = findViewById(R.id.boto_guardar);
+        goToMostrarPerfilCancelar = findViewById(R.id.boto_cancelar);
 
-        nom = (EditText) findViewById(R.id.escr_nom);
-        cognom = (EditText) findViewById(R.id.escr_cognom);
-        user = (EditText) findViewById(R.id.escr_user);
-        cp = (EditText) findViewById(R.id.escr_CP);
+        nom = findViewById(R.id.escr_nom);
+        cognom = findViewById(R.id.escr_cognom);
+        user = findViewById(R.id.escr_user);
+        cp = findViewById(R.id.escr_CP);
 
-        fotoperfil = (ImageView) findViewById(R.id.imagen_perfil);
+        fotoperfil = findViewById(R.id.imagen_perfil);
 
 
 
         //Gestión de las Toolbars
-        Toolbar tool = (Toolbar) findViewById(R.id.toolbar_editarPerfil);
+        Toolbar tool = findViewById(R.id.toolbar_editarPerfil);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("PERFIL");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("PERFIL");
 
         //Coneixón con la API
         URL = "https://whip-api.herokuapp.com/users/profile";
@@ -104,7 +109,6 @@ public class EditarPerfil extends AppCompatActivity {
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
-                                    Toast.makeText(getApplicationContext(),"Perfil actualizado con éxito",Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(EditarPerfil.this, MostrarPerfil.class));
                                     finish();
                                 }
@@ -122,8 +126,8 @@ public class EditarPerfil extends AppCompatActivity {
                             }
                     ) {
                         @Override
-                        public Map<String, String> getHeaders() throws AuthFailureError {
-                            Map<String, String> params = new HashMap<String, String>();
+                        public Map<String, String> getHeaders() {
+                            Map<String, String> params = new HashMap<>();
                             params.put("Content-Type", "application/json");
                             params.put("Authorization", api); //valor de V ha de ser el de la var global
                             return params;
@@ -160,10 +164,11 @@ public class EditarPerfil extends AppCompatActivity {
 
     }
 
+    @SuppressLint("IntentReset")
     private void obrirgaleria() {
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        @SuppressLint("IntentReset") Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         gallery.setType("image/");
-        startActivityForResult(gallery.createChooser(gallery,"Seleccione la Aplicación"),10);
+        startActivityForResult(Intent.createChooser(gallery,"Seleccione la Aplicación"),10);
     }
 
 
@@ -171,6 +176,7 @@ public class EditarPerfil extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
+            assert data != null;
             Uri path = data.getData();
             fotoperfil.setImageURI(path);
 

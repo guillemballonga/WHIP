@@ -1,7 +1,11 @@
 package com.bernal.jonatan.whip;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.provider.ContactsContract;
+import android.support.annotation.RequiresApi;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,12 +35,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MostrarPerfil extends AppCompatActivity {
 
     Button goToEditarPerfil, goToMisPosts;
     String nomBack, cognomBack, userBack, cpBack, correuBack;
     TextView nom,cognom,user,cp, correu;
+    ImageView imatge;
 
     //Objectes per JSONGet
     private String URL;
@@ -47,13 +54,15 @@ public class MostrarPerfil extends AppCompatActivity {
     private String api = ul.getAPI_KEY();
 
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mostrar_perfil);
 
-        goToEditarPerfil = (Button) findViewById(R.id.boto_editar_perfil);
-        goToMisPosts = (Button) findViewById(R.id.boto_mis_posts);
+        goToEditarPerfil = findViewById(R.id.boto_editar_perfil);
+        goToMisPosts = findViewById(R.id.boto_mis_posts);
 
     //GET PER CONNEXIÓ AMB BACK
         //Coneixón con la API
@@ -89,8 +98,8 @@ public class MostrarPerfil extends AppCompatActivity {
                 }
                 ){
                     @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<String, String>();
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> params = new HashMap<>();
                         params.put("Content-Type", "application/json");
                         params.put("Authorization", api); //valor de V ha de ser el de la var global
                         return params;
@@ -100,9 +109,9 @@ public class MostrarPerfil extends AppCompatActivity {
     //FINAL GET
 
         //Gestión de la toolbar
-        Toolbar tool = (Toolbar) findViewById(R.id.toolbar_mostrarPerfil);
+        Toolbar tool = findViewById(R.id.toolbar_mostrarPerfil);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("PERFIL");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("PERFIL");
 
         goToEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,25 +135,28 @@ public class MostrarPerfil extends AppCompatActivity {
     private void MostrarParametresPerfil(JSONObject response) throws JSONException {
 
         nomBack = result.getString("first_name");
-        nom = (TextView) findViewById(R.id.escr_nom);
+        nom = findViewById(R.id.escr_nom);
         nom.setText(nomBack);
 
         cognomBack = result.getString("family_name");
-        cognom = (TextView) findViewById(R.id.escr_cognom);
+        cognom = findViewById(R.id.escr_cognom);
         cognom.setText(cognomBack);
 
         userBack = result.getString("username");
-        user = (TextView) findViewById(R.id.escr_username);
+        user = findViewById(R.id.escr_username);
         user.setText(userBack);
 
         cpBack = result.getString("post_code");
-        cp = (TextView) findViewById(R.id.escr_CP);
+        cp = findViewById(R.id.escr_CP);
         cp.setText(cpBack);
 
         correuBack = result.getString("email");
-        correu = (TextView) findViewById(R.id.escr_correu);
+        correu = findViewById(R.id.escr_correu);
         correu.setText(correuBack);
         correu.setTextSize(12);
+
+        imatge = findViewById(R.id.imagen_perfil);
+        //imatge.setImageURI();
 
     }
 
