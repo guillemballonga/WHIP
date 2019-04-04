@@ -70,7 +70,6 @@ public class MostrarPerfil extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            Toast.makeText(getApplicationContext(), "Info Carregada Correctament", Toast.LENGTH_SHORT).show();
                             result = response;
 
                             MostrarParametresPerfil(response);
