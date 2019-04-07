@@ -34,7 +34,7 @@ public class InfoPost extends AppCompatActivity {
     private String URL, URL_favs, URL_like;
     private RequestQueue requestqueue;
 
-    private Usuari_Logejat ul = Usuari_Logejat.getUsuariLogejat("");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

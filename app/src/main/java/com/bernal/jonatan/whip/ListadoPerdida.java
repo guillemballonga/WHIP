@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.Models.Post;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +35,7 @@ public class ListadoPerdida extends AppCompatActivity {
     private String URL;
     private RequestQueue requestqueue;
     private JSONArray resultat;
-    private ArrayList<Fuente> Posts_perdidos;
+    private ArrayList<Post> Posts_perdidos;
     private Adaptador adapt;
     private SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView contenedor;
@@ -93,7 +94,7 @@ public class ListadoPerdida extends AppCompatActivity {
                             JSONObject postite;
                             for (int i = 0; i < resultat.length();i++) {
                                 postite = resultat.getJSONObject(i);
-                                Posts_perdidos.add(new Fuente(postite.getString("id"),postite.getString("title"),R.drawable.perro,postite.getString("text"),0));
+                                Posts_perdidos.add(new Post(postite.getString("id"),postite.getString("title"),R.drawable.perro,postite.getString("text"),0));
                             }
                             adapt = new Adaptador(Posts_perdidos);
                             contenedor.setAdapter(adapt);
