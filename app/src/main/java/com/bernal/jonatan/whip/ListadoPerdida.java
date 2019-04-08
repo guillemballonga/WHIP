@@ -94,7 +94,7 @@ public class ListadoPerdida extends AppCompatActivity {
                             JSONObject postite;
                             for (int i = 0; i < resultat.length();i++) {
                                 postite = resultat.getJSONObject(i);
-                                Posts_perdidos.add(new Post(postite.getString("id"),postite.getString("title"),R.drawable.perro,postite.getString("text"),0));
+                                Posts_perdidos.add(new Post(postite.getString("text"),postite.getString("title"),R.drawable.perro,postite.getString("id")));
                             }
                             adapt = new Adaptador(Posts_perdidos);
                             contenedor.setAdapter(adapt);
@@ -103,7 +103,7 @@ public class ListadoPerdida extends AppCompatActivity {
 
                                 @Override
                                 public void onClick(View view) {
-                                    String id_post = Posts_perdidos.get(contenedor.getChildAdapterPosition(view)).getId();
+                                    String id_post = Posts_perdidos.get(contenedor.getChildAdapterPosition(view)).getId_post();
                                     Intent i = new Intent(ListadoPerdida.this, InfoPost.class);
                                     i.putExtra("identificadorPost",id_post);
                                     startActivity(i);

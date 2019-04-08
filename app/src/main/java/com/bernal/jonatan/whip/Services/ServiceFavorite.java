@@ -1,6 +1,7 @@
 package com.bernal.jonatan.whip.Services;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
@@ -18,6 +19,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import java8.util.concurrent.CompletableFuture;
+
 public class ServiceFavorite {
 
 
@@ -29,8 +32,9 @@ public class ServiceFavorite {
         requestQueue = Volley.newRequestQueue(thisContext);
     }
 
-    public Favorite getLike (String ID_Post) {
+    public Favorite getLike (final String ID_Post) {
 
+        final Favorite fav = new Favorite();
 
         JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                 JsonRequest.Method.GET,
@@ -42,12 +46,7 @@ public class ServiceFavorite {
 
                         try {
 
-                            Favorite fav = new Favorite();
-
-                            boolean result = response.getBoolean("isFavorite");
-
-                            fav.setFav(result);
-
+                            fav.setFav(response.getBoolean("isFavourite"));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -69,7 +68,72 @@ public class ServiceFavorite {
             }
         };
         requestQueue.add(objectJsonrequest);
-
-
+        while (objectJsonrequest == null) {}
+        return fav;
     }
+
+
+    public void setDislike(String post_ID) {
+
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.DELETE,
+                Base_Url+post_ID+"/like",
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", ul.getAPI_KEY());
+                return params;
+            }
+        };
+        requestQueue.add(objectJsonrequest);
+    }
+
+
+    public void setLike(String post_ID) {
+
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.POST,
+                Base_Url+post_ID+"/like",
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", ul.getAPI_KEY());
+                return params;
+            }
+        };
+        requestQueue.add(objectJsonrequest);
+    }
+
+
+
 }

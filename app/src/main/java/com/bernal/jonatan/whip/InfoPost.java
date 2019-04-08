@@ -18,6 +18,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.Models.Favorite;
+import com.bernal.jonatan.whip.Presenters.FavoritesController;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,10 +33,7 @@ public class InfoPost extends AppCompatActivity {
     ImageView foto_post, foto_user;
     String Identificador;
 
-    private String URL, URL_favs, URL_like;
-    private RequestQueue requestqueue;
-
-
+    FavoritesController fc = new FavoritesController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,183 +59,59 @@ public class InfoPost extends AppCompatActivity {
         getSupportActionBar().setTitle("ENCONTRADO O PÉRDIDA");
 
 
-        //Recoger los datos de Back y cargarlos en la vista
-        URL = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador;
-        URL_favs = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador + "/getlike";
-        URL_like = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador + "/like";
-        requestqueue = Volley.newRequestQueue(this);
+        /*titulo.setText(lostpost.getString("title"));
+        String[] data = (lostpost.getString("createdAt")).split("T");
+        fecha.setText(data[0]);
+        especie.setText(lostpost.getString("specie"));
+        if (lostpost.getString("type").equals("F")) {
+            tipo.setText("Encontrado");
+        } else tipo.setText("Pérdida");
+
+        raza.setText(lostpost.getString("race"));
+        contenido.setText(lostpost.getString("text"));
+        //Fotografías con IMGUR
+        foto_user.setBackgroundResource(R.drawable.icono_usuario);
+        foto_post.setBackgroundResource(R.drawable.perfilperro);*/
 
 
-        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                JsonRequest.Method.GET,
-                URL,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-                            JSONObject lostpost = response.getJSONObject("lostpost");
-                            titulo.setText(lostpost.getString("title"));
-                            String[] data = (lostpost.getString("createdAt")).split("T");
-                            fecha.setText(data[0]);
-                            especie.setText(lostpost.getString("specie"));
-                            if (lostpost.getString("type").equals("F")) {
-                                tipo.setText("Encontrado");
-                            } else tipo.setText("Pérdida");
-
-                            raza.setText(lostpost.getString("race"));
-                            contenido.setText(lostpost.getString("text"));
-                            //Fotografías con IMGUR
-                            foto_user.setBackgroundResource(R.drawable.icono_usuario);
-                            foto_post.setBackgroundResource(R.drawable.perfilperro);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
-                return params;
-            }
-        };
-        requestqueue.add(objectJsonrequest);
     }
 
 
     public boolean onCreateOptionsMenu(final Menu menu) {
-        JsonObjectRequest objectJsonrequest3 = new JsonObjectRequest(
-                JsonRequest.Method.GET,
-                URL_favs,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
 
-                        try {
-                            boolean fav = response.getBoolean("isFavorite");
+        boolean f = fc.getFavorite(this,Identificador).isFav();
+        if (f) {
+            Toast.makeText(getApplicationContext(), "MENU FAVORITO", Toast.LENGTH_SHORT).show();
+            getMenuInflater().inflate(R.menu.menu_infopostperdlike, menu);
+        } else {
+            Toast.makeText(getApplicationContext(), "MENU NO FAVORITO", Toast.LENGTH_SHORT).show();
+            getMenuInflater().inflate(R.menu.menu_infopostperd, menu);
+        }
 
-                            if (fav) {
-                                Toast.makeText(getApplicationContext(), "MENU FAVORITO", Toast.LENGTH_SHORT).show();
-                                getMenuInflater().inflate(R.menu.menu_infopostperd, menu);
-                            } else {
-                                Toast.makeText(getApplicationContext(), "MENU NO FAVORITO", Toast.LENGTH_SHORT).show();
-                                getMenuInflater().inflate(R.menu.menu_infopostperdlike, menu);
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR EN MOSTRAR MENU", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", ul.getAPI_KEY());
-                return params;
-            }
-        };
-        requestqueue.add(objectJsonrequest3);
         return true;
     }
 
 
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
-            case R.id.icono_fav:
+            case R.id.icono_fav_rell:
                 //comunicacion con back + cambiar color de la estrella
 
-                BackFavs_like();
+                fc.setDislike(this,Identificador);
+                finish();
+                startActivity(getIntent());
 
                 break;
-            case R.id.icono_fav_rell:
+            case R.id.icono_fav:
 
-                BackFavs_dislike();
+                fc.setLike(this,Identificador);
+                finish();
+                startActivity(getIntent());
 
                 break;
         }
         return true;
     }
 
-    private void BackFavs_dislike() {
-        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                JsonRequest.Method.DELETE,
-                URL_like,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Toast.makeText(getApplicationContext(), "DISLIKE", Toast.LENGTH_SHORT).show();
-                        recreate();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR DISLIKE", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Content-Type", "application/json");
-                params.put("Authorization", ul.getAPI_KEY());
-                return params;
-            }
-        };
-        requestqueue.add(objectJsonrequest);
-    }
-
-
-    public void BackFavs_like() {
-
-        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                JsonRequest.Method.POST,
-                URL_like,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Toast.makeText(getApplicationContext(), "LIKE", Toast.LENGTH_SHORT).show();
-                        recreate();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR LIKE", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Content-Type", "application/json");
-                params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
-                return params;
-            }
-        };
-        requestqueue.add(objectJsonrequest);
-    }
 
 }

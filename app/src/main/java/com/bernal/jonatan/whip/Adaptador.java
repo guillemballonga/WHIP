@@ -32,7 +32,7 @@ public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.
         holder.nombre_postPerdi.setText(listaObjetos.get(i).getNombre());
         holder.imagen_postPerdi.setImageResource(listaObjetos.get(i).getImagen());
         holder.contenido_postPerdi.setText(listaObjetos.get(i).getContenido());
-        holder.setId(listaObjetos.get(i).getId());
+        holder.setId(listaObjetos.get(i).getId_post());
     }
 
     @Override

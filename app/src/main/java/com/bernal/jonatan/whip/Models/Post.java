@@ -28,6 +28,13 @@ public class Post {
     public Post() {
     }
 
+    public Post(String nombre, String content, int imagen, String id){
+        this.contenido = content;
+        this.nombre = nombre;
+        this.imagen = imagen;
+        this.id_post = id;
+    }
+
 
     public String getNombre() {
         return nombre;
