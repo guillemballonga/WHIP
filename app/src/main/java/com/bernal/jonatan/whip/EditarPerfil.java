@@ -62,11 +62,8 @@ public class EditarPerfil extends AppCompatActivity {
         cognom = findViewById(R.id.escr_cognom);
         user = findViewById(R.id.escr_user);
         cp = findViewById(R.id.escr_CP);
-        correu.setText(MostrarPerfil.getCorreu());
-        correu.setTextSize(12);
-        fotoperfil = findViewById(R.id.imagen_perfil);
 
-
+        carregaParametres();
 
         //Gestión de las Toolbars
         Toolbar tool = findViewById(R.id.toolbar_editarPerfil);
@@ -163,6 +160,19 @@ public class EditarPerfil extends AppCompatActivity {
             }
         });
 
+
+
+    }
+
+    private void carregaParametres() {
+        correu.setText(MostrarPerfil.getCorreu());
+        correu.setTextSize(12);
+        nom.setText(MostrarPerfil.getNom());
+        cognom.setText(MostrarPerfil.getCognom());
+        user.setText(MostrarPerfil.getUsername());
+        cp.setText(MostrarPerfil.getCP());
+
+        fotoperfil = findViewById(R.id.imagen_perfil);
 
 
     }

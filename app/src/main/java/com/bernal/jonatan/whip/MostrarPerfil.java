@@ -40,10 +40,10 @@ import java.util.Objects;
 public class MostrarPerfil extends AppCompatActivity {
 
     Button goToEditarPerfil, goToMisPosts;
-    String nomBack;
-    String cognomBack;
-    String userBack;
-    String cpBack;
+    static String nomBack;
+    static String cognomBack;
+    static String userBack;
+    static String cpBack;
     static String correuBack;
     TextView nom,cognom,user,cp, correu;
     ImageView imatge;
@@ -168,6 +168,18 @@ public class MostrarPerfil extends AppCompatActivity {
     }
     public static String getCorreu() {
         return correuBack;
+    }
+    public static String getNom() {
+        return nomBack;
+    }
+    public static String getCognom() {
+        return cognomBack;
+    }
+    public static String getUsername() {
+        return userBack;
+    }
+    public static String getCP() {
+        return cpBack;
     }
 
 
