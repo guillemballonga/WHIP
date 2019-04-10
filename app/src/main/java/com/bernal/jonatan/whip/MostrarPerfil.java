@@ -66,9 +66,9 @@ public class MostrarPerfil extends AppCompatActivity {
 
     //GET PER CONNEXIÓ AMB BACK
         //Coneixón con la API
+
         URL = "https://whip-api.herokuapp.com/users/profile";
         requestqueue = Volley.newRequestQueue(this);
-
 
         //Llamada a la API
         JsonObjectRequest arrayJsonrequest = new JsonObjectRequest(
@@ -126,7 +126,7 @@ public class MostrarPerfil extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(MostrarPerfil.this, ListadoPerdida.class));
+                startActivity(new Intent(MostrarPerfil.this, MisPosts.class));
                 //finish();
             }
         });
