@@ -17,6 +17,7 @@
         <activity android:name=".MostrarPerfil"></activity>
         <activity android:name=".EditarPerfil" />
         <activity android:name=".InfoPost" />
+        <activity android:name=".MisPosts" />
         <activity android:name=".NuevoPostPerdido" />
         <activity android:name=".MainActivity">
             <intent-filter>

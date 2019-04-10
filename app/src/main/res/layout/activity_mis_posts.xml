@@ -7,66 +7,26 @@
     android:orientation="vertical"
     tools:context=".MisPosts">
 
-<TabHost android:id="@android:id/tabhost"
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar_MisPosts"/>
+
+    <android.support.design.widget.TabLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:id="@+id/tabsMisPosts"
+        android:background="@color/color_toolbar"
+        app:tabIndicatorHeight="5dp"
+        app:tabMode="fixed"
+        app:tabGravity="fill" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#E0E0E0"/>
 
-            <include layout="@layout/toolbar"
-                android:id="@+id/toolbar_MisPosts"/>
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/viewpager"/>
 
-
-            <TabWidget android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@android:id/tabs"
-                android:background="@color/color_toolbar"/>
-
-            <FrameLayout android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@android:id/tabcontent"
-                >
-
-                <LinearLayout android:id="@+id/posts_prop"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-
-                    >
-
-                    <TextView android:id="@+id/cont_PPr"
-                        android:text="Estem a posts propios"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-                <LinearLayout android:id="@+id/posts_com"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView android:id="@+id/cont_PCom"
-                        android:text="Estem a posts comentados"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
-                </LinearLayout>
-
-                <LinearLayout android:id="@+id/posts_Fav"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-
-                    <TextView android:id="@+id/cont_PFav"
-                        android:text="Estem a posts favoritos"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </FrameLayout>
-        </LinearLayout>
-    </TabHost>
 </LinearLayout>

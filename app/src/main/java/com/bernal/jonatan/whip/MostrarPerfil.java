@@ -40,7 +40,11 @@ import java.util.Objects;
 public class MostrarPerfil extends AppCompatActivity {
 
     Button goToEditarPerfil, goToMisPosts;
-    String nomBack, cognomBack, userBack, cpBack, correuBack;
+    String nomBack;
+    String cognomBack;
+    String userBack;
+    String cpBack;
+    static String correuBack;
     TextView nom,cognom,user,cp, correu;
     ImageView imatge;
 
@@ -52,6 +56,8 @@ public class MostrarPerfil extends AppCompatActivity {
 
     private Usuari_Logejat ul = Usuari_Logejat.getUsuariLogejat("");
     private String api = ul.getAPI_KEY();
+
+
 
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -158,7 +164,13 @@ public class MostrarPerfil extends AppCompatActivity {
         imatge = findViewById(R.id.imagen_perfil);
         //imatge.setImageURI();
 
+
+
     }
+    public static String getCorreu() {
+        return correuBack;
+    }
+
 
 
 }

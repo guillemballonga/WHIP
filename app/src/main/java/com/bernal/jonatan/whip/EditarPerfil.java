@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -40,6 +41,7 @@ public class EditarPerfil extends AppCompatActivity {
     Button goToMostrarPerfilGuardant, goToMostrarPerfilCancelar;
     ImageView fotoperfil;
     EditText nom,cognom,user,cp;
+    TextView correu;
 
     //variables para comucicación back
     private String URL;
@@ -55,12 +57,13 @@ public class EditarPerfil extends AppCompatActivity {
 
         goToMostrarPerfilGuardant = findViewById(R.id.boto_guardar);
         goToMostrarPerfilCancelar = findViewById(R.id.boto_cancelar);
-
+        correu = findViewById(R.id.escr_correu);
         nom = findViewById(R.id.escr_nom);
         cognom = findViewById(R.id.escr_cognom);
         user = findViewById(R.id.escr_user);
         cp = findViewById(R.id.escr_CP);
-
+        correu.setText(MostrarPerfil.getCorreu());
+        correu.setTextSize(12);
         fotoperfil = findViewById(R.id.imagen_perfil);
 
 
