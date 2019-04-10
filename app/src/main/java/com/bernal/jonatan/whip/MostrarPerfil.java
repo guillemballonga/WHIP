@@ -2,6 +2,7 @@ package com.bernal.jonatan.whip;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.provider.ContactsContract;
 import android.support.annotation.RequiresApi;
@@ -45,6 +46,8 @@ public class MostrarPerfil extends AppCompatActivity {
     static String userBack;
     static String cpBack;
     static String correuBack;
+    static String urlFoto;
+    static Uri myUri;
     TextView nom,cognom,user,cp, correu;
     ImageView imatge;
 
@@ -87,6 +90,7 @@ public class MostrarPerfil extends AppCompatActivity {
                         try {
                             Toast.makeText(getApplicationContext(), "Info Carregada Correctament", Toast.LENGTH_SHORT).show();
                             result = response;
+
 
                             MostrarParametresPerfil(response);
 
@@ -161,8 +165,13 @@ public class MostrarPerfil extends AppCompatActivity {
         correu.setText(correuBack);
         correu.setTextSize(12);
 
+
+        urlFoto = result.getString("photo_url");
         imatge = findViewById(R.id.imagen_perfil);
-        //imatge.setImageURI();
+        myUri = Uri.parse(urlFoto);
+        //Toast.makeText(getApplicationContext(), urlFoto, Toast.LENGTH_SHORT).show();
+        imatge.setImageURI(myUri);
+
 
 
 
@@ -181,6 +190,9 @@ public class MostrarPerfil extends AppCompatActivity {
     }
     public static String getCP() {
         return cpBack;
+    }
+    public static Uri getFotoPerfil(){
+        return myUri;
     }
 
 
