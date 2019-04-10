@@ -166,12 +166,18 @@ public class MostrarPerfil extends AppCompatActivity {
         correu.setTextSize(12);
 
 
-        urlFoto = result.getString("photo_url");
-        imatge = findViewById(R.id.imagen_perfil);
-        myUri = Uri.parse(urlFoto);
-        //Toast.makeText(getApplicationContext(), urlFoto, Toast.LENGTH_SHORT).show();
-        imatge.setImageURI(myUri);
+        if(urlFoto.equals("null")){
 
+        }
+        else {
+
+            urlFoto = result.getString("photo_url");
+            imatge = findViewById(R.id.imagen_perfil);
+            myUri = Uri.parse(urlFoto);
+            //Toast.makeText(getApplicationContext(), urlFoto, Toast.LENGTH_SHORT).show();
+            imatge.setImageURI(myUri);
+
+        }
 
 
 

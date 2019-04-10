@@ -171,10 +171,13 @@ public class EditarPerfil extends AppCompatActivity {
         cognom.setText(MostrarPerfil.getCognom());
         user.setText(MostrarPerfil.getUsername());
         cp.setText(MostrarPerfil.getCP());
+        if(MostrarPerfil.getFotoPerfil().equals("null")){
 
-        fotoperfil = findViewById(R.id.imagen_perfil);
-        fotoperfil.setImageURI(MostrarPerfil.getFotoPerfil());
-
+        }
+        else {
+            fotoperfil = findViewById(R.id.imagen_perfil);
+            fotoperfil.setImageURI(MostrarPerfil.getFotoPerfil());
+        }
 
     }
 
