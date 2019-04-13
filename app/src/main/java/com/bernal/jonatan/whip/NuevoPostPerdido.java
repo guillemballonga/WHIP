@@ -94,7 +94,12 @@ public class NuevoPostPerdido extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                openGallery();
+                //openGallery();
+
+                //Quan cliqui obrir UploadImagesFirebase
+                startActivity(new Intent(NuevoPostPerdido.this, UploadImageFirebase.class));
+
+
             }
         });
 
@@ -113,8 +118,9 @@ public class NuevoPostPerdido extends AppCompatActivity {
                 JSONObject post = new JSONObject();
                 JSONArray k = new JSONArray();
 
-                //falta afegir imatge IMGUR
-                k.put("");
+                //falta afegir imatge FIREBASE
+                String identificadorImatge = UploadImageFirebase.getIdentificadorImatge();
+                k.put(identificadorImatge);
                 k.put("");
                 k.put("");
                 k.put("");
