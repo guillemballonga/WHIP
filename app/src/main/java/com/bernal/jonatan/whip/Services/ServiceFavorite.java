@@ -9,17 +9,24 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Favorite;
 import com.bernal.jonatan.whip.Usuari_Logejat;
+import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import java8.util.concurrent.CompletableFuture;
+import java8.util.function.Supplier;
 
 public class ServiceFavorite {
 
@@ -27,6 +34,11 @@ public class ServiceFavorite {
     private String Base_Url = "https://whip-api.herokuapp.com/contributions/lostposts/";
     private RequestQueue requestQueue;
     private Usuari_Logejat ul = Usuari_Logejat.getUsuariLogejat("");
+    Favorite fav = new Favorite();
+
+
+
+
 
     public ServiceFavorite (Context thisContext) {
         requestQueue = Volley.newRequestQueue(thisContext);
@@ -34,42 +46,36 @@ public class ServiceFavorite {
 
     public Favorite getLike (final String ID_Post) {
 
-        final Favorite fav = new Favorite();
+            JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                    JsonRequest.Method.GET,
+                   Base_Url + ID_Post + "/like",
+                   null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                             try {
+                                 fav.setFav(response.getBoolean("isFavorite"));
+                             } catch (JSONException e) {
+                                 e.printStackTrace();
+                             }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
 
-        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                JsonRequest.Method.GET,
-                Base_Url+ID_Post,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-
-                            fav.setFav(response.getBoolean("isFavourite"));
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        System.out.println(error.getMessage());
-                    }
-                }
-        ) {
+            ) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
-                return params;
-            }
-        };
-        requestQueue.add(objectJsonrequest);
-        while (objectJsonrequest == null) {}
-        return fav;
+                 public Map<String, String> getHeaders() throws AuthFailureError {
+                     Map<String, String> params = new HashMap<>();
+                     params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
+                     return params;
+                 }
+            };
+            requestQueue.add(objectJsonrequest);
+            return fav;
     }
 
 
