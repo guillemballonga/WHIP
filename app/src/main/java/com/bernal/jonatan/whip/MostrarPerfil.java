@@ -39,7 +39,7 @@ import java.util.Objects;
 
 public class MostrarPerfil extends AppCompatActivity {
 
-    Button goToEditarPerfil, goToMisPosts;
+    Button goToEditarPerfil, goToMisPosts, goToMensajes;
     String nomBack;
     String cognomBack;
     String userBack;
@@ -69,6 +69,8 @@ public class MostrarPerfil extends AppCompatActivity {
 
         goToEditarPerfil = findViewById(R.id.boto_editar_perfil);
         goToMisPosts = findViewById(R.id.boto_mis_posts);
+        goToMensajes = findViewById(R.id.boto_mis_mensajes);
+
 
     //GET PER CONNEXIÓ AMB BACK
         //Coneixón con la API
@@ -132,6 +134,14 @@ public class MostrarPerfil extends AppCompatActivity {
             public void onClick(View v) {
 
                 startActivity(new Intent(MostrarPerfil.this, MisPosts.class));
+                //finish();
+            }
+        });
+        goToMensajes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(MostrarPerfil.this, ListadoPerdida.class));
                 //finish();
             }
         });
