@@ -62,7 +62,7 @@ public class InfoPost extends AppCompatActivity {
 
         //Recoger los datos de Back y cargarlos en la vista
         URL = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador;
-        URL_favs = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador + "/getlike";
+        URL_favs = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador + "/like";
         URL_like = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador + "/like";
         requestqueue = Volley.newRequestQueue(this);
 
