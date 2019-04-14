@@ -126,10 +126,11 @@ public class UploadImageFirebase extends AppCompatActivity {
                     .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            //retornar a l altre pantalla l identificador perque Nico guardi
-                            finish();
+                            //retornar a l altre pantalla l identificador perque back guardi
+                            //finish();
+                            String xxx = identificadorImatge;
 
-                           // startActivity(new Intent(UploadImageFirebase.this, NuevoPostPerdido.class));
+                           startActivity(new Intent(UploadImageFirebase.this, MostrarImatge.class));
                         }
                     })
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
