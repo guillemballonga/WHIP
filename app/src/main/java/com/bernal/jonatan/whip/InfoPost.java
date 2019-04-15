@@ -76,7 +76,7 @@ public class InfoPost extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
 
                         try {
-                            JSONObject lostpost = response.getJSONObject("lostpost");
+                            JSONObject lostpost = response.getJSONObject("postInfo");
                             titulo.setText(lostpost.getString("title"));
                             String[] data = (lostpost.getString("createdAt")).split("T");
                             fecha.setText(data[0]);
@@ -128,10 +128,10 @@ public class InfoPost extends AppCompatActivity {
 
                             if (fav) {
                                 Toast.makeText(getApplicationContext(), "MENU FAVORITO", Toast.LENGTH_SHORT).show();
-                                getMenuInflater().inflate(R.menu.menu_infopostperd, menu);
+                                getMenuInflater().inflate(R.menu.menu_infopostperdlike, menu);
                             } else {
                                 Toast.makeText(getApplicationContext(), "MENU NO FAVORITO", Toast.LENGTH_SHORT).show();
-                                getMenuInflater().inflate(R.menu.menu_infopostperdlike, menu);
+                                getMenuInflater().inflate(R.menu.menu_infopostperd, menu);
                             }
 
 
