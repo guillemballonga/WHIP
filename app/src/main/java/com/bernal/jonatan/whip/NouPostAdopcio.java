@@ -1,6 +1,5 @@
 package com.bernal.jonatan.whip;
 
-import android.app.VoiceInteractor;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -8,10 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +16,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -32,16 +27,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-
-public class NuevoPostPerdido extends AppCompatActivity {
+public class NouPostAdopcio extends AppCompatActivity {
 
     ImageView foto;
     Spinner especie,tipo;
@@ -56,7 +45,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nuevo_post_perdido);
+        setContentView(R.layout.activity_nou_post_adopcio);
 
         //Coneixón con la API
         URL = "https://whip-api.herokuapp.com/contributions/lostposts/new";
@@ -65,7 +54,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
         //Gestión de toolbar
         Toolbar tool = (Toolbar) findViewById(R.id.toolbar_nuevoPostPerd);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("ENCONTRADO O PÉRDIDA");
+        getSupportActionBar().setTitle("ADOPCIÓ");
 
         foto = (ImageView) findViewById(R.id.perfil_perroPerd);
 
@@ -97,7 +86,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
                 //openGallery();
 
                 //Quan cliqui obrir UploadImagesFirebase -> per penjar la foto
-                startActivity(new Intent(NuevoPostPerdido.this, UploadImageFirebase.class));
+                startActivity(new Intent(NouPostAdopcio.this, UploadImageFirebase.class));
 
 
             }
@@ -154,7 +143,7 @@ public class NuevoPostPerdido extends AppCompatActivity {
                                 public void onResponse(JSONObject response) {
                                     Toast.makeText(getApplicationContext(),"Post guardado correctamente",Toast.LENGTH_SHORT).show();
                                     try {
-                                        Intent i = new Intent(NuevoPostPerdido.this, InfoPost.class);
+                                        Intent i = new Intent(NouPostAdopcio.this, InfoPost.class);
                                         i.putExtra("identificadorPost",response.getString("id"));
                                         startActivity(i);
                                         finish();
@@ -225,3 +214,6 @@ public class NuevoPostPerdido extends AppCompatActivity {
     }
 
 }
+
+
+
