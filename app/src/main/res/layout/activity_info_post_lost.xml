@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#EA9999"
-    tools:context=".InfoPost">
+    tools:context=".InfoPostLost">
 
     <include layout="@layout/toolbar"
         android:id="@+id/toolbar_infoPostPerd"/>

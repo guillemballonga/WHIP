@@ -16,7 +16,7 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 
-public class MostrarImatge extends AppCompatActivity {
+public class ShowImage extends AppCompatActivity {
 
 
     private ImageView imageView;

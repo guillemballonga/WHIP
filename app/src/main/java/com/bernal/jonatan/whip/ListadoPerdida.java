@@ -40,7 +40,7 @@ public class ListadoPerdida extends AppCompatActivity {
     RecyclerView contenedor;
 
 
-    private Usuari_Logejat ul = Usuari_Logejat.getUsuariLogejat("");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("");
     private String api = ul.getAPI_KEY();
 
 
@@ -103,7 +103,7 @@ public class ListadoPerdida extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     String id_post = Posts_perdidos.get(contenedor.getChildAdapterPosition(view)).getId();
-                                    Intent i = new Intent(ListadoPerdida.this, InfoPost.class);
+                                    Intent i = new Intent(ListadoPerdida.this, InfoPostLost.class);
                                     i.putExtra("identificadorPost",id_post);
                                     startActivity(i);
                                 }
@@ -140,7 +140,7 @@ public class ListadoPerdida extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem menuItem){
         switch (menuItem.getItemId()){
             case R.id.icono_añadir:
-                startActivity(new Intent(ListadoPerdida.this, NuevoPostPerdido.class));
+                startActivity(new Intent(ListadoPerdida.this, NewPostLost.class));
                 break;
         }
         return true;

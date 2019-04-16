@@ -3,7 +3,7 @@ package com.bernal.jonatan.whip;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Menu_principal extends AppCompatActivity {
+public class MainMenu extends AppCompatActivity {
 
 
     @Override

@@ -1,20 +1,20 @@
 package com.bernal.jonatan.whip;
 
-public class Usuari_Logejat {
+public class UserLoggedIn {
 
     private String api_key;
-    private static Usuari_Logejat instancia;
+    private static UserLoggedIn instancia;
 
-    public  static Usuari_Logejat getUsuariLogejat(String api_key) {
+    public  static UserLoggedIn getUsuariLogejat(String api_key) {
 
         if (instancia==null) {
 
-            instancia=new Usuari_Logejat(api_key);
+            instancia=new UserLoggedIn(api_key);
         }
         return instancia;
     }
 
-    private Usuari_Logejat(String api_key){
+    private UserLoggedIn(String api_key){
 
         this.api_key=api_key;
 

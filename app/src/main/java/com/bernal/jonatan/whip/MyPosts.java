@@ -13,7 +13,7 @@ import android.support.v7.widget.Toolbar;
 
 import java.util.Objects;
 
-public class MisPosts extends AppCompatActivity {
+public class MyPosts extends AppCompatActivity {
 
     private TabLayout tabLayout;
     @TargetApi(Build.VERSION_CODES.KITKAT)
