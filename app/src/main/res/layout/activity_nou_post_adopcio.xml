@@ -63,27 +63,7 @@ tools:context=".NouPostAdopcio">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:paddingTop="20dp">
-
-                <Spinner
-                    android:id="@+id/tipo_postPerd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/fondoform"
-                    android:layout_marginRight="5dp"
-                    android:paddingLeft="10dp"
-                    android:spinnerMode="dropdown"/>
-
-                <EditText
-                    android:id="@+id/cp_postPerd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/fondoform"
-                    android:layout_marginLeft="5dp"
-                    android:hint="Añade el C.P...*"
-                    android:paddingLeft="10dp"/>
-
-            </LinearLayout>
+                android:paddingTop="20dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
