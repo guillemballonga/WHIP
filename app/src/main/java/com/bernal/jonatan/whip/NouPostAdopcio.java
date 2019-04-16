@@ -69,7 +69,7 @@ public class NouPostAdopcio extends AppCompatActivity {
 
         // Spinner per a seleccionar els items
         String[] itemsEspecie = new String[]{"Dog", "Cat", "Other"};
-       // String[] itemsTipo = new String[]{"Encontrado", "Perdido"};
+        //String[] itemsTipo = new String[]{"Encontrado", "Perdido"};
 
         ArrayAdapter<String> adapterEspecie = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsEspecie);
         //ArrayAdapter<String> adapterTipo = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsTipo);

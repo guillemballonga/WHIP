@@ -12,141 +12,149 @@ tools:context=".NouPostAdopcio">
 <include layout="@layout/toolbar"
     android:id="@+id/toolbar_nuevoPostPerd"/>
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/perfil_perroPerd"
-                android:layout_width="match_parent"
-                android:layout_height="196dp"
-                android:src="@drawable/perfilperro"
-                android:layout_marginTop="20dp"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="20dp">
+                android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/titulo_postPerd"
-                    android:layout_width="wrap_content"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/perfil_perroPerd"
+                    android:layout_width="match_parent"
+                    android:layout_height="196dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/perfilperro" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/fondoformlargo"
-                    android:hint="Añade el título...*"
-                    android:paddingLeft="10dp"
-                    />
+                    android:gravity="center"
+                    android:paddingTop="20dp">
+
+                    <EditText
+                        android:id="@+id/titulo_postPerd"
+                        android:layout_width="158dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/fondoformlargo"
+                        android:hint="Añade el título...*"
+                        android:paddingLeft="10dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="20dp">
+
+                    <EditText
+                        android:id="@+id/cp_postPerd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/fondoform"
+                        android:hint="Añade el C.P...*"
+                        android:paddingLeft="10dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="20dp">
+
+                    <Spinner
+                        android:id="@+id/especie_postPerd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/fondoform"
+                        android:paddingLeft="10dp"
+                        android:spinnerMode="dropdown" />
+
+                    <EditText
+                        android:id="@+id/raza_postPerd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/fondoform"
+                        android:hint="Añade la raza...*"
+                        android:paddingLeft="10dp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="20dp">
+
+                    <EditText
+                        android:id="@+id/descripcion_postPerd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/fondofromdesc"
+                        android:hint="Añade un comentario..."
+                        android:paddingLeft="10dp"
+                        android:paddingBottom="40dp" />
+
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="20dp"/>
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="30dp"
+                android:gravity="center">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="20dp">
-
-                <Spinner
-                    android:id="@+id/especie_postPerd"
+                <Button
+                    android:id="@+id/boton_create"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/fondoform"
                     android:layout_marginRight="5dp"
-                    android:paddingLeft="10dp"
-                    android:spinnerMode="dropdown"/>
+                    android:background="@drawable/botonredondo"
+                    android:text="CREAR"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
 
-                <EditText
-                    android:id="@+id/raza_postPerd"
+                <Button
+                    android:id="@+id/boton_cancelNewPostPerd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/fondoform"
                     android:layout_marginLeft="5dp"
-                    android:hint="Añade la raza...*"
-                    android:paddingLeft="10dp"/>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="20dp">
-
-                <EditText
-                    android:id="@+id/descripcion_postPerd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/fondofromdesc"
-                    android:hint="Añade un comentario..."
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="40dp"/>
+                    android:background="@drawable/botonredondo"
+                    android:text="CANCELAR"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
 
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="60dp"
-            android:layout_marginBottom="30dp">
-
-            <Button
-                android:id="@+id/boton_create"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/botonredondo"
-                android:layout_marginRight="5dp"
-                android:text="CREAR"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                />
-
-            <Button
-                android:id="@+id/boton_cancelNewPostPerd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/botonredondo"
-                android:layout_marginLeft="5dp"
-                android:text="CANCELAR"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                />
-
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-</ScrollView>
+    </ScrollView>
 
 
 </LinearLayout>
