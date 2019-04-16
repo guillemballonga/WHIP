@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ListadoPerdida extends AppCompatActivity {
+public class LostList extends AppCompatActivity {
 
 
     private String URL;
@@ -103,7 +103,7 @@ public class ListadoPerdida extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     String id_post = Posts_perdidos.get(contenedor.getChildAdapterPosition(view)).getId();
-                                    Intent i = new Intent(ListadoPerdida.this, InfoPostLost.class);
+                                    Intent i = new Intent(LostList.this, InfoPostLost.class);
                                     i.putExtra("identificadorPost",id_post);
                                     startActivity(i);
                                 }
@@ -140,7 +140,7 @@ public class ListadoPerdida extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem menuItem){
         switch (menuItem.getItemId()){
             case R.id.icono_añadir:
-                startActivity(new Intent(ListadoPerdida.this, NewPostLost.class));
+                startActivity(new Intent(LostList.this, NewPostLost.class));
                 break;
         }
         return true;

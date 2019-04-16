@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Objects;
 
 
-public class EditarPerfil extends AppCompatActivity {
+public class EditProfile extends AppCompatActivity {
 
 
     Button goToMostrarPerfilGuardant, goToMostrarPerfilCancelar;
@@ -109,7 +109,7 @@ public class EditarPerfil extends AppCompatActivity {
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
-                                    startActivity(new Intent(EditarPerfil.this, MostrarPerfil.class));
+                                    startActivity(new Intent(EditProfile.this, MostrarPerfil.class));
                                     finish();
                                 }
 
@@ -155,7 +155,7 @@ public class EditarPerfil extends AppCompatActivity {
         goToMostrarPerfilCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(EditarPerfil.this, MostrarPerfil.class));
+                startActivity(new Intent(EditProfile.this, MostrarPerfil.class));
                 finish();
             }
         });

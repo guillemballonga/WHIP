@@ -99,7 +99,7 @@ public class InfoPostLost extends AppCompatActivity {
                             foto_user.setBackgroundResource(R.drawable.icono_usuario); //TODO foto google
 
                             String urlFoto1 = lostpost.getString("photo_url_1"); //LAURA->
-                            retrieveImage(urlFoto1);
+                            if (urlFoto1 != "") retrieveImage(urlFoto1);
 
                             //foto_post.setBackgroundResource(R.drawable.perfilperro);
 
