@@ -48,7 +48,7 @@ public class NouPostAdopcio extends AppCompatActivity {
         setContentView(R.layout.activity_nou_post_adopcio);
 
         //Coneixón con la API
-        URL = "https://whip-api.herokuapp.com/contributions/lostposts/new";
+        URL = "https://whip-api.herokuapp.com/contributions/adoptionposts/new";
         requestqueue = Volley.newRequestQueue(this);
 
         //Gestión de toolbar
