@@ -4,13 +4,13 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-android:background="#EA9999"
+android:background="@color/colorAdopcio"
 android:orientation="vertical"
 tools:context=".NouPostAdopcio">
 
 
 <include layout="@layout/toolbar"
-    android:id="@+id/toolbar_nuevoPostPerd"/>
+    android:id="@+id/toolbar_nuevoPostAdopcio"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@ tools:context=".NouPostAdopcio">
                 android:layout_height="wrap_content">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/perfil_perroPerd"
+                    android:id="@+id/perfil_perroAdopcio"
                     android:layout_width="match_parent"
                     android:layout_height="196dp"
                     android:layout_marginTop="20dp"
@@ -50,22 +50,15 @@ tools:context=".NouPostAdopcio">
                     android:paddingTop="20dp">
 
                     <EditText
-                        android:id="@+id/titulo_postPerd"
+                        android:id="@+id/titulo_postAdopcio"
                         android:layout_width="158dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/fondoformlargo"
                         android:hint="Añade el título...*"
                         android:paddingLeft="10dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingTop="20dp">
 
                     <EditText
-                        android:id="@+id/cp_postPerd"
+                        android:id="@+id/cp_postAdopcio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -81,8 +74,17 @@ tools:context=".NouPostAdopcio">
                     android:gravity="center"
                     android:paddingTop="20dp">
 
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="20dp">
+
                     <Spinner
-                        android:id="@+id/especie_postPerd"
+                        android:id="@+id/especie_postAdopcio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
@@ -91,7 +93,7 @@ tools:context=".NouPostAdopcio">
                         android:spinnerMode="dropdown" />
 
                     <EditText
-                        android:id="@+id/raza_postPerd"
+                        android:id="@+id/razaPerroAdopcio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -109,7 +111,7 @@ tools:context=".NouPostAdopcio">
                     android:paddingTop="20dp">
 
                     <EditText
-                        android:id="@+id/descripcion_postPerd"
+                        android:id="@+id/descripcion_postAdopcio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/fondofromdesc"
@@ -140,7 +142,7 @@ tools:context=".NouPostAdopcio">
                     android:textSize="20sp" />
 
                 <Button
-                    android:id="@+id/boton_cancelNewPostPerd"
+                    android:id="@+id/boton_cancelNewPostAdopcio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"

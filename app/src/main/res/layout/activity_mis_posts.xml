@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tabsMisPosts"
-        android:background="@color/color_toolbar"
+        android:background="@color/colorToolbar"
         app:tabIndicatorHeight="5dp"
         app:tabMode="fixed"
         app:tabGravity="fill" />

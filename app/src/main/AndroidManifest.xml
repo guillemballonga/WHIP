@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NouPostAdopcio"></activity>
+        <activity android:name=".LlistatAdopcio"></activity>
+        <activity android:name=".NouPostAdopcio" />
         <activity android:name=".MostrarImatge" />
         <activity android:name=".UploadImageFirebase" />
         <activity android:name=".MostrarPerfil" />

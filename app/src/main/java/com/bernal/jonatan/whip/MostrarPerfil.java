@@ -141,7 +141,7 @@ public class MostrarPerfil extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(MostrarPerfil.this, ListadoPerdida.class));
+                startActivity(new Intent(MostrarPerfil.this, NouPostAdopcio.class));
                 //finish();
             }
         });

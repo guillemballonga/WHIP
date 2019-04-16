@@ -33,7 +33,7 @@ import java.util.Map;
 public class NouPostAdopcio extends AppCompatActivity {
 
     ImageView foto;
-    Spinner especie,tipo;
+    Spinner especie;
     Button create,cancel;
     EditText titulo,cp,raza,contenido;
 
@@ -52,33 +52,31 @@ public class NouPostAdopcio extends AppCompatActivity {
         requestqueue = Volley.newRequestQueue(this);
 
         //Gestión de toolbar
-        Toolbar tool = (Toolbar) findViewById(R.id.toolbar_nuevoPostPerd);
+        Toolbar tool = (Toolbar) findViewById(R.id.toolbar_nuevoPostAdopcio);
         setSupportActionBar(tool);
         getSupportActionBar().setTitle("ADOPCIÓ");
 
-        foto = (ImageView) findViewById(R.id.perfil_perroPerd);
+        foto = (ImageView) findViewById(R.id.perfil_perroAdopcio);
 
-        especie = (Spinner) findViewById(R.id.especie_postPerd);
-        tipo = (Spinner) findViewById(R.id.tipo_postPerd);
+        especie = (Spinner) findViewById(R.id.especie_postAdopcio);
 
-        titulo = (EditText) findViewById(R.id.titulo_postPerd);
-        cp = (EditText) findViewById(R.id.cp_postPerd);
-        raza = (EditText) findViewById(R.id.raza_postPerd);
-        contenido = (EditText) findViewById(R.id.descripcion_postPerd);
+
+        titulo = (EditText) findViewById(R.id.titulo_postAdopcio);
+        cp = (EditText) findViewById(R.id.cp_postAdopcio);
+        raza = (EditText) findViewById(R.id.razaPerroAdopcio);
+        contenido = (EditText) findViewById(R.id.descripcion_postAdopcio);
 
 
         // Spinner per a seleccionar els items
         String[] itemsEspecie = new String[]{"Dog", "Cat", "Other"};
-        //String[] itemsTipo = new String[]{"Encontrado", "Perdido"};
 
         ArrayAdapter<String> adapterEspecie = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsEspecie);
-        //ArrayAdapter<String> adapterTipo = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsTipo);
 
         especie.setAdapter(adapterEspecie);
-        //tipo.setAdapter(adapterTipo);
 
 
-        //Obrir la galeria d'imatges
+
+        //OBRIR IMATGES
         foto.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -88,15 +86,16 @@ public class NouPostAdopcio extends AppCompatActivity {
                 //Quan cliqui obrir UploadImagesFirebase -> per penjar la foto
                 startActivity(new Intent(NouPostAdopcio.this, UploadImageFirebase.class));
 
-
             }
+
         });
+
 
 
         //Botons
 
         create = (Button) findViewById(R.id.boton_create);
-        cancel = (Button) findViewById(R.id.boton_cancelNewPostPerd);
+        cancel = (Button) findViewById(R.id.boton_cancelNewPostAdopcio);
 
         create.setOnClickListener(new View.OnClickListener(){
 
@@ -116,19 +115,17 @@ public class NouPostAdopcio extends AppCompatActivity {
 //JASON
                 try {
                     post.put("specie", especie.getSelectedItem().toString());
-                    post.put("urls", k );
+                    post.put("urls", k);
                     post.put("race", raza.getText().toString());
                     post.put("post_code", cp.getText().toString());
                     post.put("text", contenido.getText().toString());
                     post.put("title", titulo.getText().toString());
-                    if (tipo.getSelectedItem().toString().equals("Encontrado"))
-                        post.put("type", "F");
-                    else post.put("type", "L");
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                if(titulo.getText().toString().equals("") || cp.getText().toString().equals("") || raza.getText().toString().equals("") || especie.getSelectedItem().toString().equals("") || tipo.getSelectedItem().toString().equals("")) {
+                if(titulo.getText().toString().equals("") || cp.getText().toString().equals("") || raza.getText().toString().equals("") || especie.getSelectedItem().toString().equals("")) {
                     Toast.makeText(getApplicationContext(),"Los campos con * son obligatorios",Toast.LENGTH_SHORT).show();
 
                 }
@@ -183,6 +180,7 @@ public class NouPostAdopcio extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+
                 finish();
             }
         });
@@ -207,7 +205,8 @@ public class NouPostAdopcio extends AppCompatActivity {
             Uri path = data.getData();
             foto.setImageURI(path);
 
-            //Guardar el path de la foto en IMGUR
+
+            //Guardar el path de la foto en FIREBASE
 
 
         }
