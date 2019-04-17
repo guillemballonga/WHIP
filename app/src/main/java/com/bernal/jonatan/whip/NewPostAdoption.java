@@ -54,7 +54,7 @@ public class NewPostAdoption extends AppCompatActivity {
         //Gestión de toolbar
         Toolbar tool = (Toolbar) findViewById(R.id.toolbar_nuevoPostAdopcio);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("ADOPCIÓ");
+        getSupportActionBar().setTitle("ADOPCIÓN");
 
         foto = (ImageView) findViewById(R.id.perfil_perroAdopcio);
 
@@ -94,7 +94,7 @@ public class NewPostAdoption extends AppCompatActivity {
 
         //Botons
 
-        create = (Button) findViewById(R.id.boton_create);
+        create = (Button) findViewById(R.id.boton_create_adopt);
         cancel = (Button) findViewById(R.id.boton_cancelNewPostAdopcio);
 
         create.setOnClickListener(new View.OnClickListener(){
@@ -140,7 +140,7 @@ public class NewPostAdoption extends AppCompatActivity {
                                 public void onResponse(JSONObject response) {
                                     Toast.makeText(getApplicationContext(),"Post guardado correctamente",Toast.LENGTH_SHORT).show();
                                     try {
-                                        Intent i = new Intent(NewPostAdoption.this, InfoPostLost.class);
+                                        Intent i = new Intent(NewPostAdoption.this, InfoPostAdoption.class);
                                         i.putExtra("identificadorPost",response.getString("id"));
                                         startActivity(i);
                                         finish();

@@ -132,7 +132,7 @@ public class MostrarPerfil extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(MostrarPerfil.this, LostList.class));
+                //startActivity(new Intent(MostrarPerfil.this, LostList.class));
                 //finish();
             }
         });

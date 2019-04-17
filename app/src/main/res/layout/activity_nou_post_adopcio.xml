@@ -51,9 +51,9 @@ tools:context=".NewPostAdoption">
 
                     <EditText
                         android:id="@+id/titulo_postAdopcio"
-                        android:layout_width="158dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/fondoformlargo"
+                        android:background="@drawable/fondoform"
                         android:hint="Añade el título...*"
                         android:paddingLeft="10dp" />
 
@@ -132,7 +132,7 @@ tools:context=".NewPostAdoption">
                 android:gravity="center">
 
                 <Button
-                    android:id="@+id/boton_create"
+                    android:id="@+id/boton_create_adopt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"

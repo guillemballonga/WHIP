@@ -207,7 +207,6 @@ public class NewPostLost extends AppCompatActivity {
             Uri path = data.getData();
             foto.setImageURI(path);
 
-            //Guardar el path de la foto en IMGUR
 
 
         }

@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 signOut();
                 break;
             case R.id.perfil_button:
-                startActivity(new Intent(MainActivity.this, MostrarPerfil.class));
+                startActivity(new Intent(MainActivity.this, MainMenu.class));
                 break;
         }
     }

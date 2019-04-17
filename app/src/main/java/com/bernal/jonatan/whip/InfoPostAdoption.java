@@ -63,13 +63,13 @@ public class InfoPostAdoption extends AppCompatActivity {
         //Gestión toolbar
         Toolbar tool = (Toolbar) findViewById(R.id.toolbar_infoPostAdoption);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("ADOPCIÓ");
+        getSupportActionBar().setTitle("ADOPCIÓN");
 
 
         //Recoger los datos de Back y cargarlos en la vista
         URL = "https://whip-api.herokuapp.com/contributions/adoptionposts/" + Identificador;
-        URL_favs = "https://whip-api.herokuapp.com/contributions/adoptionposts/" + Identificador + "/like";
-        URL_like = "https://whip-api.herokuapp.com/contributions/adoptionposts/" + Identificador + "/like";
+        URL_favs = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like";
+        URL_like = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like";
         requestqueue = Volley.newRequestQueue(this);
 
 
@@ -91,9 +91,10 @@ public class InfoPostAdoption extends AppCompatActivity {
                             raza.setText(lostpost.getString("race"));
                             contenido.setText(lostpost.getString("text"));
                             //Fotografías con IMGUR
-                            foto_post.setBackgroundResource(R.drawable.perfilperro);
+
                             String urlFoto1 = lostpost.getString("photo_url_1"); //LAURA->
-                            if (urlFoto1 != "") retrieveImage(urlFoto1);
+                            if (!urlFoto1.equals("")) retrieveImage(urlFoto1);
+                            else foto_post.setBackgroundResource(R.drawable.perfilperro);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

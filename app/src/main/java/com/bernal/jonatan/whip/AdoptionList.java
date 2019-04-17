@@ -36,7 +36,7 @@ public class AdoptionList extends AppCompatActivity {
     private ArrayList<Fuente> Posts_perdidos;
     private Adaptador adapt;
     private SwipeRefreshLayout swipeRefreshLayout;
-    RecyclerView contenedor;
+    RecyclerView contenedor_adopt;
 
 
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("");
@@ -49,10 +49,10 @@ public class AdoptionList extends AppCompatActivity {
         setContentView(R.layout.activity_list_adoption);
 
 
-        contenedor =  findViewById(R.id.contenedor);
+        contenedor_adopt =  findViewById(R.id.contenedor_adoption);
 
         //Recarregar la pàgina
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayoutt);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
@@ -68,9 +68,9 @@ public class AdoptionList extends AppCompatActivity {
         URL = "https://whip-api.herokuapp.com/contributions/adoptionposts";
         requestqueue = Volley.newRequestQueue(this);
 
-        Toolbar tool = (Toolbar) findViewById(R.id.toolbar_listadoPerd);
+        Toolbar tool = (Toolbar) findViewById(R.id.toolbar_listadoAdopt);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("ADOPCIO");
+        getSupportActionBar().setTitle("ADOPCIÓN");
 
         Toast.makeText(getApplicationContext(),ul.getAPI_KEY(),Toast.LENGTH_SHORT).show();
 
@@ -95,14 +95,14 @@ public class AdoptionList extends AppCompatActivity {
                                 Posts_perdidos.add(new Fuente(postite.getString("id"),postite.getString("title"),postite.getString("photo_url_1"),postite.getString("text"),0));
                             }
                             adapt = new Adaptador(Posts_perdidos);
-                            contenedor.setAdapter(adapt);
-                            contenedor.setLayoutManager(layout);
+                            contenedor_adopt.setAdapter(adapt);
+                            contenedor_adopt.setLayoutManager(layout);
                             adapt.setOnClickListener(new View.OnClickListener() {
 
                                 @Override
                                 public void onClick(View view) {
-                                    String id_post = Posts_perdidos.get(contenedor.getChildAdapterPosition(view)).getId();
-                                    Intent i = new Intent(AdoptionList.this, InfoPostLost.class);
+                                    String id_post = Posts_perdidos.get(contenedor_adopt.getChildAdapterPosition(view)).getId();
+                                    Intent i = new Intent(AdoptionList.this, InfoPostAdoption.class);
                                     i.putExtra("identificadorPost",id_post);
                                     startActivity(i);
                                 }
@@ -139,7 +139,7 @@ public class AdoptionList extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem menuItem){
         switch (menuItem.getItemId()){
             case R.id.icono_añadir:
-                startActivity(new Intent(AdoptionList.this, NewPostLost.class));
+                startActivity(new Intent(AdoptionList.this, NewPostAdoption.class));
                 break;
         }
         return true;
