@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/colorAdopcio"
+android:orientation="vertical"
+tools:context=".NewPostAdoption">
+
+
+<include layout="@layout/toolbar"
+    android:id="@+id/toolbar_nuevoPostAdopcio"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/perfil_perroAdopcio"
+                    android:layout_width="match_parent"
+                    android:layout_height="196dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/perfilperro" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="20dp">
+
+                    <EditText
+                        android:id="@+id/titulo_postAdopcio"
+                        android:layout_width="158dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/fondoformlargo"
+                        android:hint="Añade el título...*"
+                        android:paddingLeft="10dp" />
+
+                    <EditText
+                        android:id="@+id/cp_postAdopcio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/fondoform"
+                        android:hint="Añade el C.P...*"
+                        android:paddingLeft="10dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="20dp">
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="20dp">
+
+                    <Spinner
+                        android:id="@+id/especie_postAdopcio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/fondoform"
+                        android:paddingLeft="10dp"
+                        android:spinnerMode="dropdown" />
+
+                    <EditText
+                        android:id="@+id/razaPerroAdopcio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/fondoform"
+                        android:hint="Añade la raza...*"
+                        android:paddingLeft="10dp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="20dp">
+
+                    <EditText
+                        android:id="@+id/descripcion_postAdopcio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/fondofromdesc"
+                        android:hint="Añade un comentario..."
+                        android:paddingLeft="10dp"
+                        android:paddingBottom="40dp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="30dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/boton_create"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/botonredondo"
+                    android:text="CREAR"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/boton_cancelNewPostAdopcio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/botonredondo"
+                    android:text="CANCELAR"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

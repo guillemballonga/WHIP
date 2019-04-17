@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
 
-            //startActivity(new Intent(MainActivity.this, EditarPerfil.class));
+            //startActivity(new Intent(MainActivity.this, EditProfile.class));
 
            // finish();
         } else {

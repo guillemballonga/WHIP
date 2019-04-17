@@ -1,9 +1,9 @@
 package com.bernal.jonatan.whip;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -28,8 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ListadoPerdida extends AppCompatActivity {
-
+public class AdoptionList extends AppCompatActivity {
 
     private String URL;
     private RequestQueue requestqueue;
@@ -44,11 +43,11 @@ public class ListadoPerdida extends AppCompatActivity {
     private String api = ul.getAPI_KEY();
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listado_perdida);
+        setContentView(R.layout.activity_list_adoption);
+
 
         contenedor =  findViewById(R.id.contenedor);
 
@@ -57,21 +56,21 @@ public class ListadoPerdida extends AppCompatActivity {
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
-                    @Override
-                    public void onRefresh() {
-                        finish();
-                        startActivity(getIntent());
-                    }
+            @Override
+            public void onRefresh() {
+                finish();
+                startActivity(getIntent());
+            }
         });
 
 
         //Coneixón con la API
-        URL = "https://whip-api.herokuapp.com/contributions/lostposts";
+        URL = "https://whip-api.herokuapp.com/contributions/adoptionposts";
         requestqueue = Volley.newRequestQueue(this);
 
         Toolbar tool = (Toolbar) findViewById(R.id.toolbar_listadoPerd);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("ENCONTRADO O PÉRDIDA");
+        getSupportActionBar().setTitle("ADOPCIO");
 
         Toast.makeText(getApplicationContext(),ul.getAPI_KEY(),Toast.LENGTH_SHORT).show();
 
@@ -93,7 +92,7 @@ public class ListadoPerdida extends AppCompatActivity {
                             JSONObject postite;
                             for (int i = 0; i < resultat.length();i++) {
                                 postite = resultat.getJSONObject(i);
-                                Posts_perdidos.add(new Fuente(postite.getString("id"),postite.getString("title"),postite.getString("photo_url_1"),postite.getString("text"),0));
+                                Posts_perdidos.add(new Fuente(postite.getString("id"),postite.getString("title"),R.drawable.perro,postite.getString("text"),0));
                             }
                             adapt = new Adaptador(Posts_perdidos);
                             contenedor.setAdapter(adapt);
@@ -103,7 +102,7 @@ public class ListadoPerdida extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     String id_post = Posts_perdidos.get(contenedor.getChildAdapterPosition(view)).getId();
-                                    Intent i = new Intent(ListadoPerdida.this, InfoPostLost.class);
+                                    Intent i = new Intent(AdoptionList.this, InfoPostLost.class);
                                     i.putExtra("identificadorPost",id_post);
                                     startActivity(i);
                                 }
@@ -140,7 +139,7 @@ public class ListadoPerdida extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem menuItem){
         switch (menuItem.getItemId()){
             case R.id.icono_añadir:
-                startActivity(new Intent(ListadoPerdida.this, NewPostLost.class));
+                startActivity(new Intent(AdoptionList.this, NewPostLost.class));
                 break;
         }
         return true;
@@ -149,3 +148,6 @@ public class ListadoPerdida extends AppCompatActivity {
 
 
 }
+
+
+

@@ -17,9 +17,12 @@
         android:theme="@style/AppTheme">
         <activity android:name=".InfoPostAdoption"></activity>
         <activity android:name=".ShowImage" />
+        <activity android:name=".AdoptionList"></activity>
+        <activity android:name=".NewPostAdoption" />
+        <activity android:name=".MostrarImatge" />
         <activity android:name=".UploadImageFirebase" />
         <activity android:name=".MostrarPerfil" />
-        <activity android:name=".EditarPerfil" />
+        <activity android:name=".EditProfile" />
         <activity android:name=".InfoPostLost" />
         <activity android:name=".MyPosts" />
         <activity android:name=".NewPostLost" />
@@ -31,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainMenu" />
-        <activity android:name=".ListadoPerdida" />
+        <activity android:name=".LostList" />
     </application>
 
 </manifest>

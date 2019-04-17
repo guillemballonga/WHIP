@@ -115,7 +115,7 @@ public class MostrarPerfil extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(MostrarPerfil.this, EditarPerfil.class));
+                startActivity(new Intent(MostrarPerfil.this, EditProfile.class));
                 //finish();
             }
         });
@@ -132,7 +132,7 @@ public class MostrarPerfil extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(MostrarPerfil.this, ListadoPerdida.class));
+                startActivity(new Intent(MostrarPerfil.this, LostList.class));
                 //finish();
             }
         });
