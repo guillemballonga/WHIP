@@ -70,8 +70,8 @@ public class InfoPostLost extends AppCompatActivity {
 
         //Recoger los datos de Back y cargarlos en la vista
         URL = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador;
-        URL_favs = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador + "/like";
-        URL_like = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador + "/like";
+        URL_favs = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=lost";
+        URL_like = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=lost";
         requestqueue = Volley.newRequestQueue(this);
 
 
@@ -99,9 +99,8 @@ public class InfoPostLost extends AppCompatActivity {
                             foto_user.setBackgroundResource(R.drawable.icono_usuario); //TODO foto google
 
                             String urlFoto1 = lostpost.getString("photo_url_1"); //LAURA->
-                            if (urlFoto1 != "") retrieveImage(urlFoto1);
-
-                            //foto_post.setBackgroundResource(R.drawable.perfilperro);
+                            if (!urlFoto1.equals("")) retrieveImage(urlFoto1);
+                            else foto_post.setBackgroundResource(R.drawable.perfilperro);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
