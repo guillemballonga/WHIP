@@ -1,5 +1,8 @@
 package com.bernal.jonatan.whip;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -16,10 +19,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,7 +63,7 @@ public class InfoPostAdoption extends AppCompatActivity {
         //Gestión toolbar
         Toolbar tool = (Toolbar) findViewById(R.id.toolbar_infoPostAdoption);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("ADOPCIÓN");
+        getSupportActionBar().setTitle("ADOPCIÓ");
 
 
         //Recoger los datos de Back y cargarlos en la vista
@@ -82,6 +92,8 @@ public class InfoPostAdoption extends AppCompatActivity {
                             contenido.setText(lostpost.getString("text"));
                             //Fotografías con IMGUR
                             foto_post.setBackgroundResource(R.drawable.perfilperro);
+                            String urlFoto1 = lostpost.getString("photo_url_1"); //LAURA->
+                            if (urlFoto1 != "") retrieveImage(urlFoto1);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -229,6 +241,29 @@ public class InfoPostAdoption extends AppCompatActivity {
             }
         };
         requestqueue.add(objectJsonrequest);
+    }
+    public void retrieveImage(String idImageFirebase) {
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
+        StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
+
+        //foto_post = (ImageView) findViewById(R.id.foto_postPerd);
+        try {
+            final File localFile = File.createTempFile("images", "jpg");
+            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                    foto_post.setImageBitmap(bitmap);
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                }
+            });
+        } catch (IOException e ) {}
     }
 
 

@@ -48,7 +48,7 @@ public class LostList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listado_perdida);
+        setContentView(R.layout.activity_list_lost);
 
         contenedor =  findViewById(R.id.contenedor);
 
