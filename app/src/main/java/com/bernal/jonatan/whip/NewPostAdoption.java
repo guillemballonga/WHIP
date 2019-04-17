@@ -30,7 +30,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NouPostAdopcio extends AppCompatActivity {
+public class NewPostAdoption extends AppCompatActivity {
 
     ImageView foto;
     Spinner especie;
@@ -40,7 +40,7 @@ public class NouPostAdopcio extends AppCompatActivity {
     //variables para comucicación back
     private String URL;
     private RequestQueue requestqueue;
-    private Usuari_Logejat ul = Usuari_Logejat.getUsuariLogejat("");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +84,7 @@ public class NouPostAdopcio extends AppCompatActivity {
                 //openGallery();
 
                 //Quan cliqui obrir UploadImagesFirebase -> per penjar la foto
-                startActivity(new Intent(NouPostAdopcio.this, UploadImageFirebase.class));
+                startActivity(new Intent(NewPostAdoption.this, UploadImageFirebase.class));
 
             }
 
@@ -140,7 +140,7 @@ public class NouPostAdopcio extends AppCompatActivity {
                                 public void onResponse(JSONObject response) {
                                     Toast.makeText(getApplicationContext(),"Post guardado correctamente",Toast.LENGTH_SHORT).show();
                                     try {
-                                        Intent i = new Intent(NouPostAdopcio.this, InfoPost.class);
+                                        Intent i = new Intent(NewPostAdoption.this, InfoPostLost.class);
                                         i.putExtra("identificadorPost",response.getString("id"));
                                         startActivity(i);
                                         finish();
