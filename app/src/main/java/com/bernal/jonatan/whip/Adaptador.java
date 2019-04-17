@@ -30,7 +30,9 @@ public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.
     @Override
     public void onBindViewHolder(ViewHolder holder, int i) {
         holder.nombre_postPerdi.setText(listaObjetos.get(i).getNombre());
-        holder.imagen_postPerdi.setImageResource(listaObjetos.get(i).getImagen());
+
+        //holder.imagen_postPerdi.setImageResource(listaObjetos.get(i).getImagen());
+
         holder.contenido_postPerdi.setText(listaObjetos.get(i).getContenido());
         holder.setId(listaObjetos.get(i).getId());
     }
