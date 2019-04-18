@@ -45,7 +45,7 @@ public class EditProfile extends AppCompatActivity {
 
 
     //variables para comucicación back
-    private String URL;
+    private String URL, urlFoto;
     private RequestQueue requestqueue;
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("");
     private String api = ul.getAPI_KEY();
@@ -93,7 +93,7 @@ public class EditProfile extends AppCompatActivity {
                     perfil_editat.put("about","hola");
                     perfil_editat.put("fam_name", cognom.getText().toString());
                     perfil_editat.put("username", user.getText().toString());
-                    perfil_editat.put("photo_url",path.toString());
+                    perfil_editat.put("photo_url",urlFoto);
 
 
                 } catch (JSONException e) {
@@ -205,8 +205,10 @@ public class EditProfile extends AppCompatActivity {
             path = data.getData();
             fotoperfil.setImageURI(path);
 
+            //LAURA Guardar la foto guardada en path a FIREBASE
+            //ASSIGNAR A urlFoto LA URL REBUDA DE FIREBASE
 
-            //Guardar el path de la foto en IMGUR
+            //urlFoto = linkFirebaseFotoDePath ;
 
         }
     }
