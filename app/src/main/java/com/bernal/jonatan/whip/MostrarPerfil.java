@@ -174,9 +174,6 @@ public class MostrarPerfil extends AppCompatActivity {
 
 
 
-        //Toast.makeText(getApplicationContext(), urlFoto ,Toast.LENGTH_SHORT).show();
-
-       // urlFoto = "http://img2.rtve.es/i/?w=1600&i=1555449876116.jpg";
 
 
     }
