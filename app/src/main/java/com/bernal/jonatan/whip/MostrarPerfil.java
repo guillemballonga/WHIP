@@ -2,6 +2,7 @@ package com.bernal.jonatan.whip;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.provider.ContactsContract;
 import android.support.annotation.RequiresApi;
@@ -161,7 +162,12 @@ public class MostrarPerfil extends AppCompatActivity {
         correu.setTextSize(12);
 
         imatge = findViewById(R.id.imagen_perfil);
-        //imatge.setImageURI();
+        String path = result.getString("Uri path");
+
+
+
+        imatge.setImageURI(Uri.parse(Uri.decode(path)));
+
 
 
 

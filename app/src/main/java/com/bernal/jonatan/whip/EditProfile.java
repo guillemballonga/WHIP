@@ -45,6 +45,7 @@ public class EditProfile extends AppCompatActivity {
     private RequestQueue requestqueue;
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("");
     private String api = ul.getAPI_KEY();
+    private Uri path;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -88,6 +89,8 @@ public class EditProfile extends AppCompatActivity {
                     perfil_editat.put("about","hola");
                     perfil_editat.put("fam_name", cognom.getText().toString());
                     perfil_editat.put("username", user.getText().toString());
+                    perfil_editat.put("photo_url",path.toString());
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -137,8 +140,12 @@ public class EditProfile extends AppCompatActivity {
 
                 }
 
+
+
             }
-            
+
+
+
         });
 
         fotoperfil.setOnClickListener(new View.OnClickListener() {
@@ -172,6 +179,9 @@ public class EditProfile extends AppCompatActivity {
         fotoperfil = findViewById(R.id.imagen_perfil);
 
 
+
+
+
     }
 
     @SuppressLint("IntentReset")
@@ -187,8 +197,9 @@ public class EditProfile extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             assert data != null;
-            Uri path = data.getData();
+            path = data.getData();
             fotoperfil.setImageURI(path);
+
 
             //Guardar el path de la foto en IMGUR
 
