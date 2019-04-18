@@ -44,9 +44,10 @@ public class MyPosts extends AppCompatActivity {
 
     private void carregaViewPager(ViewPager viewPager){
         ViewPagerAdaptador adaptador = new ViewPagerAdaptador(getSupportFragmentManager());
-        adaptador.addFragment(newInstance("Post Propios"));
-        adaptador.addFragment(newInstance("Post Comentados"));
-        adaptador.addFragment(newInstance("Post Favoritos"));
+        adaptador.addFragment(newInstance("Post Propios text"));
+
+        adaptador.addFragment(newInstance("Post Comentados text"));
+        adaptador.addFragment(newInstance("Post Favoritos text "));
         viewPager.setAdapter(adaptador);
     }
 

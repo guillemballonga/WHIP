@@ -1,8 +1,11 @@
 package com.bernal.jonatan.whip;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,11 +25,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,6 +68,8 @@ public class NewPostLost extends AppCompatActivity {
 
         foto = (ImageView) findViewById(R.id.perfil_perroPerd);
 
+
+
         especie = (Spinner) findViewById(R.id.especie_postPerd);
         tipo = (Spinner) findViewById(R.id.tipo_postPerd);
 
@@ -85,8 +97,10 @@ public class NewPostLost extends AppCompatActivity {
             public void onClick(View view) {
                 //openGallery();
 
+                Intent intent = new Intent(NewPostLost.this, UploadImageFirebase.class);
+                intent.putExtra("imageViewFoto", R.id.perfil_perroPerd);
                 //Quan cliqui obrir UploadImagesFirebase
-                startActivity(new Intent(NewPostLost.this, UploadImageFirebase.class));
+                startActivity(intent);
 
 
             }
@@ -211,5 +225,6 @@ public class NewPostLost extends AppCompatActivity {
 
         }
     }
+
 
 }
