@@ -23,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.master.glideimageview.GlideImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,14 +32,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class EditProfile extends AppCompatActivity {
 
 
     Button goToMostrarPerfilGuardant, goToMostrarPerfilCancelar;
-    ImageView fotoperfil;
+    GlideImageView fotoperfil;
     EditText nom,cognom,user,cp;
     TextView correu;
+
 
     //variables para comucicación back
     private String URL;
@@ -177,6 +181,7 @@ public class EditProfile extends AppCompatActivity {
         cp.setText(MostrarPerfil.getCP());
 
         fotoperfil = findViewById(R.id.imagen_perfil);
+        fotoperfil.loadImageUrl(MostrarPerfil.getFoto());
 
 
 

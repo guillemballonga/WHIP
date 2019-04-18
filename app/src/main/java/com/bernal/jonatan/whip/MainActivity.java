@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -87,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // [END customize_button]
 
 
+
+
     }
 
     @Override
@@ -99,6 +104,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         updateUI(account);
         // [END on_start_sign_in]
+
+
     }
 
     // [START onActivityResult]
@@ -145,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             user.put("name", name[0]);
             user.put("fam_name", account.getFamilyName());
             user.put("username", "");
+            user.put("photo_url", account.getPhotoUrl());
 
 
         } catch (JSONException e) {
@@ -212,6 +220,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         // [END_EXCLUDE]
                     }
                 });
+
+
+
     }
     // [END signOut]
 

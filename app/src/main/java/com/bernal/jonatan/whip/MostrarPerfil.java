@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,6 +29,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.master.glideimageview.GlideImageView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +41,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MostrarPerfil extends AppCompatActivity {
 
     Button goToEditarPerfil, goToMisPosts;
@@ -46,8 +51,10 @@ public class MostrarPerfil extends AppCompatActivity {
     static String userBack;
     static String cpBack;
     static String correuBack;
+    static String urlFoto;
     TextView nom,cognom,user,cp, correu;
-    ImageView imatge;
+    //ImageView imatge;
+    GlideImageView imatge;
 
     //Objectes per JSONGet
     private String URL;
@@ -161,14 +168,15 @@ public class MostrarPerfil extends AppCompatActivity {
         correu.setText(correuBack);
         correu.setTextSize(12);
 
+        urlFoto = result.getString("photo_url");
         imatge = findViewById(R.id.imagen_perfil);
-        String path = result.getString("Uri path");
+        imatge.loadImageUrl(urlFoto);
 
 
 
-        imatge.setImageURI(Uri.parse(Uri.decode(path)));
+        //Toast.makeText(getApplicationContext(), urlFoto ,Toast.LENGTH_SHORT).show();
 
-
+       // urlFoto = "http://img2.rtve.es/i/?w=1600&i=1555449876116.jpg";
 
 
     }
@@ -187,6 +195,7 @@ public class MostrarPerfil extends AppCompatActivity {
     public static String getCP() {
         return cpBack;
     }
+    public static String getFoto() { return urlFoto; }
 
 
 

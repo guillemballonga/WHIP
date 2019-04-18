@@ -26,17 +26,27 @@
         android:layout_marginTop="40dp">
 
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:gravity="center">
 
-        <ImageView
-            android:id="@+id/imagen_perfil"
-            android:layout_width="match_parent"
-            android:layout_height="156dp"
-            android:src="@drawable/icono_usuario" />
-    </LinearLayout>
+
+              <com.master.glideimageview.GlideImageView
+                android:id="@+id/imagen_perfil"
+                android:layout_width="match_parent"
+                android:layout_height="156dp"
+
+                app:error_res="@drawable/icono_usuario"
+                android:src="@drawable/icono_usuario"
+                app:placeholder_res="@drawable/cargando"
+                app:show_progress="true"
+                />
+
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
