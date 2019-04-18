@@ -54,7 +54,7 @@ public class MostrarPerfil extends AppCompatActivity {
     private JSONArray resultat;
     private JSONObject result;
 
-    private Usuari_Logejat ul = Usuari_Logejat.getUsuariLogejat("");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("");
     private String api = ul.getAPI_KEY();
 
 
@@ -122,7 +122,7 @@ public class MostrarPerfil extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(MostrarPerfil.this, EditarPerfil.class));
+                startActivity(new Intent(MostrarPerfil.this, EditProfile.class));
                 //finish();
             }
         });
@@ -131,7 +131,7 @@ public class MostrarPerfil extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(MostrarPerfil.this, MisPosts.class));
+                startActivity(new Intent(MostrarPerfil.this, MyPosts.class));
                 //finish();
             }
         });
