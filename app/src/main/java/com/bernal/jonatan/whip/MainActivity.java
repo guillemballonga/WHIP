@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private String URL;
     private RequestQueue requestqueue;
-    Usuari_Logejat ul;
+    UserLoggedIn ul;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Toast.makeText(getApplicationContext(),"Usuari logejat  correctament",Toast.LENGTH_SHORT).show();
                             //todo guardar api key en el singleton
                             try {
-                                ul = Usuari_Logejat.getUsuariLogejat(response.getString("api_key"));
+                                ul = UserLoggedIn.getUsuariLogejat(response.getString("api_key"));
                                 ul.setAPI_KEY(response.getString("api_key"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -238,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
 
-            //startActivity(new Intent(MainActivity.this, EditarPerfil.class));
+            //startActivity(new Intent(MainActivity.this, EditProfile.class));
 
            // finish();
         } else {
@@ -261,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 signOut();
                 break;
             case R.id.perfil_button:
-                startActivity(new Intent(MainActivity.this, MostrarPerfil.class));
+                startActivity(new Intent(MainActivity.this, MainMenu.class));
                 break;
         }
     }

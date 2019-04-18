@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#EA9999"
     android:orientation="vertical"
-    tools:context=".NuevoPostPerdido">
+    tools:context=".NewPostLost">
 
 
     <include layout="@layout/toolbar"

@@ -4,7 +4,7 @@ public class Fuente {
 
 
     String nombre;
-    int imagen;
+    String imagen;
     String contenido;
     int estado;
     String id;
@@ -12,7 +12,7 @@ public class Fuente {
 
 
 
-    public Fuente(String id, String nombre, int imagen, String contenido, int estado) {
+    public Fuente(String id, String nombre, String imagen, String contenido, int estado) {
         this.id = id;
         this.nombre = nombre;
         this.imagen = imagen;
@@ -28,11 +28,11 @@ public class Fuente {
         this.nombre = nombre;
     }
 
-    public int getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(int imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 

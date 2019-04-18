@@ -54,4 +54,7 @@
          from https://console.developers.google.com/ -->
     <string name="server_client_id">165813394161-g8paonp3kugst715s14eloh84l9lvneu.apps.googleusercontent.com</string>
     <string name="logo_whip">logo whip</string>
+    <string name="title_activity_info_post_adoption">InfoPostAdoption</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
 </resources>
