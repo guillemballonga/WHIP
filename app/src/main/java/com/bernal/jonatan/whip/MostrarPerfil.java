@@ -162,7 +162,7 @@ public class MostrarPerfil extends AppCompatActivity {
         correu.setTextSize(12);
 
         imatge = findViewById(R.id.imagen_perfil);
-        //imatge.setImageURI();
+
 
 
 
