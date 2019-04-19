@@ -94,7 +94,7 @@ public class AdoptionList extends AppCompatActivity {
                                 postite = resultat.getJSONObject(i);
                                 Posts_perdidos.add(new Fuente(postite.getString("id"),postite.getString("title"),postite.getString("photo_url_1"),postite.getString("text"),0));
                             }
-                            adapt = new Adaptador(Posts_perdidos);
+                            adapt = new Adaptador(Posts_perdidos,"Adoption");
                             contenedor_adopt.setAdapter(adapt);
                             contenedor_adopt.setLayoutManager(layout);
                             adapt.setOnClickListener(new View.OnClickListener() {

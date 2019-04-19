@@ -68,8 +68,8 @@ public class InfoPostAdoption extends AppCompatActivity {
 
         //Recoger los datos de Back y cargarlos en la vista
         URL = "https://whip-api.herokuapp.com/contributions/adoptionposts/" + Identificador;
-        URL_favs = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like";
-        URL_like = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like";
+        URL_favs = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=adoption";
+        URL_like = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=adoption";
         requestqueue = Volley.newRequestQueue(this);
 
 

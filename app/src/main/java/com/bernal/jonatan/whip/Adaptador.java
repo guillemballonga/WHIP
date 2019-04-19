@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,15 +22,24 @@ public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.
 
     List<Fuente> listaObjetos;
     private View.OnClickListener listener;
+    private String type;
 
 
-    public Adaptador(List<Fuente> listaObjetos) {
+    public Adaptador(List<Fuente> listaObjetos, String type) {
+
         this.listaObjetos = listaObjetos;
+        this.type = type;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item, parent, false);
+        View vista = null;
+        if (type.equals("Lost")) {
+            vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_lost, parent, false);
+        }
+        else if (type.equals("Adoption")) {
+            vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_adoption, parent, false);
+        }
 
         vista.setOnClickListener(this);
         return new ViewHolder(vista, listaObjetos);

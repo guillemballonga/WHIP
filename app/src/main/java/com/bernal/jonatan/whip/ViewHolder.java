@@ -40,6 +40,5 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
     @Override
     public void onClick(View v) {
         int position = getAdapterPosition();
-        //aquí puedo usar los datos del post para lo que se necesite
     }
 }
