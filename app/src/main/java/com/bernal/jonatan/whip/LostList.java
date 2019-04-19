@@ -10,6 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -31,7 +35,7 @@ import java.util.Map;
 public class LostList extends AppCompatActivity {
 
 
-    private String URL;
+    private String URL, URL_filtre;
     private RequestQueue requestqueue;
     private JSONArray resultat;
     private ArrayList<Fuente> Posts_perdidos;
@@ -42,7 +46,7 @@ public class LostList extends AppCompatActivity {
 
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("");
     private String api = ul.getAPI_KEY();
-
+    private Spinner spinnerFiltre;
 
 
     @Override
@@ -51,6 +55,7 @@ public class LostList extends AppCompatActivity {
         setContentView(R.layout.activity_list_lost);
 
         contenedor =  findViewById(R.id.contenedor);
+        spinnerFiltre = (Spinner) findViewById(R.id.spinner_filter);
 
         //Recarregar la pàgina
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayoutt);
@@ -67,6 +72,8 @@ public class LostList extends AppCompatActivity {
 
         //Coneixón con la API
         URL = "https://whip-api.herokuapp.com/contributions/lostposts";
+        URL_filtre = "https://whip-api.herokuapp.com/contributions/lostposts?sort=";
+
         requestqueue = Volley.newRequestQueue(this);
 
         Toolbar tool = (Toolbar) findViewById(R.id.toolbar_listadoPerd);
@@ -75,8 +82,38 @@ public class LostList extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(),ul.getAPI_KEY(),Toast.LENGTH_SHORT).show();
 
-        //Llamada a la API
 
+
+        String[] itemsSort = new String[]{"","Recent", "Dog", "Cat", "Other"};
+        ArrayAdapter<String> adapterSort = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsSort);
+
+        spinnerFiltre.setAdapter(adapterSort);
+
+
+        spinnerFiltre.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+
+                String selectedItem = spinnerFiltre.getSelectedItem().toString();
+                if (selectedItem != "") {
+                    URL_filtre = URL_filtre + selectedItem;
+                    //TODO: enviar a la funcio
+
+                    backFiltres();
+                }
+
+
+
+
+            } // to close the onItemSelected
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
+
+        //TODO: spinnerFiltre.getSelectedItem().toString()
         JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
                 JsonRequest.Method.GET,
                 URL,
@@ -145,6 +182,63 @@ public class LostList extends AppCompatActivity {
         }
         return true;
     }
+
+    private void backFiltres() {
+        JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
+                JsonRequest.Method.GET,
+                URL_filtre,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            Toast.makeText(getApplicationContext(),"LLISTAT FILTRES MOSTRAT GOOD",Toast.LENGTH_SHORT).show();
+                            resultat = response;
+                            Posts_perdidos = new ArrayList<>();
+                            LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
+                            layout.setOrientation(LinearLayoutManager.VERTICAL);
+                            JSONObject postite;
+                            for (int i = 0; i < resultat.length();i++) {
+                                postite = resultat.getJSONObject(i);
+                                Posts_perdidos.add(new Fuente(postite.getString("id"),postite.getString("title"),postite.getString("photo_url_1"),postite.getString("text"),0));
+                            }
+                            adapt = new Adaptador(Posts_perdidos,"Lost");
+                            contenedor.setAdapter(adapt);
+                            contenedor.setLayoutManager(layout);
+                            adapt.setOnClickListener(new View.OnClickListener() {
+
+                                @Override
+                                public void onClick(View view) {
+                                    String id_post = Posts_perdidos.get(contenedor.getChildAdapterPosition(view)).getId();
+                                    Intent i = new Intent(LostList.this, InfoPostLost.class);
+                                    i.putExtra("identificadorPost",id_post);
+                                    startActivity(i);
+                                }
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(),"FILTRES: PROBLEMS MOSTRAR LLIST",Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", api); //valor de V ha de ser el de la var global
+                return params;
+            }
+        };
+        requestqueue.add(arrayJsonrequest);
+
+    }
+
 
 
 

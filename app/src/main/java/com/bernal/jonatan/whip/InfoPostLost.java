@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,11 +36,12 @@ import java.util.Map;
 
 public class InfoPostLost extends AppCompatActivity {
 
+    //private static final String  = ;
     TextView titulo, fecha, especie, tipo, raza, contenido;
     ImageView foto_post, foto_user;
     String Identificador;
 
-    private String URL, URL_favs, URL_like;
+    private String URL, URL_favs, URL_like, URL_filtre;
     private RequestQueue requestqueue;
 
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("");
@@ -62,16 +64,20 @@ public class InfoPostLost extends AppCompatActivity {
         foto_post = (ImageView) findViewById(R.id.foto_postPerd);
         foto_user = (ImageView) findViewById(R.id.imagen_coment_user);
 
+
         //Gestión toolbar
         Toolbar tool = (Toolbar) findViewById(R.id.toolbar_infoPostPerd);
         setSupportActionBar(tool);
         getSupportActionBar().setTitle("ENCONTRADO O PÉRDIDA");
 
 
+
+
         //Recoger los datos de Back y cargarlos en la vista
         URL = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador;
         URL_favs = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=lost";
         URL_like = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=lost";
+
         requestqueue = Volley.newRequestQueue(this);
 
 
