@@ -17,7 +17,7 @@
         android:paddingTop="4dp">
 
         <Spinner
-            android:id="@+id/spinner_filter"
+            android:id="@+id/spinner_filter_lost"
             android:layout_width="43dp"
             android:layout_height="45dp"
             android:layout_marginRight="5dp"

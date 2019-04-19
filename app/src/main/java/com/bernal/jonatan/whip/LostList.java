@@ -47,6 +47,7 @@ public class LostList extends AppCompatActivity {
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("");
     private String api = ul.getAPI_KEY();
     private Spinner spinnerFiltre;
+    String selectedItem = "";
 
 
     @Override
@@ -55,7 +56,8 @@ public class LostList extends AppCompatActivity {
         setContentView(R.layout.activity_list_lost);
 
         contenedor =  findViewById(R.id.contenedor);
-        spinnerFiltre = (Spinner) findViewById(R.id.spinner_filter);
+        spinnerFiltre = (Spinner) findViewById(R.id.spinner_filter_lost);
+        selectedItem = "";
 
         //Recarregar la pàgina
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayoutt);
@@ -95,16 +97,14 @@ public class LostList extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
 
-                String selectedItem = spinnerFiltre.getSelectedItem().toString();
+                selectedItem = spinnerFiltre.getSelectedItem().toString();
                 if (selectedItem != "") {
                     URL_filtre = URL_filtre + selectedItem;
                     //TODO: enviar a la funcio
 
                     backFiltres();
+
                 }
-
-
-
 
             } // to close the onItemSelected
             public void onNothingSelected(AdapterView<?> parent)
@@ -113,6 +113,26 @@ public class LostList extends AppCompatActivity {
             }
         });
 
+        if (selectedItem == "") back_normal();
+
+
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menus,menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem menuItem){
+        switch (menuItem.getItemId()){
+            case R.id.icono_añadir:
+                startActivity(new Intent(LostList.this, NewPostLost.class));
+                break;
+        }
+        return true;
+    }
+
+    private void back_normal() {
         //TODO: spinnerFiltre.getSelectedItem().toString()
         JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
                 JsonRequest.Method.GET,
@@ -167,20 +187,7 @@ public class LostList extends AppCompatActivity {
         };
         requestqueue.add(arrayJsonrequest);
 
-    }
 
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menus,menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem menuItem){
-        switch (menuItem.getItemId()){
-            case R.id.icono_añadir:
-                startActivity(new Intent(LostList.this, NewPostLost.class));
-                break;
-        }
-        return true;
     }
 
     private void backFiltres() {
