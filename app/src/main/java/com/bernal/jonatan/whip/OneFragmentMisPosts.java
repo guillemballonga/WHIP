@@ -84,9 +84,12 @@ public class OneFragmentMisPosts extends Fragment {
                                 JSONObject postite;
                                 for (int i = 0; i < resultat.length(); i++) {
                                     postite = resultat.getJSONObject(i);
-                                    Mis_Posts.add(new Fuente(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), 0));
+                                    String tipo;
+                                    if (postite.has("type")) tipo = "LOST";
+                                    else tipo = "ADOPTION";
+                                    Mis_Posts.add(new Fuente(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), 0,tipo));
                                 }
-                                adapt = new Adaptador(Mis_Posts,"Lost"); //Color de Lost --> No se como hacer que salgan de un color distinto
+                                adapt = new Adaptador(Mis_Posts,"User_Post"); //Color de Lost --> No se como hacer que salgan de un color distinto
                                 contenedor.setAdapter(adapt);
                                 contenedor.setLayoutManager(layout);
                                 adapt.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +97,9 @@ public class OneFragmentMisPosts extends Fragment {
                                     @Override
                                     public void onClick(View view) {
                                         String id_post = Mis_Posts.get(contenedor.getChildAdapterPosition(view)).getId();
-                                        Intent i = new Intent(getActivity(), InfoPostLost.class);
+                                        Intent i;
+                                        if (Mis_Posts.get(contenedor.getChildAdapterPosition(view)).getType().equals("LOST")) i = new Intent(getActivity(), InfoPostLost.class);
+                                        else i = new Intent(getActivity(), InfoPostAdoption.class);
                                         i.putExtra("identificadorPost", id_post);
                                         startActivity(i);
                                     }

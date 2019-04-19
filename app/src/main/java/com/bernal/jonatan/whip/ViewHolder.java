@@ -15,7 +15,7 @@ import static android.support.v4.content.ContextCompat.startActivity;
 public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     ImageView imagen_postPerdi;
-    TextView contenido_postPerdi, nombre_postPerdi;
+    TextView contenido_postPerdi, nombre_postPerdi, type_post;
     String id;
 
     public String getIdentificador() {
@@ -33,6 +33,7 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
         imagen_postPerdi = (ImageView) itemView.findViewById(R.id.imagen_postPerd);
         contenido_postPerdi = (TextView) itemView.findViewById(R.id.Contenido_postPerd);
         nombre_postPerdi = (TextView) itemView.findViewById(R.id.Nombre_postPerd);
+        type_post = (TextView) itemView.findViewById(R.id.tipoPost);
 
     }
 

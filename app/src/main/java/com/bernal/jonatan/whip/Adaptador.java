@@ -40,6 +40,9 @@ public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.
         else if (type.equals("Adoption")) {
             vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_adoption, parent, false);
         }
+        else if (type.equals("User_Post")) {
+            vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_userposts, parent, false);
+        }
 
         vista.setOnClickListener(this);
         return new ViewHolder(vista, listaObjetos);
@@ -54,6 +57,9 @@ public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.
         else holder.imagen_postPerdi.setImageResource(R.drawable.perro);
 
         holder.contenido_postPerdi.setText(listaObjetos.get(i).getContenido());
+
+        if(type.equals("User_Post")) holder.type_post.setText(listaObjetos.get(i).getType());
+
         holder.setId(listaObjetos.get(i).getId());
     }
 

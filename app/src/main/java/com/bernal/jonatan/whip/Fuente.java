@@ -8,16 +8,17 @@ public class Fuente {
     String contenido;
     int estado;
     String id;
+    String type;
 
 
 
-
-    public Fuente(String id, String nombre, String imagen, String contenido, int estado) {
+    public Fuente(String id, String nombre, String imagen, String contenido, int estado, String type) {
         this.id = id;
         this.nombre = nombre;
         this.imagen = imagen;
         this.contenido = contenido;
         this.estado = estado;
+        this.type = type;
     }
 
     public String getNombre() {
@@ -54,5 +55,13 @@ public class Fuente {
 
     public String getId() {
         return id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

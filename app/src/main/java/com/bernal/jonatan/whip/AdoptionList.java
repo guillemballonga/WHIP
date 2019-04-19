@@ -125,7 +125,7 @@ public class AdoptionList extends AppCompatActivity {
                             JSONObject postite;
                             for (int i = 0; i < resultat.length();i++) {
                                 postite = resultat.getJSONObject(i);
-                                Posts_adoption.add(new Fuente(postite.getString("id"),postite.getString("title"),postite.getString("photo_url_1"),postite.getString("text"),0));
+                                Posts_adoption.add(new Fuente(postite.getString("id"),postite.getString("title"),postite.getString("photo_url_1"),postite.getString("text"),0,"ADOPTION"));
                             }
                             adapt = new Adaptador(Posts_adoption,"Adoption");
                             contenedor_adopt.setAdapter(adapt);
@@ -194,7 +194,7 @@ public class AdoptionList extends AppCompatActivity {
                             JSONObject postite;
                             for (int i = 0; i < resultat.length();i++) {
                                 postite = resultat.getJSONObject(i);
-                                Posts_adoption.add(new Fuente(postite.getString("id"),postite.getString("title"),postite.getString("photo_url_1"),postite.getString("text"),0));
+                                Posts_adoption.add(new Fuente(postite.getString("id"),postite.getString("title"),postite.getString("photo_url_1"),postite.getString("text"),0,"ADOPTION"));
                             }
                             adapt = new Adaptador(Posts_adoption,"Adoption");
                             contenedor_adopt.setAdapter(adapt);

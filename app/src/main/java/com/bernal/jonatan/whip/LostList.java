@@ -150,7 +150,7 @@ public class LostList extends AppCompatActivity {
                             JSONObject postite;
                             for (int i = 0; i < resultat.length();i++) {
                                 postite = resultat.getJSONObject(i);
-                                Posts_perdidos.add(new Fuente(postite.getString("id"),postite.getString("title"),postite.getString("photo_url_1"),postite.getString("text"),0));
+                                Posts_perdidos.add(new Fuente(postite.getString("id"),postite.getString("title"),postite.getString("photo_url_1"),postite.getString("text"),0,"LOST"));
                             }
                             adapt = new Adaptador(Posts_perdidos,"Lost");
                             contenedor.setAdapter(adapt);
@@ -207,7 +207,7 @@ public class LostList extends AppCompatActivity {
                             JSONObject postite;
                             for (int i = 0; i < resultat.length();i++) {
                                 postite = resultat.getJSONObject(i);
-                                Posts_perdidos.add(new Fuente(postite.getString("id"),postite.getString("title"),postite.getString("photo_url_1"),postite.getString("text"),0));
+                                Posts_perdidos.add(new Fuente(postite.getString("id"),postite.getString("title"),postite.getString("photo_url_1"),postite.getString("text"),0,"LOST"));
                             }
                             adapt = new Adaptador(Posts_perdidos,"Lost");
                             contenedor.setAdapter(adapt);
