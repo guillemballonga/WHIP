@@ -57,4 +57,5 @@
     <string name="title_activity_info_post_adoption">InfoPostAdoption</string>
     <string name="open">open</string>
     <string name="close">close</string>
+    <string name="order_by_cat">Ordenat per:</string>
 </resources>

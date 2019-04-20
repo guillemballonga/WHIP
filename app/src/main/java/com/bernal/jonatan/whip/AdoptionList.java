@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -45,6 +46,8 @@ public class AdoptionList extends AppCompatActivity {
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("");
     private String api = ul.getAPI_KEY();
     private Spinner spinnerFiltre;
+    private TextView orderBy;
+    private String selectedItem;
 
 
     @Override
@@ -55,6 +58,9 @@ public class AdoptionList extends AppCompatActivity {
 
         contenedor_adopt =  findViewById(R.id.contenedor_adoption);
         spinnerFiltre = (Spinner) findViewById(R.id.spinner_filter_adoption);
+        orderBy = (TextView) findViewById(R.id.orderby_adop);
+        selectedItem = "";
+        orderBy.setText(getString(R.string.order_by_cat));
 
         //Recarregar la pàgina
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
@@ -92,9 +98,12 @@ public class AdoptionList extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
 
-                String selectedItem = spinnerFiltre.getSelectedItem().toString();
+                selectedItem = spinnerFiltre.getSelectedItem().toString();
                 if (selectedItem != "") {
                     URL_filtre = URL_filtre + selectedItem;
+
+
+                    orderBy.setText((getString(R.string.order_by_cat)) + " " + selectedItem);
                     //TODO: enviar a la funcio
 
                     backFiltres();

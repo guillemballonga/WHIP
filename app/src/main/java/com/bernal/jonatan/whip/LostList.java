@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -48,6 +49,7 @@ public class LostList extends AppCompatActivity {
     private String api = ul.getAPI_KEY();
     private Spinner spinnerFiltre;
     String selectedItem = "";
+    private TextView orderBy;
 
 
     @Override
@@ -57,7 +59,9 @@ public class LostList extends AppCompatActivity {
 
         contenedor =  findViewById(R.id.contenedor);
         spinnerFiltre = (Spinner) findViewById(R.id.spinner_filter_lost);
+        orderBy = (TextView) findViewById(R.id.orderby_lost);
         selectedItem = "";
+        orderBy.setText(getString(R.string.order_by_cat));
 
         //Recarregar la pàgina
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayoutt);
@@ -100,6 +104,8 @@ public class LostList extends AppCompatActivity {
                 selectedItem = spinnerFiltre.getSelectedItem().toString();
                 if (selectedItem != "") {
                     URL_filtre = URL_filtre + selectedItem;
+
+                    orderBy.setText((getString(R.string.order_by_cat)) + " " + selectedItem);
                     //TODO: enviar a la funcio
 
                     backFiltres();
