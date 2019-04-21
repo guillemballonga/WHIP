@@ -42,7 +42,7 @@
                 app:error_res="@drawable/icono_usuario"
                 android:src="@drawable/icono_usuario"
                 app:placeholder_res="@drawable/cargando"
-                app:show_progress="true"
+                app:show_progress="false"
                 />
 
 

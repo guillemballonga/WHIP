@@ -49,17 +49,24 @@ public class EditProfile extends AppCompatActivity {
 
 
     Button goToMostrarPerfilGuardant, goToMostrarPerfilCancelar;
-    GlideImageView fotoperfil;
+    static GlideImageView fotoperfil;
     EditText nom,cognom,user,cp;
     TextView correu;
 
 
     //variables para comucicación back
     private String URL, urlFoto;
+    private String urlBD = MostrarPerfil.getFoto();
     private RequestQueue requestqueue;
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("");
     private String api = ul.getAPI_KEY();
     private Uri path;
+
+    public static void setVistaPreviaImatge(String identificadorImatge) {
+
+        retrieveImage(identificadorImatge);
+
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -107,8 +114,7 @@ public class EditProfile extends AppCompatActivity {
 
                     //aqui carrego la nova foto canviada
                     urlFoto = UploadImageFirebase.getIdentificadorImatge();
-                    if (urlFoto != "")retrieveImage(urlFoto);
-
+                    if (!urlFoto.equals(""))retrieveImage(urlFoto);
                     perfil_editat.put("photo_url",urlFoto);
 
 
@@ -207,10 +213,16 @@ public class EditProfile extends AppCompatActivity {
         cp.setText(MostrarPerfil.getCP());
 
         fotoperfil = findViewById(R.id.imagen_perfil);
-        fotoperfil.loadImageUrl(MostrarPerfil.getFoto());
 
 
 
+        //CARREGAR IMATGE FIREBASE
+        if(urlBD.substring(1, 7).equals("images")){
+            retrieveImage(urlBD);
+        }
+        else{ //CARREGAR IMATGE DE GOOGLE
+            fotoperfil.loadImageUrl(urlBD);
+        }
 
 
     }
@@ -231,6 +243,7 @@ public class EditProfile extends AppCompatActivity {
             path = data.getData();
             fotoperfil.setImageURI(path);
 
+
             //LAURA Guardar la foto guardada en path a FIREBASE
             //ASSIGNAR A urlFoto LA URL REBUDA DE FIREBASE
 
@@ -240,7 +253,7 @@ public class EditProfile extends AppCompatActivity {
 
         }
     }
-    public void retrieveImage(String idImageFirebase) {
+    public static void retrieveImage(String idImageFirebase) {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
         //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
