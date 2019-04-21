@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,6 +26,7 @@ public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.
     private String type;
 
 
+
     public Adaptador(List<Fuente> listaObjetos, String type) {
 
         this.listaObjetos = listaObjetos;
@@ -40,7 +42,7 @@ public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.
         else if (type.equals("Adoption")) {
             vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_adoption, parent, false);
         }
-        else if (type.equals("User_Post")) {
+        else if (type.equals("PostPropio")) {
             vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_userposts, parent, false);
         }
 
@@ -58,9 +60,10 @@ public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.
 
         holder.contenido_postPerdi.setText(listaObjetos.get(i).getContenido());
 
-        if(type.equals("User_Post")) holder.type_post.setText(listaObjetos.get(i).getType());
+        if(type.equals("PostPropio")) holder.type_post.setText(listaObjetos.get(i).getType());
 
         holder.setId(listaObjetos.get(i).getId());
+
     }
 
     @Override
@@ -79,6 +82,7 @@ public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.
         }
 
     }
+
 
     public void retrieveImage(String idImageFirebase, final ViewHolder view) {
 

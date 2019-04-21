@@ -54,7 +54,7 @@ public class MostrarPerfil extends AppCompatActivity {
     private JSONArray resultat;
     private JSONObject result;
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("","");
     private String api = ul.getAPI_KEY();
 
 

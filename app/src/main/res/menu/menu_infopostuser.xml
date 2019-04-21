@@ -2,14 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <item
-        android:icon="@drawable/estrella_fav_rellena"
-        android:id="@+id/icono_fav_rell"
+        android:icon="@drawable/estrella_fav"
+        android:id="@+id/icono_fav"
         app:showAsAction="always"
         android:title="Favorito" />
 
-
+    <item
+        android:icon="@drawable/papelera"
+        android:id="@+id/icono_delete"
+        app:showAsAction="always"
+        android:title="Delete" />
 
 
 

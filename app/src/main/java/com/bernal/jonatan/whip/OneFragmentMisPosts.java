@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +45,9 @@ public class OneFragmentMisPosts extends Fragment {
     private Adaptador adapt;
     RecyclerView contenedor;
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("");
+    String tipo;
+
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("","");
     private String api = ul.getAPI_KEY();
 
     @Nullable
@@ -69,10 +72,10 @@ public class OneFragmentMisPosts extends Fragment {
 
         requestqueue = Volley.newRequestQueue(this.getContext());
 
-            JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
-                    JsonRequest.Method.GET,
-                    URL,
-                    null,
+        JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
+                JsonRequest.Method.GET,
+                URL,
+                null,
                     new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
@@ -84,12 +87,11 @@ public class OneFragmentMisPosts extends Fragment {
                                 JSONObject postite;
                                 for (int i = 0; i < resultat.length(); i++) {
                                     postite = resultat.getJSONObject(i);
-                                    String tipo;
                                     if (postite.has("type")) tipo = "LOST";
                                     else tipo = "ADOPTION";
                                     Mis_Posts.add(new Fuente(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), 0,tipo));
                                 }
-                                adapt = new Adaptador(Mis_Posts,"User_Post"); //Color de Lost --> No se como hacer que salgan de un color distinto
+                                adapt = new Adaptador(Mis_Posts,"PostPropio"); //Color de Lost --> No se como hacer que salgan de un color distinto
                                 contenedor.setAdapter(adapt);
                                 contenedor.setLayoutManager(layout);
                                 adapt.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +126,7 @@ public class OneFragmentMisPosts extends Fragment {
                 }
             };
             requestqueue.add(arrayJsonrequest);
+
 
         return view;
     }

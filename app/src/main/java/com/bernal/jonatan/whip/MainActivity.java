@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void guardarUsuari(GoogleSignInAccount account) {
+    private void guardarUsuari(final GoogleSignInAccount account) {
 
         JSONObject user = new JSONObject();
         try {
@@ -161,8 +161,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Toast.makeText(getApplicationContext(),"Usuari logejat  correctament",Toast.LENGTH_SHORT).show();
                             //todo guardar api key en el singleton
                             try {
-                                ul = UserLoggedIn.getUsuariLogejat(response.getString("api_key"));
+                                ul = UserLoggedIn.getUsuariLogejat(response.getString("api_key"),response.getString("email"));
                                 ul.setAPI_KEY(response.getString("api_key"));
+                                ul.setCorreo_user(response.getString("email"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

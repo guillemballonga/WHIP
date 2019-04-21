@@ -9,8 +9,11 @@
         app:showAsAction="always"
         android:title="Favorito" />
 
-
-
+    <item
+        android:icon="@drawable/papelera"
+        android:id="@+id/icono_delete"
+        app:showAsAction="always"
+        android:title="Delete" />
 
 
 </menu>

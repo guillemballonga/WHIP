@@ -43,7 +43,7 @@ public class AdoptionList extends AppCompatActivity {
     RecyclerView contenedor_adopt;
 
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("","");
     private String api = ul.getAPI_KEY();
     private Spinner spinnerFiltre;
     private TextView orderBy;
@@ -80,8 +80,7 @@ public class AdoptionList extends AppCompatActivity {
         URL_filtre = "https://whip-api.herokuapp.com/contributions/adoptionposts?sort=";
         requestqueue = Volley.newRequestQueue(this);
 
-        Toolbar tool = (Toolbar) findViewById(R.id.toolbar_listadoAdopt);
-        setSupportActionBar(tool);
+        Toolbar tool = (Toolbar) findViewById(R.id.toolbar_listadoAdopt);        setSupportActionBar(tool);
         getSupportActionBar().setTitle("ADOPCIÓN");
 
         Toast.makeText(getApplicationContext(),ul.getAPI_KEY(),Toast.LENGTH_SHORT).show();

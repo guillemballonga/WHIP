@@ -45,7 +45,7 @@ public class LostList extends AppCompatActivity {
     RecyclerView contenedor;
 
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("","");
     private String api = ul.getAPI_KEY();
     private Spinner spinnerFiltre;
     String selectedItem = "";

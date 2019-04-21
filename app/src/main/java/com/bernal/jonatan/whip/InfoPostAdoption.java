@@ -1,5 +1,6 @@
 package com.bernal.jonatan.whip;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
@@ -42,7 +43,9 @@ public class InfoPostAdoption extends AppCompatActivity {
     private String URL, URL_favs, URL_like;
     private RequestQueue requestqueue;
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("");
+    private String mail_creador;
+
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("","");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +93,10 @@ public class InfoPostAdoption extends AppCompatActivity {
 
                             raza.setText(lostpost.getString("race"));
                             contenido.setText(lostpost.getString("text"));
-                            //Fotografías con IMGUR
 
+                            mail_creador = lostpost.getString("userId");
+
+                            //Fotografías con Firebase
                             String urlFoto1 = lostpost.getString("photo_url_1"); //LAURA->
                             if (!urlFoto1.equals("")) retrieveImage(urlFoto1);
                             else foto_post.setBackgroundResource(R.drawable.perfilperro);
@@ -130,13 +135,12 @@ public class InfoPostAdoption extends AppCompatActivity {
 
                         try {
                             boolean fav = response.getBoolean("isFavorite");
-
                             if (fav) {
-                                Toast.makeText(getApplicationContext(), "MENU FAVORITO", Toast.LENGTH_SHORT).show();
-                                getMenuInflater().inflate(R.menu.menu_infopostperdlike, menu);
+                                Toast.makeText(getApplicationContext(), "MENU FAVORITO DEL USUARIO", Toast.LENGTH_SHORT).show();
+                                getMenuInflater().inflate(R.menu.menu_infopostlikeuser, menu);
                             } else {
-                                Toast.makeText(getApplicationContext(), "MENU NO FAVORITO", Toast.LENGTH_SHORT).show();
-                                getMenuInflater().inflate(R.menu.menu_infopostperd, menu);
+                                Toast.makeText(getApplicationContext(), "MENU NO FAVORITO DEL USUARIO", Toast.LENGTH_SHORT).show();
+                                getMenuInflater().inflate(R.menu.menu_infopostuser, menu);
                             }
 
 
@@ -178,8 +182,47 @@ public class InfoPostAdoption extends AppCompatActivity {
                 BackFavs_dislike();
 
                 break;
+
+            case R.id.icono_delete:
+
+                BackDelete();
+
+                break;
         }
         return true;
+    }
+
+    private void BackDelete() {
+        if (mail_creador.equals(ul.getCorreo_user())) {
+
+            JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                    JsonRequest.Method.DELETE,
+                    URL,
+                    null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Toast.makeText(getApplicationContext(), "DELETE", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), "ERROR BORRAR", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+            ) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("Authorization", ul.getAPI_KEY());
+                    return params;
+                }
+            };
+            requestqueue.add(objectJsonrequest);
+        }
+        else Toast.makeText(getApplicationContext(), "POST NO CREADO POR EL TI, NO PUEDES BORRARLO", Toast.LENGTH_SHORT).show();
     }
 
     private void BackFavs_dislike() {

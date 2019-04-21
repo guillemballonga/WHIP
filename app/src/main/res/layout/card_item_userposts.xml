@@ -64,9 +64,7 @@
                 android:paddingTop="7dp"
                 android:textSize="14dp"
                 android:textStyle="bold"
-                android:textColor="#434040"/>
-
-
+                android:textColor="#434040" />
 
         </LinearLayout>
     </LinearLayout>

@@ -43,7 +43,7 @@ public class EditProfile extends AppCompatActivity {
     //variables para comucicación back
     private String URL;
     private RequestQueue requestqueue;
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("","");
     private String api = ul.getAPI_KEY();
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
