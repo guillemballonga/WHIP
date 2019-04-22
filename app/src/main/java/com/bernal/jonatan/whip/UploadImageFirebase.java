@@ -31,6 +31,8 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import static com.bernal.jonatan.whip.EditProfile.*;
+
 
 public class UploadImageFirebase extends AppCompatActivity {
 
@@ -76,7 +78,9 @@ public class UploadImageFirebase extends AppCompatActivity {
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 uploadImage();
+
             }
         });
 
@@ -130,7 +134,7 @@ public class UploadImageFirebase extends AppCompatActivity {
                             finish();
                             String xxx = identificadorImatge;
 
-                          // startActivity(new Intent(UploadImageFirebase.this, ShowImage.class));
+                            // startActivity(new Intent(UploadImageFirebase.this, ShowImage.class));
                         }
                     })
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -138,6 +142,8 @@ public class UploadImageFirebase extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
                             Toast.makeText(UploadImageFirebase.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "la identificacio del identimg es: "+ identificadorImatge, Toast.LENGTH_SHORT).show();
+                            EditProfile.setVistaPreviaImatge(identificadorImatge);
 
                         }
                     })

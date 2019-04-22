@@ -2,8 +2,12 @@ package com.bernal.jonatan.whip;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,15 +32,26 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.master.glideimageview.GlideImageView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MostrarPerfil extends AppCompatActivity {
 
@@ -45,8 +61,10 @@ public class MostrarPerfil extends AppCompatActivity {
     static String userBack;
     static String cpBack;
     static String correuBack;
+    static String urlFoto;
     TextView nom,cognom,user,cp, correu;
-    ImageView imatge;
+    //ImageView imatge;
+    GlideImageView imatge;
 
     //Objectes per JSONGet
     private String URL;
@@ -70,7 +88,7 @@ public class MostrarPerfil extends AppCompatActivity {
         goToEditarPerfil = findViewById(R.id.boto_editar_perfil);
         goToMisPosts = findViewById(R.id.boto_mis_posts);
 
-    //GET PER CONNEXIÓ AMB BACK
+        //GET PER CONNEXIÓ AMB BACK
         //Coneixón con la API
 
         URL = "https://whip-api.herokuapp.com/users/profile";
@@ -101,17 +119,17 @@ public class MostrarPerfil extends AppCompatActivity {
                         error.printStackTrace();
                     }
                 }
-                ){
-                    @Override
-                    public Map<String, String> getHeaders() {
-                        Map<String, String> params = new HashMap<>();
-                        params.put("Content-Type", "application/json");
-                        params.put("Authorization", api); //valor de V ha de ser el de la var global
-                        return params;
-                    }
-                };
+        ){
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", api); //valor de V ha de ser el de la var global
+                return params;
+            }
+        };
         requestqueue.add(arrayJsonrequest);
-    //FINAL GET
+        //FINAL GET
 
         //Gestión de la toolbar
         Toolbar tool = findViewById(R.id.toolbar_mostrarPerfil);
@@ -136,7 +154,7 @@ public class MostrarPerfil extends AppCompatActivity {
             }
         });
     }
-//Funció per assignar els parametres rebuts de back
+    //Funció per assignar els parametres rebuts de back
     private void MostrarParametresPerfil(JSONObject response) throws JSONException {
 
         nomBack = result.getString("first_name");
@@ -160,8 +178,18 @@ public class MostrarPerfil extends AppCompatActivity {
         correu.setText(correuBack);
         correu.setTextSize(12);
 
+        urlFoto = result.getString("photo_url");
         imatge = findViewById(R.id.imagen_perfil);
-        //imatge.setImageURI();
+
+        //CARREGAR IMATGE FIREBASE
+        if(urlFoto.substring(1, 7).equals("images")){
+            retrieveImage(urlFoto);
+        }
+        else{ //CARREGAR IMATGE DE GOOGLE
+            imatge.loadImageUrl(urlFoto);
+        }
+
+
 
 
 
@@ -181,7 +209,31 @@ public class MostrarPerfil extends AppCompatActivity {
     public static String getCP() {
         return cpBack;
     }
+    public static String getFoto() { return urlFoto; }
 
+    public void retrieveImage(String idImageFirebase) {
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        //Tot: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
+        StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
+
+        //foto_post = (ImageView) findViewById(R.id.foto_postPerd);
+        try {
+            final File localFile = File.createTempFile("images", "jpg");
+            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                    imatge.setImageBitmap(bitmap);
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                }
+            });
+        } catch (IOException e ) {}
+    }
 
 
 }

@@ -2,9 +2,12 @@ package com.bernal.jonatan.whip;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -23,28 +26,47 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.master.glideimageview.GlideImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class EditProfile extends AppCompatActivity {
 
 
     Button goToMostrarPerfilGuardant, goToMostrarPerfilCancelar;
-    ImageView fotoperfil;
+    static GlideImageView fotoperfil;
     EditText nom,cognom,user,cp;
     TextView correu;
 
+
     //variables para comucicación back
-    private String URL;
+    private String URL, urlFoto;
+    private String urlBD = MostrarPerfil.getFoto();
     private RequestQueue requestqueue;
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("","");
     private String api = ul.getAPI_KEY();
+    private Uri path;
+
+    public static void setVistaPreviaImatge(String identificadorImatge) {
+
+        retrieveImage(identificadorImatge);
+
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -88,6 +110,14 @@ public class EditProfile extends AppCompatActivity {
                     perfil_editat.put("about","hola");
                     perfil_editat.put("fam_name", cognom.getText().toString());
                     perfil_editat.put("username", user.getText().toString());
+
+
+                    //aqui carrego la nova foto canviada
+                    urlFoto = UploadImageFirebase.getIdentificadorImatge();
+                    if (!urlFoto.equals(""))retrieveImage(urlFoto);
+                    perfil_editat.put("photo_url",urlFoto);
+
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -137,15 +167,28 @@ public class EditProfile extends AppCompatActivity {
 
                 }
 
+
+
             }
-            
+
+
+
         });
 
         fotoperfil.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                obrirgaleria();
+                //obrirgaleria();
+                //guardar galeria
+                //AQUI CRIDO PER OBRIR LES FOTOS
+                startActivity(new Intent(EditProfile.this, UploadImageFirebase.class));
+
+                //urlFoto = UploadImageFirebase.getIdentificadorImatge();
+                //retrieveImage(urlFoto);
+
+                //perfil_editat.put("photo_url",urlFoto);
+
             }
         });
 
@@ -172,6 +215,16 @@ public class EditProfile extends AppCompatActivity {
         fotoperfil = findViewById(R.id.imagen_perfil);
 
 
+
+        //CARREGAR IMATGE FIREBASE
+        if(urlBD.substring(1, 7).equals("images")){
+            retrieveImage(urlBD);
+        }
+        else{ //CARREGAR IMATGE DE GOOGLE
+            fotoperfil.loadImageUrl(urlBD);
+        }
+
+
     }
 
     @SuppressLint("IntentReset")
@@ -187,12 +240,41 @@ public class EditProfile extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             assert data != null;
-            Uri path = data.getData();
+            path = data.getData();
             fotoperfil.setImageURI(path);
 
-            //Guardar el path de la foto en IMGUR
+
+            //LAURA Guardar la foto guardada en path a FIREBASE
+            //ASSIGNAR A urlFoto LA URL REBUDA DE FIREBASE
+
+
+
+            // fotoperfil
 
         }
+    }
+    public static void retrieveImage(String idImageFirebase) {
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
+        StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
+
+        //foto_post = (ImageView) findViewById(R.id.foto_postPerd);
+        try {
+            final File localFile = File.createTempFile("images", "jpg");
+            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                    fotoperfil.setImageBitmap(bitmap);
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                }
+            });
+        } catch (IOException e ) {}
     }
 
 }
