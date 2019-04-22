@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +44,7 @@ public class InfoPostLost extends AppCompatActivity {
     TextView titulo, fecha, especie, tipo, raza, contenido;
     ImageView foto_post, foto_user;
     String Identificador;
+    Button cerrar_post;
 
     private String URL, URL_favs, URL_like, URL_filtre;
     private RequestQueue requestqueue;
@@ -68,6 +70,8 @@ public class InfoPostLost extends AppCompatActivity {
 
         foto_post = (ImageView) findViewById(R.id.foto_postPerd);
         foto_user = (ImageView) findViewById(R.id.imagen_coment_user);
+
+        cerrar_post = findViewById(R.id.boton_cerrar);
 
 
         //Gestión toolbar
@@ -115,6 +119,8 @@ public class InfoPostLost extends AppCompatActivity {
                             String urlFoto1 = lostpost.getString("photo_url_1"); //LAURA->
                             if (!urlFoto1.equals("")) retrieveImage(urlFoto1);
                             else foto_post.setBackgroundResource(R.drawable.perfilperro);
+
+                            //Revisar si el post está cerrado para ocultar los iconos
 
                         } catch (JSONException e) {
                             e.printStackTrace();
