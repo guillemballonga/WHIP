@@ -86,7 +86,12 @@ public class NewPostLost extends AppCompatActivity {
                 //openGallery();
 
                 //Quan cliqui obrir UploadImagesFirebase
-                startActivity(new Intent(NewPostLost.this, UploadImageFirebase.class));
+               // startActivity(new Intent(NewPostLost.this, UploadImageFirebase.class));
+
+                Intent i = new Intent(NewPostLost.this, UploadImageFirebase.class);
+                i.putExtra("idImageView", R.id.perfil_perroPerd);
+                //i.putExtra("idImageView");
+                startActivity(i);
 
 
             }
@@ -109,6 +114,7 @@ public class NewPostLost extends AppCompatActivity {
 
                 //falta afegir imatge FIREBASE
                 String identificadorImatge = UploadImageFirebase.getIdentificadorImatge();
+                UploadImageFirebase.netejaIdentificadorImatge();
                 k.put(identificadorImatge);
                 k.put("");
                 k.put("");

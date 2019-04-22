@@ -84,7 +84,11 @@ public class NewPostAdoption extends AppCompatActivity {
                 //openGallery();
 
                 //Quan cliqui obrir UploadImagesFirebase -> per penjar la foto
-                startActivity(new Intent(NewPostAdoption.this, UploadImageFirebase.class));
+                //startActivity(new Intent(NewPostAdoption.this, UploadImageFirebase.class));
+                Intent i = new Intent(NewPostAdoption.this, UploadImageFirebase.class);
+                i.putExtra("idImageView", R.id.perfil_perroPerd);
+                //i.putExtra("idImageView");
+                startActivity(i);
 
             }
 
@@ -108,6 +112,7 @@ public class NewPostAdoption extends AppCompatActivity {
 
                 //falta afegir imatge FIREBASE
                 String identificadorImatge = UploadImageFirebase.getIdentificadorImatge();
+                UploadImageFirebase.netejaIdentificadorImatge();
                 k.put(identificadorImatge);
                 k.put("");
                 k.put("");

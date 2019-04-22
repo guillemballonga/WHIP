@@ -19,7 +19,7 @@
         <activity android:name=".ShowImage" />
         <activity android:name=".AdoptionList"></activity>
         <activity android:name=".NewPostAdoption" />
-        <activity android:name=".MostrarImatge" />
+
         <activity android:name=".UploadImageFirebase" />
         <activity android:name=".MostrarPerfil" />
         <activity android:name=".EditProfile" />

@@ -3,6 +3,7 @@ package com.bernal.jonatan.whip;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -24,6 +26,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -36,6 +39,9 @@ public class UploadImageFirebase extends AppCompatActivity {
 
     private Button btnChoose, btnUpload;
     private ImageView imageView;
+    private  ImageView imageViewPosar;
+
+    int idImageView;
 
     private Uri filePath;
 
@@ -44,8 +50,13 @@ public class UploadImageFirebase extends AppCompatActivity {
     public static String getIdentificadorImatge() {
         return identificadorImatge;
     }
+    public static void netejaIdentificadorImatge() {
+         identificadorImatge = "";
+    }
 
     private static String identificadorImatge  = "";
+
+
 
     //Firebase
     private FirebaseStorage storage;
@@ -66,6 +77,17 @@ public class UploadImageFirebase extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
+
+        //agafo l id del imageview
+
+        idImageView = getIntent().getIntExtra("idImageView", 0);
+
+        if (idImageView != 0) {
+
+
+           imageViewPosar = (ImageView) findViewById(idImageView);
+        }
+
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +99,7 @@ public class UploadImageFirebase extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 uploadImage();
+
             }
         });
 
@@ -127,9 +150,13 @@ public class UploadImageFirebase extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                             //retornar a l altre pantalla l identificador perque back guardi
-                            finish();
+
                             String xxx = identificadorImatge;
 
+                            if (idImageView != 0 && imageViewPosar != null) {
+                               retrieveImage(xxx);
+                            }
+                            finish();
                           // startActivity(new Intent(UploadImageFirebase.this, ShowImage.class));
                         }
                     })
@@ -157,6 +184,30 @@ public class UploadImageFirebase extends AppCompatActivity {
                         }
                     });
         }
+    }
+
+    public void retrieveImage(String idImageFirebase) {
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
+        StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
+
+       // imageView = (ImageView) findViewById(R.id.imageFirebase);
+        try {
+            final File localFile = File.createTempFile("images", "jpg");
+            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                    imageViewPosar.setImageBitmap(bitmap);
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                }
+            });
+        } catch (IOException e ) {}
     }
 
 
