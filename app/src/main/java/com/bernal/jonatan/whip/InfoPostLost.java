@@ -1,9 +1,11 @@
 package com.bernal.jonatan.whip;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -209,32 +211,52 @@ public class InfoPostLost extends AppCompatActivity {
     private void BackDelete() {
         if (mail_creador.equals(ul.getCorreo_user())) {
 
-            JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                    JsonRequest.Method.DELETE,
-                    URL,
-                    null,
-                    new Response.Listener<JSONObject>() {
+            AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostLost.this);
+            alert.setMessage("¿Estás seguro que deseas eliminar este Post?")
+                    .setCancelable(false)
+                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onResponse(JSONObject response) {
-                            Toast.makeText(getApplicationContext(), "DELETE", Toast.LENGTH_SHORT).show();
-                            finish();
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                                    JsonRequest.Method.DELETE,
+                                    URL,
+                                    null,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            Toast.makeText(getApplicationContext(), "DELETE", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Toast.makeText(getApplicationContext(), "ERROR BORRAR", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                            ) {
+                                @Override
+                                public Map<String, String> getHeaders() throws AuthFailureError {
+                                    Map<String, String> params = new HashMap<String, String>();
+                                    params.put("Authorization", ul.getAPI_KEY());
+                                    return params;
+                                }
+                            };
+                            requestqueue.add(objectJsonrequest);
+
                         }
-                    },
-                    new Response.ErrorListener() {
+                    })
+                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getApplicationContext(), "ERROR BORRAR", Toast.LENGTH_SHORT).show();
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
                         }
-                    }
-            ) {
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("Authorization", ul.getAPI_KEY());
-                    return params;
-                }
-            };
-            requestqueue.add(objectJsonrequest);
+                    });
+            AlertDialog title = alert.create();
+            title.setTitle("ELIMINAR POST");
+            title.show();
+
         }
         else Toast.makeText(getApplicationContext(), "POST NO CREADO POR EL TI, NO PUEDES BORRARLO", Toast.LENGTH_SHORT).show();
     }
