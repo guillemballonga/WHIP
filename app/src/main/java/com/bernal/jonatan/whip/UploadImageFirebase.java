@@ -155,6 +155,11 @@ public class UploadImageFirebase extends AppCompatActivity {
                             if (idActivity == "lost" )
                                NewPostLost.retrieveImage(xxx);
 
+                            if (idActivity == "adoption"){
+                                NewPostAdoption.retrieveImage(xxx);
+
+                            }
+
                             finish();
                           // startActivity(new Intent(UploadImageFirebase.this, ShowImage.class));
                         }
