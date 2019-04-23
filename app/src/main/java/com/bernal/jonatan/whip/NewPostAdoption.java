@@ -86,8 +86,9 @@ public class NewPostAdoption extends AppCompatActivity {
                 //Quan cliqui obrir UploadImagesFirebase -> per penjar la foto
                 //startActivity(new Intent(NewPostAdoption.this, UploadImageFirebase.class));
                 Intent i = new Intent(NewPostAdoption.this, UploadImageFirebase.class);
-                i.putExtra("idImageView", R.id.perfil_perroPerd);
+                //i.putExtra("idImageView", R.id.perfil_perroPerd);
                 //i.putExtra("idImageView");
+                i.putExtra("idActivity", "adoption");
                 startActivity(i);
 
             }
