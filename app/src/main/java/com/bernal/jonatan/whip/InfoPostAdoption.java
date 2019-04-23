@@ -150,34 +150,54 @@ public class InfoPostAdoption extends AppCompatActivity {
     }
 
     private void tancar_post() {
-        Toast.makeText(getApplicationContext(), "Cierro el post", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Cierro el post", Toast.LENGTH_SHORT).show();
+        if (mail_creador.equals(ul.getCorreo_user())) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostAdoption.this);
+            alert.setMessage("¿Estás seguro que deseas cerrar este Post?")
+                    .setCancelable(false)
+                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                                    JsonRequest.Method.PATCH,
+                                    URL_close,
+                                    null,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
 
-        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                JsonRequest.Method.PATCH,
-                URL_close,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Toast.makeText(getApplicationContext(), "ERROOOOOOOR EN CERRAR POST", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                            ) {
+                                @Override
+                                public Map<String, String> getHeaders() throws AuthFailureError {
+                                    Map<String, String> params = new HashMap<String, String>();
+                                    params.put("Authorization", ul.getAPI_KEY());
+                                    return params;
+                                }
+                            };
+                            requestqueue.add(objectJsonrequest);
+                            recreate();
+                        }
+                    })
+                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+            AlertDialog title = alert.create();
+            title.setTitle("CERRAR POST");
+            title.show();
 
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR EN CERRAR POST", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", ul.getAPI_KEY());
-                return params;
-            }
-        };
-        requestqueue.add(objectJsonrequest);
-        recreate();
+        }
+        else Toast.makeText(getApplicationContext(), "POST NO CREADO POR EL TI, NO PUEDES CERRARLO", Toast.LENGTH_SHORT).show();
     }
 
 
