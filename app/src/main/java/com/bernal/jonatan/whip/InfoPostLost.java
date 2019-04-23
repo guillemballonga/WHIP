@@ -11,7 +11,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,10 +44,12 @@ public class InfoPostLost extends AppCompatActivity {
 
     //private static final String  = ;
     TextView titulo, fecha, especie, tipo, raza, contenido;
-    ImageView foto_post, foto_user;
+    ImageView foto_post, foto_user, compartirRRSS, organ_quedada;
+    EditText box_comment;
     String Identificador;
+    Button cerrar_post;
 
-    private String URL, URL_favs, URL_like, URL_filtre;
+    private String URL, URL_favs, URL_like, URL_close;
     private RequestQueue requestqueue;
 
     private String mail_creador;
@@ -68,12 +73,17 @@ public class InfoPostLost extends AppCompatActivity {
 
         foto_post = (ImageView) findViewById(R.id.foto_postPerd);
         foto_user = (ImageView) findViewById(R.id.imagen_coment_user);
+        compartirRRSS = findViewById(R.id.CompartirRRSSPerd);
+        organ_quedada = findViewById(R.id.organ_quedadaPerd);
+        box_comment = findViewById(R.id.box_comment);
+
+        cerrar_post = (Button) findViewById(R.id.boton_cerrar);
 
 
         //Gestión toolbar
         Toolbar tool = (Toolbar) findViewById(R.id.toolbar_infoPostPerd);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("ENCONTRADO O PÉRDIDA");
+        getSupportActionBar().setTitle("LOST");
 
 
 
@@ -82,8 +92,22 @@ public class InfoPostLost extends AppCompatActivity {
         URL = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador;
         URL_favs = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=lost";
         URL_like = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=lost";
+        URL_close = "https://whip-api.herokuapp.com/contributions/close/" + Identificador + "/?type=lost";
 
         requestqueue = Volley.newRequestQueue(this);
+
+
+
+        cerrar_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tancar_post();
+            }
+        });
+
+
+
+
 
 
         JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
@@ -116,6 +140,15 @@ public class InfoPostLost extends AppCompatActivity {
                             if (!urlFoto1.equals("")) retrieveImage(urlFoto1);
                             else foto_post.setBackgroundResource(R.drawable.perfilperro);
 
+                            //Revisar si el post está cerrado para ocultar los iconos
+                            if (lostpost.getBoolean("status")) {
+                                cerrar_post.setVisibility(View.GONE);
+                                compartirRRSS.setVisibility(View.GONE);
+                                organ_quedada.setVisibility(View.GONE);
+                                foto_user.setVisibility(View.GONE);
+                                box_comment.setVisibility(View.GONE);
+                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -136,6 +169,38 @@ public class InfoPostLost extends AppCompatActivity {
             }
         };
         requestqueue.add(objectJsonrequest);
+    }
+
+    private void tancar_post() {
+        Toast.makeText(getApplicationContext(), "Cierro el post", Toast.LENGTH_SHORT).show();
+
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.PATCH,
+                URL_close,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR EN CERRAR POST", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", ul.getAPI_KEY());
+                return params;
+            }
+        };
+        requestqueue.add(objectJsonrequest);
+        recreate();
+
     }
 
 
