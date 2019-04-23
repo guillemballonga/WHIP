@@ -246,7 +246,7 @@
             android:id="@+id/boton_cerrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/rectángulo_cerrar"
+            android:background="@drawable/rectangulo_cerrar"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:text="CERRAR POST"/>
@@ -291,6 +291,7 @@
                 android:layout_height="75dp" />
 
             <EditText
+                android:id="@+id/box_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

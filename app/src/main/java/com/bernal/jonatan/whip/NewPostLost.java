@@ -54,7 +54,7 @@ public class NewPostLost extends AppCompatActivity {
         //Gestión de toolbar
         Toolbar tool = (Toolbar) findViewById(R.id.toolbar_nuevoPostPerd);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("ENCONTRADO O PÉRDIDA");
+        getSupportActionBar().setTitle("LOST");
 
         foto = (ImageView) findViewById(R.id.perfil_perroPerd);
 

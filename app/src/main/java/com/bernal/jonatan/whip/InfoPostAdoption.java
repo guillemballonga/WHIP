@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,10 +41,11 @@ import java.util.Map;
 public class InfoPostAdoption extends AppCompatActivity {
 
     TextView titulo, fecha, especie,raza, contenido;
-    ImageView foto_post;
+    ImageView foto_post, compartirRRSS,Organ_quedada, solicitud_quedada;
     String Identificador;
+    Button close_buton;
 
-    private String URL, URL_favs, URL_like;
+    private String URL, URL_favs, URL_like, URL_close;
     private RequestQueue requestqueue;
 
     private String mail_creador;
@@ -64,6 +67,11 @@ public class InfoPostAdoption extends AppCompatActivity {
         contenido = (TextView) findViewById(R.id.contenido_postAdoption);
 
         foto_post = (ImageView) findViewById(R.id.foto_postAdoption);
+        compartirRRSS = findViewById(R.id.CompartirRRSSAdoption);
+        Organ_quedada = findViewById(R.id.organ_quedadaAdoption);
+        solicitud_quedada = findViewById(R.id.quedada_adoption);
+
+        close_buton = findViewById(R.id.boton_cerrar_adoption);
 
         //Gestión toolbar
         Toolbar tool = (Toolbar) findViewById(R.id.toolbar_infoPostAdoption);
@@ -75,7 +83,16 @@ public class InfoPostAdoption extends AppCompatActivity {
         URL = "https://whip-api.herokuapp.com/contributions/adoptionposts/" + Identificador;
         URL_favs = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=adoption";
         URL_like = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=adoption";
+        URL_close = "https://whip-api.herokuapp.com/contributions/close/" + Identificador + "/?type=adoption";
         requestqueue = Volley.newRequestQueue(this);
+
+
+        close_buton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tancar_post();
+            }
+        });
 
 
         JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
@@ -103,6 +120,13 @@ public class InfoPostAdoption extends AppCompatActivity {
                             if (!urlFoto1.equals("")) retrieveImage(urlFoto1);
                             else foto_post.setBackgroundResource(R.drawable.perfilperro);
 
+                            if (lostpost.getBoolean("status")) {
+                                close_buton.setVisibility(View.GONE);
+                                compartirRRSS.setVisibility(View.GONE);
+                                Organ_quedada.setVisibility(View.GONE);
+                                solicitud_quedada.setVisibility(View.GONE);
+                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -123,6 +147,37 @@ public class InfoPostAdoption extends AppCompatActivity {
             }
         };
         requestqueue.add(objectJsonrequest);
+    }
+
+    private void tancar_post() {
+        Toast.makeText(getApplicationContext(), "Cierro el post", Toast.LENGTH_SHORT).show();
+
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.PATCH,
+                URL_close,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR EN CERRAR POST", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", ul.getAPI_KEY());
+                return params;
+            }
+        };
+        requestqueue.add(objectJsonrequest);
+        recreate();
     }
 
 

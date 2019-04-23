@@ -84,7 +84,7 @@ public class LostList extends AppCompatActivity {
 
         Toolbar tool = (Toolbar) findViewById(R.id.toolbar_listadoPerd);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("ENCONTRADO O PÉRDIDA");
+        getSupportActionBar().setTitle("LOST");
 
         Toast.makeText(getApplicationContext(),ul.getAPI_KEY(),Toast.LENGTH_SHORT).show();
 
