@@ -152,12 +152,10 @@ public class UploadImageFirebase extends AppCompatActivity {
                             String xxx = identificadorImatge;
 
                             //if (idImageView != 0 && imageViewPosar != null) {
-                            if (idActivity.equals("lost"))
-                               NewPostLost.retrieveImage(xxx);
+                            if (idActivity.equals("lost")) NewPostLost.retrieveImage(xxx);
 
                             else if (idActivity.equals("adoption")){
                                 NewPostAdoption.retrieveImage(xxx);
-
                             }
 
                             finish();
