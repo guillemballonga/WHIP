@@ -1,8 +1,11 @@
 package com.bernal.jonatan.whip;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,17 +25,24 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class NewPostLost extends AppCompatActivity {
 
-    ImageView foto;
+    static ImageView foto;
     Spinner especie,tipo;
     Button create,cancel;
     EditText titulo,cp,raza,contenido;
@@ -89,7 +99,7 @@ public class NewPostLost extends AppCompatActivity {
                // startActivity(new Intent(NewPostLost.this, UploadImageFirebase.class));
 
                 Intent i = new Intent(NewPostLost.this, UploadImageFirebase.class);
-                i.putExtra("idImageView", R.id.perfil_perroPerd);
+                i.putExtra("idActivity", "lost");
                 //i.putExtra("idImageView");
                 startActivity(i);
 
@@ -216,6 +226,29 @@ public class NewPostLost extends AppCompatActivity {
 
 
         }
+    }
+    public static void retrieveImage(String idImageFirebase) {
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
+        StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
+
+        // imageView = (ImageView) findViewById(R.id.imageFirebase);
+        try {
+            final File localFile = File.createTempFile("images", "jpg");
+            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                    foto.setImageBitmap(bitmap);
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                }
+            });
+        } catch (IOException e ) {}
     }
 
 }

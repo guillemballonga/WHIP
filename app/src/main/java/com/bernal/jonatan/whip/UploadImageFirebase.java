@@ -41,7 +41,9 @@ public class UploadImageFirebase extends AppCompatActivity {
     private ImageView imageView;
     private  ImageView imageViewPosar;
 
-    int idImageView;
+   // int idImageView;
+
+    String idActivity = "";
 
     private Uri filePath;
 
@@ -80,13 +82,9 @@ public class UploadImageFirebase extends AppCompatActivity {
 
         //agafo l id del imageview
 
-        idImageView = getIntent().getIntExtra("idImageView", 0);
-
-        if (idImageView != 0) {
+        idActivity = getIntent().getStringExtra("idActivity");
 
 
-           imageViewPosar = (ImageView) findViewById(idImageView);
-        }
 
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,9 +151,10 @@ public class UploadImageFirebase extends AppCompatActivity {
 
                             String xxx = identificadorImatge;
 
-                            if (idImageView != 0 && imageViewPosar != null) {
-                               retrieveImage(xxx);
-                            }
+                            //if (idImageView != 0 && imageViewPosar != null) {
+                            if (idActivity == "lost" )
+                               NewPostLost.retrieveImage(xxx);
+
                             finish();
                           // startActivity(new Intent(UploadImageFirebase.this, ShowImage.class));
                         }
