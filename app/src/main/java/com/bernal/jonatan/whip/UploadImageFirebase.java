@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+import static com.bernal.jonatan.whip.EditProfile.*;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -83,6 +84,7 @@ public class UploadImageFirebase extends AppCompatActivity {
         //agafo l id del imageview
 
         idActivity = getIntent().getStringExtra("idActivity");
+        if (idActivity == null) idActivity = "";
 
 
 
@@ -157,8 +159,11 @@ public class UploadImageFirebase extends AppCompatActivity {
 
                             else if (idActivity.equals("adoption")){
                                 NewPostAdoption.retrieveImage(xxx);
-
                             }
+                            else if (idActivity.equals("edit")) {
+                                EditProfile.retrieveImage(xxx);
+                            }
+                            //EditProfile.setVistaPreviaImatge(identificadorImatge);
 
                             finish();
                             // startActivity(new Intent(UploadImageFirebase.this, ShowImage.class));
@@ -190,29 +195,6 @@ public class UploadImageFirebase extends AppCompatActivity {
         }
     }
 
-    public void retrieveImage(String idImageFirebase) {
-
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
-        StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
-
-        // imageView = (ImageView) findViewById(R.id.imageFirebase);
-        try {
-            final File localFile = File.createTempFile("images", "jpg");
-            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    imageViewPosar.setImageBitmap(bitmap);
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                }
-            });
-        } catch (IOException e ) {}
-    }
 
 
 }

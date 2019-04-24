@@ -169,6 +169,8 @@ public class EditProfile extends AppCompatActivity {
 
 
 
+
+                finish();
             }
 
 
@@ -182,12 +184,14 @@ public class EditProfile extends AppCompatActivity {
                 //obrirgaleria();
                 //guardar galeria
                 //AQUI CRIDO PER OBRIR LES FOTOS
-                startActivity(new Intent(EditProfile.this, UploadImageFirebase.class));
+                //startActivity(new Intent(EditProfile.this, UploadImageFirebase.class));
 
-                //urlFoto = UploadImageFirebase.getIdentificadorImatge();
-                //retrieveImage(urlFoto);
 
-                //perfil_editat.put("photo_url",urlFoto);
+                Intent i = new Intent(EditProfile.this, UploadImageFirebase.class);
+                //i.putExtra("idImageView", R.id.perfil_perroPerd);
+                //i.putExtra("idImageView");
+                i.putExtra("idActivity", "edit");
+                startActivity(i);
 
             }
         });
@@ -243,13 +247,6 @@ public class EditProfile extends AppCompatActivity {
             path = data.getData();
             fotoperfil.setImageURI(path);
 
-
-            //LAURA Guardar la foto guardada en path a FIREBASE
-            //ASSIGNAR A urlFoto LA URL REBUDA DE FIREBASE
-
-
-
-            // fotoperfil
 
         }
     }

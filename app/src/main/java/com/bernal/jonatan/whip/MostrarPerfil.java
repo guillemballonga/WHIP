@@ -141,7 +141,7 @@ public class MostrarPerfil extends AppCompatActivity {
             public void onClick(View v) {
 
                 startActivity(new Intent(MostrarPerfil.this, EditProfile.class));
-                //finish();
+                finish();
             }
         });
 
