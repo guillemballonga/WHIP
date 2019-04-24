@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <item
-        android:icon="@drawable/campanasinfondo"
         android:id="@+id/icono_notify"
-        app:showAsAction="always"
-        android:title="Notifications" />
+        android:icon="@drawable/campanasinfondo"
+        android:title="@string/notifications"
+        app:showAsAction="always" />
 
 
 </menu>

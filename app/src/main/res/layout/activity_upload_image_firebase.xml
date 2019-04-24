@@ -1,32 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:padding="16dp"
-tools:context=".UploadImageFirebase">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".UploadImageFirebase">
 
     <LinearLayout
         android:id="@+id/layout_button"
-        android:orientation="horizontal"
-        android:layout_alignParentTop="true"
-        android:weightSum="2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
         <Button
             android:id="@+id/btnChoose"
-            android:text="Choose"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/choose"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/btnUpload"
-            android:text="Upload"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/upload"
+            tools:ignore="ButtonStyle" />
     </LinearLayout>
 
     <ImageView
@@ -35,6 +37,7 @@ tools:context=".UploadImageFirebase">
         android:layout_height="567dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="66dp"
-        android:paddingTop="40dp" />
+        android:paddingTop="40dp"
+        android:contentDescription="@string/todo" />
 
 </RelativeLayout>

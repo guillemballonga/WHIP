@@ -1,22 +1,15 @@
 package com.bernal.jonatan.whip;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -34,7 +27,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class OneFragmentMisPosts extends Fragment {
     View view;
@@ -47,26 +39,22 @@ public class OneFragmentMisPosts extends Fragment {
 
     String tipo;
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("","");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
     private String api = ul.getAPI_KEY();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view=inflater.inflate(R.layout.fragment_one_mis_posts, container, false);
+        view = inflater.inflate(R.layout.fragment_one_mis_posts, container, false);
 
         contenedor = view.findViewById(R.id.contenedor_misPosts);
 
 
-        if (getArguments()!= null && getArguments().getString("title").equals("Post Propios")) {
+        if (getArguments() != null && getArguments().getString("title").equals("Post Propios")) {
             URL = "https://whip-api.herokuapp.com/contributions/myposts";
-        }
-
-        else if (getArguments()!= null && getArguments().getString("title").equals("Post Comentados")) {
+        } else if (getArguments() != null && getArguments().getString("title").equals("Post Comentados")) {
             URL = "https://whip-api.herokuapp.com/contributions/commentedposts";
-        }
-
-        else if (getArguments()!= null && getArguments().getString("title").equals("Post Favoritos")) {
+        } else if (getArguments() != null && getArguments().getString("title").equals("Post Favoritos")) {
             URL = "https://whip-api.herokuapp.com/contributions/favorites";
         }
 
@@ -76,56 +64,57 @@ public class OneFragmentMisPosts extends Fragment {
                 JsonRequest.Method.GET,
                 URL,
                 null,
-                    new Response.Listener<JSONArray>() {
-                        @Override
-                        public void onResponse(JSONArray response) {
-                            try {
-                                resultat = response;
-                                Mis_Posts = new ArrayList<>();
-                                LinearLayoutManager layout = new LinearLayoutManager(getActivity().getApplicationContext());
-                                layout.setOrientation(LinearLayoutManager.VERTICAL);
-                                JSONObject postite;
-                                for (int i = 0; i < resultat.length(); i++) {
-                                    postite = resultat.getJSONObject(i);
-                                    if (postite.has("type")) tipo = "LOST";
-                                    else tipo = "ADOPTION";
-                                    Mis_Posts.add(new Fuente(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), 0,tipo));
-                                }
-                                adapt = new Adaptador(Mis_Posts,"PostPropio"); //Color de Lost --> No se como hacer que salgan de un color distinto
-                                contenedor.setAdapter(adapt);
-                                contenedor.setLayoutManager(layout);
-                                adapt.setOnClickListener(new View.OnClickListener() {
-
-                                    @Override
-                                    public void onClick(View view) {
-                                        String id_post = Mis_Posts.get(contenedor.getChildAdapterPosition(view)).getId();
-                                        Intent i;
-                                        if (Mis_Posts.get(contenedor.getChildAdapterPosition(view)).getType().equals("LOST")) i = new Intent(getActivity(), InfoPostLost.class);
-                                        else i = new Intent(getActivity(), InfoPostAdoption.class);
-                                        i.putExtra("identificadorPost", id_post);
-                                        startActivity(i);
-                                    }
-                                });
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            resultat = response;
+                            Mis_Posts = new ArrayList<>();
+                            LinearLayoutManager layout = new LinearLayoutManager(getActivity().getApplicationContext());
+                            layout.setOrientation(LinearLayoutManager.VERTICAL);
+                            JSONObject postite;
+                            for (int i = 0; i < resultat.length(); i++) {
+                                postite = resultat.getJSONObject(i);
+                                if (postite.has("type")) tipo = "LOST";
+                                else tipo = "ADOPTION";
+                                Mis_Posts.add(new Fuente(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), 0, tipo));
                             }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getContext().getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
+                            adapt = new Adaptador(Mis_Posts, "PostPropio"); //Color de Lost --> No se como hacer que salgan de un color distinto
+                            contenedor.setAdapter(adapt);
+                            contenedor.setLayoutManager(layout);
+                            adapt.setOnClickListener(new View.OnClickListener() {
+
+                                @Override
+                                public void onClick(View view) {
+                                    String id_post = Mis_Posts.get(contenedor.getChildAdapterPosition(view)).getId();
+                                    Intent i;
+                                    if (Mis_Posts.get(contenedor.getChildAdapterPosition(view)).getType().equals("LOST"))
+                                        i = new Intent(getActivity(), InfoPostLost.class);
+                                    else i = new Intent(getActivity(), InfoPostAdoption.class);
+                                    i.putExtra("identificadorPost", id_post);
+                                    startActivity(i);
+                                }
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
-            ) {
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("Authorization", api); //valor de V ha de ser el de la var global
-                    return params;
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext().getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            };
-            requestqueue.add(arrayJsonrequest);
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", api); //valor de V ha de ser el de la var global
+                return params;
+            }
+        };
+        requestqueue.add(arrayJsonrequest);
 
 
         return view;

@@ -19,8 +19,8 @@
             android:id="@+id/google_icon"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="160dp"
+            android:layout_marginBottom="10dp"
             android:contentDescription="@string/logo_whip"
             android:src="@drawable/logo" />
 
@@ -29,8 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="@string/title_text"
             android:gravity="center"
+            android:text="@string/title_text"
             android:textColor="@android:color/white"
             android:textSize="36sp" />
 
@@ -97,15 +97,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/sign_out"
-                android:theme="@style/Widget.AppCompat.ButtonBar" />
+                android:theme="@style/Widget.AppCompat.ButtonBar"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/perfil_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="PERFIL"
-                android:theme="@style/Widget.AppCompat.ButtonBar" />
+                android:text="@string/perfil"
+                android:theme="@style/Widget.AppCompat.ButtonBar"
+                tools:ignore="ButtonStyle" />
         </LinearLayout>
 
     </RelativeLayout>

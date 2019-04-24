@@ -49,8 +49,9 @@ public class EditProfile extends AppCompatActivity {
 
 
     Button goToMostrarPerfilGuardant, goToMostrarPerfilCancelar;
+    @SuppressLint("StaticFieldLeak")
     static GlideImageView fotoperfil;
-    EditText nom,cognom,user,cp;
+    EditText nom, cognom, user, cp;
     TextView correu;
 
 
@@ -58,7 +59,7 @@ public class EditProfile extends AppCompatActivity {
     private String URL, urlFoto;
     private String urlBD = MostrarPerfil.getFoto();
     private RequestQueue requestqueue;
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("","");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
     private String api = ul.getAPI_KEY();
     private Uri path;
 
@@ -94,7 +95,6 @@ public class EditProfile extends AppCompatActivity {
         requestqueue = Volley.newRequestQueue(this);
 
 
-
         goToMostrarPerfilGuardant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,27 +106,25 @@ public class EditProfile extends AppCompatActivity {
                 //JASON
                 try {
                     perfil_editat.put("post_code", cp.getText().toString());
-                    perfil_editat.put("name", nom.getText().toString() );
-                    perfil_editat.put("about","hola");
+                    perfil_editat.put("name", nom.getText().toString());
+                    perfil_editat.put("about", "hola");
                     perfil_editat.put("fam_name", cognom.getText().toString());
                     perfil_editat.put("username", user.getText().toString());
 
 
                     //aqui carrego la nova foto canviada
                     urlFoto = UploadImageFirebase.getIdentificadorImatge();
-                    if (!urlFoto.equals(""))retrieveImage(urlFoto);
-                    perfil_editat.put("photo_url",urlFoto);
-
+                    if (!urlFoto.equals("")) retrieveImage(urlFoto);
+                    perfil_editat.put("photo_url", urlFoto);
 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                if(nom.getText().toString().equals("") || cp.getText().toString().equals("") || cognom.getText().toString().equals("") || user.getText().toString().equals("")) {
+                if (nom.getText().toString().equals("") || cp.getText().toString().equals("") || cognom.getText().toString().equals("") || user.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     //Guardar los datos del formulario en BACK. NOTA: No olvidar guardar la fecha de creación del Post
                     JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                             JsonRequest.Method.PATCH,
@@ -145,7 +143,7 @@ public class EditProfile extends AppCompatActivity {
                             new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
                                     error.printStackTrace();
 
 
@@ -164,15 +162,11 @@ public class EditProfile extends AppCompatActivity {
 //JASON
 
 
-
                 }
-
-
 
 
                 finish();
             }
-
 
 
         });
@@ -205,7 +199,6 @@ public class EditProfile extends AppCompatActivity {
         });
 
 
-
     }
 
     private void carregaParametres() {
@@ -219,12 +212,10 @@ public class EditProfile extends AppCompatActivity {
         fotoperfil = findViewById(R.id.imagen_perfil);
 
 
-
         //CARREGAR IMATGE FIREBASE
-        if(urlBD.substring(1, 7).equals("images")){
+        if (urlBD.substring(1, 7).equals("images")) {
             retrieveImage(urlBD);
-        }
-        else{ //CARREGAR IMATGE DE GOOGLE
+        } else { //CARREGAR IMATGE DE GOOGLE
             fotoperfil.loadImageUrl(urlBD);
         }
 
@@ -235,7 +226,7 @@ public class EditProfile extends AppCompatActivity {
     private void obrirgaleria() {
         @SuppressLint("IntentReset") Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         gallery.setType("image/");
-        startActivityForResult(Intent.createChooser(gallery,"Seleccione la Aplicación"),10);
+        startActivityForResult(Intent.createChooser(gallery, "Seleccione la Aplicación"), 10);
     }
 
 
@@ -250,6 +241,7 @@ public class EditProfile extends AppCompatActivity {
 
         }
     }
+
     public static void retrieveImage(String idImageFirebase) {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -271,7 +263,8 @@ public class EditProfile extends AppCompatActivity {
                 public void onFailure(@NonNull Exception exception) {
                 }
             });
-        } catch (IOException e ) {}
+        } catch (IOException ignored) {
+        }
     }
 
 }

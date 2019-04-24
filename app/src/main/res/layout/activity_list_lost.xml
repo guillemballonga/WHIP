@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".LostList">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/toolbar_listadoPerd"/>
+    <include
+        android:id="@+id/toolbar_listadoPerd"
+        layout="@layout/toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:paddingTop="4dp">
+        android:paddingTop="4dp"
+        tools:ignore="RtlHardcoded">
 
         <Spinner
             android:id="@+id/spinner_filter_lost"
@@ -23,7 +24,8 @@
             android:layout_marginRight="7dp"
             android:background="@drawable/filter"
             android:paddingLeft="5dp"
-            android:spinnerMode="dropdown" />
+            android:spinnerMode="dropdown"
+            tools:ignore="RtlSymmetry" />
 
 
     </LinearLayout>
@@ -32,15 +34,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:paddingTop="4dp">
+        android:paddingTop="4dp"
+        tools:ignore="RtlHardcoded">
 
         <TextView
             android:id="@+id/orderby_lost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:layout_marginRight="10dp"/>
+            android:textSize="14sp" />
 
     </LinearLayout>
 
@@ -50,11 +53,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/contenedor"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/contenedor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
 
 
     </android.support.v4.widget.SwipeRefreshLayout>

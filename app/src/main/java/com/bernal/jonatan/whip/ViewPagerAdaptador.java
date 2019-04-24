@@ -3,15 +3,14 @@ package com.bernal.jonatan.whip;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.ListFragment;
-import android.support.v4.view.ViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewPagerAdaptador extends FragmentPagerAdapter {
-    List<Fragment> fragmentList=new ArrayList<>();
-    public ViewPagerAdaptador(FragmentManager fm){
+    private List<Fragment> fragmentList = new ArrayList<>();
+
+    ViewPagerAdaptador(FragmentManager fm) {
         super(fm);
     }
 
@@ -25,7 +24,7 @@ public class ViewPagerAdaptador extends FragmentPagerAdapter {
         return fragmentList.size();
     }
 
-    public void addFragment(Fragment fragment){
+    void addFragment(Fragment fragment) {
         fragmentList.add(fragment);
     }
 }

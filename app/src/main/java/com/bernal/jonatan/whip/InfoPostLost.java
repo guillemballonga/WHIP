@@ -1,5 +1,6 @@
 package com.bernal.jonatan.whip;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -54,7 +55,7 @@ public class InfoPostLost extends AppCompatActivity {
 
     private String mail_creador;
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("","");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,28 +65,26 @@ public class InfoPostLost extends AppCompatActivity {
         //Obtengo el ID del post
         Identificador = getIntent().getStringExtra("identificadorPost");
 
-        titulo = (TextView) findViewById(R.id.titulo_postPerd);
-        fecha = (TextView) findViewById(R.id.fecha_postPerd);
-        especie = (TextView) findViewById(R.id.especie_postPerd);
-        tipo = (TextView) findViewById(R.id.tipo_postPerd);
-        raza = (TextView) findViewById(R.id.raza_postPerd);
-        contenido = (TextView) findViewById(R.id.contenido_postPerd);
+        titulo = findViewById(R.id.titulo_postPerd);
+        fecha = findViewById(R.id.fecha_postPerd);
+        especie = findViewById(R.id.especie_postPerd);
+        tipo = findViewById(R.id.tipo_postPerd);
+        raza = findViewById(R.id.raza_postPerd);
+        contenido = findViewById(R.id.contenido_postPerd);
 
-        foto_post = (ImageView) findViewById(R.id.foto_postPerd);
-        foto_user = (ImageView) findViewById(R.id.imagen_coment_user);
+        foto_post = findViewById(R.id.foto_postPerd);
+        foto_user = findViewById(R.id.imagen_coment_user);
         compartirRRSS = findViewById(R.id.CompartirRRSSPerd);
         organ_quedada = findViewById(R.id.organ_quedadaPerd);
         box_comment = findViewById(R.id.box_comment);
 
-        cerrar_post = (Button) findViewById(R.id.boton_cerrar);
+        cerrar_post = findViewById(R.id.boton_cerrar);
 
 
         //Gestión toolbar
-        Toolbar tool = (Toolbar) findViewById(R.id.toolbar_infoPostPerd);
+        Toolbar tool = findViewById(R.id.toolbar_infoPostPerd);
         setSupportActionBar(tool);
         getSupportActionBar().setTitle("LOST");
-
-
 
 
         //Recoger los datos de Back y cargarlos en la vista
@@ -97,7 +96,6 @@ public class InfoPostLost extends AppCompatActivity {
         requestqueue = Volley.newRequestQueue(this);
 
 
-
         cerrar_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,15 +104,12 @@ public class InfoPostLost extends AppCompatActivity {
         });
 
 
-
-
-
-
         JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                 JsonRequest.Method.GET,
                 URL,
                 null,
                 new Response.Listener<JSONObject>() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onResponse(JSONObject response) {
 
@@ -162,8 +157,8 @@ public class InfoPostLost extends AppCompatActivity {
                 }
         ) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
                 params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
                 return params;
             }
@@ -199,8 +194,8 @@ public class InfoPostLost extends AppCompatActivity {
                                     }
                             ) {
                                 @Override
-                                public Map<String, String> getHeaders() throws AuthFailureError {
-                                    Map<String, String> params = new HashMap<String, String>();
+                                public Map<String, String> getHeaders() {
+                                    Map<String, String> params = new HashMap<>();
                                     params.put("Authorization", ul.getAPI_KEY());
                                     return params;
                                 }
@@ -220,8 +215,8 @@ public class InfoPostLost extends AppCompatActivity {
             title.setTitle("CERRAR POST");
             title.show();
 
-        }
-        else Toast.makeText(getApplicationContext(), "POST NO CREADO POR EL TI, NO PUEDES BORRARLO", Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(getApplicationContext(), "POST NO CREADO POR EL TI, NO PUEDES BORRARLO", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -261,8 +256,8 @@ public class InfoPostLost extends AppCompatActivity {
                 }
         ) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
                 params.put("Authorization", ul.getAPI_KEY());
                 return params;
             }
@@ -324,8 +319,8 @@ public class InfoPostLost extends AppCompatActivity {
                                     }
                             ) {
                                 @Override
-                                public Map<String, String> getHeaders() throws AuthFailureError {
-                                    Map<String, String> params = new HashMap<String, String>();
+                                public Map<String, String> getHeaders() {
+                                    Map<String, String> params = new HashMap<>();
                                     params.put("Authorization", ul.getAPI_KEY());
                                     return params;
                                 }
@@ -344,8 +339,8 @@ public class InfoPostLost extends AppCompatActivity {
             title.setTitle("ELIMINAR POST");
             title.show();
 
-        }
-        else Toast.makeText(getApplicationContext(), "POST NO CREADO POR EL TI, NO PUEDES BORRARLO", Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(getApplicationContext(), "POST NO CREADO POR EL TI, NO PUEDES BORRARLO", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -369,8 +364,8 @@ public class InfoPostLost extends AppCompatActivity {
                 }
         ) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
                 params.put("Content-Type", "application/json");
                 params.put("Authorization", ul.getAPI_KEY());
                 return params;
@@ -401,8 +396,8 @@ public class InfoPostLost extends AppCompatActivity {
                 }
         ) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
                 params.put("Content-Type", "application/json");
                 params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
                 return params;
@@ -410,6 +405,7 @@ public class InfoPostLost extends AppCompatActivity {
         };
         requestqueue.add(objectJsonrequest);
     }
+
     public void retrieveImage(String idImageFirebase) {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -431,7 +427,8 @@ public class InfoPostLost extends AppCompatActivity {
                 public void onFailure(@NonNull Exception exception) {
                 }
             });
-        } catch (IOException e ) {}
+        } catch (IOException ignored) {
+        }
     }
 
 }

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".EditProfile">
 
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/toolbar_editarPerfil"/>
+    <include
+        android:id="@+id/toolbar_editarPerfil"
+        layout="@layout/toolbar" />
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -20,9 +20,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_gravity="center"
-            android:layout_marginTop="40dp">
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
 
 
             <RelativeLayout
@@ -37,8 +37,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="156dp"
 
-                    app:error_res="@drawable/icono_usuario"
                     android:src="@drawable/icono_usuario"
+                    app:error_res="@drawable/icono_usuario"
                     app:placeholder_res="@drawable/cargando"
                     app:show_progress="false" />
 
@@ -47,9 +47,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_gravity="center"
-                android:layout_marginTop="60dp">
+                android:layout_marginTop="60dp"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -62,18 +62,17 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/botonrosa"
                         android:gravity="center"
+                        android:text="@string/nombre"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:text="Nombre"/>
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/escr_nom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/perfilblanc"
-                        android:gravity="center"
-                        />
+                        android:gravity="center" />
 
 
                 </LinearLayout>
@@ -81,8 +80,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:gravity="center">
 
 
                     <TextView
@@ -91,27 +90,26 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/botonrosa"
                         android:gravity="center"
+                        android:text="@string/apellido"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:text="Apellido"/>
+                        android:textStyle="bold" />
+
                     <EditText
                         android:id="@+id/escr_cognom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/perfilblanc"
-                        android:gravity="center"
-                        />
+                        android:gravity="center" />
 
                 </LinearLayout>
-
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:gravity="center">
 
 
                     <TextView
@@ -120,25 +118,25 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/botonrosa"
                         android:gravity="center"
+                        android:text="@string/username"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:text="Username"/>
+                        android:textStyle="bold" />
+
                     <EditText
                         android:id="@+id/escr_user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/perfilblanc"
-                        android:gravity="center"
-                        />
+                        android:gravity="center" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:gravity="center">
 
 
                     <TextView
@@ -147,26 +145,25 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/botonrosa"
                         android:gravity="center"
+                        android:text="@string/correo"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:text="Correo"/>
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/escr_correu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/perfilgris"
-                        android:gravity="center"
-                        />
+                        android:gravity="center" />
                 </LinearLayout>
-
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:gravity="center">
 
                     <TextView
                         android:id="@+id/camp_CP"
@@ -174,18 +171,17 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/botonrosa"
                         android:gravity="center"
+                        android:text="@string/c_p"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:text="C.P." />
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/escr_CP"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/perfilblanc"
-                        android:gravity="center"
-                        />
+                        android:gravity="center" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -193,34 +189,35 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp">
+                android:gravity="center">
 
                 <Button
                     android:id="@+id/boto_guardar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
                     android:background="@drawable/botonredondo"
-                    android:text="GUARDAR"
+                    android:text="@string/guardar"
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"/>
+                    tools:ignore="ButtonStyle" />
 
                 <Button
                     android:id="@+id/boto_cancelar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:background="@drawable/botonredondo"
-                    android:text="CANCELAR"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
-                    />
+                    android:background="@drawable/botonredondo"
+                    android:text="@string/cancelar"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    tools:ignore="ButtonStyle" />
             </LinearLayout>
 
         </LinearLayout>

@@ -1,12 +1,12 @@
 package com.bernal.jonatan.whip;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,29 +15,28 @@ import android.widget.Button;
 
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    Button lost, adoption;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-
-    Button lost,adoption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
 
-        lost = (Button) findViewById(R.id.boton_lost);
-        adoption = (Button) findViewById(R.id.boton_adoption);
+        lost = findViewById(R.id.boton_lost);
+        adoption = findViewById(R.id.boton_adoption);
 
-        Toolbar tool = (Toolbar) findViewById(R.id.toolbar_menuPrincipal);
+        Toolbar tool = findViewById(R.id.toolbar_menuPrincipal);
         setSupportActionBar(tool);
         getSupportActionBar().setTitle("MENÚ PRINCIPAL");
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout,R.string.open,R.string.close);
+        mDrawerLayout = findViewById(R.id.drawer);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        NavigationView nv = (NavigationView) findViewById(R.id.navigation_view);
+        NavigationView nv = findViewById(R.id.navigation_view);
         nv.setNavigationItemSelectedListener(this);
 
 
@@ -59,7 +58,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()){
+        switch (menuItem.getItemId()) {
             case R.id.nav_encontrado_perdido:
                 startActivity(new Intent(MainMenu.this, LostList.class));
                 break;
@@ -83,13 +82,13 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_notifications,menu);
+        getMenuInflater().inflate(R.menu.menu_notifications, menu);
         return true;
 
     }
 
-    public boolean onOptionsItemSelected(MenuItem menuItem){
-        switch (menuItem.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
             case R.id.icono_notify:
                 //startActivity(new Intent(MainMenu.this, NewPostLost.class));
                 break;

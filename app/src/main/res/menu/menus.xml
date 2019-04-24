@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:icon="@drawable/icono_anadir"
         android:id="@+id/icono_añadir"
-        app:showAsAction="always"
-        android:title="Añadir" />
+        android:icon="@drawable/icono_anadir"
+        android:title="@string/a_adir"
+        app:showAsAction="always" />
 
 </menu>

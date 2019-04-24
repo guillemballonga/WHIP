@@ -40,8 +40,8 @@ import java.util.Map;
 
 public class InfoPostAdoption extends AppCompatActivity {
 
-    TextView titulo, fecha, especie,raza, contenido;
-    ImageView foto_post, compartirRRSS,Organ_quedada, solicitud_quedada;
+    TextView titulo, fecha, especie, raza, contenido;
+    ImageView foto_post, compartirRRSS, Organ_quedada, solicitud_quedada;
     String Identificador;
     Button close_buton;
 
@@ -50,7 +50,7 @@ public class InfoPostAdoption extends AppCompatActivity {
 
     private String mail_creador;
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("","");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +60,13 @@ public class InfoPostAdoption extends AppCompatActivity {
         //Obtengo el ID del post
         Identificador = getIntent().getStringExtra("identificadorPost");
 
-        titulo = (TextView) findViewById(R.id.titulo_postAdoption);
-        fecha = (TextView) findViewById(R.id.fecha_postAdoption);
-        especie = (TextView) findViewById(R.id.especie_postAdoption);
-        raza = (TextView) findViewById(R.id.raza_postAdoption);
-        contenido = (TextView) findViewById(R.id.contenido_postAdoption);
+        titulo = findViewById(R.id.titulo_postAdoption);
+        fecha = findViewById(R.id.fecha_postAdoption);
+        especie = findViewById(R.id.especie_postAdoption);
+        raza = findViewById(R.id.raza_postAdoption);
+        contenido = findViewById(R.id.contenido_postAdoption);
 
-        foto_post = (ImageView) findViewById(R.id.foto_postAdoption);
+        foto_post = findViewById(R.id.foto_postAdoption);
         compartirRRSS = findViewById(R.id.CompartirRRSSAdoption);
         Organ_quedada = findViewById(R.id.organ_quedadaAdoption);
         solicitud_quedada = findViewById(R.id.quedada_adoption);
@@ -74,7 +74,7 @@ public class InfoPostAdoption extends AppCompatActivity {
         close_buton = findViewById(R.id.boton_cerrar_adoption);
 
         //Gestión toolbar
-        Toolbar tool = (Toolbar) findViewById(R.id.toolbar_infoPostAdoption);
+        Toolbar tool = findViewById(R.id.toolbar_infoPostAdoption);
         setSupportActionBar(tool);
         getSupportActionBar().setTitle("ADOPCIÓN");
 
@@ -140,8 +140,8 @@ public class InfoPostAdoption extends AppCompatActivity {
                 }
         ) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
                 params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
                 return params;
             }
@@ -176,8 +176,8 @@ public class InfoPostAdoption extends AppCompatActivity {
                                     }
                             ) {
                                 @Override
-                                public Map<String, String> getHeaders() throws AuthFailureError {
-                                    Map<String, String> params = new HashMap<String, String>();
+                                public Map<String, String> getHeaders() {
+                                    Map<String, String> params = new HashMap<>();
                                     params.put("Authorization", ul.getAPI_KEY());
                                     return params;
                                 }
@@ -196,8 +196,8 @@ public class InfoPostAdoption extends AppCompatActivity {
             title.setTitle("CERRAR POST");
             title.show();
 
-        }
-        else Toast.makeText(getApplicationContext(), "POST NO CREADO POR EL TI, NO PUEDES CERRARLO", Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(getApplicationContext(), "POST NO CREADO POR EL TI, NO PUEDES CERRARLO", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -235,8 +235,8 @@ public class InfoPostAdoption extends AppCompatActivity {
                 }
         ) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
                 params.put("Authorization", ul.getAPI_KEY());
                 return params;
             }
@@ -298,8 +298,8 @@ public class InfoPostAdoption extends AppCompatActivity {
                                     }
                             ) {
                                 @Override
-                                public Map<String, String> getHeaders() throws AuthFailureError {
-                                    Map<String, String> params = new HashMap<String, String>();
+                                public Map<String, String> getHeaders() {
+                                    Map<String, String> params = new HashMap<>();
                                     params.put("Authorization", ul.getAPI_KEY());
                                     return params;
                                 }
@@ -317,8 +317,8 @@ public class InfoPostAdoption extends AppCompatActivity {
             AlertDialog title = alert.create();
             title.setTitle("ELIMINAR POST");
             title.show();
-        }
-        else Toast.makeText(getApplicationContext(), "POST NO CREADO POR EL TI, NO PUEDES BORRARLO", Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(getApplicationContext(), "POST NO CREADO POR EL TI, NO PUEDES BORRARLO", Toast.LENGTH_SHORT).show();
     }
 
     private void BackFavs_dislike() {
@@ -341,8 +341,8 @@ public class InfoPostAdoption extends AppCompatActivity {
                 }
         ) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
                 params.put("Content-Type", "application/json");
                 params.put("Authorization", ul.getAPI_KEY());
                 return params;
@@ -373,8 +373,8 @@ public class InfoPostAdoption extends AppCompatActivity {
                 }
         ) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
                 params.put("Content-Type", "application/json");
                 params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
                 return params;
@@ -382,6 +382,7 @@ public class InfoPostAdoption extends AppCompatActivity {
         };
         requestqueue.add(objectJsonrequest);
     }
+
     public void retrieveImage(String idImageFirebase) {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -403,9 +404,9 @@ public class InfoPostAdoption extends AppCompatActivity {
                 public void onFailure(@NonNull Exception exception) {
                 }
             });
-        } catch (IOException e ) {}
+        } catch (IOException ignored) {
+        }
     }
-
 
 
 }

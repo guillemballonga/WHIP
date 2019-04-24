@@ -4,16 +4,16 @@
 
 
     <item
-        android:icon="@drawable/estrella_fav_rellena"
         android:id="@+id/icono_fav_rell"
-        app:showAsAction="always"
-        android:title="Favorito" />
+        android:icon="@drawable/estrella_fav_rellena"
+        android:title="@string/favorito"
+        app:showAsAction="ifRoom" />
 
     <item
-        android:icon="@drawable/papelera"
         android:id="@+id/icono_delete"
-        app:showAsAction="always"
-        android:title="Delete" />
+        android:icon="@drawable/papelera"
+        android:title="@string/delete"
+        app:showAsAction="always" />
 
 
 </menu>

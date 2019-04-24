@@ -1,14 +1,15 @@
 package com.bernal.jonatan.whip;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -42,15 +43,16 @@ import java.util.Map;
 
 public class NewPostLost extends AppCompatActivity {
 
+    @SuppressLint("StaticFieldLeak")
     static ImageView foto;
-    Spinner especie,tipo;
-    Button create,cancel;
-    EditText titulo,cp,raza,contenido;
+    Spinner especie, tipo;
+    Button create, cancel;
+    EditText titulo, cp, raza, contenido;
 
     //variables para comucicación back
     private String URL;
     private RequestQueue requestqueue;
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("","");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,19 +64,19 @@ public class NewPostLost extends AppCompatActivity {
         requestqueue = Volley.newRequestQueue(this);
 
         //Gestión de toolbar
-        Toolbar tool = (Toolbar) findViewById(R.id.toolbar_nuevoPostPerd);
+        Toolbar tool = findViewById(R.id.toolbar_nuevoPostPerd);
         setSupportActionBar(tool);
         getSupportActionBar().setTitle("LOST");
 
-        foto = (ImageView) findViewById(R.id.perfil_perroPerd);
+        foto = findViewById(R.id.perfil_perroPerd);
 
-        especie = (Spinner) findViewById(R.id.especie_postPerd);
-        tipo = (Spinner) findViewById(R.id.tipo_postPerd);
+        especie = findViewById(R.id.especie_postPerd);
+        tipo = findViewById(R.id.tipo_postPerd);
 
-        titulo = (EditText) findViewById(R.id.titulo_postPerd);
-        cp = (EditText) findViewById(R.id.cp_postPerd);
-        raza = (EditText) findViewById(R.id.raza_postPerd);
-        contenido = (EditText) findViewById(R.id.descripcion_postPerd);
+        titulo = findViewById(R.id.titulo_postPerd);
+        cp = findViewById(R.id.cp_postPerd);
+        raza = findViewById(R.id.raza_postPerd);
+        contenido = findViewById(R.id.descripcion_postPerd);
 
 
         // Spinner per a seleccionar els items
@@ -110,10 +112,10 @@ public class NewPostLost extends AppCompatActivity {
 
         //Botons
 
-        create = (Button) findViewById(R.id.boton_create);
-        cancel = (Button) findViewById(R.id.boton_cancelNewPostPerd);
+        create = findViewById(R.id.boton_create);
+        cancel = findViewById(R.id.boton_cancelNewPostPerd);
 
-        create.setOnClickListener(new View.OnClickListener(){
+        create.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -132,7 +134,7 @@ public class NewPostLost extends AppCompatActivity {
 //JASON
                 try {
                     post.put("specie", especie.getSelectedItem().toString());
-                    post.put("urls", k );
+                    post.put("urls", k);
                     post.put("race", raza.getText().toString());
                     post.put("post_code", cp.getText().toString());
                     post.put("text", contenido.getText().toString());
@@ -144,11 +146,10 @@ public class NewPostLost extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                if(titulo.getText().toString().equals("") || cp.getText().toString().equals("") || raza.getText().toString().equals("") || especie.getSelectedItem().toString().equals("") || tipo.getSelectedItem().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(),"Los campos con * son obligatorios",Toast.LENGTH_SHORT).show();
+                if (titulo.getText().toString().equals("") || cp.getText().toString().equals("") || raza.getText().toString().equals("") || especie.getSelectedItem().toString().equals("") || tipo.getSelectedItem().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(), "Los campos con * son obligatorios", Toast.LENGTH_SHORT).show();
 
-                }
-                else {
+                } else {
                     //Guardar los datos del formulario en BACK. NOTA: No olvidar guardar la fecha de creación del Post
                     JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                             JsonRequest.Method.POST,
@@ -157,10 +158,10 @@ public class NewPostLost extends AppCompatActivity {
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
-                                    Toast.makeText(getApplicationContext(),"Post guardado correctamente",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Post guardado correctamente", Toast.LENGTH_SHORT).show();
                                     try {
                                         Intent i = new Intent(NewPostLost.this, InfoPostLost.class);
-                                        i.putExtra("identificadorPost",response.getString("id"));
+                                        i.putExtra("identificadorPost", response.getString("id"));
                                         startActivity(i);
                                         finish();
 
@@ -172,14 +173,14 @@ public class NewPostLost extends AppCompatActivity {
                             new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getApplicationContext(),"ERROOOOOOOR",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
 
                                 }
                             }
                     ) {
                         @Override
-                        public Map<String, String> getHeaders() throws AuthFailureError {
-                            Map<String, String> params = new HashMap<String, String>();
+                        public Map<String, String> getHeaders() {
+                            Map<String, String> params = new HashMap<>();
                             params.put("Content-Type", "application/json");
                             params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
                             return params;
@@ -195,7 +196,7 @@ public class NewPostLost extends AppCompatActivity {
             }
         });
 
-        cancel.setOnClickListener(new View.OnClickListener(){
+        cancel.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -204,29 +205,27 @@ public class NewPostLost extends AppCompatActivity {
         });
 
 
-
-
-
-
     }
 
+    @SuppressLint("IntentReset")
     public void openGallery() {
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        @SuppressLint("IntentReset") Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         gallery.setType("image/");
-        startActivityForResult(gallery.createChooser(gallery,"Seleccione la Aplicación"),10);
+        startActivityForResult(gallery.createChooser(gallery, "Seleccione la Aplicación"), 10);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
+            assert data != null;
             Uri path = data.getData();
             foto.setImageURI(path);
 
 
-
         }
     }
+
     public static void retrieveImage(String idImageFirebase) {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -248,7 +247,8 @@ public class NewPostLost extends AppCompatActivity {
                 public void onFailure(@NonNull Exception exception) {
                 }
             });
-        } catch (IOException e ) {}
+        } catch (IOException ignored) {
+        }
     }
 
 }

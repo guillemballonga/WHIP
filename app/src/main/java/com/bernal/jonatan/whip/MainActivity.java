@@ -40,13 +40,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
-
+    UserLoggedIn ul;
     private GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
-
     private String URL;
     private RequestQueue requestqueue;
-    UserLoggedIn ul;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,8 +120,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             //dona d alta aqui
-            Toast.makeText(getApplicationContext(),"login  per iniciar ",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "login  per iniciar ", Toast.LENGTH_SHORT).show();
 
+            assert account != null;
             guardarUsuari(account);
 
             // Signed in successfully, show authenticated UI.
@@ -150,44 +149,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if (true ) {
-            JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                    JsonRequest.Method.POST,
-                    URL,
-                    user,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            Toast.makeText(getApplicationContext(),"Usuari logejat  correctament",Toast.LENGTH_SHORT).show();
-                            //todo guardar api key en el singleton
-                            try {
-                                ul = UserLoggedIn.getUsuariLogejat(response.getString("api_key"),response.getString("email"));
-                                ul.setAPI_KEY(response.getString("api_key"));
-                                ul.setCorreo_user(response.getString("email"));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.POST,
+                URL,
+                user,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(getApplicationContext(), "Usuari logejat  correctament", Toast.LENGTH_SHORT).show();
+                        //todo guardar api key en el singleton
+                        try {
+                            ul = UserLoggedIn.getUsuariLogejat(response.getString("api_key"), response.getString("email"));
+                            ul.setAPI_KEY(response.getString("api_key"));
+                            ul.setCorreo_user(response.getString("email"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getApplicationContext(),"guardarUsuari : ERROOOOOOOR",Toast.LENGTH_SHORT).show();
 
-                        }
                     }
-            ) {
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("Content-Type", "application/json");
-                    return params;
-                }
-            };
-            requestqueue.add(objectJsonrequest);
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "guardarUsuari : ERROOOOOOOR", Toast.LENGTH_SHORT).show();
 
-        }
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                return params;
+            }
+        };
+        requestqueue.add(objectJsonrequest);
 
 
     }
@@ -240,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             //startActivity(new Intent(MainActivity.this, EditProfile.class));
 
-           // finish();
+            // finish();
         } else {
             mStatusTextView.setText(R.string.signed_out);
 

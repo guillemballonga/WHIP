@@ -19,48 +19,52 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.OnClickListener{
+public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.OnClickListener {
 
-    List<Fuente> listaObjetos;
+    private List<Fuente> listaObjetos;
     private View.OnClickListener listener;
     private String type;
 
 
-
-    public Adaptador(List<Fuente> listaObjetos, String type) {
+    Adaptador(List<Fuente> listaObjetos, String type) {
 
         this.listaObjetos = listaObjetos;
         this.type = type;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View vista = null;
-        if (type.equals("Lost")) {
-            vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_lost, parent, false);
-        }
-        else if (type.equals("Adoption")) {
-            vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_adoption, parent, false);
-        }
-        else if (type.equals("PostPropio")) {
-            vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_userposts, parent, false);
+        switch (type) {
+            case "Lost":
+                vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_lost, parent, false);
+                break;
+            case "Adoption":
+                vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_adoption, parent, false);
+                break;
+            case "PostPropio":
+                vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_userposts, parent, false);
+                break;
         }
 
+        assert vista != null;
         vista.setOnClickListener(this);
         return new ViewHolder(vista, listaObjetos);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         holder.nombre_postPerdi.setText(listaObjetos.get(i).getNombre());
 
 
-        if (!listaObjetos.get(i).getImagen().equals("")) retrieveImage(listaObjetos.get(i).getImagen(),holder);
+        if (!listaObjetos.get(i).getImagen().equals(""))
+            retrieveImage(listaObjetos.get(i).getImagen(), holder);
         else holder.imagen_postPerdi.setImageResource(R.drawable.perro);
 
         holder.contenido_postPerdi.setText(listaObjetos.get(i).getContenido());
 
-        if(type.equals("PostPropio")) holder.type_post.setText(listaObjetos.get(i).getType());
+        if (type.equals("PostPropio")) holder.type_post.setText(listaObjetos.get(i).getType());
 
         holder.setId(listaObjetos.get(i).getId());
 
@@ -77,14 +81,14 @@ public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.
 
     @Override
     public void onClick(View view) {
-        if (listener!= null) {
+        if (listener != null) {
             listener.onClick(view);
         }
 
     }
 
 
-    public void retrieveImage(String idImageFirebase, final ViewHolder view) {
+    private void retrieveImage(String idImageFirebase, final ViewHolder view) {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
         //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
@@ -105,6 +109,7 @@ public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.
                 public void onFailure(@NonNull Exception exception) {
                 }
             });
-        } catch (IOException e ) {}
+        } catch (IOException ignored) {
+        }
     }
 }

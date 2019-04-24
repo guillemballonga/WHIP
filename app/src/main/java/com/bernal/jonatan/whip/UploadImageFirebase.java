@@ -3,44 +3,34 @@ package com.bernal.jonatan.whip;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-import static com.bernal.jonatan.whip.EditProfile.*;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.UUID;
-
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.util.UUID;
 
 
 public class UploadImageFirebase extends AppCompatActivity {
 
     private Button btnChoose, btnUpload;
     private ImageView imageView;
-    private  ImageView imageViewPosar;
+    private ImageView imageViewPosar;
 
     // int idImageView;
 
@@ -53,12 +43,12 @@ public class UploadImageFirebase extends AppCompatActivity {
     public static String getIdentificadorImatge() {
         return identificadorImatge;
     }
+
     public static void netejaIdentificadorImatge() {
         identificadorImatge = "";
     }
 
-    private static String identificadorImatge  = "";
-
+    private static String identificadorImatge = "";
 
 
     //Firebase
@@ -72,9 +62,9 @@ public class UploadImageFirebase extends AppCompatActivity {
         setContentView(R.layout.activity_upload_image_firebase);
 
         //Initialize Views
-        btnChoose = (Button) findViewById(R.id.btnChoose);
-        btnUpload = (Button) findViewById(R.id.btnUpload);
-        imageView = (ImageView) findViewById(R.id.imgView);
+        btnChoose = findViewById(R.id.btnChoose);
+        btnUpload = findViewById(R.id.btnUpload);
+        imageView = findViewById(R.id.imgView);
 
         //Initialize firebase
         storage = FirebaseStorage.getInstance();
@@ -85,7 +75,6 @@ public class UploadImageFirebase extends AppCompatActivity {
 
         idActivity = getIntent().getStringExtra("idActivity");
         if (idActivity == null) idActivity = "";
-
 
 
         btnChoose.setOnClickListener(new View.OnClickListener() {
@@ -116,31 +105,27 @@ public class UploadImageFirebase extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null )
-        {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
             filePath = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+
     private void uploadImage() {
 
 
-
-        if(filePath != null)
-        {
+        if (filePath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+            StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
 
 
             identificadorImatge = ref.getPath();
@@ -154,14 +139,16 @@ public class UploadImageFirebase extends AppCompatActivity {
                             String xxx = identificadorImatge;
 
                             //if (idImageView != 0 && imageViewPosar != null) {
-                            if (idActivity.equals("lost"))
-                                NewPostLost.retrieveImage(xxx);
-
-                            else if (idActivity.equals("adoption")){
-                                NewPostAdoption.retrieveImage(xxx);
-                            }
-                            else if (idActivity.equals("edit")) {
-                                EditProfile.retrieveImage(xxx);
+                            switch (idActivity) {
+                                case "lost":
+                                    NewPostLost.retrieveImage(xxx);
+                                    break;
+                                case "adoption":
+                                    NewPostAdoption.retrieveImage(xxx);
+                                    break;
+                                case "edit":
+                                    EditProfile.retrieveImage(xxx);
+                                    break;
                             }
                             //EditProfile.setVistaPreviaImatge(identificadorImatge);
 
@@ -181,20 +168,19 @@ public class UploadImageFirebase extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(UploadImageFirebase.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UploadImageFirebase.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
                                     .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                            progressDialog.setMessage("Uploaded " + (int) progress + "%");
                         }
                     });
         }
     }
-
 
 
 }

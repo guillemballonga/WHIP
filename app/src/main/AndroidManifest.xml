@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.bernal.jonatan.whip">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -14,12 +15,12 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".InfoPostAdoption"></activity>
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".InfoPostAdoption" />
         <activity android:name=".ShowImage" />
-        <activity android:name=".AdoptionList"></activity>
+        <activity android:name=".AdoptionList" />
         <activity android:name=".NewPostAdoption" />
-        <activity android:name=".MostrarImatge" />
         <activity android:name=".UploadImageFirebase" />
         <activity android:name=".MostrarPerfil" />
         <activity android:name=".EditProfile" />

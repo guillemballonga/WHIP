@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@color/colorAdopcio"
-android:orientation="vertical"
-tools:context=".NewPostAdoption">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAdopcio"
+    android:orientation="vertical"
+    tools:context=".NewPostAdoption">
 
 
-<include layout="@layout/toolbar"
-    android:id="@+id/toolbar_nuevoPostAdopcio"/>
+    <include
+        android:id="@+id/toolbar_nuevoPostAdopcio"
+        layout="@layout/toolbar" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -54,26 +54,19 @@ tools:context=".NewPostAdoption">
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/fondoform"
-                        android:hint="Añade el título...*"
-                        android:paddingLeft="10dp" />
+                        android:hint="@string/a_ade_el_t_tulo_hint"
+                        android:paddingStart="10dp"
+                        tools:ignore="RtlSymmetry" />
 
                     <EditText
                         android:id="@+id/cp_postAdopcio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:background="@drawable/fondoform"
-                        android:hint="Añade el C.P...*"
-                        android:paddingLeft="10dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingTop="20dp">
-
+                        android:hint="@string/a_ade_el_c_p_hint"
+                        android:paddingStart="10dp"
+                        tools:ignore="RtlSymmetry" />
 
                 </LinearLayout>
 
@@ -87,19 +80,21 @@ tools:context=".NewPostAdoption">
                         android:id="@+id/especie_postAdopcio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="5dp"
                         android:background="@drawable/fondoform"
-                        android:paddingLeft="10dp"
-                        android:spinnerMode="dropdown" />
+                        android:paddingStart="10dp"
+                        android:spinnerMode="dropdown"
+                        tools:ignore="RtlSymmetry" />
 
                     <EditText
                         android:id="@+id/razaPerroAdopcio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:background="@drawable/fondoform"
-                        android:hint="Añade la raza...*"
-                        android:paddingLeft="10dp" />
+                        android:hint="@string/a_ade_la_raza_adopt"
+                        android:paddingStart="10dp"
+                        tools:ignore="RtlSymmetry" />
 
                 </LinearLayout>
 
@@ -115,9 +110,10 @@ tools:context=".NewPostAdoption">
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/fondofromdesc"
-                        android:hint="Añade un comentario..."
-                        android:paddingLeft="10dp"
-                        android:paddingBottom="40dp" />
+                        android:hint="@string/a_ade_un_comentario_hint"
+                        android:paddingStart="10dp"
+                        android:paddingBottom="40dp"
+                        tools:ignore="RtlSymmetry" />
 
 
                 </LinearLayout>
@@ -135,21 +131,23 @@ tools:context=".NewPostAdoption">
                     android:id="@+id/boton_create_adopt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:background="@drawable/botonredondo"
-                    android:text="CREAR"
+                    android:text="@string/crear"
                     android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    tools:ignore="ButtonStyle" />
 
                 <Button
                     android:id="@+id/boton_cancelNewPostAdopcio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:background="@drawable/botonredondo"
-                    android:text="CANCELAR"
+                    android:text="@string/cancelar"
                     android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    tools:ignore="ButtonStyle" />
 
 
             </LinearLayout>

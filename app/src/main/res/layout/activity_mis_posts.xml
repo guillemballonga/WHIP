@@ -7,26 +7,27 @@
     android:orientation="vertical"
     tools:context=".MyPosts">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/toolbar_MisPosts"/>
+    <include
+        android:id="@+id/toolbar_MisPosts"
+        layout="@layout/toolbar" />
 
     <android.support.design.widget.TabLayout
+        android:id="@+id/tabsMisPosts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tabsMisPosts"
         android:background="@color/colorToolbar"
+        app:tabGravity="fill"
         app:tabIndicatorHeight="5dp"
-        app:tabMode="fixed"
-        app:tabGravity="fill" />
+        app:tabMode="fixed" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#E0E0E0"/>
+        android:background="#E0E0E0" />
 
     <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/viewpager"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

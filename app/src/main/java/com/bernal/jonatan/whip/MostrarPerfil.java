@@ -4,31 +4,20 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Build;
-import android.provider.ContactsContract;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
@@ -38,7 +27,6 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.master.glideimageview.GlideImageView;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,23 +34,20 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class MostrarPerfil extends AppCompatActivity {
 
-    Button goToEditarPerfil, goToMisPosts;
     static String nomBack;
     static String cognomBack;
     static String userBack;
     static String cpBack;
     static String correuBack;
     static String urlFoto;
-    TextView nom,cognom,user,cp, correu;
+    Button goToEditarPerfil, goToMisPosts;
+    TextView nom, cognom, user, cp, correu;
     //ImageView imatge;
     GlideImageView imatge;
 
@@ -72,11 +57,32 @@ public class MostrarPerfil extends AppCompatActivity {
     private JSONArray resultat;
     private JSONObject result;
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("","");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
     private String api = ul.getAPI_KEY();
 
+    public static String getCorreu() {
+        return correuBack;
+    }
 
+    public static String getNom() {
+        return nomBack;
+    }
 
+    public static String getCognom() {
+        return cognomBack;
+    }
+
+    public static String getUsername() {
+        return userBack;
+    }
+
+    public static String getCP() {
+        return cpBack;
+    }
+
+    public static String getFoto() {
+        return urlFoto;
+    }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -107,7 +113,7 @@ public class MostrarPerfil extends AppCompatActivity {
 
                             MostrarParametresPerfil(response);
 
-                        }catch (JSONException e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
@@ -115,11 +121,11 @@ public class MostrarPerfil extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
                         error.printStackTrace();
                     }
                 }
-        ){
+        ) {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<>();
@@ -154,6 +160,7 @@ public class MostrarPerfil extends AppCompatActivity {
             }
         });
     }
+
     //Funció per assignar els parametres rebuts de back
     private void MostrarParametresPerfil(JSONObject response) throws JSONException {
 
@@ -182,34 +189,14 @@ public class MostrarPerfil extends AppCompatActivity {
         imatge = findViewById(R.id.imagen_perfil);
 
         //CARREGAR IMATGE FIREBASE
-        if(urlFoto.substring(1, 7).equals("images")){
+        if (urlFoto.substring(1, 7).equals("images")) {
             retrieveImage(urlFoto);
-        }
-        else{ //CARREGAR IMATGE DE GOOGLE
+        } else { //CARREGAR IMATGE DE GOOGLE
             imatge.loadImageUrl(urlFoto);
         }
 
 
-
-
-
     }
-    public static String getCorreu() {
-        return correuBack;
-    }
-    public static String getNom() {
-        return nomBack;
-    }
-    public static String getCognom() {
-        return cognomBack;
-    }
-    public static String getUsername() {
-        return userBack;
-    }
-    public static String getCP() {
-        return cpBack;
-    }
-    public static String getFoto() { return urlFoto; }
 
     public void retrieveImage(String idImageFirebase) {
 
@@ -232,7 +219,8 @@ public class MostrarPerfil extends AppCompatActivity {
                 public void onFailure(@NonNull Exception exception) {
                 }
             });
-        } catch (IOException e ) {}
+        } catch (IOException ignored) {
+        }
     }
 
 
