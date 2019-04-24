@@ -191,7 +191,6 @@ public class MostrarPerfil extends AppCompatActivity {
         //CARREGAR IMATGE FIREBASE
         if (urlFoto.substring(1, 7).equals("images")) {
             retrieveImage(urlFoto);
-
         } else { //CARREGAR IMATGE DE GOOGLE
             imatge.loadImageUrl(urlFoto);
         }

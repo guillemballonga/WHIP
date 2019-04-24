@@ -143,7 +143,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             user.put("name", name[0]);
             user.put("fam_name", account.getFamilyName());
             user.put("username", "");
-            user.put("photo_url", account.getPhotoUrl());
 
 
         } catch (JSONException e) {
