@@ -45,6 +45,10 @@ public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.
             case "PostPropio":
                 vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_userposts, parent, false);
                 break;
+
+            case "Comments":
+                vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_comment, parent, false);
+                break;
         }
 
         assert vista != null;
@@ -54,18 +58,27 @@ public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.nombre_postPerdi.setText(listaObjetos.get(i).getNombre());
+        if (!type.equals("Comments")) {
+            holder.nombre_postPerdi.setText(listaObjetos.get(i).getNombre());
 
 
-        if (!listaObjetos.get(i).getImagen().equals(""))
-            retrieveImage(listaObjetos.get(i).getImagen(), holder);
-        else holder.imagen_postPerdi.setImageResource(R.drawable.perro);
+            if (!listaObjetos.get(i).getImagen().equals(""))
+                retrieveImage(listaObjetos.get(i).getImagen(), holder);
+            else holder.imagen_postPerdi.setImageResource(R.drawable.perro);
 
-        holder.contenido_postPerdi.setText(listaObjetos.get(i).getContenido());
+            holder.contenido_postPerdi.setText(listaObjetos.get(i).getContenido());
 
-        if (type.equals("PostPropio")) holder.type_post.setText(listaObjetos.get(i).getType());
+            if (type.equals("PostPropio")) holder.type_post.setText(listaObjetos.get(i).getType());
 
-        holder.setId(listaObjetos.get(i).getId());
+            holder.setId(listaObjetos.get(i).getId());
+        }
+        else {
+            holder.data_comment.setText(listaObjetos.get(i).getFecha());
+            holder.user_comment.setText(listaObjetos.get(i).getNombre());
+            holder.contenido_comment.setText(listaObjetos.get(i).getContenido());
+            holder.imagen_comment.setImageResource(R.drawable.icono_usuario);
+            holder.setId_comment(listaObjetos.get(i).getId());
+        }
 
     }
 

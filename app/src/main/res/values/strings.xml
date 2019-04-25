@@ -95,4 +95,6 @@
     <string name="a_ade_la_raza_adopt">Añade la raza…*</string>
     <string name="a_ade_el_c_p_hint">Añade el C.P…*</string>
     <string name="a_ade_el_t_tulo_hint">Añade el título…*</string>
+    <string name="borrar">Borrar</string>
+    <string name="linea_separadora">-------------------------------------------------------------------</string>
 </resources>

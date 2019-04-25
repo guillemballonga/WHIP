@@ -9,6 +9,7 @@ public class Fuente {
     private int estado;
     String id;
     String type;
+    private String fecha;
 
 
     Fuente(String id, String nombre, String imagen, String contenido, int estado, String type) {
@@ -18,6 +19,23 @@ public class Fuente {
         this.contenido = contenido;
         this.estado = estado;
         this.type = type;
+    }
+
+    Fuente(String id, String user, String imagen, String contenido, String fecha) {
+        this.id = id;
+        this.nombre = user;
+        this.imagen = imagen;
+        this.contenido = contenido;
+        this.fecha = fecha;
+    }
+
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
     String getNombre() {

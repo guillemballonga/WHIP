@@ -259,7 +259,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:orientation="vertical">
@@ -286,7 +286,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -300,13 +300,57 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:hint="@string/a_ade_un_comentario"
-                        android:autofillHints=""
-                        android:inputType=""
-                        tools:targetApi="o" />
+                        android:hint="@string/a_ade_un_comentario"/>
 
 
                 </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal"
+                    tools:ignore="RtlHardcoded">
+
+                    <Button
+                        android:id="@+id/crear_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_comment"
+                        android:text="@string/crear"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"
+                        tools:ignore="SmallSp"
+                        android:layout_marginRight="10dp"/>
+
+                    <Button
+                        android:id="@+id/borrar_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_comment"
+                        android:text="@string/borrar"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"
+                        tools:ignore="SmallSp"
+                        android:layout_marginLeft="10dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/contenedor_comments"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                </android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
 

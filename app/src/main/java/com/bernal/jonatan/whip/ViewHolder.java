@@ -10,9 +10,13 @@ import java.util.List;
 
 public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    ImageView imagen_postPerdi;
-    TextView contenido_postPerdi, nombre_postPerdi, type_post;
+    ImageView imagen_postPerdi,imagen_comment;
+    TextView contenido_postPerdi, nombre_postPerdi, type_post,contenido_comment,user_comment,data_comment;
     String id;
+    String id_comment;
+
+
+
 
     ViewHolder(@NonNull View itemView, List<Fuente> datos) {
         super(itemView);
@@ -22,6 +26,11 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
         nombre_postPerdi = itemView.findViewById(R.id.Nombre_postPerd);
         type_post = itemView.findViewById(R.id.tipoPost);
 
+        imagen_comment = itemView.findViewById(R.id.imagen_comment);
+        contenido_comment = itemView.findViewById(R.id.Contenido_comment);
+        user_comment = itemView.findViewById(R.id.user_comment);
+        data_comment = itemView.findViewById(R.id.date_comment);
+
     }
 
     public String getIdentificador() {
@@ -30,6 +39,14 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getId_comment() {
+        return id_comment;
+    }
+
+    public void setId_comment(String id_comment) {
+        this.id_comment = id_comment;
     }
 
     @Override

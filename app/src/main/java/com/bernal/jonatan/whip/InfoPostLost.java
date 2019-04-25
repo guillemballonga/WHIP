@@ -2,12 +2,15 @@ package com.bernal.jonatan.whip;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +24,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
@@ -30,25 +34,31 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class InfoPostLost extends AppCompatActivity {
 
     //private static final String  = ;
-    TextView titulo, fecha, especie, tipo, raza, contenido;
+    TextView titulo, fecha, especie, tipo, raza, contenido,num_comments;
     ImageView foto_post, foto_user, compartirRRSS, organ_quedada;
     EditText box_comment;
     String Identificador;
-    Button cerrar_post;
+    Button cerrar_post,crear_comment,borrar_comment;
+    RecyclerView comments;
 
-    private String URL, URL_favs, URL_like, URL_close;
+
+    private String URL, URL_favs, URL_like, URL_close, URL_comments;
     private RequestQueue requestqueue;
+    private Adaptador adapt;
+    private ArrayList<Fuente> Comments_post;
 
     private String mail_creador;
 
@@ -68,6 +78,7 @@ public class InfoPostLost extends AppCompatActivity {
         tipo = findViewById(R.id.tipo_postPerd);
         raza = findViewById(R.id.raza_postPerd);
         contenido = findViewById(R.id.contenido_postPerd);
+        num_comments = findViewById(R.id.permitir_comentario);
 
         foto_post = findViewById(R.id.foto_postPerd);
         foto_user = findViewById(R.id.imagen_coment_user);
@@ -76,7 +87,10 @@ public class InfoPostLost extends AppCompatActivity {
         box_comment = findViewById(R.id.box_comment);
 
         cerrar_post = findViewById(R.id.boton_cerrar);
+        crear_comment = findViewById(R.id.crear_comment);
+        borrar_comment = findViewById(R.id.borrar_comment);
 
+        comments = findViewById(R.id.contenedor_comments);
 
         //Gestión toolbar
         Toolbar tool = findViewById(R.id.toolbar_infoPostPerd);
@@ -89,6 +103,7 @@ public class InfoPostLost extends AppCompatActivity {
         URL_favs = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=lost";
         URL_like = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=lost";
         URL_close = "https://whip-api.herokuapp.com/contributions/close/" + Identificador + "/?type=lost";
+        URL_comments = "https://whip-api.herokuapp.com/contributions/lostposts/" +Identificador+"/comments";
 
         requestqueue = Volley.newRequestQueue(this);
 
@@ -97,6 +112,20 @@ public class InfoPostLost extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 tancar_post();
+            }
+        });
+
+        crear_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                crear_comment();
+            }
+        });
+
+        borrar_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                box_comment.setText("");
             }
         });
 
@@ -161,6 +190,102 @@ public class InfoPostLost extends AppCompatActivity {
             }
         };
         requestqueue.add(objectJsonrequest);
+        
+        carregar_comments();
+    }
+
+    private void crear_comment() {
+
+        if (box_comment.getText().toString().equals("")) Toast.makeText(getApplicationContext(), "Debe escribir un comentario", Toast.LENGTH_SHORT).show();
+        else {
+            JSONObject post = new JSONObject();
+            try {
+                post.put("text", box_comment.getText().toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                    JsonRequest.Method.POST,
+                    URL_comments+"/new",
+                    post,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            recreate();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), "Error al comentar", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+            ) {
+                @Override
+                public Map<String, String> getHeaders() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("Content-Type", "application/json");
+                    params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
+                    return params;
+                }
+            };
+            requestqueue.add(objectJsonrequest);
+        }
+
+    }
+
+    private void carregar_comments() {
+        JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
+                JsonRequest.Method.GET,
+                URL_comments,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            num_comments.setText("Comentarios "+response.length());
+                            Comments_post = new ArrayList<>();
+                            LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
+                            layout.setOrientation(LinearLayoutManager.VERTICAL);
+                            JSONObject comment;
+                            for (int i = 0; i < response.length(); i++) {
+                                comment = response.getJSONObject(i);
+                                Comments_post.add(new Fuente(comment.getString("id"), comment.getString("userId"), " ", comment.getString("text"),comment.getString("createdAt").split("T")[0]));
+                            }
+                            adapt = new Adaptador(Comments_post, "Comments");
+                            comments.setAdapter(adapt);
+                            comments.setLayoutManager(layout);
+                            adapt.setOnClickListener(new View.OnClickListener() {
+
+                                @Override
+                                public void onClick(View view) {
+                                   //clic en un comentario
+                                }
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
+                return params;
+            }
+        };
+        requestqueue.add(arrayJsonrequest);
     }
 
     private void tancar_post() {

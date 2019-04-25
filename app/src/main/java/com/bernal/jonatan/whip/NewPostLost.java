@@ -157,8 +157,8 @@ public class NewPostLost extends AppCompatActivity {
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
-                                    Toast.makeText(getApplicationContext(), "Post guardado correctamente", Toast.LENGTH_SHORT).show();
                                     try {
+                                        Toast.makeText(getApplicationContext(), "Post guardado correctamente"+response.getString("id"), Toast.LENGTH_SHORT).show();
                                         Intent i = new Intent(NewPostLost.this, InfoPostLost.class);
                                         i.putExtra("identificadorPost", response.getString("id"));
                                         startActivity(i);
