@@ -16,6 +16,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -45,13 +52,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String URL;
     private RequestQueue requestqueue;
 
+
+    //facebook
+    private CallbackManager callbackManager;
+    private TextView textViewFacebook;
+    private LoginButton loginButtonFacebook;
+    private boolean facebook = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-        //Coneixón con la API
+        //facebook
+        textViewFacebook = findViewById(R.id.textView);
+
+        loginButtonFacebook = (LoginButton) findViewById(R.id.login_button);
+        loginButtonFacebook.setReadPermissions("email");
+
+        callbackManager = CallbackManager.Factory.create();
+
+
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        textViewFacebook.setText(getString(R.string.logejat_facebook));
+                        Toast.makeText(getApplicationContext(), "logejat facebook ok! ", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        textViewFacebook.setText(getString(R.string.login_facebook_cancelat));
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        // App code
+                    }
+                });
+        loginButtonFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (AccessToken.getCurrentAccessToken() == null)
+                    textViewFacebook.setText(getString(R.string.logged_out_facebook));
+            }
+        });
+
+
+    //Coneixón con la API
         URL = "https://whip-api.herokuapp.com/users/login";
         requestqueue = Volley.newRequestQueue(this);
 
@@ -101,15 +151,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // [START onActivityResult]
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+
+        if (facebook) {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+            super.onActivityResult(requestCode, resultCode, data);
         }
+        else {
+
+            // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+            super.onActivityResult(requestCode, resultCode, data);
+
+            if (requestCode == RC_SIGN_IN) {
+                // The Task returned from this call is always completed, no need to attach
+                // a listener.
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                handleSignInResult(task);
+            }
+
+        }
+
+
+
     }
     // [END onActivityResult]
 
