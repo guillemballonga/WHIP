@@ -87,6 +87,16 @@
                 android:textSize="20sp"
                 tools:ignore="RtlHardcoded,RtlSymmetry" />
 
+        <TextView
+            android:id="@+id/ver_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:text="@string/ver_respuestas"
+            android:layout_gravity="center"
+            android:textColor="#0C29E2"
+            android:textSize="20sp"/>
+
     </LinearLayout>
 
 

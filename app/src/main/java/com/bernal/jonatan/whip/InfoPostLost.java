@@ -174,6 +174,8 @@ public class InfoPostLost extends AppCompatActivity {
                                 organ_quedada.setVisibility(View.GONE);
                                 foto_user.setVisibility(View.GONE);
                                 box_comment.setVisibility(View.GONE);
+                                crear_comment.setVisibility(View.GONE);
+                                borrar_comment.setVisibility(View.GONE);
                             }
 
                         } catch (JSONException e) {
@@ -268,6 +270,11 @@ public class InfoPostLost extends AppCompatActivity {
                                 public void onEliminateClicked(int position, View vista) {
                                     Toast.makeText(getApplicationContext(), "Elimino este comentario", Toast.LENGTH_SHORT).show();
                                     eliminar_comentari(vista);
+                                }
+
+                                @Override
+                                public void onVerCommentsClicked(View vista) {
+                                    Toast.makeText(getApplicationContext(), "Viendo comentarios", Toast.LENGTH_SHORT).show();
                                 }
                             });
                             comments.setAdapter(adapt);
