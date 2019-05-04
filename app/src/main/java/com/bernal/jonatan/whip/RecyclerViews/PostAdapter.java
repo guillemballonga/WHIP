@@ -1,4 +1,4 @@
-package com.bernal.jonatan.whip;
+package com.bernal.jonatan.whip.RecyclerViews;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bernal.jonatan.whip.Models.Post;
+import com.bernal.jonatan.whip.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -18,14 +20,17 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.OnClickListener {
+public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
 
-    private List<Fuente> listaObjetos;
-    private View.OnClickListener listener;
+    private List<Post> listaObjetos;
     private String type;
+    private OnListListener onListListener;
 
+    public void setOnListListener(OnListListener onListListener) {
+        this.onListListener = onListListener;
+    }
 
-    Adaptador(List<Fuente> listaObjetos, String type) {
+    public PostAdapter(List<Post> listaObjetos, String type) {
 
         this.listaObjetos = listaObjetos;
         this.type = type;
@@ -33,7 +38,7 @@ public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View vista = null;
         switch (type) {
             case "Lost":
@@ -45,41 +50,27 @@ public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.
             case "PostPropio":
                 vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_userposts, parent, false);
                 break;
-
-            case "Comments":
-                vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_comment, parent, false);
-                break;
         }
 
         assert vista != null;
-        vista.setOnClickListener(this);
-        return new ViewHolder(vista, listaObjetos);
+        return new PostViewHolder(vista, listaObjetos,onListListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        if (!type.equals("Comments")) {
-            holder.nombre_postPerdi.setText(listaObjetos.get(i).getNombre());
+    public void onBindViewHolder(@NonNull PostViewHolder holder, int i) {
+
+        holder.nombre_postPerdi.setText(listaObjetos.get(i).getNombre());
 
 
-            if (!listaObjetos.get(i).getImagen().equals(""))
-                retrieveImage(listaObjetos.get(i).getImagen(), holder);
-            else holder.imagen_postPerdi.setImageResource(R.drawable.perro);
+        if (!listaObjetos.get(i).getImagen().equals(""))
+            retrieveImage(listaObjetos.get(i).getImagen(), holder);
+        else holder.imagen_post.setImageResource(R.drawable.perro);
 
-            holder.contenido_postPerdi.setText(listaObjetos.get(i).getContenido());
+        holder.contenido_postPerdi.setText(listaObjetos.get(i).getContenido());
 
-            if (type.equals("PostPropio")) holder.type_post.setText(listaObjetos.get(i).getType());
+        if (type.equals("PostPropio")) holder.type_post.setText(listaObjetos.get(i).getType());
 
-            holder.setId(listaObjetos.get(i).getId());
-        }
-        else {
-            holder.data_comment.setText(listaObjetos.get(i).getFecha());
-            holder.user_comment.setText(listaObjetos.get(i).getNombre());
-            holder.contenido_comment.setText(listaObjetos.get(i).getContenido());
-            holder.imagen_comment.setImageResource(R.drawable.icono_usuario);
-            holder.setId_comment(listaObjetos.get(i).getId());
-        }
-
+        holder.setId(listaObjetos.get(i).getId());
     }
 
     @Override
@@ -87,20 +78,8 @@ public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.
         return listaObjetos.size();
     }
 
-    public void setOnClickListener(View.OnClickListener listener) {
-        this.listener = listener;
-    }
 
-    @Override
-    public void onClick(View view) {
-        if (listener != null) {
-            listener.onClick(view);
-        }
-
-    }
-
-
-    private void retrieveImage(String idImageFirebase, final ViewHolder view) {
+    private void retrieveImage(String idImageFirebase, final PostViewHolder view) {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
         //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
@@ -113,7 +92,7 @@ public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    view.imagen_postPerdi.setImageBitmap(bitmap);
+                    view.imagen_post.setImageBitmap(bitmap);
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -124,4 +103,6 @@ public class Adaptador extends RecyclerView.Adapter<ViewHolder> implements View.
         } catch (IOException ignored) {
         }
     }
+
+
 }

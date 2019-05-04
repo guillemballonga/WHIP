@@ -18,6 +18,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.Models.Post;
+import com.bernal.jonatan.whip.RecyclerViews.OnListListener;
+import com.bernal.jonatan.whip.RecyclerViews.PostAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,8 +35,8 @@ public class OneFragmentMisPosts extends Fragment {
     private String URL;
     private RequestQueue requestqueue;
     private JSONArray resultat;
-    private ArrayList<Fuente> Mis_Posts;
-    private Adaptador adapt;
+    private ArrayList<Post> Mis_Posts;
+    private PostAdapter adapt;
     RecyclerView contenedor;
 
     String tipo;
@@ -76,18 +79,17 @@ public class OneFragmentMisPosts extends Fragment {
                                 postite = resultat.getJSONObject(i);
                                 if (postite.has("type")) tipo = "LOST";
                                 else tipo = "ADOPTION";
-                                Mis_Posts.add(new Fuente(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), 0, tipo));
+                                Mis_Posts.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), 0, tipo));
                             }
-                            adapt = new Adaptador(Mis_Posts, "PostPropio"); //Color de Lost --> No se como hacer que salgan de un color distinto
+                            adapt = new PostAdapter(Mis_Posts, "PostPropio");
                             contenedor.setAdapter(adapt);
                             contenedor.setLayoutManager(layout);
-                            adapt.setOnClickListener(new View.OnClickListener() {
-
+                            adapt.setOnListListener(new OnListListener() {
                                 @Override
-                                public void onClick(View view) {
-                                    String id_post = Mis_Posts.get(contenedor.getChildAdapterPosition(view)).getId();
+                                public void onPostClicked(int position, View vista) {
+                                    String id_post = Mis_Posts.get(contenedor.getChildAdapterPosition(vista)).getId();
                                     Intent i;
-                                    if (Mis_Posts.get(contenedor.getChildAdapterPosition(view)).getType().equals("LOST"))
+                                    if (Mis_Posts.get(contenedor.getChildAdapterPosition(vista)).getType().equals("LOST"))
                                         i = new Intent(getActivity(), InfoPostLost.class);
                                     else i = new Intent(getActivity(), InfoPostAdoption.class);
                                     i.putExtra("identificadorPost", id_post);

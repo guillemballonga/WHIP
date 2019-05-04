@@ -73,7 +73,6 @@
     <string name="cerrar_post">CERRAR POST</string>
     <string name="comentarios_0">Comentarios 0</string>
     <string name="a_ade_un_comentario">Añade un comentario…</string>
-    <string name="todo">TODO</string>
     <string name="p_rdida">PÉRDIDA</string>
     <string name="adopci_n">ADOPCIÓN</string>
     <string name="eventos">EVENTOS</string>
@@ -97,4 +96,5 @@
     <string name="a_ade_el_t_tulo_hint">Añade el título…*</string>
     <string name="borrar">Borrar</string>
     <string name="linea_separadora">-------------------------------------------------------------------</string>
+    <string name="todo">TODO</string>
 </resources>

@@ -2,7 +2,6 @@ package com.bernal.jonatan.whip;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -21,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -28,6 +28,11 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.Models.Comment;
+import com.bernal.jonatan.whip.Models.Post;
+import com.bernal.jonatan.whip.RecyclerViews.CommentAdapter;
+import com.bernal.jonatan.whip.RecyclerViews.OnCommentListener;
+import com.bernal.jonatan.whip.RecyclerViews.PostAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -57,8 +62,8 @@ public class InfoPostLost extends AppCompatActivity {
 
     private String URL, URL_favs, URL_like, URL_close, URL_comments;
     private RequestQueue requestqueue;
-    private Adaptador adapt;
-    private ArrayList<Fuente> Comments_post;
+    private CommentAdapter adapt;
+    private ArrayList<Comment> Comments_post;
 
     private String mail_creador;
 
@@ -97,6 +102,7 @@ public class InfoPostLost extends AppCompatActivity {
         setSupportActionBar(tool);
         getSupportActionBar().setTitle("LOST");
 
+        box_comment.setText("");
 
         //Recoger los datos de Back y cargarlos en la vista
         URL = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador;
@@ -192,6 +198,7 @@ public class InfoPostLost extends AppCompatActivity {
         requestqueue.add(objectJsonrequest);
         
         carregar_comments();
+
     }
 
     private void crear_comment() {
@@ -253,18 +260,19 @@ public class InfoPostLost extends AppCompatActivity {
                             JSONObject comment;
                             for (int i = 0; i < response.length(); i++) {
                                 comment = response.getJSONObject(i);
-                                Comments_post.add(new Fuente(comment.getString("id"), comment.getString("userId"), " ", comment.getString("text"),comment.getString("createdAt").split("T")[0]));
+                                Comments_post.add(new Comment(comment.getString("id"), comment.getString("userId"), " ", comment.getString("text"),comment.getString("createdAt").split("T")[0]));
                             }
-                            adapt = new Adaptador(Comments_post, "Comments");
-                            comments.setAdapter(adapt);
-                            comments.setLayoutManager(layout);
-                            adapt.setOnClickListener(new View.OnClickListener() {
-
+                            adapt = new CommentAdapter(Comments_post);
+                            adapt.setOnCommentListener(new OnCommentListener() {
                                 @Override
-                                public void onClick(View view) {
-                                   //clic en un comentario
+                                public void onEliminateClicked(int position, View vista) {
+                                    Toast.makeText(getApplicationContext(), "Elimino este comentario", Toast.LENGTH_SHORT).show();
+                                    eliminar_comentari(vista);
                                 }
                             });
+                            comments.setAdapter(adapt);
+                            comments.setLayoutManager(layout);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -286,6 +294,60 @@ public class InfoPostLost extends AppCompatActivity {
             }
         };
         requestqueue.add(arrayJsonrequest);
+    }
+
+    private void eliminar_comentari(View vista) {
+        final String id_comment = Comments_post.get(comments.getChildAdapterPosition(vista)).getId();
+        final String user_comment = Comments_post.get(comments.getChildAdapterPosition(vista)).getUser();
+        if (user_comment.equals(ul.getCorreo_user())) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostLost.this);
+            alert.setMessage("¿Estás seguro que deseas eliminar este Comentario?")
+                    .setCancelable(false)
+                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                                    JsonRequest.Method.DELETE,
+                                    URL_comments+"/"+id_comment,
+                                    null,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Toast.makeText(getApplicationContext(), "ERROOOOOOOR EN ELIMINAR COMENTARIO", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                            ) {
+                                @Override
+                                public Map<String, String> getHeaders() {
+                                    Map<String, String> params = new HashMap<>();
+                                    params.put("Content-Type", "application/json");
+                                    params.put("Authorization", ul.getAPI_KEY());
+                                    return params;
+                                }
+                            };
+                            requestqueue.add(objectJsonrequest);
+                            recreate();
+
+                        }
+                    })
+                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+            AlertDialog title = alert.create();
+            title.setTitle("ELIMINAR COMENTARIO");
+            title.show();
+
+        } else
+          Toast.makeText(getApplicationContext(), "COMENTARIO NO CREADO POR TI, NO PUEDES BORRARLO", Toast.LENGTH_SHORT).show();
     }
 
     private void tancar_post() {

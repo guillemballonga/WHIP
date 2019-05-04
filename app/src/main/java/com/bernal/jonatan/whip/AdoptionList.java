@@ -23,6 +23,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.Models.Post;
+import com.bernal.jonatan.whip.RecyclerViews.OnListListener;
+import com.bernal.jonatan.whip.RecyclerViews.PostAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,8 +40,8 @@ public class AdoptionList extends AppCompatActivity {
     private String URL, URL_filtre;
     private RequestQueue requestqueue;
     private JSONArray resultat;
-    private ArrayList<Fuente> Posts_adoption;
-    private Adaptador adapt;
+    private ArrayList<Post> Posts_adoption;
+    private PostAdapter adapt;
     private SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView contenedor_adopt;
 
@@ -133,16 +136,15 @@ public class AdoptionList extends AppCompatActivity {
                             JSONObject postite;
                             for (int i = 0; i < resultat.length(); i++) {
                                 postite = resultat.getJSONObject(i);
-                                Posts_adoption.add(new Fuente(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), 0, "ADOPTION"));
+                                Posts_adoption.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), 0, "ADOPTION"));
                             }
-                            adapt = new Adaptador(Posts_adoption, "Adoption");
+                            adapt = new PostAdapter(Posts_adoption, "Adoption");
                             contenedor_adopt.setAdapter(adapt);
                             contenedor_adopt.setLayoutManager(layout);
-                            adapt.setOnClickListener(new View.OnClickListener() {
-
+                            adapt.setOnListListener(new OnListListener() {
                                 @Override
-                                public void onClick(View view) {
-                                    String id_post = Posts_adoption.get(contenedor_adopt.getChildAdapterPosition(view)).getId();
+                                public void onPostClicked(int position, View vista) {
+                                    String id_post = Posts_adoption.get(contenedor_adopt.getChildAdapterPosition(vista)).getId();
                                     Intent i = new Intent(AdoptionList.this, InfoPostAdoption.class);
                                     i.putExtra("identificadorPost", id_post);
                                     startActivity(i);
@@ -203,16 +205,15 @@ public class AdoptionList extends AppCompatActivity {
                             JSONObject postite;
                             for (int i = 0; i < resultat.length(); i++) {
                                 postite = resultat.getJSONObject(i);
-                                Posts_adoption.add(new Fuente(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), 0, "ADOPTION"));
+                                Posts_adoption.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), 0, "ADOPTION"));
                             }
-                            adapt = new Adaptador(Posts_adoption, "Adoption");
+                            adapt = new PostAdapter(Posts_adoption, "Adoption");
                             contenedor_adopt.setAdapter(adapt);
                             contenedor_adopt.setLayoutManager(layout);
-                            adapt.setOnClickListener(new View.OnClickListener() {
-
+                            adapt.setOnListListener(new OnListListener() {
                                 @Override
-                                public void onClick(View view) {
-                                    String id_post = Posts_adoption.get(contenedor_adopt.getChildAdapterPosition(view)).getId();
+                                public void onPostClicked(int position, View vista) {
+                                    String id_post = Posts_adoption.get(contenedor_adopt.getChildAdapterPosition(vista)).getId();
                                     Intent i = new Intent(AdoptionList.this, InfoPostAdoption.class);
                                     i.putExtra("identificadorPost", id_post);
                                     startActivity(i);
