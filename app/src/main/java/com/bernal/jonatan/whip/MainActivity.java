@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView textViewFacebook;
     private TextView txtEmail;
     private LoginButton loginButtonFacebook;
-    private boolean facebook = true;
+    private boolean facebook = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +71,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //facebook
         textViewFacebook = findViewById(R.id.profile_email_facebook);
-
         loginButtonFacebook = (LoginButton) findViewById(R.id.login_button);
-       // loginButtonFacebook.setReadPermissions("email");
-
-
-
+        //loginButtonFacebook.setReadPermissions("email");
         callbackManager = CallbackManager.Factory.create();
         loginButtonFacebook.setReadPermissions(Arrays.asList("email","public_profile"));
         checkLoginStatus();
@@ -151,10 +147,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // [START onActivityResult]
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
+        //callbackManager.onActivityResult(requestCode, resultCode, data);
+        //super.onActivityResult(requestCode, resultCode, data);
 
-        if (!facebook) {
+        if (facebook) {
             callbackManager.onActivityResult(requestCode, resultCode, data);
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -177,6 +173,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken)
         {
+            //facebook
+            facebook = true;
             if(currentAccessToken==null)
             {
                 //txtName.setText("");
@@ -191,6 +189,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void loadUserProfile(AccessToken newAccessToken)
     {
+        facebook = true;
         GraphRequest request = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response)
@@ -222,6 +221,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void checkLoginStatus() { //FACEBOOK
+        facebook = true;
         if(AccessToken.getCurrentAccessToken()!=null)
         {
             loadUserProfile(AccessToken.getCurrentAccessToken());
@@ -333,6 +333,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // [START signIn]
     private void signIn() { //GOOGLE
+        facebook = false;
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
 
@@ -357,6 +358,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void updateUI(@Nullable GoogleSignInAccount account) { // GOOGLE
+        facebook = false;
         if (account != null) {
 
             mStatusTextView.setText(getString(R.string.signed_in_fmt, account.getDisplayName()));
@@ -377,6 +379,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        facebook = false;
         switch (v.getId()) {
             case R.id.sign_in_button:
                 signIn();
