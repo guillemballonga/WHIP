@@ -195,23 +195,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onCompleted(JSONObject object, GraphResponse response)
             {
+                //AQUI JA TINC LES DADES DEL FACEBOOK
                 try {
+
                     String first_name = object.getString("first_name");
-                    String last_name = object.getString("last_name");
                     String email = object.getString("email");
-                    String id = object.getString("id");
-                    //String image_url = "https://graph.facebook.com/"+id+ "/picture?type=normal";
 
                     textViewFacebook.setText(email);
-                    //txtName.setText(first_name +" "+last_name);
-            //        RequestOptions requestOptions = new RequestOptions();
-                    //requestOptions.dontAnimate();
-
-                   // Glide.with(MainActivity.this).load(image_url).into(circleImageView);
-
 
                     Toast.makeText(MainActivity.this,"User Logged IN",Toast.LENGTH_LONG).show();
                     Toast.makeText(MainActivity.this,first_name,Toast.LENGTH_LONG).show();
+
+                    userJsonFacebook(object);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -226,8 +221,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void checkLoginStatus()
-    {
+    private void checkLoginStatus() { //FACEBOOK
         if(AccessToken.getCurrentAccessToken()!=null)
         {
             loadUserProfile(AccessToken.getCurrentAccessToken());
@@ -244,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(getApplicationContext(), "login  per iniciar ", Toast.LENGTH_SHORT).show();
 
             assert account != null;
-            guardarUsuari(account);
+            userJsonGoogle(account);
 
             // Signed in successfully, show authenticated UI.
             updateUI(account);
@@ -256,8 +250,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void guardarUsuari(final GoogleSignInAccount account) {
-
+    private void userJsonGoogle (final GoogleSignInAccount account) {
         JSONObject user = new JSONObject();
         try {
             user.put("mail", account.getEmail());
@@ -270,6 +263,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        guardarUsuari(user);
+    }
+
+    private void userJsonFacebook(JSONObject object) {
+        JSONObject user = new JSONObject();
+        try {
+
+            String first_name = object.getString("first_name");
+            String last_name = object.getString("last_name");
+            String email = object.getString("email");
+            String id = object.getString("id");
+            String image_url = "https://graph.facebook.com/"+id+ "/picture?type=normal";
+
+            user.put("mail", email);
+            user.put("name", first_name);
+            user.put("fam_name", last_name);
+            user.put("username", "");
+            user.put("photo_url", image_url);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        guardarUsuari(user);
+    }
+    private void guardarUsuari(JSONObject user) {
+
+
         JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                 JsonRequest.Method.POST,
                 URL,
@@ -311,7 +332,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // [END handleSignInResult]
 
     // [START signIn]
-    private void signIn() {
+    private void signIn() { //GOOGLE
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
 
@@ -320,7 +341,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // [END signIn]
 
     // [START signOut]
-    private void signOut() {
+    private void signOut() { //GOOGLE
         mGoogleSignInClient.signOut()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
@@ -333,21 +354,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     // [END signOut]
 
-    // [START revokeAccess]
-    private void revokeAccess() {
-        mGoogleSignInClient.revokeAccess()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // [START_EXCLUDE]
-                        updateUI(null);
-                        // [END_EXCLUDE]
-                    }
-                });
-    }
-    // [END revokeAccess]
 
-    private void updateUI(@Nullable GoogleSignInAccount account) {
+
+    private void updateUI(@Nullable GoogleSignInAccount account) { // GOOGLE
         if (account != null) {
 
             mStatusTextView.setText(getString(R.string.signed_in_fmt, account.getDisplayName()));
@@ -371,8 +380,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.sign_in_button:
                 signIn();
-
-
                 break;
             case R.id.sign_out_button:
                 signOut();
