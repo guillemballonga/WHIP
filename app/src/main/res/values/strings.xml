@@ -98,4 +98,11 @@
     <string name="linea_separadora">-------------------------------------------------------------------</string>
     <string name="todo">TODO</string>
     <string name="ver_respuestas">Ver respuestas</string>
+
+    <string name="facebook_app_id">2316633415254454</string>
+    <string name="fb_login_protocol_scheme">fb2316633415254454</string>
+    <string name="logejat_facebook">Successfully logged in</string>
+    <string name="login_facebook_cancelat">Login canceled</string>
+    <string name="logged_out_facebook">Logged out</string>
+
 </resources>

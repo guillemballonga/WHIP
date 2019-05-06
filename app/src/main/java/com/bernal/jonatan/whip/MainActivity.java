@@ -16,6 +16,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -28,6 +37,7 @@ import com.google.android.gms.tasks.Task;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,13 +55,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String URL;
     private RequestQueue requestqueue;
 
+
+    //facebook
+    private CallbackManager callbackManager;
+    private TextView textViewFacebook;
+    private TextView txtEmail;
+    private LoginButton loginButtonFacebook;
+    private boolean facebook = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-        //Coneixón con la API
+        //facebook
+        textViewFacebook = findViewById(R.id.profile_email_facebook);
+
+        loginButtonFacebook = (LoginButton) findViewById(R.id.login_button);
+       // loginButtonFacebook.setReadPermissions("email");
+
+
+
+        callbackManager = CallbackManager.Factory.create();
+        loginButtonFacebook.setReadPermissions(Arrays.asList("email","public_profile"));
+        checkLoginStatus();
+
+        loginButtonFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult)
+            {
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+
+
+
+    //Coneixón con la API
         URL = "https://whip-api.herokuapp.com/users/login";
         requestqueue = Volley.newRequestQueue(this);
 
@@ -101,14 +151,86 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // [START onActivityResult]
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+        if (!facebook) {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+        else {
+
+            // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+            super.onActivityResult(requestCode, resultCode, data);
+
+            if (requestCode == RC_SIGN_IN) {
+                // The Task returned from this call is always completed, no need to attach
+                // a listener.
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                handleSignInResult(task);
+            }
+
+        }
+    }
+
+    AccessTokenTracker tokenTracker = new AccessTokenTracker() {
+        @Override
+        protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken)
+        {
+            if(currentAccessToken==null)
+            {
+                //txtName.setText("");
+                textViewFacebook.setText("");
+                //circleImageView.setImageResource(0);
+                Toast.makeText(MainActivity.this,"User Logged out",Toast.LENGTH_LONG).show();
+            }
+            else
+                loadUserProfile(currentAccessToken);
+        }
+    };
+
+    private void loadUserProfile(AccessToken newAccessToken)
+    {
+        GraphRequest request = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response)
+            {
+                try {
+                    String first_name = object.getString("first_name");
+                    String last_name = object.getString("last_name");
+                    String email = object.getString("email");
+                    String id = object.getString("id");
+                    //String image_url = "https://graph.facebook.com/"+id+ "/picture?type=normal";
+
+                    textViewFacebook.setText(email);
+                    //txtName.setText(first_name +" "+last_name);
+            //        RequestOptions requestOptions = new RequestOptions();
+                    //requestOptions.dontAnimate();
+
+                   // Glide.with(MainActivity.this).load(image_url).into(circleImageView);
+
+
+                    Toast.makeText(MainActivity.this,"User Logged IN",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,first_name,Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        Bundle parameters = new Bundle();
+        parameters.putString("fields","first_name,last_name,email,id");
+        request.setParameters(parameters);
+        request.executeAsync();
+
+    }
+
+    private void checkLoginStatus()
+    {
+        if(AccessToken.getCurrentAccessToken()!=null)
+        {
+            loadUserProfile(AccessToken.getCurrentAccessToken());
         }
     }
     // [END onActivityResult]
