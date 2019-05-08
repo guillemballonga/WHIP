@@ -229,6 +229,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(AccessToken.getCurrentAccessToken()!=null)
         {
             loadUserProfile(AccessToken.getCurrentAccessToken());
+            findViewById(R.id.login_facebook_button).setVisibility(View.GONE);
+            findViewById(R.id.login_google_button).setVisibility(View.GONE);
+            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
+            //mStatusTextView.setText(getString(R.string.signed_in_fmt, te));
+
         }
     }
     // [END onActivityResult]
@@ -350,7 +355,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // [START signOut]
     private void signOut() {
 
-        if (!facebook) {
+       // if (!facebook) {
             //GOOGLE
             mGoogleSignInClient.signOut()
                     .addOnCompleteListener(this, new OnCompleteListener<Void>() {
@@ -361,8 +366,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             // [END_EXCLUDE]
                         }
                     });
-        }
-        if (facebook) {
+       // }
+        //if (facebook) {
             //loginButtonFacebook.
 
             //TODO: Fer el logout de facebook
@@ -370,7 +375,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             LoginManager.getInstance().logOut();
 
             updateUI(null);
-        }
+        //}
     }
     // [END signOut]
 
