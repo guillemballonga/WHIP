@@ -58,8 +58,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //facebook
     private CallbackManager callbackManager;
-   // private TextView textViewFacebook;
-    private TextView txtEmail;
     private LoginButton loginButtonFacebook;
     private boolean facebook = false;
 
@@ -70,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         //facebook
-        textViewFacebook = findViewById(R.id.profile_email_facebook);
+        //textViewFacebook = findViewById(R.id.profile_email_facebook);
         loginButtonFacebook = (LoginButton) findViewById(R.id.login_button);
         //loginButtonFacebook.setReadPermissions("email");
         callbackManager = CallbackManager.Factory.create();
@@ -178,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(currentAccessToken==null)
             {
                 //txtName.setText("");
-                textViewFacebook.setText("");
+                //textViewFacebook.setText("");
                 //circleImageView.setImageResource(0);
                 Toast.makeText(MainActivity.this,"User Logged out",Toast.LENGTH_LONG).show();
             }
