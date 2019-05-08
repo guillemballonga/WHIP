@@ -110,7 +110,11 @@ public class EditProfile extends AppCompatActivity {
 
 
                     //aqui carrego la nova foto canviada
-                    urlFoto = UploadImageFirebase.getIdentificadorImatge();
+                    //urlBD.substring(1, 7).equals("images")
+                    if (urlBD.substring(1,7).equals("image")) {
+                        urlFoto = UploadImageFirebase.getIdentificadorImatge();
+                    }
+                    else urlFoto = urlBD;
                     if (!urlFoto.equals("")) retrieveImage(urlFoto);
                     perfil_editat.put("photo_url", urlFoto);
 
@@ -172,15 +176,9 @@ public class EditProfile extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                //obrirgaleria();
-                //guardar galeria
+
                 //AQUI CRIDO PER OBRIR LES FOTOS
-                //startActivity(new Intent(EditProfile.this, UploadImageFirebase.class));
-
-
                 Intent i = new Intent(EditProfile.this, UploadImageFirebase.class);
-                //i.putExtra("idImageView", R.id.perfil_perroPerd);
-                //i.putExtra("idImageView");
                 i.putExtra("idActivity", "edit");
                 startActivity(i);
 
