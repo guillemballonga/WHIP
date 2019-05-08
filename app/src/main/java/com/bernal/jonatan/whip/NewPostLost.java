@@ -59,7 +59,7 @@ public class NewPostLost extends AppCompatActivity {
         setContentView(R.layout.activity_nuevo_post_perdido);
 
         //Coneixón con la API
-        URL = "https://whip-api.herokuapp.com/contributions/lostposts/new";
+        URL = "https://whip-api.herokuapp.com/contributions/lostposts";
         requestqueue = Volley.newRequestQueue(this);
 
         //Gestión de toolbar

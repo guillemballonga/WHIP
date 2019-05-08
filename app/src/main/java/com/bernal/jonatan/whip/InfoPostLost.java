@@ -216,7 +216,7 @@ public class InfoPostLost extends AppCompatActivity {
 
             JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                     JsonRequest.Method.POST,
-                    URL_comments+"/new",
+                    URL_comments,
                     post,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -275,6 +275,8 @@ public class InfoPostLost extends AppCompatActivity {
                                 @Override
                                 public void onVerCommentsClicked(View vista) {
                                     Toast.makeText(getApplicationContext(), "Viendo comentarios", Toast.LENGTH_SHORT).show();
+
+
                                 }
                             });
                             comments.setAdapter(adapt);
