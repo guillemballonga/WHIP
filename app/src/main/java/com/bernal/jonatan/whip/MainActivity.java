@@ -82,12 +82,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onSuccess(LoginResult loginResult) {
 
             }
-
             @Override
             public void onCancel() {
 
             }
-
             @Override
             public void onError(FacebookException error) {
 
@@ -134,8 +132,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         loginFacebook.setSize(SignInButton.SIZE_STANDARD);
         loginFacebook.setColorScheme(SignInButton.COLOR_LIGHT);
         // [END customize_button]
-
-
     }
 
 
@@ -154,8 +150,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // [START onActivityResult]
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //callbackManager.onActivityResult(requestCode, resultCode, data);
-        //super.onActivityResult(requestCode, resultCode, data);
 
         //if (facebook)  Toast.makeText(MainActivity.this,"login FACEBOOK",Toast.LENGTH_LONG).show();
         //else Toast.makeText(MainActivity.this,"login GOOGLE",Toast.LENGTH_LONG).show();
@@ -183,7 +177,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken)
         {
             //facebook
-            //facebook = true;
             if(currentAccessToken==null) {
                 Toast.makeText(MainActivity.this,"User Logged out",Toast.LENGTH_LONG).show();
 
@@ -203,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try {
 
                     String first_name = object.getString("first_name");
-                    String email = object.getString("email");
+                    //String email = object.getString("email");
 
                     Toast.makeText(MainActivity.this,"User facebook Logged IN",Toast.LENGTH_LONG).show();
                     Toast.makeText(MainActivity.this,first_name,Toast.LENGTH_LONG).show();
@@ -213,7 +206,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     findViewById(R.id.login_facebook_button).setVisibility(View.GONE);
                     findViewById(R.id.login_google_button).setVisibility(View.GONE);
                     findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
-
 
                     userJsonFacebook(object);
                 } catch (JSONException e) {
@@ -232,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void checkLoginStatus() { //FACEBOOK
-        //facebook = true;
+
         if(AccessToken.getCurrentAccessToken()!=null)
         {
             loadUserProfile(AccessToken.getCurrentAccessToken());
@@ -285,13 +277,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String last_name = object.getString("last_name");
             String email = object.getString("email");
             String id = object.getString("id");
-           // String image_url = "https://graph.facebook.com/"+id+ "/picture?type=normal";
+            String image_url = "https://graph.facebook.com/"+id+ "/picture?type=normal";
 
             user.put("mail", email);
             user.put("name", first_name);
             user.put("fam_name", last_name);
             user.put("username", "");
-           // user.put("photo_url", image_url);
+            user.put("photo_url", image_url);
 
 
         } catch (JSONException e) {
@@ -374,7 +366,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             //TODO: Fer el logout de facebook
 
-            loadUserProfile(null);
+
         }
     }
     // [END signOut]
@@ -387,6 +379,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             mStatusTextView.setText(getString(R.string.signed_in_fmt, account.getDisplayName()));
 
+            findViewById(R.id.login_facebook_button).setVisibility(View.GONE);
             findViewById(R.id.login_google_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
 
