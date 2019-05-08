@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //facebook
     private CallbackManager callbackManager;
-    private TextView textViewFacebook;
+   // private TextView textViewFacebook;
     private TextView txtEmail;
     private LoginButton loginButtonFacebook;
     private boolean facebook = false;
@@ -200,10 +200,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     String first_name = object.getString("first_name");
                     String email = object.getString("email");
 
-                    textViewFacebook.setText(email);
+                   // textViewFacebook.setText(email);
 
-                    Toast.makeText(MainActivity.this,"User Logged IN",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"User facebook Logged IN",Toast.LENGTH_LONG).show();
                     Toast.makeText(MainActivity.this,first_name,Toast.LENGTH_LONG).show();
+
+                    mStatusTextView.setText(getString(R.string.signed_in_fmt, first_name));
+
+                    findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+                    findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
+
 
                     userJsonFacebook(object);
                 } catch (JSONException e) {
