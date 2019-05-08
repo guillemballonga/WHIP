@@ -69,16 +69,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //facebook
         //textViewFacebook = findViewById(R.id.profile_email_facebook);
-        loginButtonFacebook = (LoginButton) findViewById(R.id.login_button);
+        loginButtonFacebook = (LoginButton) findViewById(R.id.login_facebook_button);
         //loginButtonFacebook.setReadPermissions("email");
         callbackManager = CallbackManager.Factory.create();
         loginButtonFacebook.setReadPermissions(Arrays.asList("email","public_profile"));
         checkLoginStatus();
 
+
+
         loginButtonFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
-            public void onSuccess(LoginResult loginResult)
-            {
+            public void onSuccess(LoginResult loginResult) {
 
             }
 
@@ -95,7 +96,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    //Coneixón con la API
+
+
+        //Coneixón con la API
         URL = "https://whip-api.herokuapp.com/users/login";
         requestqueue = Volley.newRequestQueue(this);
 
@@ -103,9 +106,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mStatusTextView = findViewById(R.id.status);
 
         // Button listeners
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
+
         findViewById(R.id.sign_out_button).setOnClickListener(this);
         findViewById(R.id.perfil_button).setOnClickListener(this);
+        findViewById(R.id.login_facebook_button).setOnClickListener(this);
+        findViewById(R.id.login_google_button).setOnClickListener(this);
+
+
+
 
         // [START configure_signin]
         // Configure sign-in to request the user's ID, email address, and basic
@@ -122,13 +130,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // [START customize_button]
         // Set the dimensions of the sign-in button.
-        SignInButton signInButton = findViewById(R.id.sign_in_button);
-        signInButton.setSize(SignInButton.SIZE_STANDARD);
-        signInButton.setColorScheme(SignInButton.COLOR_LIGHT);
+        SignInButton loginFacebook = findViewById(R.id.login_google_button);
+        loginFacebook.setSize(SignInButton.SIZE_STANDARD);
+        loginFacebook.setColorScheme(SignInButton.COLOR_LIGHT);
         // [END customize_button]
 
 
     }
+
 
     @Override
     public void onStart() {
@@ -148,6 +157,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //callbackManager.onActivityResult(requestCode, resultCode, data);
         //super.onActivityResult(requestCode, resultCode, data);
 
+        if (facebook)  Toast.makeText(MainActivity.this,"login FACEBOOK",Toast.LENGTH_LONG).show();
+        else Toast.makeText(MainActivity.this,"login GOOGLE",Toast.LENGTH_LONG).show();
         if (facebook) {
             callbackManager.onActivityResult(requestCode, resultCode, data);
             super.onActivityResult(requestCode, resultCode, data);
@@ -172,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken)
         {
             //facebook
-            facebook = true;
+            //facebook = true;
             if(currentAccessToken==null)
             {
                 //txtName.setText("");
@@ -185,9 +196,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
 
-    private void loadUserProfile(AccessToken newAccessToken)
-    {
-        facebook = true;
+    private void loadUserProfile(AccessToken newAccessToken)  {
+        //facebook = true;
         GraphRequest request = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response)
@@ -205,7 +215,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     mStatusTextView.setText(getString(R.string.signed_in_fmt, first_name));
 
-                    findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+                    findViewById(R.id.login_facebook_button).setVisibility(View.GONE);
+                    findViewById(R.id.login_google_button).setVisibility(View.GONE);
                     findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
 
 
@@ -224,8 +235,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
     private void checkLoginStatus() { //FACEBOOK
-        facebook = true;
+        //facebook = true;
         if(AccessToken.getCurrentAccessToken()!=null)
         {
             loadUserProfile(AccessToken.getCurrentAccessToken());
@@ -337,7 +349,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // [START signIn]
     private void signIn() { //GOOGLE
-        facebook = false;
+       // facebook = false;
+
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
 
@@ -346,46 +359,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // [END signIn]
 
     // [START signOut]
-    private void signOut() { //GOOGLE
-        mGoogleSignInClient.signOut()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // [START_EXCLUDE]
-                        updateUI(null);
-                        // [END_EXCLUDE]
-                    }
-                });
+    private void signOut() {
+
+        if (!facebook) {
+            //GOOGLE
+            mGoogleSignInClient.signOut()
+                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            // [START_EXCLUDE]
+                            updateUI(null);
+                            // [END_EXCLUDE]
+                        }
+                    });
+        }
     }
     // [END signOut]
 
 
 
     private void updateUI(@Nullable GoogleSignInAccount account) { // GOOGLE
-        facebook = false;
+        //facebook = false;
         if (account != null) {
 
             mStatusTextView.setText(getString(R.string.signed_in_fmt, account.getDisplayName()));
 
-            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+            findViewById(R.id.login_google_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
 
-            //startActivity(new Intent(MainActivity.this, EditProfile.class));
-
-            // finish();
         } else {
             mStatusTextView.setText(R.string.signed_out);
 
-            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.login_facebook_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.login_google_button).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
         }
     }
 
     @Override
     public void onClick(View v) {
-        facebook = false;
+        //facebook = false;
         switch (v.getId()) {
-            case R.id.sign_in_button:
+            case R.id.login_google_button:
+                facebook = false;
                 signIn();
                 break;
             case R.id.sign_out_button:
@@ -393,6 +409,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.perfil_button:
                 startActivity(new Intent(MainActivity.this, MainMenu.class));
+                break;
+            case R.id.login_facebook_button:
+                facebook = true;
+                //startActivity(new Intent(MainActivity.this, MainMenu.class));
                 break;
         }
     }

@@ -72,7 +72,6 @@
     </LinearLayout>
 
 
-
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
@@ -80,7 +79,7 @@
         android:background="@color/colorRosaWHIP">
 
         <com.google.android.gms.common.SignInButton
-            android:id="@+id/sign_in_button"
+            android:id="@+id/login_google_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -88,12 +87,12 @@
             tools:visibility="gone" />
 
         <com.facebook.login.widget.LoginButton
-            android:id="@+id/login_button"
+            android:id="@+id/login_facebook_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:visibility="visible"
-            tools:visibility="gone"/>
+            tools:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/sign_out_and_disconnect"
