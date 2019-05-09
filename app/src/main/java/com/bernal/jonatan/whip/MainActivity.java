@@ -238,6 +238,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     // [END onActivityResult]
 
+
+
     // [START handleSignInResult]
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
