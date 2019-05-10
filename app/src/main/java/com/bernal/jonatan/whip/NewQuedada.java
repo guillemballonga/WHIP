@@ -51,7 +51,7 @@ public class NewQuedada extends AppCompatActivity {
         lugar = findViewById(R.id.lugar_quedada);
 
         //Gestión de las Toolbars
-        Toolbar tool = findViewById(R.id.toolbar_editarPerfil);
+        Toolbar tool = findViewById(R.id.toolbar_nova_quedada);
         setSupportActionBar(tool);
         Objects.requireNonNull(getSupportActionBar()).setTitle("QUEDADA");
 

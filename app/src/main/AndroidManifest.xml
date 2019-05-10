@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".NewQuedada"></activity>
+        <activity android:name=".NewQuedada" />
         <activity android:name=".InfoPostAdoption" />
         <activity android:name=".ShowImage" />
         <activity android:name=".AdoptionList" />
