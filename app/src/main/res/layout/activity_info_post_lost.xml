@@ -26,8 +26,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
+                android:baselineAligned="false"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -43,15 +43,15 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginBottom="50dp"
-                        android:src="@drawable/compartir"
-                        android:contentDescription="@string/todo" />
+                        android:contentDescription="@string/todo"
+                        android:src="@drawable/compartir" />
 
-                    <ImageView
+                    <Button
                         android:id="@+id/organ_quedadaPerd"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="50dp"
-                        android:src="@drawable/quedadaicon"
+                        android:background="@drawable/quedadaicon"
                         android:contentDescription="@string/todo" />
 
 
@@ -90,16 +90,16 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_marginBottom="45dp"
-                        android:src="@drawable/chat"
-                        android:contentDescription="@string/todo" />
+                        android:contentDescription="@string/todo"
+                        android:src="@drawable/chat" />
 
                     <ImageView
                         android:id="@+id/abrir_GmapsPerd"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="45dp"
-                        android:src="@drawable/maps"
-                        android:contentDescription="@string/todo" />
+                        android:contentDescription="@string/todo"
+                        android:src="@drawable/maps" />
 
                 </LinearLayout>
 
@@ -274,7 +274,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/comentarios_0"
-                        android:textColor="#FFFFFF"
+                        android:textColor="@color/blanco"
                         android:textSize="20sp" />
 
 
@@ -300,7 +300,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:hint="@string/a_ade_un_comentario"/>
+                        android:hint="@string/a_ade_un_comentario" />
 
 
                 </LinearLayout>
@@ -309,31 +309,31 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal"
                     tools:ignore="RtlHardcoded">
 
                     <Button
                         android:id="@+id/crear_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
                         android:background="@drawable/boton_comment"
                         android:text="@string/crear"
-                        android:textColor="#FFFFFF"
+                        android:textColor="@color/blanco"
                         android:textSize="15sp"
-                        tools:ignore="SmallSp"
-                        android:layout_marginRight="10dp"/>
+                        tools:ignore="SmallSp" />
 
                     <Button
                         android:id="@+id/borrar_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:background="@drawable/boton_comment"
                         android:text="@string/borrar"
-                        android:textColor="#FFFFFF"
+                        android:textColor="@color/blanco"
                         android:textSize="15sp"
-                        tools:ignore="SmallSp"
-                        android:layout_marginLeft="10dp"/>
+                        tools:ignore="SmallSp" />
 
                 </LinearLayout>
 
