@@ -90,13 +90,14 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
         setContentView(R.layout.activity_mostrar_perfil);
         goToEditarPerfil = findViewById(R.id.boto_editar_perfil);
         goToMisPosts = findViewById(R.id.boto_mis_posts);
-        UserPresenter userPresenter = new UserPresenter((UserPresenter.View) this);
+        UserPresenter userPresenter = new UserPresenter(this);
         nom = findViewById(R.id.escr_nom);
         cognom = findViewById(R.id.escr_cognom);
         user = findViewById(R.id.escr_username);
         cp = findViewById(R.id.escr_CP);
         correu = findViewById(R.id.escr_correu);
         correu.setTextSize(12);
+        imatge = findViewById(R.id.imagen_perfil);
 
 
         //Llamo al presenter, le paso lo q necesita, en el model hago la llamada a la API
@@ -154,7 +155,6 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
 
     @Override
     public void getUserInfo(String cpt, String email, String family_name, String first_name, String photoURL, String username) {
-        imatge = findViewById(R.id.imagen_perfil);
         nom.setText(first_name);
         cognom.setText(family_name);
         user.setText(username);

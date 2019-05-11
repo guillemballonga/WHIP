@@ -30,8 +30,8 @@ public class UserPresenter {
         view.getUserInfo(user.getCp(),user.getEmail(),user.getFamily_name(),user.getFirst_name(),user.getPhotoURL(),user.getUsername());
     }
 
-    public void modifyUser(JSONObject perfil_editat) {
-        userServer.modifyUser(this, perfil_editat);
+    public void modifyUser(String cp, String nom, String cognom, String user, String urlFoto) {
+        userServer.modifyUser(this, cp, nom, cognom, user, urlFoto);
     }
 
 

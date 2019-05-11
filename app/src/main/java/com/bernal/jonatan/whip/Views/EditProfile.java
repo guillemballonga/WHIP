@@ -44,7 +44,7 @@ import java.util.Map;
 import java.util.Objects;
 
 
-public class EditProfile extends AppCompatActivity {
+public class EditProfile extends AppCompatActivity implements UserPresenter.View {
 
 
     Button goToMostrarPerfilGuardant, goToMostrarPerfilCancelar;
@@ -85,7 +85,7 @@ public class EditProfile extends AppCompatActivity {
         user = findViewById(R.id.escr_user);
         cp = findViewById(R.id.escr_CP);
 
-        carregaParametres();
+        userPresenter.getUser();
 
         //Gestión de las Toolbars
         Toolbar tool = findViewById(R.id.toolbar_editarPerfil);
@@ -100,19 +100,6 @@ public class EditProfile extends AppCompatActivity {
         goToMostrarPerfilGuardant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Comunicacion con Back
-                //jason para comunicación con back
-                JSONObject perfil_editat = new JSONObject();
-
-                //JASON
-                try {
-                    perfil_editat.put("post_code", cp.getText().toString());
-                    perfil_editat.put("name", nom.getText().toString());
-                    perfil_editat.put("about", "hola");
-                    perfil_editat.put("fam_name", cognom.getText().toString());
-                    perfil_editat.put("username", user.getText().toString());
-
-
                     //aqui carrego la nova foto canviada
                     //urlBD.substring(1, 7).equals("images")
                     if (urlBD.substring(1,7).equals("image")) {
@@ -120,17 +107,10 @@ public class EditProfile extends AppCompatActivity {
                     }
                     else urlFoto = urlBD;
                     if (!urlFoto.equals("")) retrieveImage(urlFoto);
-                    perfil_editat.put("photo_url", urlFoto);
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
                 if (nom.getText().toString().equals("") || cp.getText().toString().equals("") || cognom.getText().toString().equals("") || user.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
                 } else {
-                    userPresenter.modifyUser(perfil_editat);
+                    userPresenter.modifyUser(cp.getText().toString(), nom.getText().toString(), cognom.getText().toString(), user.getText().toString(), urlFoto);
                     startActivity(new Intent(EditProfile.this, MostrarPerfil.class));
                     finish();
                 }
@@ -158,27 +138,6 @@ public class EditProfile extends AppCompatActivity {
                 finish();
             }
         });
-
-
-    }
-
-    private void carregaParametres() {
-        correu.setText(MostrarPerfil.getCorreu());
-        correu.setTextSize(12);
-        nom.setText(MostrarPerfil.getNom());
-        cognom.setText(MostrarPerfil.getCognom());
-        user.setText(MostrarPerfil.getUsername());
-        cp.setText(MostrarPerfil.getCP());
-
-        fotoperfil = findViewById(R.id.imagen_perfil);
-
-
-        //CARREGAR IMATGE FIREBASE
-        if (urlBD.substring(1, 7).equals("images")) {
-            retrieveImage(urlBD);
-        } else { //CARREGAR IMATGE DE GOOGLE
-            fotoperfil.loadImageUrl(urlBD);
-        }
 
 
     }
@@ -225,6 +184,21 @@ public class EditProfile extends AppCompatActivity {
                 }
             });
         } catch (IOException ignored) {
+        }
+    }
+
+    @Override
+    public void getUserInfo(String cpt, String email, String family_name, String first_name, String photoURL, String username) {
+        nom.setText(first_name);
+        cognom.setText(family_name);
+        user.setText(username);
+        cp.setText(cpt);
+        correu.setText(email);
+        urlFoto = photoURL;
+        if (photoURL.substring(1, 7).equals("images")) {
+            retrieveImage(photoURL);
+        } else { //CARREGAR IMATGE DE GOOGLE
+            fotoperfil.loadImageUrl(photoURL);
         }
     }
 }

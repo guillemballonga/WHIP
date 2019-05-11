@@ -72,7 +72,18 @@ public class UserServer {
         requestQueue.add(arrayJsonrequest);
     }
 
-    public void modifyUser(final UserPresenter userPresenter, JSONObject perfil_editat) {
+    public void modifyUser(final UserPresenter userPresenter, String cp, String nom, String cognom, String user, String urlFoto) {
+
+        JSONObject perfil_editat = new JSONObject();
+        try {
+            perfil_editat.put("post_code", cp);
+            perfil_editat.put("name", nom);
+            perfil_editat.put("fam_name", cognom);
+            perfil_editat.put("username", user);
+            perfil_editat.put("photo_url", urlFoto);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                 JsonRequest.Method.PATCH,
