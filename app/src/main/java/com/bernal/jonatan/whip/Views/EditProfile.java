@@ -79,6 +79,7 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
 
         goToMostrarPerfilGuardant = findViewById(R.id.boto_guardar);
         goToMostrarPerfilCancelar = findViewById(R.id.boto_cancelar);
+        fotoperfil = findViewById(R.id.imagen_perfil);
         correu = findViewById(R.id.escr_correu);
         nom = findViewById(R.id.escr_nom);
         cognom = findViewById(R.id.escr_cognom);
