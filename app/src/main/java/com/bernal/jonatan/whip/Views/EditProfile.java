@@ -100,9 +100,7 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
         goToMostrarPerfilGuardant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    //aqui carrego la nova foto canviada
-                    //urlBD.substring(1, 7).equals("images")
-                    urlFoto = UploadImageFirebase.getIdentificadorImatge();
+                urlFoto = UploadImageFirebase.getIdentificadorImatge();
 
                 if (nom.getText().toString().equals("") || cp.getText().toString().equals("") || cognom.getText().toString().equals("") || user.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
