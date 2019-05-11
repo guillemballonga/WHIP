@@ -17,25 +17,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".InfoPostAdoption" />
-        <activity android:name=".ShowImage" />
-        <activity android:name=".AdoptionList" />
-        <activity android:name=".NewPostAdoption" />
-        <activity android:name=".UploadImageFirebase" />
-        <activity android:name=".MostrarPerfil" />
-        <activity android:name=".EditProfile" />
-        <activity android:name=".InfoPostLost" />
-        <activity android:name=".MyPosts" />
-        <activity android:name=".NewPostLost" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Views.InfoPostAdoption" />
+        <activity android:name=".Views.ShowImage" />
+        <activity android:name=".Views.AdoptionList" />
+        <activity android:name=".Views.NewPostAdoption" />
+        <activity android:name=".Views.UploadImageFirebase" />
+        <activity android:name=".Views.MostrarPerfil" />
+        <activity android:name=".Views.EditProfile" />
+        <activity android:name=".Views.InfoPostLost" />
+        <activity android:name=".Views.MyPosts" />
+        <activity android:name=".Views.NewPostLost" />
+        <activity android:name=".Views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainMenu" />
-        <activity android:name=".LostList" />
+        <activity android:name=".Views.MainMenu" />
+        <activity android:name=".Views.LostList" />
 
 
 

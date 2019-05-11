@@ -1,4 +1,4 @@
-package com.bernal.jonatan.whip;
+package com.bernal.jonatan.whip.Views;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -29,10 +28,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Comment;
-import com.bernal.jonatan.whip.Models.Post;
+import com.bernal.jonatan.whip.R;
 import com.bernal.jonatan.whip.RecyclerViews.CommentAdapter;
 import com.bernal.jonatan.whip.RecyclerViews.OnCommentListener;
-import com.bernal.jonatan.whip.RecyclerViews.PostAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;

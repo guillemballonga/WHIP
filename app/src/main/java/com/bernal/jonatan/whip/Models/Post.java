@@ -6,17 +6,15 @@ public class Post {
     private String nombre;
     private String imagen;
     private String contenido;
-    private int estado;
     private String id;
     private String type;
 
 
-    public Post(String id, String nombre, String imagen, String contenido, int estado, String type) {
+    public Post(String id, String nombre, String imagen, String contenido, String type) {
         this.id = id;
         this.nombre = nombre;
         this.imagen = imagen;
         this.contenido = contenido;
-        this.estado = estado;
         this.type = type;
     }
 

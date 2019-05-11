@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorAdopcio"
     android:orientation="vertical"
-    tools:context=".NewPostAdoption">
+    tools:context=".Views.NewPostAdoption">
 
 
     <include

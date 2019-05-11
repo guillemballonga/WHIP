@@ -1,4 +1,4 @@
-package com.bernal.jonatan.whip;
+package com.bernal.jonatan.whip.Views;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -24,6 +24,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Post;
+import com.bernal.jonatan.whip.R;
 import com.bernal.jonatan.whip.RecyclerViews.OnListListener;
 import com.bernal.jonatan.whip.RecyclerViews.PostAdapter;
 
@@ -156,7 +157,7 @@ public class LostList extends AppCompatActivity {
                             JSONObject postite;
                             for (int i = 0; i < resultat.length(); i++) {
                                 postite = resultat.getJSONObject(i);
-                                Posts_perdidos.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), 0, "LOST"));
+                                Posts_perdidos.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), "LOST"));
                             }
                             adapt = new PostAdapter(Posts_perdidos, "Lost");
                             contenedor.setAdapter(adapt);
@@ -212,7 +213,7 @@ public class LostList extends AppCompatActivity {
                             JSONObject postite;
                             for (int i = 0; i < resultat.length(); i++) {
                                 postite = resultat.getJSONObject(i);
-                                Posts_perdidos.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), 0, "LOST"));
+                                Posts_perdidos.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), "LOST"));
                             }
                             adapt = new PostAdapter(Posts_perdidos, "Lost");
                             contenedor.setAdapter(adapt);
