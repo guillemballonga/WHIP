@@ -1,9 +1,11 @@
 package com.bernal.jonatan.whip.Servers;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.User;
 import com.bernal.jonatan.whip.Presenters.UserPresenter;
 import com.bernal.jonatan.whip.Views.UserLoggedIn;
@@ -19,9 +21,11 @@ public class UserServer {
     static String URL = "https://whip-api.herokuapp.com/users/profile";
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
     private String api = ul.getAPI_KEY();
+    private RequestQueue requestQueue;
 
     public void getUser(final UserPresenter userPresenter) {
 
+        requestQueue = Volley.newRequestQueue(userPresenter.getMostrarPerfil());
         JsonObjectRequest arrayJsonrequest = new JsonObjectRequest(
                 JsonRequest.Method.GET,
                 URL,
@@ -59,5 +63,6 @@ public class UserServer {
                 return params;
             }
         };
+        requestQueue.add(arrayJsonrequest);
     }
 }
