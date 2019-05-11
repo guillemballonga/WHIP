@@ -39,8 +39,13 @@ public class UserPresenter {
         return view;
     }
 
+    public void setActivity() {
+        view.changeActivity();
+    }
+
     public interface View{
         void getUserInfo(String cp, String email, String family_name, String first_name,String photoURL, String username);
+        void changeActivity();
     }
 
 

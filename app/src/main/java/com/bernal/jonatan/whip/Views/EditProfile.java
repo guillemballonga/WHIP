@@ -106,10 +106,7 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
                     Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
                 } else {
                     userPresenter.modifyUser(cp.getText().toString(), nom.getText().toString(), cognom.getText().toString(), user.getText().toString(), urlFoto);
-                    startActivity(new Intent(EditProfile.this, MostrarPerfil.class));
-                    finish();
                 }
-                finish();
             }
         });
 
@@ -136,6 +133,8 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
 
 
     }
+
+
 
     @SuppressLint("IntentReset")
     private void obrirgaleria() {
@@ -195,5 +194,11 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
         } else { //CARREGAR IMATGE DE GOOGLE
             fotoperfil.loadImageUrl(urlFoto);
         }
+    }
+
+    @Override
+    public void changeActivity() {
+        startActivity(new Intent(EditProfile.this, MostrarPerfil.class));
+        finish();
     }
 }

@@ -167,4 +167,9 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
             imatge.loadImageUrl(photoURL);
         }
     }
+
+    @Override
+    public void changeActivity() {
+        //Nothing to do
+    }
 }

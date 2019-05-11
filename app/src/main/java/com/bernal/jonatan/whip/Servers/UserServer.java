@@ -93,7 +93,7 @@ public class UserServer {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        //poner alguna función vacía para indicar que ha terminado?
+                        userPresenter.setActivity();
                     }
                 },
                 new Response.ErrorListener() {
