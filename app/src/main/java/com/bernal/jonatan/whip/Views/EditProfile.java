@@ -25,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.Presenters.UserPresenter;
 import com.bernal.jonatan.whip.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -52,7 +53,7 @@ public class EditProfile extends AppCompatActivity {
     EditText nom, cognom, user, cp;
     TextView correu;
 
-
+    UserPresenter userPresenter = new UserPresenter((UserPresenter.View) this);
     //variables para comucicación back
     private String URL, urlFoto;
     private String urlBD = MostrarPerfil.getFoto();
@@ -70,6 +71,9 @@ public class EditProfile extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_perfil);
 
@@ -100,7 +104,6 @@ public class EditProfile extends AppCompatActivity {
                 //jason para comunicación con back
                 JSONObject perfil_editat = new JSONObject();
 
-
                 //JASON
                 try {
                     perfil_editat.put("post_code", cp.getText().toString());
@@ -127,6 +130,8 @@ public class EditProfile extends AppCompatActivity {
                 if (nom.getText().toString().equals("") || cp.getText().toString().equals("") || cognom.getText().toString().equals("") || user.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
                 } else {
+
+                    userPresenter.modifyUser();
                     //Guardar los datos del formulario en BACK. NOTA: No olvidar guardar la fecha de creación del Post
                     JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                             JsonRequest.Method.PATCH,

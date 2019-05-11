@@ -90,7 +90,7 @@ public class MostrarPerfil extends AppCompatActivity {
         setContentView(R.layout.activity_mostrar_perfil);
         goToEditarPerfil = findViewById(R.id.boto_editar_perfil);
         goToMisPosts = findViewById(R.id.boto_mis_posts);
-        UserPresenter userPresenter = new UserPresenter(this);
+        UserPresenter userPresenter = new UserPresenter((UserPresenter.View) this);
         nom = findViewById(R.id.escr_nom);
         cognom = findViewById(R.id.escr_cognom);
         user = findViewById(R.id.escr_username);
@@ -159,6 +159,7 @@ public class MostrarPerfil extends AppCompatActivity {
         user.setText(username);
         cp.setText(cpt);
         correu.setText(email);
+        urlFoto = photoURL;
         if (photoURL.substring(1, 7).equals("images")) {
             retrieveImage(photoURL);
         } else { //CARREGAR IMATGE DE GOOGLE

@@ -1,5 +1,7 @@
 package com.bernal.jonatan.whip.Servers;
 
+import android.content.Context;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -25,7 +27,7 @@ public class UserServer {
 
     public void getUser(final UserPresenter userPresenter) {
 
-        requestQueue = Volley.newRequestQueue(userPresenter.getMostrarPerfil());
+        requestQueue = Volley.newRequestQueue((Context) userPresenter.getView());
         JsonObjectRequest arrayJsonrequest = new JsonObjectRequest(
                 JsonRequest.Method.GET,
                 URL,
@@ -64,5 +66,9 @@ public class UserServer {
             }
         };
         requestQueue.add(arrayJsonrequest);
+    }
+
+    public void modifyUser(UserPresenter userPresenter) {
+
     }
 }
