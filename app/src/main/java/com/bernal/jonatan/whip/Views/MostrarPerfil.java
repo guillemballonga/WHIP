@@ -160,7 +160,7 @@ public class MostrarPerfil extends AppCompatActivity {
         cp.setText(cpt);
         correu.setText(email);
         if (photoURL.substring(1, 7).equals("images")) {
-            retrieveImage(urlFoto);
+            retrieveImage(photoURL);
         } else { //CARREGAR IMATGE DE GOOGLE
             imatge.loadImageUrl(photoURL);
         }
