@@ -227,5 +227,4 @@ public class EditProfile extends AppCompatActivity {
         } catch (IOException ignored) {
         }
     }
-
 }

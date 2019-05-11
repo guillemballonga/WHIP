@@ -33,7 +33,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-public class MostrarPerfil extends AppCompatActivity {
+public class MostrarPerfil extends AppCompatActivity implements UserPresenter.View {
 
 
     UserPresenter userPresenter;
@@ -152,6 +152,7 @@ public class MostrarPerfil extends AppCompatActivity {
         }
     }
 
+    @Override
     public void getUserInfo(String cpt, String email, String family_name, String first_name, String photoURL, String username) {
         imatge = findViewById(R.id.imagen_perfil);
         nom.setText(first_name);
