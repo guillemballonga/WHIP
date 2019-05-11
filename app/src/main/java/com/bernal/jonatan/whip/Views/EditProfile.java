@@ -130,52 +130,12 @@ public class EditProfile extends AppCompatActivity {
                 if (nom.getText().toString().equals("") || cp.getText().toString().equals("") || cognom.getText().toString().equals("") || user.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
                 } else {
-
-                    userPresenter.modifyUser();
-                    //Guardar los datos del formulario en BACK. NOTA: No olvidar guardar la fecha de creación del Post
-                    JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                            JsonRequest.Method.PATCH,
-                            URL,
-                            perfil_editat,
-
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    startActivity(new Intent(EditProfile.this, MostrarPerfil.class));
-                                    finish();
-                                }
-
-
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-                                    error.printStackTrace();
-
-
-                                }
-                            }
-                    ) {
-                        @Override
-                        public Map<String, String> getHeaders() {
-                            Map<String, String> params = new HashMap<>();
-                            params.put("Content-Type", "application/json");
-                            params.put("Authorization", api); //valor de V ha de ser el de la var global
-                            return params;
-                        }
-                    };
-                    requestqueue.add(objectJsonrequest);
-//JASON
-
-
+                    userPresenter.modifyUser(perfil_editat);
+                    startActivity(new Intent(EditProfile.this, MostrarPerfil.class));
+                    finish();
                 }
-
-
                 finish();
             }
-
-
         });
 
         fotoperfil.setOnClickListener(new View.OnClickListener() {
@@ -268,7 +228,4 @@ public class EditProfile extends AppCompatActivity {
         }
     }
 
-    public void setUserInfo(String cp, String email, String family_name, String first_name, String photoURL, String username) {
-
-    }
 }

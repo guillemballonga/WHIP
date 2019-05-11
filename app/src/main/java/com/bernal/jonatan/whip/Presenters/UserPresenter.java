@@ -8,6 +8,8 @@ import com.bernal.jonatan.whip.Servers.UserServer;
 import com.bernal.jonatan.whip.Views.EditProfile;
 import com.bernal.jonatan.whip.Views.MostrarPerfil;
 
+import org.json.JSONObject;
+
 public class UserPresenter {
 
 
@@ -28,8 +30,8 @@ public class UserPresenter {
         view.getUserInfo(user.getCp(),user.getEmail(),user.getFamily_name(),user.getFirst_name(),user.getPhotoURL(),user.getUsername());
     }
 
-    public void modifyUser() {
-        userServer.modifyUser(this);
+    public void modifyUser(JSONObject perfil_editat) {
+        userServer.modifyUser(this, perfil_editat);
     }
 
 

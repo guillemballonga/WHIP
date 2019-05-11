@@ -1,6 +1,8 @@
 package com.bernal.jonatan.whip.Servers;
 
 import android.content.Context;
+import android.content.Intent;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -10,6 +12,8 @@ import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.User;
 import com.bernal.jonatan.whip.Presenters.UserPresenter;
+import com.bernal.jonatan.whip.Views.EditProfile;
+import com.bernal.jonatan.whip.Views.MostrarPerfil;
 import com.bernal.jonatan.whip.Views.UserLoggedIn;
 
 import org.json.JSONException;
@@ -68,7 +72,35 @@ public class UserServer {
         requestQueue.add(arrayJsonrequest);
     }
 
-    public void modifyUser(UserPresenter userPresenter) {
+    public void modifyUser(final UserPresenter userPresenter, JSONObject perfil_editat) {
+
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.PATCH,
+                URL,
+                perfil_editat,
+
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        //poner alguna función vacía para indicar que ha terminado?
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", api); //valor de V ha de ser el de la var global
+                return params;
+            }
+        };
+        requestQueue.add(objectJsonrequest);
 
     }
 }
