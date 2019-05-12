@@ -24,6 +24,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Post;
+import com.bernal.jonatan.whip.Presenters.PostPresenter;
 import com.bernal.jonatan.whip.R;
 import com.bernal.jonatan.whip.RecyclerViews.OnListListener;
 import com.bernal.jonatan.whip.RecyclerViews.PostAdapter;
@@ -36,8 +37,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AdoptionList extends AppCompatActivity {
+public class AdoptionList extends AppCompatActivity implements PostPresenter.View {
 
+    PostPresenter postPresenter = new PostPresenter((PostPresenter.View) this);
     private String URL, URL_filtre;
     private RequestQueue requestqueue;
     private JSONArray resultat;
@@ -121,6 +123,8 @@ public class AdoptionList extends AppCompatActivity {
 
         //Llamada a la API
 
+        postPresenter.getAdoptionPosts(URL); //Aquí pillaremos el listado y lo ponemos en una variable y luego la parte del layout y el adaptor
+        //irá aquí, en una función después que asegure que haya cargado ya el listado
         JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
                 JsonRequest.Method.GET,
                 URL,
@@ -139,6 +143,8 @@ public class AdoptionList extends AppCompatActivity {
                                 postite = resultat.getJSONObject(i);
                                 Posts_adoption.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), "ADOPTION"));
                             }
+                            Posts_adoption = new ArrayList<>();
+
                             adapt = new PostAdapter(Posts_adoption, "Adoption");
                             contenedor_adopt.setAdapter(adapt);
                             contenedor_adopt.setLayoutManager(layout);
@@ -241,6 +247,11 @@ public class AdoptionList extends AppCompatActivity {
             }
         };
         requestqueue.add(arrayJsonrequest);
+
+    }
+
+    @Override
+    public void changeActivity() {
 
     }
 }
