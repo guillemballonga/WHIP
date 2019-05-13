@@ -1,10 +1,12 @@
 package com.bernal.jonatan.whip;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -21,16 +23,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.RecyclerViews.DatePickerFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.time.MonthDay;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class NewQuedada extends AppCompatActivity {
+public class NewQuedada extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
     private String URL;
     static String postID, type;
@@ -59,10 +64,108 @@ public class NewQuedada extends AppCompatActivity {
         URL = "https://whip-api.herokuapp.com/contributions/" + postID + "/event?type=" + type;
         requestqueue = Volley.newRequestQueue(this);
 
+        selecionar_fecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment escollirData = new DatePickerFragment();
+                escollirData.show(getSupportFragmentManager(), "escollir data");
+            }
+        });
+
+        seleccionar_hora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                hora = c.get(Calendar.HOUR);
+                min = c.get(Calendar.MINUTE);
+
+
+
+            }
+        });
+
+        crear_quedada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //jason para comunicación con back
+                JSONObject quedada = new JSONObject();
+
+
+                //JASON
+                try {
+                    if (type.equals("adoption")) {
+                        quedada.put("adoptionPostId", postID);
+                    } else {
+                        quedada.put("lostPostId", postID);
+                    }
+                    quedada.put("date", año + "-" + mes + "-" + dia + " " + hora + ":" + min + ": 00");
+                    quedada.put("place", lugar.getText().toString());
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                if (selecionar_fecha.getHint().toString().equals("") || seleccionar_hora.getHint().toString().equals("") || lugar.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
+                } else {
+                    //Guardar los datos del formulario en BACK. NOTA: No olvidar guardar la fecha de creación del Post
+                    JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                            JsonRequest.Method.PATCH,
+                            URL,
+                            quedada,
+
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    startActivity(new Intent(NewQuedada.this, MainMenu.class));
+                                    Toast.makeText(getApplicationContext(), "Quedada Creada Correctamente", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+
+
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                    error.printStackTrace();
+                                }
+                            }
+                    ) {
+                        @Override
+                        public Map<String, String> getHeaders() {
+                            Map<String, String> params = new HashMap<>();
+                            params.put("Content-Type", "application/json");
+                            params.put("Authorization", api); //valor de V ha de ser el de la var global
+                            return params;
+                        }
+                    };
+                    requestqueue.add(objectJsonrequest);
+//JASON
+
+
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+        String dataActual = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+
+        dia=dayOfMonth;
+        mes=month;
+        año=year;
 
     }
 
-    public void onClick(View view) {
+    /*public void onClick(View view) {
         if (view == selecionar_fecha) {
             final Calendar c = Calendar.getInstance();
             dia = c.get(Calendar.DAY_OF_MONTH);
@@ -107,7 +210,7 @@ public class NewQuedada extends AppCompatActivity {
                     quedada.put("lostPostId", postID);
                 }
                 quedada.put("date", año + "-" + mes + "-" + dia + " " + hora + ":" + min + ": 00");
-                quedada.put("lugar", lugar.getText().toString());
+                quedada.put("place", lugar.getText().toString());
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -154,7 +257,7 @@ public class NewQuedada extends AppCompatActivity {
 
             }
         }
-    }
+    }*/
 
     public static void setPostID(String idPost, String tipo) {
         postID = idPost;
