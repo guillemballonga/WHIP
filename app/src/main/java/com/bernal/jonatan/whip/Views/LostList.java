@@ -261,7 +261,7 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
     }
 
     @Override
-    public void chargeLostList(ArrayList posts) {
+    public void chargeLostList(final ArrayList posts) {
         LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         adapt = new PostAdapter(posts, "Lost");
@@ -270,7 +270,8 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
         adapt.setOnListListener(new OnListListener() {
             @Override
             public void onPostClicked(int position, View vista) {
-                String id_post = posts.get(contenedor.getChildAdapterPosition(vista)).getId();
+                Post post = (Post) posts.get(contenedor.getChildAdapterPosition(vista));
+                String id_post = post.getId();
                 Intent i = new Intent(LostList.this, InfoPostLost.class);
                 i.putExtra("identificadorPost", id_post);
                 startActivity(i);

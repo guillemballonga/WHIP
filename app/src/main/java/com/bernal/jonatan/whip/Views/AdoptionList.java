@@ -250,7 +250,7 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
     }
 
     @Override
-    public void chargeAdoptionList(ArrayList posts) {
+    public void chargeAdoptionList(final ArrayList posts) {
         LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         adapt = new PostAdapter(posts, "Adoption");
@@ -259,7 +259,7 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
         adapt.setOnListListener(new OnListListener() {
             @Override
             public void onPostClicked(int position, View vista) {
-                String id_post = posts.get(contenedor_adopt.getChildAdapterPosition(vista)).getId();
+                String id_post = ((Post)posts.get(contenedor_adopt.getChildAdapterPosition(vista))).getId();
                 Intent i = new Intent(AdoptionList.this, InfoPostAdoption.class);
                 i.putExtra("identificadorPost", id_post);
                 startActivity(i);

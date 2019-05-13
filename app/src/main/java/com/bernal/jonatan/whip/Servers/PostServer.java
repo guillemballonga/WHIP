@@ -1,5 +1,6 @@
 package com.bernal.jonatan.whip.Servers;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Post;
 import com.bernal.jonatan.whip.Presenters.PostPresenter;
 import com.bernal.jonatan.whip.RecyclerViews.OnListListener;
@@ -26,7 +28,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class PostServer {
 
@@ -38,7 +39,7 @@ public class PostServer {
 
     public void getAdoptionPosts(final PostPresenter postPresenter, String URL) {
 
-
+        requestQueue = Volley.newRequestQueue((Context) postPresenter.getView());
         JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
                 JsonRequest.Method.GET,
                 URL,
@@ -48,8 +49,6 @@ public class PostServer {
                     public void onResponse(JSONArray response) {
                         try {
                             ArrayList Posts_adoption = new ArrayList<>();
-                            LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
-                            layout.setOrientation(LinearLayoutManager.VERTICAL);
                             JSONObject postite;
                             for (int i = 0; i < response.length(); i++) {
                                 postite = response.getJSONObject(i);
@@ -76,7 +75,7 @@ public class PostServer {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
 
                     }
                 }
@@ -94,6 +93,8 @@ public class PostServer {
     }
 
     public void getLostsPosts(final PostPresenter postPresenter, String URL) {
+
+        requestQueue = Volley.newRequestQueue((Context) postPresenter.getView());
         JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
                 JsonRequest.Method.GET,
                 URL,
@@ -102,10 +103,8 @@ public class PostServer {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            Toast.makeText(getApplicationContext(), "Listado mostrado correctamente", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "Listado mostrado correctamente", Toast.LENGTH_SHORT).show();
                             ArrayList Posts_perdidos = new ArrayList<>();
-                            LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
-                            layout.setOrientation(LinearLayoutManager.VERTICAL);
                             JSONObject postite;
                             for (int i = 0; i < response.length(); i++) {
                                 postite = response.getJSONObject(i);
@@ -120,7 +119,7 @@ public class PostServer {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
 
                     }
                 }

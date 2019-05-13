@@ -35,11 +35,15 @@ public class PostPresenter {
         view.chargeLostList(posts);
     }
 
+    public View getView() {
+        return this.view;
+    }
+
     public interface View {
 
         void chargeAdoptionList(ArrayList posts);
 
-        void chargeLostList(ArrayList posts);
+        void chargeLostList(final ArrayList posts);
     }
 
 }
