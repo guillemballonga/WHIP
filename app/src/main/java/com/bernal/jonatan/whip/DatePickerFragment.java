@@ -1,4 +1,4 @@
-package com.bernal.jonatan.whip.RecyclerViews;
+package com.bernal.jonatan.whip;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

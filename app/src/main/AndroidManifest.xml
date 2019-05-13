@@ -24,6 +24,7 @@
         <activity android:name=".NewPostAdoption" />
         <activity android:name=".UploadImageFirebase" />
         <activity android:name=".MostrarPerfil" />
+        <activity android:name="DatePickerFragment" />
         <activity android:name=".EditProfile" />
         <activity android:name=".InfoPostLost" />
         <activity android:name=".MyPosts" />
