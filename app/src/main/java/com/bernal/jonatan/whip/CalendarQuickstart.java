@@ -1,4 +1,4 @@
-package com.bernal.jonatan.whip.RecyclerViews;
+package com.bernal.jonatan.whip;
 
 
 import com.google.api.client.auth.oauth2.Credential;
