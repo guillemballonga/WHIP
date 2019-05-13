@@ -124,60 +124,6 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
         //Llamada a la API
 
         postPresenter.getAdoptionPosts(URL); //hagamos sobre URL lo de los filtros y trabajamos sobre URL siempre, así nos ahorramos la repetcion
-  /*      JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
-                JsonRequest.Method.GET,
-                URL,
-                null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            Toast.makeText(getApplicationContext(), "Listado mostrado correctamente", Toast.LENGTH_SHORT).show();
-                            resultat = response;
-                            Posts_adoption = new ArrayList<>();
-                            LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
-                            layout.setOrientation(LinearLayoutManager.VERTICAL);
-                            JSONObject postite;
-                            for (int i = 0; i < resultat.length(); i++) {
-                                postite = resultat.getJSONObject(i);
-                                Posts_adoption.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), "ADOPTION"));
-                            }
-                            Posts_adoption = new ArrayList<>();
-
-                            adapt = new PostAdapter(Posts_adoption, "Adoption");
-                            contenedor_adopt.setAdapter(adapt);
-                            contenedor_adopt.setLayoutManager(layout);
-                            adapt.setOnListListener(new OnListListener() {
-                                @Override
-                                public void onPostClicked(int position, View vista) {
-                                    String id_post = Posts_adoption.get(contenedor_adopt.getChildAdapterPosition(vista)).getId();
-                                    Intent i = new Intent(AdoptionList.this, InfoPostAdoption.class);
-                                    i.putExtra("identificadorPost", id_post);
-                                    startActivity(i);
-                                }
-                            });
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", api); //valor de V ha de ser el de la var global
-                return params;
-            }
-        };
-        requestqueue.add(arrayJsonrequest);
-    */
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -195,58 +141,7 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
     }
 
     private void backFiltres() {
-        JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
-                JsonRequest.Method.GET,
-                URL_filtre,
-                null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            Toast.makeText(getApplicationContext(), "Listado mostrado correctamente", Toast.LENGTH_SHORT).show();
-                            resultat = response;
-                            Posts_adoption = new ArrayList<>();
-                            LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
-                            layout.setOrientation(LinearLayoutManager.VERTICAL);
-                            JSONObject postite;
-                            for (int i = 0; i < resultat.length(); i++) {
-                                postite = resultat.getJSONObject(i);
-                                Posts_adoption.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), "ADOPTION"));
-                            }
-                            adapt = new PostAdapter(Posts_adoption, "Adoption");
-                            contenedor_adopt.setAdapter(adapt);
-                            contenedor_adopt.setLayoutManager(layout);
-                            adapt.setOnListListener(new OnListListener() {
-                                @Override
-                                public void onPostClicked(int position, View vista) {
-                                    String id_post = Posts_adoption.get(contenedor_adopt.getChildAdapterPosition(vista)).getId();
-                                    Intent i = new Intent(AdoptionList.this, InfoPostAdoption.class);
-                                    i.putExtra("identificadorPost", id_post);
-                                    startActivity(i);
-                                }
-                            });
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", api); //valor de V ha de ser el de la var global
-                return params;
-            }
-        };
-        requestqueue.add(arrayJsonrequest);
-
+        postPresenter.getAdoptionPosts(URL_filtre);
     }
 
     @Override
