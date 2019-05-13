@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -34,11 +35,11 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
 
     private String URL;
     static String postID, type;
-    private int dia, mes, año, hora, min;
+    private String dia, mes;
     private RequestQueue requestqueue;
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
     private String api = ul.getAPI_KEY();
-    Button selecionar_fecha, seleccionar_hora, crear_quedada;
+    Button selecionar_fecha, crear_quedada;
     EditText lugar;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -47,7 +48,6 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_quedada);
         selecionar_fecha = findViewById(R.id.fecha_quedada);
-        seleccionar_hora = findViewById(R.id.hora_quedada);
         lugar = findViewById(R.id.lugar_quedada);
 
         //Gestión de las Toolbars
@@ -63,19 +63,7 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
             @Override
             public void onClick(View v) {
                 DialogFragment escollirData = new DatePickerFragment();
-                escollirData.show(getSupportFragmentManager(), "escollir data");
-            }
-        });
-
-        seleccionar_hora.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
-                hora = c.get(Calendar.HOUR);
-                min = c.get(Calendar.MINUTE);
-
-
-
+                escollirData.show(getSupportFragmentManager(), "escojer fecha");
             }
         });
 
@@ -152,45 +140,28 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-        String dataActual = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        month=month+1;
+//        String dataActual = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        if(month<10) {
+            mes = "0" + month;
+        }
+        else if (month>10){
+            mes = "" + month;
+        }
 
-
-        selecionar_fecha.setHint(dayOfMonth + "/" + month + "/" + year);
+        if(dayOfMonth<10){
+            dia = "0" + dayOfMonth;
+        }
+        else if (dayOfMonth>10){
+            dia = "" + dayOfMonth;
+        }
+        selecionar_fecha.setHint(dia + "/" + mes + "/" + year);
 
 
     }
 
+
     /*public void onClick(View view) {
-        if (view == selecionar_fecha) {
-            final Calendar c = Calendar.getInstance();
-            dia = c.get(Calendar.DAY_OF_MONTH);
-            mes = c.get(Calendar.MONTH);
-            año = c.get(Calendar.YEAR);
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    selecionar_fecha.setHint(dayOfMonth + "/" + month + "/" + year);
-                }
-            }
-                    , dia, mes, año);
-            datePickerDialog.show();
-        }
-        if (view == seleccionar_hora) {
-            final Calendar c = Calendar.getInstance();
-            hora = c.get(Calendar.HOUR);
-            min = c.get(Calendar.MINUTE);
-
-            TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-
-                @Override
-                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    seleccionar_hora.setHint(hourOfDay + ":" + minute);
-                }
-            }, hora, min, false);
-            timePickerDialog.show();
-        }
         if (view == crear_quedada) {
 
             //jason para comunicación con back

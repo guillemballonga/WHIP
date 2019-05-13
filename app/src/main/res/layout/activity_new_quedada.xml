@@ -64,11 +64,12 @@
                         android:text="@string/hora"
                         android:textSize="25dp" />
 
-                    <Button
+                    <EditText
                         android:id="@+id/hora_quedada"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
+                        android:layout_marginLeft="20dp"
+                        android:paddingStart="127dp"
                         android:background="@drawable/fondoformlargo"
                         android:hint="@string/formato_hora"
                         tools:ignore="RtlSymmetry" />
