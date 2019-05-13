@@ -2,6 +2,7 @@ package com.bernal.jonatan.whip;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -52,11 +53,11 @@ import java.util.Map;
 public class InfoPostLost extends AppCompatActivity {
 
     //private static final String  = ;
-    TextView titulo, fecha, especie, tipo, raza, contenido,num_comments;
-    ImageView foto_post, foto_user, compartirRRSS, organ_quedada;
+    TextView titulo, fecha, especie, tipo, raza, contenido, num_comments;
+    ImageView foto_post, foto_user, compartirRRSS;
     EditText box_comment;
     String Identificador;
-    Button cerrar_post,crear_comment,borrar_comment;
+    Button cerrar_post, crear_comment, borrar_comment, organ_quedada;
     RecyclerView comments;
 
 
@@ -97,6 +98,17 @@ public class InfoPostLost extends AppCompatActivity {
 
         comments = findViewById(R.id.contenedor_comments);
 
+
+        //Crear Quedada
+        organ_quedada.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                NewQuedada.setPostID(Identificador, "lost");
+                startActivity(new Intent(InfoPostLost.this, NewQuedada.class));
+            }
+        });
+
         //Gestión toolbar
         Toolbar tool = findViewById(R.id.toolbar_infoPostPerd);
         setSupportActionBar(tool);
@@ -109,7 +121,7 @@ public class InfoPostLost extends AppCompatActivity {
         URL_favs = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=lost";
         URL_like = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=lost";
         URL_close = "https://whip-api.herokuapp.com/contributions/close/" + Identificador + "/?type=lost";
-        URL_comments = "https://whip-api.herokuapp.com/contributions/lostposts/" +Identificador+"/comments";
+        URL_comments = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador + "/comments";
 
         requestqueue = Volley.newRequestQueue(this);
 
@@ -198,14 +210,15 @@ public class InfoPostLost extends AppCompatActivity {
             }
         };
         requestqueue.add(objectJsonrequest);
-        
+
         carregar_comments();
 
     }
 
     private void crear_comment() {
 
-        if (box_comment.getText().toString().equals("")) Toast.makeText(getApplicationContext(), "Debe escribir un comentario", Toast.LENGTH_SHORT).show();
+        if (box_comment.getText().toString().equals(""))
+            Toast.makeText(getApplicationContext(), "Debe escribir un comentario", Toast.LENGTH_SHORT).show();
         else {
             JSONObject post = new JSONObject();
             try {
@@ -255,14 +268,14 @@ public class InfoPostLost extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            num_comments.setText("Comentarios "+response.length());
+                            num_comments.setText("Comentarios " + response.length());
                             Comments_post = new ArrayList<>();
                             LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
                             layout.setOrientation(LinearLayoutManager.VERTICAL);
                             JSONObject comment;
                             for (int i = 0; i < response.length(); i++) {
                                 comment = response.getJSONObject(i);
-                                Comments_post.add(new Comment(comment.getString("id"), comment.getString("userId"), " ", comment.getString("text"),comment.getString("createdAt").split("T")[0]));
+                                Comments_post.add(new Comment(comment.getString("id"), comment.getString("userId"), " ", comment.getString("text"), comment.getString("createdAt").split("T")[0]));
                             }
                             adapt = new CommentAdapter(Comments_post);
                             adapt.setOnCommentListener(new OnCommentListener() {
@@ -317,7 +330,7 @@ public class InfoPostLost extends AppCompatActivity {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                                     JsonRequest.Method.DELETE,
-                                    URL_comments+"/"+id_comment,
+                                    URL_comments + "/" + id_comment,
                                     null,
                                     new Response.Listener<JSONObject>() {
                                         @Override
@@ -356,7 +369,7 @@ public class InfoPostLost extends AppCompatActivity {
             title.show();
 
         } else
-          Toast.makeText(getApplicationContext(), "COMENTARIO NO CREADO POR TI, NO PUEDES BORRARLO", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "COMENTARIO NO CREADO POR TI, NO PUEDES BORRARLO", Toast.LENGTH_SHORT).show();
     }
 
     private void tancar_post() {

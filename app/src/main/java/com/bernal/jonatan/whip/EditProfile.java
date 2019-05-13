@@ -111,10 +111,9 @@ public class EditProfile extends AppCompatActivity {
 
                     //aqui carrego la nova foto canviada
                     //urlBD.substring(1, 7).equals("images")
-                    if (urlBD.substring(1,7).equals("image")) {
+                    if (urlBD.substring(1, 7).equals("image")) {
                         urlFoto = UploadImageFirebase.getIdentificadorImatge();
-                    }
-                    else urlFoto = urlBD;
+                    } else urlFoto = urlBD;
                     if (!urlFoto.equals("")) retrieveImage(urlFoto);
                     perfil_editat.put("photo_url", urlFoto);
 

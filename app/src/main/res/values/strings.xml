@@ -104,5 +104,12 @@
     <string name="logejat_facebook">Successfully logged in</string>
     <string name="login_facebook_cancelat">Login canceled</string>
     <string name="logged_out_facebook">Logged out</string>
+    <string name="fotmato_fecha">DD/MM/YYYY</string>
+    <string name="fecha">Fecha</string>
+    <string name="introducir_lugar_para_la_quedada">Introducir lugar para la quedada</string>
+    <string name="lugar">Lugar</string>
+    <string name="hora">Hora</string>
+    <string name="formato_hora">HH:MM</string>
+    <string name="enviar_quedada">Enviar Quedada</string>
 
 </resources>
