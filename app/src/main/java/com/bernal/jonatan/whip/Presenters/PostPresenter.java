@@ -4,6 +4,8 @@ import android.view.View;
 
 import com.bernal.jonatan.whip.Servers.PostServer;
 
+import java.util.ArrayList;
+
 public class PostPresenter {
 
 
@@ -20,9 +22,23 @@ public class PostPresenter {
         postServer.getAdoptionPosts(this, URL);
     }
 
+    public void getLostPosts(String URL) {
+        postServer.getLostsPosts(this, URL);
+    }
+
+    public void chargeAdoptionList(ArrayList posts) {
+        view.chargeAdoptionList(posts);
+    }
+
+    public void chargeLostList(ArrayList posts) {
+        view.chargeLostList(posts);
+    }
+
     public interface View {
 
-        void changeActivity();
+        void chargeAdoptionList(ArrayList posts);
+
+        void chargeLostList(ArrayList posts);
     }
 
 }

@@ -24,6 +24,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Post;
+import com.bernal.jonatan.whip.Presenters.PostPresenter;
 import com.bernal.jonatan.whip.R;
 import com.bernal.jonatan.whip.RecyclerViews.OnListListener;
 import com.bernal.jonatan.whip.RecyclerViews.PostAdapter;
@@ -36,9 +37,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LostList extends AppCompatActivity {
+public class LostList extends AppCompatActivity implements PostPresenter.View {
 
 
+    PostPresenter postPresenter = new PostPresenter((PostPresenter.View) this);
     private String URL, URL_filtre;
     private RequestQueue requestqueue;
     private JSONArray resultat;
@@ -141,7 +143,8 @@ public class LostList extends AppCompatActivity {
 
     private void back_normal() {
         //TODO: spinnerFiltre.getSelectedItem().toString()
-        JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
+        postPresenter.getLostPosts(URL);
+  /*      JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
                 JsonRequest.Method.GET,
                 URL,
                 null,
@@ -193,7 +196,7 @@ public class LostList extends AppCompatActivity {
         };
         requestqueue.add(arrayJsonrequest);
 
-
+*/
     }
 
     private void backFiltres() {
@@ -252,4 +255,26 @@ public class LostList extends AppCompatActivity {
     }
 
 
+    @Override
+    public void chargeAdoptionList(ArrayList posts) {
+
+    }
+
+    @Override
+    public void chargeLostList(ArrayList posts) {
+        LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        adapt = new PostAdapter(posts, "Lost");
+        contenedor.setAdapter(adapt);
+        contenedor.setLayoutManager(layout);
+        adapt.setOnListListener(new OnListListener() {
+            @Override
+            public void onPostClicked(int position, View vista) {
+                String id_post = posts.get(contenedor.getChildAdapterPosition(vista)).getId();
+                Intent i = new Intent(LostList.this, InfoPostLost.class);
+                i.putExtra("identificadorPost", id_post);
+                startActivity(i);
+            }
+        });
+    }
 }

@@ -123,9 +123,8 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
 
         //Llamada a la API
 
-        postPresenter.getAdoptionPosts(URL); //Aquí pillaremos el listado y lo ponemos en una variable y luego la parte del layout y el adaptor
-        //irá aquí, en una función después que asegure que haya cargado ya el listado
-        JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
+        postPresenter.getAdoptionPosts(URL); //hagamos sobre URL lo de los filtros y trabajamos sobre URL siempre, así nos ahorramos la repetcion
+  /*      JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
                 JsonRequest.Method.GET,
                 URL,
                 null,
@@ -178,7 +177,7 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
             }
         };
         requestqueue.add(arrayJsonrequest);
-
+    */
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -251,7 +250,25 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
     }
 
     @Override
-    public void changeActivity() {
+    public void chargeAdoptionList(ArrayList posts) {
+        LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        adapt = new PostAdapter(posts, "Adoption");
+        contenedor_adopt.setAdapter(adapt);
+        contenedor_adopt.setLayoutManager(layout);
+        adapt.setOnListListener(new OnListListener() {
+            @Override
+            public void onPostClicked(int position, View vista) {
+                String id_post = posts.get(contenedor_adopt.getChildAdapterPosition(vista)).getId();
+                Intent i = new Intent(AdoptionList.this, InfoPostAdoption.class);
+                i.putExtra("identificadorPost", id_post);
+                startActivity(i);
+            }
+        });
+    }
+
+    @Override
+    public void chargeLostList(ArrayList posts) {
 
     }
 }

@@ -55,6 +55,7 @@ public class PostServer {
                                 postite = response.getJSONObject(i);
                                 Posts_adoption.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), "ADOPTION"));
                             }
+                            postPresenter.chargeAdoptionList(Posts_adoption);
                           /*  PostAdapter adapt = new PostAdapter(Posts_adoption, "Adoption");
                             contenedor_adopt.setAdapter(adapt);
                             contenedor_adopt.setLayoutManager(layout);
@@ -90,5 +91,47 @@ public class PostServer {
         requestQueue.add(arrayJsonrequest);
 
 
+    }
+
+    public void getLostsPosts(final PostPresenter postPresenter, String URL) {
+        JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
+                JsonRequest.Method.GET,
+                URL,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            Toast.makeText(getApplicationContext(), "Listado mostrado correctamente", Toast.LENGTH_SHORT).show();
+                            ArrayList Posts_perdidos = new ArrayList<>();
+                            LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
+                            layout.setOrientation(LinearLayoutManager.VERTICAL);
+                            JSONObject postite;
+                            for (int i = 0; i < response.length(); i++) {
+                                postite = response.getJSONObject(i);
+                                Posts_perdidos.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), "LOST"));
+                            }
+                            postPresenter.chargeLostList(Posts_perdidos);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", api); //valor de V ha de ser el de la var global
+                return params;
+            }
+        };
+        requestQueue.add(arrayJsonrequest);
     }
 }
