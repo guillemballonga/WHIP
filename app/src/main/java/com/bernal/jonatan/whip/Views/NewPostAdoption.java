@@ -1,4 +1,4 @@
-package com.bernal.jonatan.whip;
+package com.bernal.jonatan.whip.Views;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -25,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -40,11 +41,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NewPostLost extends AppCompatActivity {
+public class NewPostAdoption extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     static ImageView foto;
-    Spinner especie, tipo;
+    Spinner especie;
     Button create, cancel;
     EditText titulo, cp, raza, contenido;
 
@@ -56,63 +57,60 @@ public class NewPostLost extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nuevo_post_perdido);
+        setContentView(R.layout.activity_nou_post_adopcio);
 
         //Coneixón con la API
-        URL = "https://whip-api.herokuapp.com/contributions/lostposts";
+        URL = "https://whip-api.herokuapp.com/contributions/adoptionposts";
         requestqueue = Volley.newRequestQueue(this);
 
         //Gestión de toolbar
-        Toolbar tool = findViewById(R.id.toolbar_nuevoPostPerd);
+        Toolbar tool = findViewById(R.id.toolbar_nuevoPostAdopcio);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("LOST");
+        getSupportActionBar().setTitle("ADOPCIÓN");
 
-        foto = findViewById(R.id.perfil_perroPerd);
+        foto = findViewById(R.id.perfil_perroAdopcio);
 
-        especie = findViewById(R.id.especie_postPerd);
-        tipo = findViewById(R.id.tipo_postPerd);
+        especie = findViewById(R.id.especie_postAdopcio);
 
-        titulo = findViewById(R.id.titulo_postPerd);
-        cp = findViewById(R.id.cp_postPerd);
-        raza = findViewById(R.id.raza_postPerd);
-        contenido = findViewById(R.id.descripcion_postPerd);
+
+        titulo = findViewById(R.id.titulo_postAdopcio);
+        cp = findViewById(R.id.cp_postAdopcio);
+        raza = findViewById(R.id.razaPerroAdopcio);
+        contenido = findViewById(R.id.descripcion_postAdopcio);
 
 
         // Spinner per a seleccionar els items
         String[] itemsEspecie = new String[]{"Dog", "Cat", "Other"};
-        String[] itemsTipo = new String[]{"Encontrado", "Perdido"};
 
         ArrayAdapter<String> adapterEspecie = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsEspecie);
-        ArrayAdapter<String> adapterTipo = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsTipo);
 
         especie.setAdapter(adapterEspecie);
-        tipo.setAdapter(adapterTipo);
 
 
-        //Obrir la galeria d'imatges
+        //OBRIR IMATGES
         foto.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 //openGallery();
 
-                //Quan cliqui obrir UploadImagesFirebase
-                // startActivity(new Intent(NewPostLost.this, UploadImageFirebase.class));
-
-                Intent i = new Intent(NewPostLost.this, UploadImageFirebase.class);
-                i.putExtra("idActivity", "lost");
+                //Quan cliqui obrir UploadImagesFirebase -> per penjar la foto
+                //startActivity(new Intent(NewPostAdoption.this, UploadImageFirebase.class));
+                Intent i = new Intent(NewPostAdoption.this, UploadImageFirebase.class);
+                //i.putExtra("idImageView", R.id.perfil_perroPerd);
                 //i.putExtra("idImageView");
+                i.putExtra("idActivity", "adoption");
                 startActivity(i);
 
-
             }
+
         });
 
 
         //Botons
 
-        create = findViewById(R.id.boton_create);
-        cancel = findViewById(R.id.boton_cancelNewPostPerd);
+        create = findViewById(R.id.boton_create_adopt);
+        cancel = findViewById(R.id.boton_cancelNewPostAdopcio);
 
         create.setOnClickListener(new View.OnClickListener() {
 
@@ -138,14 +136,12 @@ public class NewPostLost extends AppCompatActivity {
                     post.put("post_code", cp.getText().toString());
                     post.put("text", contenido.getText().toString());
                     post.put("title", titulo.getText().toString());
-                    if (tipo.getSelectedItem().toString().equals("Encontrado"))
-                        post.put("type", "F");
-                    else post.put("type", "L");
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                if (titulo.getText().toString().equals("") || cp.getText().toString().equals("") || raza.getText().toString().equals("") || especie.getSelectedItem().toString().equals("") || tipo.getSelectedItem().toString().equals("")) {
+                if (titulo.getText().toString().equals("") || cp.getText().toString().equals("") || raza.getText().toString().equals("") || especie.getSelectedItem().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Los campos con * son obligatorios", Toast.LENGTH_SHORT).show();
 
                 } else {
@@ -157,9 +153,9 @@ public class NewPostLost extends AppCompatActivity {
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
+                                    Toast.makeText(getApplicationContext(), "Post guardado correctamente", Toast.LENGTH_SHORT).show();
                                     try {
-                                        Toast.makeText(getApplicationContext(), "Post guardado correctamente"+response.getString("id"), Toast.LENGTH_SHORT).show();
-                                        Intent i = new Intent(NewPostLost.this, InfoPostLost.class);
+                                        Intent i = new Intent(NewPostAdoption.this, InfoPostAdoption.class);
                                         i.putExtra("identificadorPost", response.getString("id"));
                                         startActivity(i);
                                         finish();
@@ -199,6 +195,7 @@ public class NewPostLost extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+
                 finish();
             }
         });
@@ -220,6 +217,9 @@ public class NewPostLost extends AppCompatActivity {
             assert data != null;
             Uri path = data.getData();
             foto.setImageURI(path);
+
+
+            //Guardar el path de la foto en FIREBASE
 
 
         }

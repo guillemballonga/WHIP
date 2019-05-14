@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AdoptionList">
+    tools:context=".Views.AdoptionList">
 
     <include
         android:id="@+id/toolbar_listadoAdopt"

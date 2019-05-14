@@ -1,4 +1,4 @@
-package com.bernal.jonatan.whip;
+package com.bernal.jonatan.whip.Views;
 
 public class UserLoggedIn {
 

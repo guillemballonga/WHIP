@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#EA9999"
     android:orientation="vertical"
-    tools:context=".NewPostLost">
+    tools:context=".Views.NewPostLost">
 
 
     <include

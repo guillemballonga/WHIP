@@ -5,7 +5,7 @@ public class Comment {
     private String user;
     private String imagen;
     private String contenido;
-    String id;
+    private String id;
     private String fecha;
 
 

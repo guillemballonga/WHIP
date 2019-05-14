@@ -1,4 +1,4 @@
-package com.bernal.jonatan.whip;
+package com.bernal.jonatan.whip.Views;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -13,14 +13,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.Presenters.UserPresenter;
+import com.bernal.jonatan.whip.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -34,11 +31,12 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
-public class MostrarPerfil extends AppCompatActivity {
+public class MostrarPerfil extends AppCompatActivity implements UserPresenter.View {
+
+
+    UserPresenter userPresenter;
 
     static String nomBack;
     static String cognomBack;
@@ -90,52 +88,21 @@ public class MostrarPerfil extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mostrar_perfil);
-
         goToEditarPerfil = findViewById(R.id.boto_editar_perfil);
         goToMisPosts = findViewById(R.id.boto_mis_posts);
+        UserPresenter userPresenter = new UserPresenter(this);
+        nom = findViewById(R.id.escr_nom);
+        cognom = findViewById(R.id.escr_cognom);
+        user = findViewById(R.id.escr_username);
+        cp = findViewById(R.id.escr_CP);
+        correu = findViewById(R.id.escr_correu);
+        correu.setTextSize(12);
+        imatge = findViewById(R.id.imagen_perfil);
 
-        //GET PER CONNEXIÓ AMB BACK
-        //Coneixón con la API
 
-        URL = "https://whip-api.herokuapp.com/users/profile";
-        requestqueue = Volley.newRequestQueue(this);
+        //Llamo al presenter, le paso lo q necesita, en el model hago la llamada a la API
 
-        //Llamada a la API
-        JsonObjectRequest arrayJsonrequest = new JsonObjectRequest(
-                JsonRequest.Method.GET,
-                URL,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            result = response;
-
-                            MostrarParametresPerfil(response);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-                        error.printStackTrace();
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("Content-Type", "application/json");
-                params.put("Authorization", api); //valor de V ha de ser el de la var global
-                return params;
-            }
-        };
-        requestqueue.add(arrayJsonrequest);
-        //FINAL GET
+        userPresenter.getUser();
 
         //Gestión de la toolbar
         Toolbar tool = findViewById(R.id.toolbar_mostrarPerfil);
@@ -159,43 +126,6 @@ public class MostrarPerfil extends AppCompatActivity {
                 //finish();
             }
         });
-    }
-
-    //Funció per assignar els parametres rebuts de back
-    private void MostrarParametresPerfil(JSONObject response) throws JSONException {
-
-        nomBack = result.getString("first_name");
-        nom = findViewById(R.id.escr_nom);
-        nom.setText(nomBack);
-
-        cognomBack = result.getString("family_name");
-        cognom = findViewById(R.id.escr_cognom);
-        cognom.setText(cognomBack);
-
-        userBack = result.getString("username");
-        user = findViewById(R.id.escr_username);
-        user.setText(userBack);
-
-        cpBack = result.getString("post_code");
-        cp = findViewById(R.id.escr_CP);
-        cp.setText(cpBack);
-
-        correuBack = result.getString("email");
-        correu = findViewById(R.id.escr_correu);
-        correu.setText(correuBack);
-        correu.setTextSize(12);
-
-        urlFoto = result.getString("photo_url");
-        imatge = findViewById(R.id.imagen_perfil);
-
-        //CARREGAR IMATGE FIREBASE
-        if (urlFoto.substring(1, 7).equals("images")) {
-            retrieveImage(urlFoto);
-        } else { //CARREGAR IMATGE DE GOOGLE
-            imatge.loadImageUrl(urlFoto);
-        }
-
-
     }
 
     public void retrieveImage(String idImageFirebase) {
@@ -223,5 +153,23 @@ public class MostrarPerfil extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void getUserInfo(String cpt, String email, String family_name, String first_name, String photoURL, String username) {
+        nom.setText(first_name);
+        cognom.setText(family_name);
+        user.setText(username);
+        cp.setText(cpt);
+        correu.setText(email);
+        urlFoto = photoURL;
+        if (photoURL.substring(1, 7).equals("images")) {
+            retrieveImage(photoURL);
+        } else { //CARREGAR IMATGE DE GOOGLE
+            imatge.loadImageUrl(photoURL);
+        }
+    }
 
+    @Override
+    public void changeActivity() {
+        //Nothing to do
+    }
 }
