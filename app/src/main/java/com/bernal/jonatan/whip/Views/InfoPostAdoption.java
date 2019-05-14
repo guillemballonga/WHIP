@@ -221,7 +221,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
 
 
     @Override
-    public void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status) {
+    public void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status, String type) {
 
         titulo.setText(title);
         fecha.setText(data[0]);

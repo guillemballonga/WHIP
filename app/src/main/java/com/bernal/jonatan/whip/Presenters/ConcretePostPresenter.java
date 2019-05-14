@@ -38,7 +38,7 @@ public class ConcretePostPresenter {
     }
 
     public void setPost(Post post) {
-        view.getPostInfo(post.getTitle(), post.getCreatedAt(), post.getSpecie(), post.getRace(), post.getContenido(), post.getUserId(), post.getImagen(), post.getStatus());
+        view.getPostInfo(post.getTitle(), post.getCreatedAt(), post.getSpecie(), post.getRace(), post.getContenido(), post.getUserId(), post.getImagen(), post.getStatus(), post.getType());
     }
 
 
@@ -61,7 +61,7 @@ public class ConcretePostPresenter {
 
     public interface View {
 
-        void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status);
+        void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status, String type);
 
         void setFavorite(Boolean fav);
 

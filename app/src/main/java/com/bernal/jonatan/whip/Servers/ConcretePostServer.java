@@ -51,8 +51,9 @@ public class ConcretePostServer {
                             String text = result.getString("text");
                             String userId = result.getString("userId");
                             String photo_url_1 = result.getString("photo_url_1");
+                            String type = result.getString("type");
                             Boolean status = result.getBoolean("status");
-                            Post post = new Post(title, data, specie, race, text, userId, photo_url_1, status);
+                            Post post = new Post(title, data, specie, race, text, userId, photo_url_1, status, type);
                             concretePostPresenter.setPost(post);
 
                         } catch (JSONException e) {

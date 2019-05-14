@@ -28,6 +28,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Comment;
+import com.bernal.jonatan.whip.Presenters.ConcretePostPresenter;
 import com.bernal.jonatan.whip.R;
 import com.bernal.jonatan.whip.RecyclerViews.CommentAdapter;
 import com.bernal.jonatan.whip.RecyclerViews.OnCommentListener;
@@ -47,8 +48,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InfoPostLost extends AppCompatActivity {
+public class InfoPostLost extends AppCompatActivity implements ConcretePostPresenter.View {
 
+    ConcretePostPresenter concretePostPresenter = new ConcretePostPresenter(this);
     //private static final String  = ;
     TextView titulo, fecha, especie, tipo, raza, contenido,num_comments;
     ImageView foto_post, foto_user, compartirRRSS, organ_quedada;
@@ -66,6 +68,8 @@ public class InfoPostLost extends AppCompatActivity {
     private String mail_creador;
 
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
+
+    private Menu menu_fav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,68 +138,7 @@ public class InfoPostLost extends AppCompatActivity {
         });
 
 
-        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                JsonRequest.Method.GET,
-                URL,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-                            JSONObject lostpost = response.getJSONObject("postInfo");
-                            titulo.setText(lostpost.getString("title"));
-                            String[] data = (lostpost.getString("createdAt")).split("T");
-                            fecha.setText(data[0]);
-                            especie.setText(lostpost.getString("specie"));
-                            if (lostpost.getString("type").equals("F")) {
-                                tipo.setText("Encontrado");
-                            } else tipo.setText("Pérdida");
-
-                            raza.setText(lostpost.getString("race"));
-                            contenido.setText(lostpost.getString("text"));
-
-                            mail_creador = lostpost.getString("userId");
-
-                            //Fotografías con FIREBASE
-                            foto_user.setBackgroundResource(R.drawable.icono_usuario); //TODO foto google
-
-                            String urlFoto1 = lostpost.getString("photo_url_1"); //LAURA->
-                            if (!urlFoto1.equals("")) retrieveImage(urlFoto1);
-                            else foto_post.setBackgroundResource(R.drawable.perfilperro);
-
-                            //Revisar si el post está cerrado para ocultar los iconos
-                            if (lostpost.getBoolean("status")) {
-                                cerrar_post.setVisibility(View.GONE);
-                                compartirRRSS.setVisibility(View.GONE);
-                                organ_quedada.setVisibility(View.GONE);
-                                foto_user.setVisibility(View.GONE);
-                                box_comment.setVisibility(View.GONE);
-                                crear_comment.setVisibility(View.GONE);
-                                borrar_comment.setVisibility(View.GONE);
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
-                return params;
-            }
-        };
-        requestqueue.add(objectJsonrequest);
+        concretePostPresenter.getPost(URL);
         
         carregar_comments();
 
@@ -367,32 +310,7 @@ public class InfoPostLost extends AppCompatActivity {
                     .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                                    JsonRequest.Method.PATCH,
-                                    URL_close,
-                                    null,
-                                    new Response.Listener<JSONObject>() {
-                                        @Override
-                                        public void onResponse(JSONObject response) {
-
-                                        }
-                                    },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getApplicationContext(), "ERROOOOOOOR EN CERRAR POST", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                            ) {
-                                @Override
-                                public Map<String, String> getHeaders() {
-                                    Map<String, String> params = new HashMap<>();
-                                    params.put("Authorization", ul.getAPI_KEY());
-                                    return params;
-                                }
-                            };
-                            requestqueue.add(objectJsonrequest);
-                            recreate();
+                            concretePostPresenter.closePost(URL_close);
 
                         }
                     })
@@ -413,47 +331,8 @@ public class InfoPostLost extends AppCompatActivity {
 
 
     public boolean onCreateOptionsMenu(final Menu menu) {
-        JsonObjectRequest objectJsonrequest3 = new JsonObjectRequest(
-                JsonRequest.Method.GET,
-                URL_favs,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-                            boolean fav = response.getBoolean("isFavorite");
-
-                            if (fav) {
-                                Toast.makeText(getApplicationContext(), "MENU FAVORITO", Toast.LENGTH_SHORT).show();
-                                getMenuInflater().inflate(R.menu.menu_infopostlikeuser, menu);
-                            } else {
-                                Toast.makeText(getApplicationContext(), "MENU NO FAVORITO", Toast.LENGTH_SHORT).show();
-                                getMenuInflater().inflate(R.menu.menu_infopostuser, menu);
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR EN MOSTRAR MENU", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", ul.getAPI_KEY());
-                return params;
-            }
-        };
-        requestqueue.add(objectJsonrequest3);
+        menu_fav = menu;
+        concretePostPresenter.getFavorite(URL_favs);
         return true;
     }
 
@@ -491,32 +370,7 @@ public class InfoPostLost extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
 
-                            JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                                    JsonRequest.Method.DELETE,
-                                    URL,
-                                    null,
-                                    new Response.Listener<JSONObject>() {
-                                        @Override
-                                        public void onResponse(JSONObject response) {
-                                            Toast.makeText(getApplicationContext(), "DELETE", Toast.LENGTH_SHORT).show();
-                                            finish();
-                                        }
-                                    },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getApplicationContext(), "ERROR BORRAR", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                            ) {
-                                @Override
-                                public Map<String, String> getHeaders() {
-                                    Map<String, String> params = new HashMap<>();
-                                    params.put("Authorization", ul.getAPI_KEY());
-                                    return params;
-                                }
-                            };
-                            requestqueue.add(objectJsonrequest);
+                            concretePostPresenter.deletePost(URL);
 
                         }
                     })
@@ -536,65 +390,14 @@ public class InfoPostLost extends AppCompatActivity {
 
 
     private void BackFavs_dislike() {
-        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                JsonRequest.Method.DELETE,
-                URL_like,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Toast.makeText(getApplicationContext(), "DISLIKE", Toast.LENGTH_SHORT).show();
-                        recreate();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR DISLIKE", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("Content-Type", "application/json");
-                params.put("Authorization", ul.getAPI_KEY());
-                return params;
-            }
-        };
-        requestqueue.add(objectJsonrequest);
+        Boolean like = false;
+        concretePostPresenter.likePost(URL_like, like);
     }
 
 
     public void BackFavs_like() {
-
-        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                JsonRequest.Method.POST,
-                URL_like,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Toast.makeText(getApplicationContext(), "LIKE", Toast.LENGTH_SHORT).show();
-                        recreate();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR LIKE", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("Content-Type", "application/json");
-                params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
-                return params;
-            }
-        };
-        requestqueue.add(objectJsonrequest);
+        Boolean like = true;
+        concretePostPresenter.likePost(URL_like, like);
     }
 
     public void retrieveImage(String idImageFirebase) {
@@ -622,4 +425,52 @@ public class InfoPostLost extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status, String type) {
+        titulo.setText(title);
+        fecha.setText(data[0]);
+        especie.setText(specie);
+        raza.setText(race);
+        contenido.setText(text);
+        mail_creador = userId;
+
+        if (type.equals("F")) {
+            tipo.setText("Encontrado");
+        } else tipo.setText("Pérdida");
+
+        //Fotografías con Firebase
+        String urlFoto1 = photo_url_1; //LAURA->
+        if (!urlFoto1.equals("")) retrieveImage(urlFoto1);
+        else foto_post.setBackgroundResource(R.drawable.perfilperro);
+
+        if (status) {
+            cerrar_post.setVisibility(View.GONE);
+            compartirRRSS.setVisibility(View.GONE);
+            organ_quedada.setVisibility(View.GONE);
+            foto_user.setVisibility(View.GONE);
+            box_comment.setVisibility(View.GONE);
+            crear_comment.setVisibility(View.GONE);
+            borrar_comment.setVisibility(View.GONE);
+        }
+
+    }
+
+    @Override
+    public void setFavorite(Boolean fav) {
+        if (fav) {
+            getMenuInflater().inflate(R.menu.menu_infopostlikeuser, menu_fav); //si paso el menu de parametro se puede pero no sé si eso respeta el MVC
+        } else {
+            getMenuInflater().inflate(R.menu.menu_infopostuser, menu_fav);
+        }
+    }
+
+    @Override
+    public void setDeletePost() {
+        finish();
+    }
+
+    @Override
+    public void recharge() {
+        recreate();
+    }
 }

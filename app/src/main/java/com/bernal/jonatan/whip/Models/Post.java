@@ -27,7 +27,7 @@ public class Post {
     }
 
 
-    public Post(String title, String[] createdAt, String specie, String race, String contenido, String userId, String imagen, Boolean status) {
+    public Post(String title, String[] createdAt, String specie, String race, String contenido, String userId, String imagen, Boolean status, String type) {
         this.imagen = imagen;
         this.contenido = contenido;
         this.title = title;
@@ -36,6 +36,7 @@ public class Post {
         this.userId = userId;
         this.createdAt = createdAt;
         this.status = status;
+        this.type = type;
     }
 
 
