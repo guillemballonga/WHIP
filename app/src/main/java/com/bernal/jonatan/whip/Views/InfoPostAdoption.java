@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.Presenters.ConcretePostPresenter;
 import com.bernal.jonatan.whip.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,8 +38,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InfoPostAdoption extends AppCompatActivity {
+public class InfoPostAdoption extends AppCompatActivity implements ConcretePostPresenter.View {
 
+
+    ConcretePostPresenter concretePostPresenter = new ConcretePostPresenter(this);
     TextView titulo, fecha, especie, raza, contenido;
     ImageView foto_post, compartirRRSS, Organ_quedada, solicitud_quedada;
     String Identificador;
@@ -93,8 +96,8 @@ public class InfoPostAdoption extends AppCompatActivity {
             }
         });
 
-
-        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+        concretePostPresenter.getPost(URL);
+   /*     JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                 JsonRequest.Method.GET,
                 URL,
                 null,
@@ -145,7 +148,7 @@ public class InfoPostAdoption extends AppCompatActivity {
                 return params;
             }
         };
-        requestqueue.add(objectJsonrequest);
+        requestqueue.add(objectJsonrequest);*/
     }
 
     private void tancar_post() {
@@ -157,7 +160,8 @@ public class InfoPostAdoption extends AppCompatActivity {
                     .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                            concretePostPresenter.closePost(URL_close);
+            /*                JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                                     JsonRequest.Method.PATCH,
                                     URL_close,
                                     null,
@@ -181,8 +185,8 @@ public class InfoPostAdoption extends AppCompatActivity {
                                     return params;
                                 }
                             };
-                            requestqueue.add(objectJsonrequest);
-                            recreate();
+                            requestqueue.add(objectJsonrequest);*/
+                            //  recreate();
                         }
                     })
                     .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -408,4 +412,31 @@ public class InfoPostAdoption extends AppCompatActivity {
     }
 
 
+    @Override
+    public void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status) {
+
+        titulo.setText(title);
+        fecha.setText(data[0]);
+        especie.setText(specie);
+        raza.setText(race);
+        contenido.setText(text);
+        mail_creador = userId;
+        //Fotografías con Firebase
+        String urlFoto1 = photo_url_1; //LAURA->
+        if (!urlFoto1.equals("")) retrieveImage(urlFoto1);
+        else foto_post.setBackgroundResource(R.drawable.perfilperro);
+
+        if (status) {
+            close_buton.setVisibility(View.GONE);
+            compartirRRSS.setVisibility(View.GONE);
+            Organ_quedada.setVisibility(View.GONE);
+            solicitud_quedada.setVisibility(View.GONE);
+        }
+
+    }
+
+    @Override
+    public void setClose() {
+        recreate();
+    }
 }

@@ -69,6 +69,34 @@ public class ConcretePostServer {
         };
         requestQueue.add(objectJsonrequest);
     }
+
+
+    public void closePost(final ConcretePostPresenter concretePostPresenter, String URL_close) {
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.PATCH,
+                URL_close,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        concretePostPresenter.setClose();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", ul.getAPI_KEY());
+                return params;
+            }
+        };
+        requestQueue.add(objectJsonrequest);
+    }
 }
 
 

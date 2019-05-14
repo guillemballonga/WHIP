@@ -19,9 +19,21 @@ public class ConcretePostPresenter {
         concretePostServer.getPost(this, URL);
     }
 
+    public void closePost(String URL_close) {
+        concretePostServer.closePost(this, URL_close);
+    }
+
+
+    public View getView() {
+        return view;
+    }
+
     public void setPost(Post post) {
         view.getPostInfo(post.getTitle(), post.getCreatedAt(), post.getSpecie(), post.getRace(), post.getContenido(), post.getUserId(), post.getImagen(), post.getStatus());
-        //No te haría falta esto también en el modelo ?? title, Date createdAt, String specie, String userId, Boolean status)
+    }
+
+    public void setClose() {
+        view.setClose();
     }
 
 
@@ -31,9 +43,9 @@ public class ConcretePostPresenter {
 
     public interface View {
 
-        //Post post = new Post(title,data,specie,race,text,userId,photo_url_1, status);
         void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status);
 
+        void setClose();
 
     }
 
