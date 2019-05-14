@@ -46,7 +46,7 @@
                         android:contentDescription="@string/todo"
                         android:src="@drawable/compartir" />
 
-                    <Button
+                    <ImageView
                         android:id="@+id/organ_quedadaPerd"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
