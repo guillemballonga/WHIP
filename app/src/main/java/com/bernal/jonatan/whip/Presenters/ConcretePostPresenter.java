@@ -27,12 +27,9 @@ public class ConcretePostPresenter {
         concretePostServer.deletePost(this, URL);
     }
 
-    public void dislikePost(String URL_like) {
-        concretePostServer.dislikePost(this, URL_like);
-    }
 
-    public void likePost(String URL_like) {
-        concretePostServer.likePost(this, URL_like);
+    public void likePost(String URL_like, Boolean like) {
+        concretePostServer.likePost(this, URL_like, like);
     }
 
 
@@ -42,10 +39,6 @@ public class ConcretePostPresenter {
 
     public void setPost(Post post) {
         view.getPostInfo(post.getTitle(), post.getCreatedAt(), post.getSpecie(), post.getRace(), post.getContenido(), post.getUserId(), post.getImagen(), post.getStatus());
-    }
-
-    public void setClose() {
-        view.setClose();
     }
 
 
@@ -69,8 +62,6 @@ public class ConcretePostPresenter {
     public interface View {
 
         void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status);
-
-        void setClose();
 
         void setFavorite(Boolean fav);
 

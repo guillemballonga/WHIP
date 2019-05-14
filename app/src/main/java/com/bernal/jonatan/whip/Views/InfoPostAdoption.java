@@ -184,12 +184,14 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
     }
 
     private void BackFavs_dislike() {
-        concretePostPresenter.dislikePost(URL_like);
+        Boolean like = false;
+        concretePostPresenter.likePost(URL_like, like);
     }
 
 
     public void BackFavs_like() {
-        concretePostPresenter.likePost(URL_like);
+        Boolean like = true;
+        concretePostPresenter.likePost(URL_like, like);
     }
 
     public void retrieveImage(String idImageFirebase) {
@@ -241,10 +243,6 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
 
     }
 
-    @Override
-    public void setClose() {
-        recreate();
-    }
 
     @Override
     public void setFavorite(Boolean fav) {

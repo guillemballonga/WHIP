@@ -85,7 +85,7 @@ public class ConcretePostServer {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        concretePostPresenter.setClose();
+                        concretePostPresenter.recharge();
                     }
                 },
                 new Response.ErrorListener() {
@@ -167,40 +167,13 @@ public class ConcretePostServer {
         requestQueue.add(objectJsonrequest);
     }
 
-    public void dislikePost(final ConcretePostPresenter concretePostPresenter, String URL_like) {
+    public void likePost(final ConcretePostPresenter concretePostPresenter, String URL_like, Boolean like) {
+        int method;
+        if (like) method = JsonRequest.Method.POST;
+        else method = JsonRequest.Method.DELETE;
         requestQueue = Volley.newRequestQueue((Context) concretePostPresenter.getView());
         JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                JsonRequest.Method.DELETE,
-                URL_like,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        concretePostPresenter.recharge();
-                        //        recreate();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("Content-Type", "application/json");
-                params.put("Authorization", ul.getAPI_KEY());
-                return params;
-            }
-        };
-        requestQueue.add(objectJsonrequest);
-    }
-
-    public void likePost(final ConcretePostPresenter concretePostPresenter, String URL_like) {
-        requestQueue = Volley.newRequestQueue((Context) concretePostPresenter.getView());
-        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                JsonRequest.Method.POST,
+                method,
                 URL_like,
                 null,
                 new Response.Listener<JSONObject>() {
