@@ -45,9 +45,10 @@
                         android:id="@+id/fecha_quedada"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
                         android:background="@drawable/fondoformlargo"
+                        android:layout_marginLeft="20dp"
                         android:hint="@string/fotmato_fecha"
+                        android:gravity="center"
                         tools:ignore="RtlSymmetry" />
                 </LinearLayout>
 
@@ -64,14 +65,14 @@
                         android:text="@string/hora"
                         android:textSize="25dp" />
 
-                    <EditText
+                    <Button
                         android:id="@+id/hora_quedada"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:paddingStart="127dp"
                         android:background="@drawable/fondoformlargo"
                         android:hint="@string/formato_hora"
+                        android:gravity="center"
                         tools:ignore="RtlSymmetry" />
                 </LinearLayout>
 
@@ -95,7 +96,7 @@
                         android:layout_marginLeft="20dp"
                         android:background="@drawable/fondoformlargo"
                         android:hint="@string/introducir_lugar_para_la_quedada"
-                        android:paddingStart="20dp"
+                        android:gravity="center"
                         tools:ignore="RtlSymmetry" />
                 </LinearLayout>
 

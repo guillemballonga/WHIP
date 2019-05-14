@@ -1,6 +1,7 @@
 package com.bernal.jonatan.whip;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -32,17 +33,17 @@ import java.util.Map;
 import java.util.Objects;
 
 public class NewQuedada extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
-
     private String URL;
     static String postID, type;
     private String dia, mes;
-    private int año, hora, min;
+    private int hora, min, año;
+    String horaForm="";
+    String minForm="";
     private RequestQueue requestqueue;
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
     private String api = ul.getAPI_KEY();
-    Button selecionar_fecha, crear_quedada;
-    EditText lugar, seleccionar_hora;
-
+    Button selecionar_fecha, crear_quedada, seleccionar_hora;
+    EditText lugar;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -50,7 +51,6 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_quedada);
         selecionar_fecha = findViewById(R.id.fecha_quedada);
-
 
         //Gestión de las Toolbars
         Toolbar tool = findViewById(R.id.toolbar_nova_quedada);
@@ -74,7 +74,16 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
         URL = "https://whip-api.herokuapp.com/contributions/" + postID + "/event?type=" + type;
         requestqueue = Volley.newRequestQueue(this);
 
-
+        seleccionar_hora = findViewById(R.id.hora_quedada);
+        seleccionar_hora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                hora = c.get(Calendar.HOUR_OF_DAY);
+                min = c.get(Calendar.MINUTE);
+                selec_hora();
+            }
+        });
 
         selecionar_fecha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,9 +100,6 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
 
                  //jason para comunicación con back
                 JSONObject quedada = new JSONObject();
-
-
-
                 lugar = findViewById(R.id.lugar_quedada);
                 seleccionar_hora = findViewById(R.id.hora_quedada);
 
@@ -107,7 +113,7 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
                         } else {
                             quedada.put("lostPostId", postID);
                         }
-                        quedada.put("date", año + "-" + mes + "-" + dia + " " + hora + ":" + min + ": 00");
+                        quedada.put("date", año + "-" + mes + "-" + dia + " " + horaForm + ":" + minForm + ": 00");
                         quedada.put("place", lugar.getText().toString());
 
                     } catch (JSONException e) {
@@ -148,12 +154,32 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
                     };
                     requestqueue.add(objectJsonrequest);
 //JASON
-
-
                 }
             }
-
         });
+    }
+
+    private void selec_hora() {
+        TimePickerDialog elijeHora = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                if(hourOfDay<10) {
+                    horaForm = "0" + hourOfDay;
+                }
+                else if (hourOfDay>=10){
+                    horaForm = "" + hourOfDay;
+                }
+                if(minute<10){
+                    minForm = "0" + minute;
+                }
+                else if (minute>=10){
+                    minForm = "" + minute;
+                }
+                seleccionar_hora.setText(horaForm+":"+minForm);
+            }
+        }, hora, min, false);
+        elijeHora.show();
     }
 
     @Override
@@ -164,6 +190,7 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
         month=month+1;
+
         if(month<10) {
             mes = "0" + month;
         }
@@ -177,7 +204,8 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
         else if (dayOfMonth>10){
             dia = "" + dayOfMonth;
         }
-        selecionar_fecha.setText(dia + "/" + mes + "/" + year);
+        año=year;
+        selecionar_fecha.setText(dia + "/" + mes + "/" + año);
 
 
     }
