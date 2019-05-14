@@ -86,6 +86,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         raza = findViewById(R.id.raza_postPerd);
         contenido = findViewById(R.id.contenido_postPerd);
         num_comments = findViewById(R.id.permitir_comentario);
+        organ_quedada = findViewById(R.id.organ_quedadaPerd);
 
         foto_post = findViewById(R.id.foto_postPerd);
         foto_user = findViewById(R.id.imagen_coment_user);
@@ -138,7 +139,8 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         });
 
 
-        concretePostPresenter.getPost(URL);
+
+        concretePostPresenter.getPost(URL, "Lost");
 
         carregar_comments();
 

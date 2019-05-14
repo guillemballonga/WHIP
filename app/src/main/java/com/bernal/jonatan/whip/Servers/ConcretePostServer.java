@@ -30,7 +30,7 @@ public class ConcretePostServer {
     private String api = ul.getAPI_KEY();
     private RequestQueue requestQueue;
 
-    public void getPost(final ConcretePostPresenter concretePostPresenter, String URL) {
+    public void getPost(final ConcretePostPresenter concretePostPresenter, String URL, final String tipo_post) {
         requestQueue = Volley.newRequestQueue((Context) concretePostPresenter.getView());
         JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                 JsonRequest.Method.GET,
@@ -51,7 +51,10 @@ public class ConcretePostServer {
                             String text = result.getString("text");
                             String userId = result.getString("userId");
                             String photo_url_1 = result.getString("photo_url_1");
-                            String type = result.getString("type");
+                            String type = "";
+                            if (tipo_post.equals("Lost")) {
+                                type = result.getString("type");
+                            }
                             Boolean status = result.getBoolean("status");
                             Post post = new Post(title, data, specie, race, text, userId, photo_url_1, status, type);
                             concretePostPresenter.setPost(post);

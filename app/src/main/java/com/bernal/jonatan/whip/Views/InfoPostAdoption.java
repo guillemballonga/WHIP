@@ -98,7 +98,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
             }
         });
 
-        concretePostPresenter.getPost(URL);
+        concretePostPresenter.getPost(URL, "Adoption");
     }
 
     private void tancar_post() {
