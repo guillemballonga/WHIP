@@ -1,4 +1,4 @@
-package com.bernal.jonatan.whip;
+package com.bernal.jonatan.whip.Views;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -25,6 +25,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.Presenters.UserPresenter;
+import com.bernal.jonatan.whip.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -42,7 +44,7 @@ import java.util.Map;
 import java.util.Objects;
 
 
-public class EditProfile extends AppCompatActivity {
+public class EditProfile extends AppCompatActivity implements UserPresenter.View {
 
 
     Button goToMostrarPerfilGuardant, goToMostrarPerfilCancelar;
@@ -51,10 +53,9 @@ public class EditProfile extends AppCompatActivity {
     EditText nom, cognom, user, cp;
     TextView correu;
 
-
+    UserPresenter userPresenter = new UserPresenter((UserPresenter.View) this);
     //variables para comucicación back
     private String URL, urlFoto;
-    private String urlBD = MostrarPerfil.getFoto();
     private RequestQueue requestqueue;
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
     private String api = ul.getAPI_KEY();
@@ -69,18 +70,21 @@ public class EditProfile extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_perfil);
 
         goToMostrarPerfilGuardant = findViewById(R.id.boto_guardar);
         goToMostrarPerfilCancelar = findViewById(R.id.boto_cancelar);
+        fotoperfil = findViewById(R.id.imagen_perfil);
         correu = findViewById(R.id.escr_correu);
         nom = findViewById(R.id.escr_nom);
         cognom = findViewById(R.id.escr_cognom);
         user = findViewById(R.id.escr_user);
         cp = findViewById(R.id.escr_CP);
 
-        carregaParametres();
+        userPresenter.getUser();
 
         //Gestión de las Toolbars
         Toolbar tool = findViewById(R.id.toolbar_editarPerfil);
@@ -95,80 +99,14 @@ public class EditProfile extends AppCompatActivity {
         goToMostrarPerfilGuardant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Comunicacion con Back
-                //jason para comunicación con back
-                JSONObject perfil_editat = new JSONObject();
-
-
-                //JASON
-                try {
-                    perfil_editat.put("post_code", cp.getText().toString());
-                    perfil_editat.put("name", nom.getText().toString());
-                    perfil_editat.put("about", "hola");
-                    perfil_editat.put("fam_name", cognom.getText().toString());
-                    perfil_editat.put("username", user.getText().toString());
-
-
-                    //aqui carrego la nova foto canviada
-                    //urlBD.substring(1, 7).equals("images")
-                    if (urlBD.substring(1, 7).equals("image")) {
-                        urlFoto = UploadImageFirebase.getIdentificadorImatge();
-                    } else urlFoto = urlBD;
-                    if (!urlFoto.equals("")) retrieveImage(urlFoto);
-                    perfil_editat.put("photo_url", urlFoto);
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                urlFoto = UploadImageFirebase.getIdentificadorImatge();
 
                 if (nom.getText().toString().equals("") || cp.getText().toString().equals("") || cognom.getText().toString().equals("") || user.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
                 } else {
-                    //Guardar los datos del formulario en BACK. NOTA: No olvidar guardar la fecha de creación del Post
-                    JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                            JsonRequest.Method.PATCH,
-                            URL,
-                            perfil_editat,
-
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    startActivity(new Intent(EditProfile.this, MostrarPerfil.class));
-                                    finish();
-                                }
-
-
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-                                    error.printStackTrace();
-
-
-                                }
-                            }
-                    ) {
-                        @Override
-                        public Map<String, String> getHeaders() {
-                            Map<String, String> params = new HashMap<>();
-                            params.put("Content-Type", "application/json");
-                            params.put("Authorization", api); //valor de V ha de ser el de la var global
-                            return params;
-                        }
-                    };
-                    requestqueue.add(objectJsonrequest);
-//JASON
-
-
+                    userPresenter.modifyUser(cp.getText().toString(), nom.getText().toString(), cognom.getText().toString(), user.getText().toString(), urlFoto);
                 }
-
-
-                finish();
             }
-
-
         });
 
         fotoperfil.setOnClickListener(new View.OnClickListener() {
@@ -195,26 +133,7 @@ public class EditProfile extends AppCompatActivity {
 
     }
 
-    private void carregaParametres() {
-        correu.setText(MostrarPerfil.getCorreu());
-        correu.setTextSize(12);
-        nom.setText(MostrarPerfil.getNom());
-        cognom.setText(MostrarPerfil.getCognom());
-        user.setText(MostrarPerfil.getUsername());
-        cp.setText(MostrarPerfil.getCP());
 
-        fotoperfil = findViewById(R.id.imagen_perfil);
-
-
-        //CARREGAR IMATGE FIREBASE
-        if (urlBD.substring(1, 7).equals("images")) {
-            retrieveImage(urlBD);
-        } else { //CARREGAR IMATGE DE GOOGLE
-            fotoperfil.loadImageUrl(urlBD);
-        }
-
-
-    }
 
     @SuppressLint("IntentReset")
     private void obrirgaleria() {
@@ -261,4 +180,24 @@ public class EditProfile extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void getUserInfo(String cpt, String email, String family_name, String first_name, String photoURL, String username) {
+        nom.setText(first_name);
+        cognom.setText(family_name);
+        user.setText(username);
+        cp.setText(cpt);
+        correu.setText(email);
+        urlFoto = photoURL;
+        if (photoURL.substring(1, 7).equals("images")) {
+            retrieveImage(urlFoto);
+        } else { //CARREGAR IMATGE DE GOOGLE
+            fotoperfil.loadImageUrl(urlFoto);
+        }
+    }
+
+    @Override
+    public void changeActivity() {
+        startActivity(new Intent(EditProfile.this, MostrarPerfil.class));
+        finish();
+    }
 }
