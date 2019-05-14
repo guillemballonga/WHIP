@@ -54,6 +54,8 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
 
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
 
+    private Menu menu_fav;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,58 +99,6 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         });
 
         concretePostPresenter.getPost(URL);
-   /*     JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                JsonRequest.Method.GET,
-                URL,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-                            JSONObject lostpost = response.getJSONObject("postInfo");
-                            titulo.setText(lostpost.getString("title"));
-                            String[] data = (lostpost.getString("createdAt")).split("T");
-                            fecha.setText(data[0]);
-                            especie.setText(lostpost.getString("specie"));
-
-                            raza.setText(lostpost.getString("race"));
-                            contenido.setText(lostpost.getString("text"));
-
-                            mail_creador = lostpost.getString("userId");
-
-                            //Fotografías con Firebase
-                            String urlFoto1 = lostpost.getString("photo_url_1"); //LAURA->
-                            if (!urlFoto1.equals("")) retrieveImage(urlFoto1);
-                            else foto_post.setBackgroundResource(R.drawable.perfilperro);
-
-                            if (lostpost.getBoolean("status")) {
-                                close_buton.setVisibility(View.GONE);
-                                compartirRRSS.setVisibility(View.GONE);
-                                Organ_quedada.setVisibility(View.GONE);
-                                solicitud_quedada.setVisibility(View.GONE);
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
-                return params;
-            }
-        };
-        requestqueue.add(objectJsonrequest);*/
     }
 
     private void tancar_post() {
@@ -161,32 +111,6 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             concretePostPresenter.closePost(URL_close);
-            /*                JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                                    JsonRequest.Method.PATCH,
-                                    URL_close,
-                                    null,
-                                    new Response.Listener<JSONObject>() {
-                                        @Override
-                                        public void onResponse(JSONObject response) {
-
-                                        }
-                                    },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getApplicationContext(), "ERROOOOOOOR EN CERRAR POST", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                            ) {
-                                @Override
-                                public Map<String, String> getHeaders() {
-                                    Map<String, String> params = new HashMap<>();
-                                    params.put("Authorization", ul.getAPI_KEY());
-                                    return params;
-                                }
-                            };
-                            requestqueue.add(objectJsonrequest);*/
-                            //  recreate();
                         }
                     })
                     .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -205,47 +129,8 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
 
 
     public boolean onCreateOptionsMenu(final Menu menu) {
+        menu_fav = menu;
         concretePostPresenter.getFavorite(URL_favs);
-     /*   JsonObjectRequest objectJsonrequest3 = new JsonObjectRequest(
-                JsonRequest.Method.GET,
-                URL_favs,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-                            boolean fav = response.getBoolean("isFavorite");
-                            if (fav) {
-                                Toast.makeText(getApplicationContext(), "MENU FAVORITO DEL USUARIO", Toast.LENGTH_SHORT).show();
-                                getMenuInflater().inflate(R.menu.menu_infopostlikeuser, menu);
-                            } else {
-                                Toast.makeText(getApplicationContext(), "MENU NO FAVORITO DEL USUARIO", Toast.LENGTH_SHORT).show();
-                                getMenuInflater().inflate(R.menu.menu_infopostuser, menu);
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR EN MOSTRAR MENU", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", ul.getAPI_KEY());
-                return params;
-            }
-        };
-        requestqueue.add(objectJsonrequest3); */
         return true;
     }
 
@@ -283,33 +168,6 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             concretePostPresenter.deletePost(URL);
-         /*                   JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                                    JsonRequest.Method.DELETE,
-                                    URL,
-                                    null,
-                                    new Response.Listener<JSONObject>() {
-                                        @Override
-                                        public void onResponse(JSONObject response) {
-                                            Toast.makeText(getApplicationContext(), "DELETE", Toast.LENGTH_SHORT).show();
-                                            finish();
-                                        }
-                                    },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getApplicationContext(), "ERROR BORRAR", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                            ) {
-                                @Override
-                                public Map<String, String> getHeaders() {
-                                    Map<String, String> params = new HashMap<>();
-                                    params.put("Authorization", ul.getAPI_KEY());
-                                    return params;
-                                }
-                            };
-                            requestqueue.add(objectJsonrequest); */
-
                         }
                     })
                     .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -327,65 +185,11 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
 
     private void BackFavs_dislike() {
         concretePostPresenter.dislikePost(URL_like);
-  /*      JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                JsonRequest.Method.DELETE,
-                URL_like,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Toast.makeText(getApplicationContext(), "DISLIKE", Toast.LENGTH_SHORT).show();
-                        recreate();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR DISLIKE", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("Content-Type", "application/json");
-                params.put("Authorization", ul.getAPI_KEY());
-                return params;
-            }
-        };
-        requestqueue.add(objectJsonrequest);*/
     }
 
 
     public void BackFavs_like() {
         concretePostPresenter.likePost(URL_like);
-      /*  JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                JsonRequest.Method.POST,
-                URL_like,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Toast.makeText(getApplicationContext(), "LIKE", Toast.LENGTH_SHORT).show();
-                        recreate();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR LIKE", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("Content-Type", "application/json");
-                params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
-                return params;
-            }
-        };
-        requestqueue.add(objectJsonrequest); */
     }
 
     public void retrieveImage(String idImageFirebase) {
@@ -445,9 +249,9 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
     @Override
     public void setFavorite(Boolean fav) {
         if (fav) {
-            getMenuInflater().inflate(R.menu.menu_infopostlikeuser, menu); //si paso el menu de parametro se puede pero no sé si eso respeta el MVC
+            getMenuInflater().inflate(R.menu.menu_infopostlikeuser, menu_fav); //si paso el menu de parametro se puede pero no sé si eso respeta el MVC
         } else {
-            getMenuInflater().inflate(R.menu.menu_infopostuser, menu);
+            getMenuInflater().inflate(R.menu.menu_infopostuser, menu_fav);
         }
     }
 
