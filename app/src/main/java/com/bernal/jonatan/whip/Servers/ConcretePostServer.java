@@ -43,14 +43,15 @@ public class ConcretePostServer {
                         try {
                             //    Post post = new Post(response.getString(""));
                             //Aquí irán todos los post.set lo q sea
-                            String title = response.getString("title");
-                            String[] data = (response.getString("createdAt")).split("T");
-                            String specie = response.getString("specie");
-                            String race = response.getString("race");
-                            String text = response.getString("text");
-                            String userId = response.getString("userId");
-                            String photo_url_1 = response.getString("photo_url_1");
-                            Boolean status = response.getBoolean("status");
+                            JSONObject result = response.getJSONObject("postInfo");
+                            String title = result.getString("title");
+                            String[] data = (result.getString("createdAt")).split("T");
+                            String specie = result.getString("specie");
+                            String race = result.getString("race");
+                            String text = result.getString("text");
+                            String userId = result.getString("userId");
+                            String photo_url_1 = result.getString("photo_url_1");
+                            Boolean status = result.getBoolean("status");
                             Post post = new Post(title, data, specie, race, text, userId, photo_url_1, status);
                             concretePostPresenter.setPost(post);
 
