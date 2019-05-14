@@ -36,11 +36,13 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
     private String URL;
     static String postID, type;
     private String dia, mes;
+    private int año, hora, min;
     private RequestQueue requestqueue;
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
     private String api = ul.getAPI_KEY();
     Button selecionar_fecha, crear_quedada;
-    EditText lugar;
+    EditText lugar, seleccionar_hora;
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -48,16 +50,31 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_quedada);
         selecionar_fecha = findViewById(R.id.fecha_quedada);
-        lugar = findViewById(R.id.lugar_quedada);
+
 
         //Gestión de las Toolbars
         Toolbar tool = findViewById(R.id.toolbar_nova_quedada);
         setSupportActionBar(tool);
         Objects.requireNonNull(getSupportActionBar()).setTitle("QUEDADA");
 
+        //JSON
+        /*
+        *  if (type.equals("adoption")) {
+                        quedada.put("adoptionPostId", postID);
+                    } else {
+                        quedada.put("lostPostId", postID);
+                    }
+                    quedada.put("date", año + "-" + mes + "-" + dia + " " + hora + ":" + min + ": 00");
+                    quedada.put("place", lugar.getText().toString());
+        *
+        * */
+
+
         //Coneixón con la API
         URL = "https://whip-api.herokuapp.com/contributions/" + postID + "/event?type=" + type;
         requestqueue = Volley.newRequestQueue(this);
+
+
 
         selecionar_fecha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,32 +84,37 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
             }
         });
 
-        /*crear_quedada.setOnClickListener(new View.OnClickListener() {
+       crear_quedada = findViewById(R.id.boton_enviar_quedada);
+       crear_quedada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //jason para comunicación con back
+                 //jason para comunicación con back
                 JSONObject quedada = new JSONObject();
 
 
-                //JASON
-                try {
-                    if (type.equals("adoption")) {
-                        quedada.put("adoptionPostId", postID);
-                    } else {
-                        quedada.put("lostPostId", postID);
-                    }
-                    quedada.put("date", año + "-" + mes + "-" + dia + " " + hora + ":" + min + ": 00");
-                    quedada.put("place", lugar.getText().toString());
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                lugar = findViewById(R.id.lugar_quedada);
+                seleccionar_hora = findViewById(R.id.hora_quedada);
 
-                if (selecionar_fecha.getHint().toString().equals("") || seleccionar_hora.getHint().toString().equals("") || lugar.getText().toString().equals("")) {
+                if (selecionar_fecha.getText().toString().equals("") || seleccionar_hora.getText().toString().equals("") || lugar.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
-                } else {
-                    //Guardar los datos del formulario en BACK. NOTA: No olvidar guardar la fecha de creación del Post
+                }else {
+                //JASON
+                    try {
+                        if (type.equals("adoption")){
+                            quedada.put("adoptionPostId", postID);
+                        } else {
+                            quedada.put("lostPostId", postID);
+                        }
+                        quedada.put("date", año + "-" + mes + "-" + dia + " " + hora + ":" + min + ": 00");
+                        quedada.put("place", lugar.getText().toString());
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                        //Guardar los datos del formulario en BACK.
                     JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                             JsonRequest.Method.PATCH,
                             URL,
@@ -130,7 +152,8 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
 
                 }
             }
-        });*/
+
+        });
     }
 
     @Override
@@ -141,7 +164,6 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
         month=month+1;
-//        String dataActual = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
         if(month<10) {
             mes = "0" + month;
         }
@@ -155,7 +177,7 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
         else if (dayOfMonth>10){
             dia = "" + dayOfMonth;
         }
-        selecionar_fecha.setHint(dia + "/" + mes + "/" + year);
+        selecionar_fecha.setText(dia + "/" + mes + "/" + year);
 
 
     }
