@@ -205,7 +205,8 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
 
 
     public boolean onCreateOptionsMenu(final Menu menu) {
-        JsonObjectRequest objectJsonrequest3 = new JsonObjectRequest(
+        concretePostPresenter.getFavorite(URL_favs);
+     /*   JsonObjectRequest objectJsonrequest3 = new JsonObjectRequest(
                 JsonRequest.Method.GET,
                 URL_favs,
                 null,
@@ -244,7 +245,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
                 return params;
             }
         };
-        requestqueue.add(objectJsonrequest3);
+        requestqueue.add(objectJsonrequest3); */
         return true;
     }
 
@@ -281,8 +282,8 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
                     .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-
-                            JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                            concretePostPresenter.deletePost(URL);
+         /*                   JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                                     JsonRequest.Method.DELETE,
                                     URL,
                                     null,
@@ -307,7 +308,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
                                     return params;
                                 }
                             };
-                            requestqueue.add(objectJsonrequest);
+                            requestqueue.add(objectJsonrequest); */
 
                         }
                     })
@@ -325,7 +326,8 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
     }
 
     private void BackFavs_dislike() {
-        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+        concretePostPresenter.dislikePost(URL_like);
+  /*      JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                 JsonRequest.Method.DELETE,
                 URL_like,
                 null,
@@ -351,13 +353,13 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
                 return params;
             }
         };
-        requestqueue.add(objectJsonrequest);
+        requestqueue.add(objectJsonrequest);*/
     }
 
 
     public void BackFavs_like() {
-
-        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+        concretePostPresenter.likePost(URL_like);
+      /*  JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                 JsonRequest.Method.POST,
                 URL_like,
                 null,
@@ -383,7 +385,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
                 return params;
             }
         };
-        requestqueue.add(objectJsonrequest);
+        requestqueue.add(objectJsonrequest); */
     }
 
     public void retrieveImage(String idImageFirebase) {
@@ -437,6 +439,25 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
 
     @Override
     public void setClose() {
+        recreate();
+    }
+
+    @Override
+    public void setFavorite(Boolean fav) {
+        if (fav) {
+            getMenuInflater().inflate(R.menu.menu_infopostlikeuser, menu); //si paso el menu de parametro se puede pero no sé si eso respeta el MVC
+        } else {
+            getMenuInflater().inflate(R.menu.menu_infopostuser, menu);
+        }
+    }
+
+    @Override
+    public void setDeletePost() {
+        finish();
+    }
+
+    @Override
+    public void recharge() {
         recreate();
     }
 }

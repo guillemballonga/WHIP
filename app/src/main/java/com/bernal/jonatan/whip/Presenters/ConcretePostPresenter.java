@@ -23,6 +23,18 @@ public class ConcretePostPresenter {
         concretePostServer.closePost(this, URL_close);
     }
 
+    public void deletePost(String URL) {
+        concretePostServer.deletePost(this, URL);
+    }
+
+    public void dislikePost(String URL_like) {
+        concretePostServer.dislikePost(this, URL_like);
+    }
+
+    public void likePost(String URL_like) {
+        concretePostServer.likePost(this, URL_like);
+    }
+
 
     public View getView() {
         return view;
@@ -37,7 +49,20 @@ public class ConcretePostPresenter {
     }
 
 
-    public void getFavorite() {
+    public void getFavorite(String URL_favs) {
+        concretePostServer.getFavorite(this, URL_favs);
+    }
+
+    public void setFavorite(Boolean fav) {
+        view.setFavorite(fav);
+    }
+
+    public void setDeletePost() {
+        view.setDeletePost();
+    }
+
+    public void recharge() {
+        view.recharge();
     }
 
 
@@ -47,6 +72,11 @@ public class ConcretePostPresenter {
 
         void setClose();
 
+        void setFavorite(Boolean fav);
+
+        void setDeletePost();
+
+        void recharge();
     }
 
 }
