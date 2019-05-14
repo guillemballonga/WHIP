@@ -15,8 +15,8 @@ public class ConcretePostPresenter {
         this.concretePostServer = new ConcretePostServer();
     }
 
-    public void getPost(String URL) {
-        concretePostServer.getPost(this, URL);
+    public void getPost(String URL, String tipo_post) {
+        concretePostServer.getPost(this, URL, tipo_post);
     }
 
     public void closePost(String URL_close) {

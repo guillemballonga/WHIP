@@ -138,7 +138,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         });
 
 
-        concretePostPresenter.getPost(URL);
+        concretePostPresenter.getPost(URL, "Lost");
         
         carregar_comments();
 
