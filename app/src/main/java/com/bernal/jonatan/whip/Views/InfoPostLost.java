@@ -482,6 +482,11 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     }
 
     @Override
+    public void notifyCreate(String id) {
+
+    }
+
+    @Override
     public void recreate() {
         recreate();
     }
