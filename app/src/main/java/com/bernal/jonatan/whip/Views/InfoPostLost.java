@@ -263,6 +263,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
                     .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+                            commentPresenter.deleteComment(URL_comments, id_comment);
                         /*    JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                                     JsonRequest.Method.DELETE,
                                     URL_comments + "/" + id_comment,
@@ -494,6 +495,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     @Override
     public void chargeCommentList(ArrayList comments_post) {
         //originalmente era :  //    num_comments.setText("Comentarios " + response.length());
+        Comments_post = comments_post;
         num_comments.setText("Comentarios " + comments_post.size());
         LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
