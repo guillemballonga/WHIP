@@ -205,7 +205,7 @@ public class ConcretePostServer {
         requestQueue.add(objectJsonrequest);
     }
 
-    public void createPost(final ConcretePostPresenter concretePostPresenter, String URL, String especie, String cp, String identificadorImatge, String race, String text, String title, String type, String tipusPost) {
+    public void createPost(final ConcretePostPresenter concretePostPresenter, String URL, String especie, String identificadorImatge, String race, String cp, String text, String title, String type, String tipusPost) {
         JSONObject post = new JSONObject();
         JSONArray photos = new JSONArray();
         photos.put(identificadorImatge);
