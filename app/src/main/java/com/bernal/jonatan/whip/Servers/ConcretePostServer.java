@@ -219,16 +219,10 @@ public class ConcretePostServer {
             post.put("post_code", cp);
             post.put("text", text);
             post.put("title", title);
-            if (tipusPost == "Lost") post.put("type", type);
+            if (tipusPost.equals("Lost")) post.put("type", type);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        String[] images = new String[4];
-        images[0] = identificadorImatge;
-        images[1] = "";
-        images[2] = "";
-        images[3] = "";
-        // public Post(String title, String[] createdAt, String specie, String race, String contenido, String userId, String imagen, Boolean status, String type) {
         requestQueue = Volley.newRequestQueue((Context) concretePostPresenter.getView());
         JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                 JsonRequest.Method.POST,
@@ -237,14 +231,6 @@ public class ConcretePostServer {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
-
-
-
-                                    /*
-                                    String title, String[] createdAt, String specie, String race, String contenido, String userId, String imagen, Boolean status, String type
-                                     */
-
                         try {
                             concretePostPresenter.notifyCreate(response.getString("id"));
                         } catch (JSONException e) {
