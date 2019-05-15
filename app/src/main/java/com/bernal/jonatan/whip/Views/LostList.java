@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Post;
+import com.bernal.jonatan.whip.NewQuedada;
 import com.bernal.jonatan.whip.Presenters.PostPresenter;
 import com.bernal.jonatan.whip.R;
 import com.bernal.jonatan.whip.RecyclerViews.OnListListener;
@@ -48,7 +50,7 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
     private PostAdapter adapt;
     private SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView contenedor;
-
+    Button organQuedada;
 
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
     private String api = ul.getAPI_KEY();
@@ -61,6 +63,19 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_lost);
+
+        /*
+
+        organQuedada = findViewById(R.id.organ_quedadaPerd);     
+        organQuedada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LostList.this, NewQuedada.class));
+                finish();
+            }
+        });
+
+        */
 
         contenedor = findViewById(R.id.contenedor);
         spinnerFiltre = findViewById(R.id.spinner_filter_lost);
@@ -90,15 +105,11 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
         Toolbar tool = findViewById(R.id.toolbar_listadoPerd);
         setSupportActionBar(tool);
         getSupportActionBar().setTitle("LOST");
-
         Toast.makeText(getApplicationContext(), ul.getAPI_KEY(), Toast.LENGTH_SHORT).show();
-
-
         String[] itemsSort = new String[]{"", "Recent", "Dog", "Cat", "Other"};
         ArrayAdapter<String> adapterSort = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsSort);
 
         spinnerFiltre.setAdapter(adapterSort);
-
 
         spinnerFiltre.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint("SetTextI18n")
@@ -107,12 +118,10 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
                 selectedItem = spinnerFiltre.getSelectedItem().toString();
                 if (!selectedItem.equals("")) {
                     URL_filtre = URL_filtre + selectedItem;
-
                     orderBy.setText((getString(R.string.order_by_cat)) + " " + selectedItem);
                     //TODO: enviar a la funcio
 
                     backFiltres();
-
                 }
 
             } // to close the onItemSelected
@@ -123,8 +132,6 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
         });
 
         if (selectedItem.equals("")) back_normal();
-
-
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

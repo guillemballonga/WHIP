@@ -17,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".new_solicitud_adopcion"/>
         <activity android:name=".NewQuedada" />
         <activity android:name=".Views.InfoPostAdoption" />
         <activity android:name=".Views.ShowImage" />
@@ -29,6 +30,7 @@
         <activity android:name=".Views.MyPosts" />
         <activity android:name=".Views.NewPostLost" />
         <activity android:name=".Views.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
