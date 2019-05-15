@@ -33,8 +33,8 @@ public class ConcretePostPresenter {
     }
 
 
-    public void createPost(String URL, String especie, String cp, String urls, String race, String text, String title, String type, String tipuspost) {
-        concretePostServer.createPost(this, URL, especie, cp, urls, race, text, title, type, tipuspost);
+    public void createPost(String URL, String especie, String urls, String race, String cp, String text, String title, String type, String tipuspost) {
+        concretePostServer.createPost(this, URL, especie, urls, race, cp, text, title, type, tipuspost);
     }
 /*
  post.put("specie", especie.getSelectedItem().toString());
