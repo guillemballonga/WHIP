@@ -219,7 +219,13 @@ public class ConcretePostServer {
             post.put("post_code", cp);
             post.put("text", text);
             post.put("title", title);
-            if (tipusPost.equals("Lost")) post.put("type", type);
+            // if (tipo.getSelectedItem().toString().equals("Encontrado"))
+            //     post.put("type", "F");
+            // else post.put("type", "L");
+            if (tipusPost.equals("Lost")) {
+                if (type.equals("Encontrado")) post.put("type", "F");
+                else post.put("type", "L");
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -272,7 +272,7 @@ public class NewPostAdoption extends AppCompatActivity implements ConcretePostPr
 
     @Override
     public void recharge() {
-
+        recreate();
     }
 
     @Override
