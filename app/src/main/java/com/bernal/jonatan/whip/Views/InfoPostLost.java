@@ -28,6 +28,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Comment;
+import com.bernal.jonatan.whip.Presenters.CommentPresenter;
 import com.bernal.jonatan.whip.Presenters.ConcretePostPresenter;
 import com.bernal.jonatan.whip.R;
 import com.bernal.jonatan.whip.RecyclerViews.CommentAdapter;
@@ -48,9 +49,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InfoPostLost extends AppCompatActivity implements ConcretePostPresenter.View {
+public class InfoPostLost extends AppCompatActivity implements ConcretePostPresenter.View, CommentPresenter.View {
 
     ConcretePostPresenter concretePostPresenter = new ConcretePostPresenter(this);
+    CommentPresenter commentPresenter = new CommentPresenter(this);
     //private static final String  = ;
     TextView titulo, fecha, especie, tipo, raza, contenido, num_comments;
     ImageView foto_post, foto_user, compartirRRSS, organ_quedada;
@@ -151,14 +153,15 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         if (box_comment.getText().toString().equals(""))
             Toast.makeText(getApplicationContext(), "Debe escribir un comentario", Toast.LENGTH_SHORT).show();
         else {
-            JSONObject post = new JSONObject();
-            try {
-                post.put("text", box_comment.getText().toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            // JSONObject post = new JSONObject();
+            //  try {
+            commentPresenter.createComment(URL_comments, box_comment.getText().toString());
+            //    post.put("text", box_comment.getText().toString());
+            // } catch (JSONException e) {
+            //     e.printStackTrace();
+            // }
 
-            JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+        /*    JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                     JsonRequest.Method.POST,
                     URL_comments,
                     post,
@@ -184,13 +187,14 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
                     return params;
                 }
             };
-            requestqueue.add(objectJsonrequest);
+            requestqueue.add(objectJsonrequest);  */
         }
 
     }
 
     private void carregar_comments() {
-        JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
+        commentPresenter.getComments(URL_comments);
+       /* JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
                 JsonRequest.Method.GET,
                 URL_comments,
                 null,
@@ -246,7 +250,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
                 return params;
             }
         };
-        requestqueue.add(arrayJsonrequest);
+        requestqueue.add(arrayJsonrequest); */
     }
 
     private void eliminar_comentari(View vista) {
@@ -259,7 +263,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
                     .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                        /*    JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                                     JsonRequest.Method.DELETE,
                                     URL_comments + "/" + id_comment,
                                     null,
@@ -284,8 +288,8 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
                                     return params;
                                 }
                             };
-                            requestqueue.add(objectJsonrequest);
-                            recreate();
+                            requestqueue.add(objectJsonrequest); */
+                            //    recreate();
 
                         }
                     })
@@ -476,4 +480,31 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     public void recharge() {
         recreate();
     }
+
+    @Override
+    public void recreate() {
+        recreate();
+    }
+
+    @Override
+    public void chargeCommentList(ArrayList comments_post) {
+        //originalmente era :  //    num_comments.setText("Comentarios " + response.length());
+        num_comments.setText("Comentarios " + comments_post.size());
+        LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        adapt = new CommentAdapter(Comments_post);
+        adapt.setOnCommentListener(new OnCommentListener() {
+            @Override
+            public void onEliminateClicked(int position, View vista) {
+                eliminar_comentari(vista);
+            }
+
+            @Override
+            public void onVerCommentsClicked(View vista) {
+            }
+        });
+        comments.setAdapter(adapt);
+        comments.setLayoutManager(layout);
+    }
+
 }
