@@ -1,4 +1,4 @@
-package com.bernal.jonatan.whip;
+package com.bernal.jonatan.whip.Views;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -22,13 +22,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
-import com.bernal.jonatan.whip.Views.MainMenu;
-import com.bernal.jonatan.whip.Views.UserLoggedIn;
+import com.bernal.jonatan.whip.DatePickerFragment;
+import com.bernal.jonatan.whip.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;

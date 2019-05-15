@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".new_solicitud_adopcion">
+    tools:context=".Views.NewAdoptionRequest">
 
 
     <include
@@ -75,7 +75,8 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:gravity="right"
-                    android:background="@drawable/clip"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/clipfoto"
                     android:contentDescription="@string/todo" />
                 </LinearLayout>
 

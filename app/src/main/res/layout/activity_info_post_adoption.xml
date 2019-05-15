@@ -46,14 +46,6 @@
                         android:src="@drawable/compartir"
                         android:contentDescription="@string/todo" />
 
-                    <ImageView
-                        android:id="@+id/organ_quedadaAdoption"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="50dp"
-                        android:src="@drawable/quedadaicon"
-                        android:contentDescription="@string/todo" />
-
 
                 </LinearLayout>
 
@@ -84,12 +76,12 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/quedada_adoption"
+                    <Button
+                        android:id="@+id/solicitud_adoption"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_marginBottom="45dp"
-                        android:src="@drawable/solicitud"
+                        android:background="@drawable/solicitud"
                         android:contentDescription="@string/todo" />
 
                     <ImageView
@@ -229,7 +221,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rectangulo_cerrar"
                     android:text="@string/cerrar_post"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/blanco"
                     android:textSize="20sp" />
 
 
