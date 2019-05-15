@@ -39,6 +39,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -199,5 +200,10 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
     public void changeActivity() {
         startActivity(new Intent(EditProfile.this, MostrarPerfil.class));
         finish();
+    }
+
+    @Override
+    public void setUserPosts(ArrayList mis_posts) {
+
     }
 }

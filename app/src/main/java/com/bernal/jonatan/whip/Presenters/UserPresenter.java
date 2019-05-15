@@ -10,6 +10,8 @@ import com.bernal.jonatan.whip.Views.MostrarPerfil;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class UserPresenter {
 
 
@@ -34,6 +36,10 @@ public class UserPresenter {
         userServer.modifyUser(this, cp, nom, cognom, user, urlFoto);
     }
 
+    public void getUserPosts(String URL) {
+        userServer.getUserPosts(URL, this);
+    }
+
 
     public View getView(){
         return view;
@@ -43,9 +49,15 @@ public class UserPresenter {
         view.changeActivity();
     }
 
+    public void setUserPosts(ArrayList mis_posts) {
+        view.setUserPosts(mis_posts);
+    }
+
     public interface View{
         void getUserInfo(String cp, String email, String family_name, String first_name,String photoURL, String username);
         void changeActivity();
+
+        void setUserPosts(ArrayList mis_posts);
     }
 
 

@@ -7,18 +7,22 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.Models.Post;
 import com.bernal.jonatan.whip.Models.User;
 import com.bernal.jonatan.whip.Presenters.UserPresenter;
 import com.bernal.jonatan.whip.Views.EditProfile;
 import com.bernal.jonatan.whip.Views.MostrarPerfil;
 import com.bernal.jonatan.whip.Views.UserLoggedIn;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -113,5 +117,63 @@ public class UserServer {
         };
         requestQueue.add(objectJsonrequest);
 
+    }
+
+    public void getUserPosts(String URL, final UserPresenter userPresenter) {
+        requestQueue = Volley.newRequestQueue((Context) userPresenter.getView());
+        JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
+                JsonRequest.Method.GET,
+                URL,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            ArrayList Mis_Posts = new ArrayList<>();
+                            //            LinearLayoutManager layout = new LinearLayoutManager(getActivity().getApplicationContext());
+                            //            layout.setOrientation(LinearLayoutManager.VERTICAL);
+                            JSONObject postite;
+                            String tipo;
+                            for (int i = 0; i < response.length(); i++) {
+                                postite = response.getJSONObject(i);
+                                if (postite.has("type")) tipo = "LOST";
+                                else tipo = "ADOPTION";
+                                Mis_Posts.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), tipo));
+                            }
+                            userPresenter.setUserPosts(Mis_Posts);
+            /*                adapt = new PostAdapter(Mis_Posts, "PostPropio");
+                            contenedor.setAdapter(adapt);
+                            contenedor.setLayoutManager(layout);
+                            adapt.setOnListListener(new OnListListener() {
+                                @Override
+                                public void onPostClicked(int position, View vista) {
+                                    String id_post = Mis_Posts.get(contenedor.getChildAdapterPosition(vista)).getId();
+                                    Intent i;
+                                    if (Mis_Posts.get(contenedor.getChildAdapterPosition(vista)).getType().equals("LOST"))
+                                        i = new Intent(getActivity(), InfoPostLost.class);
+                                    else i = new Intent(getActivity(), InfoPostAdoption.class);
+                                    i.putExtra("identificadorPost", id_post);
+                                    startActivity(i);
+                                }
+                            });*/
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", api); //valor de V ha de ser el de la var global
+                return params;
+            }
+        };
+        requestQueue.add(arrayJsonrequest);
     }
 }

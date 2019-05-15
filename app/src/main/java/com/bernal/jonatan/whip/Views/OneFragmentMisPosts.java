@@ -19,6 +19,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Post;
+import com.bernal.jonatan.whip.Presenters.UserPresenter;
 import com.bernal.jonatan.whip.R;
 import com.bernal.jonatan.whip.RecyclerViews.OnListListener;
 import com.bernal.jonatan.whip.RecyclerViews.PostAdapter;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OneFragmentMisPosts extends Fragment {
+public class OneFragmentMisPosts extends Fragment implements UserPresenter.View {
     View view;
     private String URL;
     private RequestQueue requestqueue;
@@ -52,6 +53,7 @@ public class OneFragmentMisPosts extends Fragment {
 
         contenedor = view.findViewById(R.id.contenedor_misPosts);
 
+        UserPresenter userPresenter = new UserPresenter((UserPresenter.View) view);
 
         if (getArguments() != null && getArguments().getString("title").equals("Post Propios")) {
             URL = "https://whip-api.herokuapp.com/contributions/myposts";
@@ -61,7 +63,9 @@ public class OneFragmentMisPosts extends Fragment {
             URL = "https://whip-api.herokuapp.com/contributions/favorites";
         }
 
-        requestqueue = Volley.newRequestQueue(this.getContext());
+
+        userPresenter.getUserPosts(URL);
+      /*  requestqueue = Volley.newRequestQueue(this.getContext());
 
         JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
                 JsonRequest.Method.GET,
@@ -116,9 +120,40 @@ public class OneFragmentMisPosts extends Fragment {
                 return params;
             }
         };
-        requestqueue.add(arrayJsonrequest);
+        requestqueue.add(arrayJsonrequest); */
 
 
         return view;
+    }
+
+    @Override
+    public void getUserInfo(String cp, String email, String family_name, String first_name, String photoURL, String username) {
+
+    }
+
+    @Override
+    public void changeActivity() {
+
+    }
+
+    @Override
+    public void setUserPosts(ArrayList mis_posts) {
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity().getApplicationContext());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        adapt = new PostAdapter(Mis_Posts, "PostPropio");
+        contenedor.setAdapter(adapt);
+        contenedor.setLayoutManager(layout);
+        adapt.setOnListListener(new OnListListener() {
+            @Override
+            public void onPostClicked(int position, View vista) {
+                String id_post = Mis_Posts.get(contenedor.getChildAdapterPosition(vista)).getId();
+                Intent i;
+                if (Mis_Posts.get(contenedor.getChildAdapterPosition(vista)).getType().equals("LOST"))
+                    i = new Intent(getActivity(), InfoPostLost.class);
+                else i = new Intent(getActivity(), InfoPostAdoption.class);
+                i.putExtra("identificadorPost", id_post);
+                startActivity(i);
+            }
+        });
     }
 }

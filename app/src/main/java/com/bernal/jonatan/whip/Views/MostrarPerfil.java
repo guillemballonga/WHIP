@@ -31,6 +31,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class MostrarPerfil extends AppCompatActivity implements UserPresenter.View {
@@ -171,5 +172,10 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
     @Override
     public void changeActivity() {
         //Nothing to do
+    }
+
+    @Override
+    public void setUserPosts(ArrayList mis_posts) {
+
     }
 }
