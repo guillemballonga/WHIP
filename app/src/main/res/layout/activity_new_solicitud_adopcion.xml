@@ -1,0 +1,115 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".new_solicitud_adopcion">
+
+
+    <include
+        android:id="@+id/toolbar_nova_solicitud_adopt"
+        layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="35dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/motivo_de_la_adopci_n"
+                        android:textSize="25dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:gravity="center"
+                    android:paddingTop="15dp">
+
+                    <EditText
+                        android:id="@+id/descripcion_motivo_adopcion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="360dp"
+                        android:paddingStart="@dimen/activity_horizontal_margin"
+                        android:paddingTop="@dimen/activity_horizontal_margin"
+                        android:hint="@string/expon_en_este_espacio_los_motivos_por_los_cuales_quieres_adoptar_al_animal"
+                        android:gravity="left"
+                        android:background="@drawable/fondofromdesc"
+                        android:textSize="25dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:gravity="right"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingTop="5dp">
+                <Button
+                    android:id="@+id/boton_afegir_foto_motiu_adopcio"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="right"
+                    android:background="@drawable/clip"
+                    android:contentDescription="@string/todo" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/boton_enviar_quedada"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/botonredondo"
+                        android:text="@string/enviar_solicitud"
+                        android:textColor="@color/blanco"
+                        android:textSize="18sp"
+                        tools:ignore="ButtonStyle" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>
