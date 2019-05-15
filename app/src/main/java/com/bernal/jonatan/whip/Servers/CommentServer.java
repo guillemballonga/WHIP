@@ -43,7 +43,7 @@ public class CommentServer {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        commentPresenter.recreate();
+                        commentPresenter.recharge();
                         //           recreate();
                     }
                 },
@@ -129,7 +129,7 @@ public class CommentServer {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        commentPresenter.recreate();
+                        commentPresenter.recharge();
                     }
                 },
                 new Response.ErrorListener() {

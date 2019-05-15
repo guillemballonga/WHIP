@@ -33,8 +33,8 @@ public class CommentPresenter {
         return view;
     }
 
-    public void recreate() {
-        view.recreate();
+    public void recharge() {
+        view.recharge();
     }
 
     public void chargeCommentList(ArrayList comments_post) {
@@ -42,7 +42,7 @@ public class CommentPresenter {
     }
 
     public interface View {
-        void recreate();
+        void recharge();
 
         void chargeCommentList(ArrayList comments_post);
     }
