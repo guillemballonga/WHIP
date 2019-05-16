@@ -142,6 +142,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         organ_quedada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                NewQuedada.setPostID(Identificador, "lost");
                 startActivity(new Intent(InfoPostLost.this, NewQuedada.class));
             }
         });
