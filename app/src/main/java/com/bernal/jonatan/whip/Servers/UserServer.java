@@ -120,7 +120,7 @@ public class UserServer {
     }
 
     public void getUserPosts(String URL, final UserPresenter userPresenter) {
-        requestQueue = Volley.newRequestQueue(userPresenter.getView());
+        requestQueue = Volley.newRequestQueue((Context) userPresenter.getView());
         JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
                 JsonRequest.Method.GET,
                 URL,
