@@ -53,7 +53,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
 
     ConcretePostPresenter concretePostPresenter = new ConcretePostPresenter(this);
     //private static final String  = ;
-    TextView titulo, fecha, especie, tipo, raza, contenido, num_comments;
+    TextView titulo, fecha, especie, tipo, raza, contenido, num_comments, idCreador;
     ImageView foto_post, foto_user, compartirRRSS;
     EditText box_comment;
     String Identificador;
@@ -88,6 +88,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         contenido = findViewById(R.id.contenido_postPerd);
         num_comments = findViewById(R.id.permitir_comentario);
         organ_quedada = findViewById(R.id.organ_quedadaPerd);
+        idCreador = findViewById(R.id.id_Creador_postLost);
 
         foto_post = findViewById(R.id.foto_postPerd);
         foto_user = findViewById(R.id.imagen_coment_user);
@@ -445,6 +446,8 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         raza.setText(race);
         contenido.setText(text);
         mail_creador = userId;
+        idCreador.setText(mail_creador);
+
 
         if (type.equals("F")) {
             tipo.setText("Encontrado");

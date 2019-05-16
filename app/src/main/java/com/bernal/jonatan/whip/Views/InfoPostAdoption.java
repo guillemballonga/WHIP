@@ -36,11 +36,13 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
     ConcretePostPresenter concretePostPresenter = new ConcretePostPresenter(this);
     TextView titulo, fecha, especie, raza, contenido;
     ImageView foto_post, compartirRRSS, Organ_quedada;
-    String Identificador, UsernameCreador;
+    String Identificador;
     Button close_buton, solicitud_adopcion;
 
     private String URL, URL_favs, URL_like, URL_close;
     private RequestQueue requestqueue;
+
+    TextView idCreador;
 
     private String mail_creador;
 
@@ -61,12 +63,15 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         especie = findViewById(R.id.especie_postAdoption);
         raza = findViewById(R.id.raza_postAdoption);
         contenido = findViewById(R.id.contenido_postAdoption);
+        idCreador = findViewById(R.id.id_Creador_postAdoption);
 
         foto_post = findViewById(R.id.foto_postAdoption);
         compartirRRSS = findViewById(R.id.CompartirRRSSAdoption);
         solicitud_adopcion = findViewById(R.id.solicitud_adoption);
 
         close_buton = findViewById(R.id.boton_cerrar_adoption);
+
+
 
         //Gestión toolbar
         Toolbar tool = findViewById(R.id.toolbar_infoPostAdoption);
@@ -86,7 +91,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
             @Override
             public void onClick(View v) {
                 NewAdoptionRequest.setAdoptionPostID(Identificador);
-                NewAdoptionRequest.setUsernameFromPost(UsernameCreador);
+                NewAdoptionRequest.setUsernameFromPost(mail_creador);
                 startActivity(new Intent(InfoPostAdoption.this, NewAdoptionRequest.class));
                 finish();
             }
@@ -230,6 +235,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         raza.setText(race);
         contenido.setText(text);
         mail_creador = userId;
+        idCreador.setText(mail_creador);
         //Fotografías con Firebase
         String urlFoto1 = photo_url_1; //LAURA->
         if (!urlFoto1.equals("")) retrieveImage(urlFoto1);
