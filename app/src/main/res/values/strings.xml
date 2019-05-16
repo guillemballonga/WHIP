@@ -111,10 +111,8 @@
     <string name="hora">Hora</string>
     <string name="formato_hora">HH:MM</string>
     <string name="enviar_quedada">Enviar Quedada</string>
-    <string name="te_han_propuesta_una_quedada">Te han propuesta una quedada</string>
-    <string name="usuario">Usuario:</string>
+    <string name="usuario">Evento con:</string>
     <string name="lugar_event">Lugar:</string>
-    <string name="fecha">Fecha:</string>
     <string name="hora_events">Hora:</string>
     <string name="calendario">Calendario</string>
 

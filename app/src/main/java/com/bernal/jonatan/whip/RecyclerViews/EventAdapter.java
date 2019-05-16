@@ -1,5 +1,6 @@
 package com.bernal.jonatan.whip.RecyclerViews;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import com.bernal.jonatan.whip.Models.Event;
 import com.bernal.jonatan.whip.Models.Post;
 import com.bernal.jonatan.whip.R;
+import com.bernal.jonatan.whip.Views.UserLoggedIn;
 
 import java.util.List;
 
@@ -16,6 +18,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
     private List<Event> listaObjetos;
     private OnEventListener onEventListener;
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
 
     public void setOnEventListener(OnEventListener onEventListener) {
         this.onEventListener = onEventListener;
@@ -33,12 +36,20 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
         return new EventViewHolder(vista,listaObjetos,onEventListener);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder eventViewHolder, int i) {
         eventViewHolder.date_event.setText(listaObjetos.get(i).getDate());
         eventViewHolder.time_event.setText(listaObjetos.get(i).getTime());
         eventViewHolder.place_event.setText(listaObjetos.get(i).getPlace());
-        eventViewHolder.user_event.setText(listaObjetos.get(i).getUserId());
+        if (ul.getCorreo_user().equals(listaObjetos.get(i).getUserId())) {
+            eventViewHolder.user_event.setText(listaObjetos.get(i).getUserFromPostId());
+            eventViewHolder.texto_plano.setText("Has solicitado una quedada");
+        }
+        else {
+            eventViewHolder.user_event.setText(listaObjetos.get(i).getUserId());
+            eventViewHolder.texto_plano.setText("Te han solicitado una quedada");
+        }
         eventViewHolder.setId_event(listaObjetos.get(i).getId());
     }
 
