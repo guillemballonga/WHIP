@@ -41,7 +41,7 @@ public class OneFragmentMisPosts extends Fragment {
 
     String tipo;
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "","");
     private String api = ul.getAPI_KEY();
 
     @Nullable

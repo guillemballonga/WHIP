@@ -48,7 +48,7 @@ public class InfoPostAdoption extends AppCompatActivity {
 
     private String mail_creador;
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "","");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

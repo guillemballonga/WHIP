@@ -32,8 +32,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.api.services.calendar.CalendarScopes;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
+    private static final int RC_REQUEST_PERMISSION_SUCCESS_CONTINUE_FILE_CREATION = 9001;
+    // private static final int RC_REQUEST
     UserLoggedIn ul;
     private GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
@@ -125,6 +129,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // [START build_client]
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        //GoogleSignIn.requestPermissions(this, RC_SIGN_IN, GoogleSignIn.getLastSignedInAccount(this), CalendarScopes.CALENDAR);
+        
+       // CalendarQuickstart.getCredentials();
         // [END build_client]
 
         // [START customize_button]
@@ -144,6 +151,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
+        if (!GoogleSignIn.hasPermissions(account,  new Scope(CalendarScopes.CALENDAR))) {
+            GoogleSignIn.requestPermissions(
+                    this,
+                    RC_REQUEST_PERMISSION_SUCCESS_CONTINUE_FILE_CREATION,
+                    account,
+                    new Scope(CalendarScopes.CALENDAR));
+        } else {
+            //saveToDriveAppFolder();
+        }
         updateUI(account);
         // [END on_start_sign_in]
     }
@@ -264,6 +281,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void userJsonGoogle (final GoogleSignInAccount account) {
         JSONObject user = new JSONObject();
         try {
+
+            //ul.setToken(account.getIdToken()); //guardo token per calendar
             user.put("mail", account.getEmail());
             String[] name = account.getDisplayName().split(" ");
             user.put("name", name[0]);
@@ -274,7 +293,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        guardarUsuari(user);
+        guardarUsuari(user, account.getIdToken());
     }
 
     private void userJsonFacebook(JSONObject object) {
@@ -297,9 +316,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        guardarUsuari(user);
+        guardarUsuari(user, "");
     }
-    private void guardarUsuari(JSONObject user) {
+    private void guardarUsuari(JSONObject user, final String token) {
 
         Log.w(TAG, "guardarUsuari; facebook = " + facebook);
 
@@ -313,9 +332,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.makeText(getApplicationContext(), "Usuari logejat  correctament", Toast.LENGTH_SHORT).show();
                         //todo guardar api key en el singleton
                         try {
-                            ul = UserLoggedIn.getUsuariLogejat(response.getString("api_key"), response.getString("email"));
+
+                            ul = UserLoggedIn.getUsuariLogejat(response.getString("api_key"), response.getString("email"), token);
                             ul.setAPI_KEY(response.getString("api_key"));
                             ul.setCorreo_user(response.getString("email"));
+
+                            ul.setToken(token); //guardo token per calendar
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

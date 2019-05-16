@@ -46,7 +46,7 @@ public class AdoptionList extends AppCompatActivity {
     RecyclerView contenedor_adopt;
 
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "","");
     private String api = ul.getAPI_KEY();
     private Spinner spinnerFiltre;
     private TextView orderBy;
