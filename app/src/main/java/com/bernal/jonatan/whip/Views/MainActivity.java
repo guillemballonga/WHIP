@@ -33,8 +33,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.api.services.calendar.CalendarScopes;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
+    private static final int RC_REQUEST_PERMISSION_SUCCESS_CONTINUE_FILE_CREATION = 9001;
     UserLoggedIn ul;
     private GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
@@ -145,6 +148,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
+       // if (!GoogleSignIn.hasPermissions(account,  new Scope(CalendarScopes.CALENDAR))) {
+        GoogleSignIn.requestPermissions(
+                    this,
+                    RC_REQUEST_PERMISSION_SUCCESS_CONTINUE_FILE_CREATION,
+                    account,
+                    new Scope(CalendarScopes.CALENDAR));
+        //} else {
+            //saveToDriveAppFolder();
+       // }
         updateUI(account);
         // [END on_start_sign_in]
     }
