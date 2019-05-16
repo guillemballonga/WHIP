@@ -1,14 +1,9 @@
 package com.bernal.jonatan.whip.Presenters;
 
-import android.view.View;
+import android.content.Context;
 
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.bernal.jonatan.whip.Models.User;
 import com.bernal.jonatan.whip.Servers.UserServer;
-import com.bernal.jonatan.whip.Views.EditProfile;
-import com.bernal.jonatan.whip.Views.MostrarPerfil;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 

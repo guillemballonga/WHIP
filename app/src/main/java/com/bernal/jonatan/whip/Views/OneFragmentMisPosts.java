@@ -35,13 +35,8 @@ import java.util.Map;
 public class OneFragmentMisPosts extends Fragment implements UserPresenter.View {
     View view;
     private String URL;
-    private RequestQueue requestqueue;
-    private JSONArray resultat;
-    private ArrayList<Post> Mis_Posts;
     private PostAdapter adapt;
     RecyclerView contenedor;
-
-    String tipo;
 
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
     private String api = ul.getAPI_KEY();
@@ -53,7 +48,7 @@ public class OneFragmentMisPosts extends Fragment implements UserPresenter.View 
 
         contenedor = view.findViewById(R.id.contenedor_misPosts);
 
-        UserPresenter userPresenter = new UserPresenter((UserPresenter.View) view);
+        UserPresenter userPresenter = new UserPresenter(this);
 
         if (getArguments() != null && getArguments().getString("title").equals("Post Propios")) {
             URL = "https://whip-api.herokuapp.com/contributions/myposts";
@@ -137,7 +132,7 @@ public class OneFragmentMisPosts extends Fragment implements UserPresenter.View 
     }
 
     @Override
-    public void setUserPosts(ArrayList mis_posts) {
+    public void setUserPosts(final ArrayList Mis_Posts) {
         LinearLayoutManager layout = new LinearLayoutManager(getActivity().getApplicationContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         adapt = new PostAdapter(Mis_Posts, "PostPropio");
@@ -146,9 +141,10 @@ public class OneFragmentMisPosts extends Fragment implements UserPresenter.View 
         adapt.setOnListListener(new OnListListener() {
             @Override
             public void onPostClicked(int position, View vista) {
-                String id_post = Mis_Posts.get(contenedor.getChildAdapterPosition(vista)).getId();
+               Object obj = Mis_Posts.get(contenedor.getChildAdapterPosition(vista));
+                String id_post = ((Post)obj).getId();
                 Intent i;
-                if (Mis_Posts.get(contenedor.getChildAdapterPosition(vista)).getType().equals("LOST"))
+                if (((Post)obj).getType().equals("LOST"))
                     i = new Intent(getActivity(), InfoPostLost.class);
                 else i = new Intent(getActivity(), InfoPostAdoption.class);
                 i.putExtra("identificadorPost", id_post);
