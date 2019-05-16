@@ -2,6 +2,7 @@ package com.bernal.jonatan.whip.Views;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -53,10 +54,10 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     ConcretePostPresenter concretePostPresenter = new ConcretePostPresenter(this);
     //private static final String  = ;
     TextView titulo, fecha, especie, tipo, raza, contenido, num_comments;
-    ImageView foto_post, foto_user, compartirRRSS, organ_quedada;
+    ImageView foto_post, foto_user, compartirRRSS;
     EditText box_comment;
     String Identificador;
-    Button cerrar_post, crear_comment, borrar_comment;
+    Button cerrar_post, crear_comment, borrar_comment, organ_quedada;
     RecyclerView comments;
 
 
@@ -135,6 +136,13 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
             @Override
             public void onClick(View view) {
                 box_comment.setText("");
+            }
+        });
+
+        organ_quedada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(InfoPostLost.this, NewQuedada.class));
             }
         });
 

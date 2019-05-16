@@ -1,6 +1,7 @@
 package com.bernal.jonatan.whip.Views;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -17,10 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Presenters.ConcretePostPresenter;
 import com.bernal.jonatan.whip.R;
@@ -30,22 +27,17 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class InfoPostAdoption extends AppCompatActivity implements ConcretePostPresenter.View {
 
 
     ConcretePostPresenter concretePostPresenter = new ConcretePostPresenter(this);
     TextView titulo, fecha, especie, raza, contenido;
-    ImageView foto_post, compartirRRSS, Organ_quedada, solicitud_quedada;
-    String Identificador;
-    Button close_buton;
+    ImageView foto_post, compartirRRSS, Organ_quedada;
+    String Identificador, UsernameCreador;
+    Button close_buton, solicitud_adopcion;
 
     private String URL, URL_favs, URL_like, URL_close;
     private RequestQueue requestqueue;
@@ -72,8 +64,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
 
         foto_post = findViewById(R.id.foto_postAdoption);
         compartirRRSS = findViewById(R.id.CompartirRRSSAdoption);
-        Organ_quedada = findViewById(R.id.organ_quedadaAdoption);
-        solicitud_quedada = findViewById(R.id.quedada_adoption);
+        solicitud_adopcion = findViewById(R.id.solicitud_adoption);
 
         close_buton = findViewById(R.id.boton_cerrar_adoption);
 
@@ -90,6 +81,16 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         URL_close = "https://whip-api.herokuapp.com/contributions/close/" + Identificador + "/?type=adoption";
         requestqueue = Volley.newRequestQueue(this);
 
+
+        solicitud_adopcion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NewAdoptionRequest.setAdoptionPostID(Identificador);
+                NewAdoptionRequest.setUsernameFromPost(UsernameCreador);
+                startActivity(new Intent(InfoPostAdoption.this, NewAdoptionRequest.class));
+                finish();
+            }
+        });
 
         close_buton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -238,7 +239,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
             close_buton.setVisibility(View.GONE);
             compartirRRSS.setVisibility(View.GONE);
             Organ_quedada.setVisibility(View.GONE);
-            solicitud_quedada.setVisibility(View.GONE);
+            solicitud_adopcion.setVisibility(View.GONE);
         }
 
     }
@@ -252,6 +253,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
             getMenuInflater().inflate(R.menu.menu_infopostuser, menu_fav);
         }
     }
+
 
     @Override
     public void setDeletePost() {
