@@ -149,15 +149,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // the GoogleSignInAccount will be non-null.
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
-       // if (!GoogleSignIn.hasPermissions(account,  new Scope(CalendarScopes.CALENDAR))) {
+        if (!GoogleSignIn.hasPermissions(account,  new Scope(CalendarScopes.CALENDAR))) {
         GoogleSignIn.requestPermissions(
                     this,
                     RC_REQUEST_PERMISSION_SUCCESS_CONTINUE_FILE_CREATION,
                     account,
                     new Scope(CalendarScopes.CALENDAR));
-        //} else {
+        } else {
             //saveToDriveAppFolder();
-       // }
+       }
         updateUI(account);
         // [END on_start_sign_in]
     }
