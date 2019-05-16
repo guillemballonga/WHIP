@@ -25,14 +25,6 @@ public class NewAdoptionRequest extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        toQuedada = findViewById(R.id.boton_enviar_quedada);
-        toQuedada.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(NewAdoptionRequest.this, NewQuedada.class));
-            }
-        });
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_solicitud_adopcion);
 
@@ -40,6 +32,17 @@ public class NewAdoptionRequest extends AppCompatActivity {
         Toolbar tool = findViewById(R.id.toolbar_nova_solicitud_adopt);
         setSupportActionBar(tool);
         Objects.requireNonNull(getSupportActionBar()).setTitle("SOLICITUD DE ADOPCIÓN");
+
+        toQuedada = findViewById(R.id.boton_enviar_quedada);
+        toQuedada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                envia_dades_back();
+                NewQuedada.setPostID(AdoptionPostID, "adoption");
+                startActivity(new Intent(NewAdoptionRequest.this, NewQuedada.class));
+            }
+        });
+
     }
 
     public static void setAdoptionPostID(String id){
@@ -50,6 +53,9 @@ public class NewAdoptionRequest extends AppCompatActivity {
         UsernameFromPost=username;
     }
 
+    private void envia_dades_back() {
+
+    }
 
 
 

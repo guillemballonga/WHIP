@@ -123,7 +123,7 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
 
                         //Guardar los datos del formulario en BACK.
                     JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                            JsonRequest.Method.PATCH,
+                            JsonRequest.Method.POST,
                             URL,
                             quedada,
 
