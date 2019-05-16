@@ -40,11 +40,8 @@ import java.util.Map;
 public class LostList extends AppCompatActivity implements PostPresenter.View {
 
 
-    PostPresenter postPresenter = new PostPresenter((PostPresenter.View) this);
+    PostPresenter postPresenter = new PostPresenter(this);
     private String URL, URL_filtre;
-    private RequestQueue requestqueue;
-    private JSONArray resultat;
-    private ArrayList<Post> Posts_perdidos;
     private PostAdapter adapt;
     private SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView contenedor;
@@ -84,8 +81,6 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
         //Coneixón con la API
         URL = "https://whip-api.herokuapp.com/contributions/lostposts";
         URL_filtre = "https://whip-api.herokuapp.com/contributions/lostposts?sort=";
-
-        requestqueue = Volley.newRequestQueue(this);
 
         Toolbar tool = findViewById(R.id.toolbar_listadoPerd);
         setSupportActionBar(tool);

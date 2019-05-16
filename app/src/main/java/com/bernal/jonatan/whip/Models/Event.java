@@ -6,9 +6,36 @@ public class Event {
 
     private String id;
     private String userId;
-    private String userFromPost;
-    private Date date;
+    private String userFromPostId;
+    private String date;
+    private String time;
     private String state;
+    private String place;
+    private String postId;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
 
     public String getId() {
         return id;
@@ -26,19 +53,19 @@ public class Event {
         this.userId = userId;
     }
 
-    public String getUserFromPost() {
-        return userFromPost;
+    public String getUserFromPostId() {
+        return userFromPostId;
     }
 
-    public void setUserFromPost(String userFromPost) {
-        this.userFromPost = userFromPost;
+    public void setUserFromPostId(String userFromPost) {
+        this.userFromPostId = userFromPost;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

@@ -17,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Views.EventList"></activity>
         <activity android:name=".NewQuedada" />
         <activity android:name=".Views.InfoPostAdoption" />
         <activity android:name=".Views.ShowImage" />
