@@ -103,6 +103,7 @@ public class NewAdoptionRequest extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             NewQuedada.setPostID(AdoptionPostID, "adoption");
+                            NewQuedada.setUsernameFromPost(UsernameFromPost);
                             startActivity(new Intent(NewAdoptionRequest.this, NewQuedada.class));
                             finish();
                         }

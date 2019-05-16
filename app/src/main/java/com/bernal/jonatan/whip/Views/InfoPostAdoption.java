@@ -36,7 +36,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
     ConcretePostPresenter concretePostPresenter = new ConcretePostPresenter(this);
     TextView titulo, fecha, especie, raza, contenido;
     ImageView foto_post, compartirRRSS, Organ_quedada;
-    String Identificador;
+    String Identificador, correuUsuari;
     Button close_buton, solicitud_adopcion;
 
     private String URL, URL_favs, URL_like, URL_close;
@@ -64,14 +64,13 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         raza = findViewById(R.id.raza_postAdoption);
         contenido = findViewById(R.id.contenido_postAdoption);
         idCreador = findViewById(R.id.id_Creador_postAdoption);
+        correuUsuari = ul.getCorreo_user();
 
         foto_post = findViewById(R.id.foto_postAdoption);
         compartirRRSS = findViewById(R.id.CompartirRRSSAdoption);
         solicitud_adopcion = findViewById(R.id.solicitud_adoption);
 
         close_buton = findViewById(R.id.boton_cerrar_adoption);
-
-
 
         //Gestión toolbar
         Toolbar tool = findViewById(R.id.toolbar_infoPostAdoption);
@@ -90,10 +89,15 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         solicitud_adopcion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NewAdoptionRequest.setAdoptionPostID(Identificador);
-                NewAdoptionRequest.setUsernameFromPost(mail_creador);
-                startActivity(new Intent(InfoPostAdoption.this, NewAdoptionRequest.class));
-                finish();
+                if(mail_creador.equals(correuUsuari)){
+                    Toast.makeText(getApplicationContext(), "No puedes crear una quedada contigo mismo", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    NewAdoptionRequest.setAdoptionPostID(Identificador);
+                    NewAdoptionRequest.setUsernameFromPost(mail_creador);
+                    startActivity(new Intent(InfoPostAdoption.this, NewAdoptionRequest.class));
+                    finish();
+                }
             }
         });
 

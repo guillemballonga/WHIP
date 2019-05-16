@@ -36,6 +36,7 @@ import java.util.Objects;
 public class NewQuedada extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
     private String URL;
     static String postID, type;
+    static String UsernameFromPost;
     private String dia, mes;
     private int hora, min, año;
     String horaForm="";
@@ -116,6 +117,7 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
                         }
                         quedada.put("date", año + "-" + mes + "-" + dia + " " + horaForm + ":" + minForm + ": 00");
                         quedada.put("place", lugar.getText().toString());
+                        quedada.put("userIdFromPost", UsernameFromPost);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -168,13 +170,13 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
                 if(hourOfDay<10) {
                     horaForm = "0" + hourOfDay;
                 }
-                else if (hourOfDay>=10){
+                else {
                     horaForm = "" + hourOfDay;
                 }
                 if(minute<10){
                     minForm = "0" + minute;
                 }
-                else if (minute>=10){
+                else {
                     minForm = "" + minute;
                 }
                 seleccionar_hora.setText(horaForm+":"+minForm);
@@ -211,74 +213,13 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
 
     }
 
-
-    /*public void onClick(View view) {
-        if (view == crear_quedada) {
-
-            //jason para comunicación con back
-            JSONObject quedada = new JSONObject();
-
-
-            //JASON
-            try {
-                if (type.equals("adoption")) {
-                    quedada.put("adoptionPostId", postID);
-                } else {
-                    quedada.put("lostPostId", postID);
-                }
-                quedada.put("date", año + "-" + mes + "-" + dia + " " + hora + ":" + min + ": 00");
-                quedada.put("place", lugar.getText().toString());
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            if (selecionar_fecha.getHint().toString().equals("") || seleccionar_hora.getHint().toString().equals("") || lugar.getText().toString().equals("")) {
-                Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
-            } else {
-                //Guardar los datos del formulario en BACK. NOTA: No olvidar guardar la fecha de creación del Post
-                JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                        JsonRequest.Method.PATCH,
-                        URL,
-                        quedada,
-
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                startActivity(new Intent(NewQuedada.this, MainMenu.class));
-                                Toast.makeText(getApplicationContext(), "Quedada Creada Correctamente", Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-
-
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-                                error.printStackTrace();
-                            }
-                        }
-                ) {
-                    @Override
-                    public Map<String, String> getHeaders() {
-                        Map<String, String> params = new HashMap<>();
-                        params.put("Content-Type", "application/json");
-                        params.put("Authorization", api); //valor de V ha de ser el de la var global
-                        return params;
-                    }
-                };
-                requestqueue.add(objectJsonrequest);
-//JASON
-
-
-            }
-        }
-    }*/
-
     public static void setPostID(String idPost, String tipo) {
         postID = idPost;
         type = tipo;
+    }
+
+    public static void setUsernameFromPost(String username){
+        UsernameFromPost=username;
     }
 
 

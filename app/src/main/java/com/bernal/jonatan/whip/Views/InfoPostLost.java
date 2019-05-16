@@ -79,6 +79,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
 
         //Obtengo el ID del post
         Identificador = getIntent().getStringExtra("identificadorPost");
+        final String correuUsuari = ul.getCorreo_user();
 
         titulo = findViewById(R.id.titulo_postPerd);
         fecha = findViewById(R.id.fecha_postPerd);
@@ -143,8 +144,14 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         organ_quedada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NewQuedada.setPostID(Identificador, "lost");
-                startActivity(new Intent(InfoPostLost.this, NewQuedada.class));
+                if(mail_creador.equals(correuUsuari)){
+                    Toast.makeText(getApplicationContext(), "No puedes crear una quedada contigo mismo", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    NewQuedada.setPostID(Identificador, "lost");
+                    NewQuedada.setUsernameFromPost(mail_creador);
+                    startActivity(new Intent(InfoPostLost.this, NewQuedada.class));
+                }
             }
         });
 
