@@ -18,7 +18,7 @@ public class EventPresenter {
     }
 
     public void getEvents(String URL) {
-        EventServer.getEvents(this, URL);
+        eventServer.getEvents(this, URL);
     }
 
     public void chargeEvents(ArrayList events) {
