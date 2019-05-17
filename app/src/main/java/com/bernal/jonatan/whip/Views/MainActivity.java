@@ -1,6 +1,7 @@
 package com.bernal.jonatan.whip.Views;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,6 +28,9 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.GoogleAuthException;
+import com.google.android.gms.auth.GoogleAuthUtil;
+import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -41,6 +45,7 @@ import com.google.api.services.calendar.CalendarScopes;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,13 +57,14 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "SignInActivity";
-    private static final int RC_SIGN_IN = 9001;
+    private static final int RC_SIGN_IN = 55664; //9001
     private static final int RC_REQUEST_PERMISSION_SUCCESS_CONTINUE_FILE_CREATION = 9001;
     UserLoggedIn ul;
     private GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
     private String URL;
     private RequestQueue requestqueue;
+    private String tokenCalendar = "";
 
 
     //facebook
@@ -284,13 +290,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             user.put("fam_name", account.getFamilyName());
             user.put("username", "");
             user.put("photo_url", account.getPhotoUrl());
-            String tokenCalendar = account.getIdToken();
+
+
             Log.w(TAG, "token de calendar: " + tokenCalendar);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        guardarUsuari(user, account.getIdToken());
+        guardarUsuari(user,account.getAccount().name);
     }
 
     private void userJsonFacebook(JSONObject object) {
@@ -315,9 +322,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         guardarUsuari(user, "");
     }
-    private void guardarUsuari(JSONObject user, final String idToken) {
+    private void guardarUsuari(JSONObject user, final String accountName) {
 
         Log.w(TAG, "guardarUsuari; facebook = " + facebook);
+        Log.w(TAG, "guardarUsuari; token calendar = " + tokenCalendar);
 
         JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                 JsonRequest.Method.POST,
@@ -329,10 +337,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.makeText(getApplicationContext(), "Usuari logejat  correctament", Toast.LENGTH_SHORT).show();
                         //todo guardar api key en el singleton
                         try {
-                            ul = UserLoggedIn.getUsuariLogejat(response.getString("api_key"), response.getString("email"), idToken );
+                            ul = UserLoggedIn.getUsuariLogejat(response.getString("api_key"), response.getString("email"), "" );
                             ul.setAPI_KEY(response.getString("api_key"));
                             ul.setCorreo_user(response.getString("email"));
-                            ul.setToken(idToken);
+
+
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -355,6 +365,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
         requestqueue.add(objectJsonrequest);
+        userPutToken(accountName);
+
+
+    }
+
+    private void userPutToken(String accountName) {
+
+        new RetrieveTokenTask().execute(accountName);
+
 
 
     }
@@ -436,6 +455,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.login_facebook_button:
                 facebook = true;
                 break;
+        }
+    }
+
+    private class RetrieveTokenTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            String accountName = params[0];
+            String scopes = "oauth2:profile email";
+            String token = null;
+            try {
+                token = GoogleAuthUtil.getToken(getApplicationContext(), accountName, scopes);
+            } catch (IOException e) {
+                Log.e(TAG, e.getMessage());
+            } catch (UserRecoverableAuthException e) {
+                startActivityForResult(e.getIntent(), RC_SIGN_IN);
+            } catch (GoogleAuthException e) {
+                Log.e(TAG, e.getMessage());
+            }
+            if (ul != null) ul.setToken(token);
+            String xxxx = ul.getToken();
+            return token;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            
         }
     }
 }
