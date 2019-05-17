@@ -155,6 +155,8 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
 
     @Override
     public void getUserInfo(String cpt, String email, String family_name, String first_name, String photoURL, String username) {
+        if(username.toString().equals("null")) username="";
+        if(cpt.toString().equals("null")) cpt="";
         nom.setText(first_name);
         cognom.setText(family_name);
         user.setText(username);
