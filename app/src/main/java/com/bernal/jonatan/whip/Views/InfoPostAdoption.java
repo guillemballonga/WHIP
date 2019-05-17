@@ -231,7 +231,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
 
 
     @Override
-    public void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status, String type) {
+    public void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status, String type, String username) {
 
         titulo.setText(title);
         fecha.setText(data[0]);
@@ -239,7 +239,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         raza.setText(race);
         contenido.setText(text);
         mail_creador = userId;
-        idCreador.setText(mail_creador);
+        idCreador.setText(username);
         //Fotografías con Firebase
         String urlFoto1 = photo_url_1; //LAURA->
         if (!urlFoto1.equals("")) retrieveImage(urlFoto1);

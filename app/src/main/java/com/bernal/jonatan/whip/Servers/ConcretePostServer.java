@@ -47,12 +47,13 @@ public class ConcretePostServer {
                             String text = result.getString("text");
                             String userId = result.getString("userId");
                             String photo_url_1 = result.getString("photo_url_1");
+                            String username = result.getString("username");
                             String type = "";
                             if (tipo_post.equals("Lost")) {
                                 type = result.getString("type");
                             }
                             Boolean status = result.getBoolean("status");
-                            Post post = new Post(title, data, specie, race, text, userId, photo_url_1, status, type);
+                            Post post = new Post(title, data, specie, race, text, userId, photo_url_1, status, type, username);
                             concretePostPresenter.setPost(post);
 
                         } catch (JSONException e) {

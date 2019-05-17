@@ -16,6 +16,7 @@ public class Post {
     private String userId;
     private String[] createdAt;
     private Boolean status;
+    private String username;
 
 
     public Post(String id, String nombre, String imagen, String contenido, String type) {
@@ -27,7 +28,7 @@ public class Post {
     }
 
 
-    public Post(String title, String[] createdAt, String specie, String race, String contenido, String userId, String imagen, Boolean status, String type) {
+    public Post(String title, String[] createdAt, String specie, String race, String contenido, String userId, String imagen, Boolean status, String type, String username) {
         this.imagen = imagen;
         this.contenido = contenido;
         this.title = title;
@@ -37,6 +38,7 @@ public class Post {
         this.createdAt = createdAt;
         this.status = status;
         this.type = type;
+        this.username = username;
     }
 
 
@@ -88,6 +90,10 @@ public class Post {
         return status;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     public void setRace(String race) {
         this.race = race;
     }
@@ -134,6 +140,7 @@ public class Post {
     public void setStatus(Boolean status) {
         this.status = status;
     }
+
 
 
 }

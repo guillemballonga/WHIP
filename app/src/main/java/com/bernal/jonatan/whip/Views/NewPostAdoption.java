@@ -245,7 +245,7 @@ public class NewPostAdoption extends AppCompatActivity implements ConcretePostPr
     }
 
     @Override
-    public void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status, String type) {
+    public void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status, String type, String username) {
 
     }
 

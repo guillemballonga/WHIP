@@ -439,14 +439,14 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     }
 
     @Override
-    public void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status, String type) {
+    public void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status, String type, String username) {
         titulo.setText(title);
         fecha.setText(data[0]);
         especie.setText(specie);
         raza.setText(race);
         contenido.setText(text);
         mail_creador = userId;
-        idCreador.setText(mail_creador);
+        idCreador.setText(username);
 
 
         if (type.equals("F")) {

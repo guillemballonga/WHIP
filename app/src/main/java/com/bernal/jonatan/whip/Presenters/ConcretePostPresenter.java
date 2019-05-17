@@ -3,8 +3,6 @@ package com.bernal.jonatan.whip.Presenters;
 import com.bernal.jonatan.whip.Models.Post;
 import com.bernal.jonatan.whip.Servers.ConcretePostServer;
 
-import java.util.Date;
-
 public class ConcretePostPresenter {
     View view;
 
@@ -54,7 +52,7 @@ public class ConcretePostPresenter {
     }
 
     public void setPost(Post post) {
-        view.getPostInfo(post.getTitle(), post.getCreatedAt(), post.getSpecie(), post.getRace(), post.getContenido(), post.getUserId(), post.getImagen(), post.getStatus(), post.getType());
+        view.getPostInfo(post.getTitle(), post.getCreatedAt(), post.getSpecie(), post.getRace(), post.getContenido(), post.getUserId(), post.getImagen(), post.getStatus(), post.getType(), post.getUsername());
     }
 
 
@@ -81,7 +79,7 @@ public class ConcretePostPresenter {
 
     public interface View {
 
-        void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status, String type);
+        void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status, String type, String username);
 
         void setFavorite(Boolean fav);
 
