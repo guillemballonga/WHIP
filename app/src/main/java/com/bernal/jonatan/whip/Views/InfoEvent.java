@@ -39,8 +39,8 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
 
         acceptarQuedada = findViewById(R.id.boto_acceptar_event);
         rebutjarQuedada = findViewById(R.id.boto_rebutjar_event);
-        URLUpdateAccept = "/event/" + idEvent + "/answer?action=accept";
-        URLUpdateReject = "/event/" + idEvent + "/answer?action=reject";
+        URLUpdateAccept = "https://whip-api.herokuapp.com/event/" + idEvent + "/answer?action=accept";
+        URLUpdateReject = "https://whip-api.herokuapp.com/event/" + idEvent + "/answer?action=reject";
 
         acceptarQuedada.setOnClickListener(new View.OnClickListener() {
 

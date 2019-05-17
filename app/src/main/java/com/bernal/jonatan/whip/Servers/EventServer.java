@@ -74,7 +74,7 @@ public class EventServer {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Method.PATCH,
                 urlUpdateAccept,
-                null,
+                jsonObject,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
