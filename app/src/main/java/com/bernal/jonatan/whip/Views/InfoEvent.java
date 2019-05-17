@@ -2,11 +2,18 @@ package com.bernal.jonatan.whip.Views;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
 import com.bernal.jonatan.whip.Presenters.ConcretePostPresenter;
 import com.bernal.jonatan.whip.R;
 
 public class InfoEvent extends AppCompatActivity implements ConcretePostPresenter.View{
+
+    private String URL;
+    private RequestQueue requestqueue;
+    TextView titulo, fechaPost, fechaQuedada, hora, lugar, idSolicitante;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

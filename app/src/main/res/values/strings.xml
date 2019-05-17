@@ -122,6 +122,11 @@
     <string name="hora_events">Hora:</string>
     <string name="calendario">Calendario</string>
     <string name="acceptar">Acceptar</string>
+    <string name="aceptar">ACEPTAR</string>
+    <string name="rechazar">RECHAZAR</string>
+    <string name="fechaMayuscula">FECHA:</string>
+    <string name="HORA">HORA:</string>
+    <string name="LUGAR">LUGAR:</string>
 
 
 </resources>

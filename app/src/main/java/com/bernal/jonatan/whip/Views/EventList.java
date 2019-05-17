@@ -66,7 +66,7 @@ public class EventList extends AppCompatActivity implements EventPresenter.View 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.icono_calendario:
-                //startActivity(new Intent(AdoptionList.this, NewPostAdoption.class));
+                startActivity(new Intent(EventList.this, InfoPostLost.class));
                 break;
         }
         return true;
