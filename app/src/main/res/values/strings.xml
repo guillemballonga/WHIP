@@ -121,6 +121,7 @@
     <string name="lugar_event">Lugar:</string>
     <string name="hora_events">Hora:</string>
     <string name="calendario">Calendario</string>
+    <string name="acceptar">Acceptar</string>
 
 
 </resources>

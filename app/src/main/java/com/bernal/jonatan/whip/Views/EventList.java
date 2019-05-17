@@ -1,5 +1,6 @@
 package com.bernal.jonatan.whip.Views;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -82,6 +83,8 @@ public class EventList extends AppCompatActivity implements EventPresenter.View 
             @Override
             public void onEventClicked(int position, View vista) {
                 String id_event = ((Event) events.get(contenedor_events.getChildAdapterPosition(vista))).getId();
+                Intent i = new Intent(EventList.this, InfoEvent.class);
+                startActivity(i);
                 //llamar a la activity de InfoEvent
             }
         });

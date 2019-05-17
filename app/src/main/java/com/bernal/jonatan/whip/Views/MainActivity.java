@@ -475,14 +475,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.e(TAG, e.getMessage());
             }
             if (ul != null) ul.setToken(token);
-            String xxxx = ul.getToken();
+
             return token;
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            
+
         }
     }
 }
