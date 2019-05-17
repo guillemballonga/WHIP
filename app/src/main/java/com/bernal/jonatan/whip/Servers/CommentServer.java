@@ -64,7 +64,7 @@ public class CommentServer {
         requestQueue.add(objectJsonrequest);
     }
 
-    public void getComments(final CommentPresenter commentPresenter, String URL_comments) {
+    public void getComments(final CommentPresenter commentPresenter, String URL_comments, final String URL_comments_comments) {
         requestQueue = Volley.newRequestQueue((Context) commentPresenter.getView());
         JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
                 JsonRequest.Method.GET,
@@ -76,13 +76,48 @@ public class CommentServer {
                     public void onResponse(JSONArray response) {
                         try {
                             //    num_comments.setText("Comentarios " + response.length());
-                            ArrayList Comments_post = new ArrayList<>();
+                            final ArrayList Comments_post = new ArrayList<>();
                             //              LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
                             //              layout.setOrientation(LinearLayoutManager.VERTICAL);
                             JSONObject comment;
                             for (int i = 0; i < response.length(); i++) {
                                 comment = response.getJSONObject(i);
                                 Comments_post.add(new Comment(comment.getString("id"), comment.getString("userId"), " ", comment.getString("text"), comment.getString("createdAt").split("T")[0]));
+
+                                JsonArrayRequest arrayJsonrequest2 = new JsonArrayRequest(
+                                        JsonRequest.Method.GET,
+                                        URL_comments_comments + comment.getString("id") + "/child",
+                                        null,
+                                        new Response.Listener<JSONArray>() {
+                                            @Override
+                                            public void onResponse(JSONArray response) {
+                                                JSONObject comment2;
+                                                for (int j = 0; j < response.length(); j++) {
+                                                    try {
+                                                        comment2 = response.getJSONObject(j);
+                                                        Comments_post.add(new Comment (comment2.getString("id"), comment2.getString("userId"), " ", comment2.getString("text"), comment2.getString("createdAt").split("T")[0]));
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+
+                                            }
+                                        },
+                                        new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+                                            }
+                                        }
+                                ) {
+                                    @Override
+                                    public Map<String, String> getHeaders() {
+                                        Map<String, String> params = new HashMap<>();
+                                        params.put("Content-Type", "application/json");
+                                        params.put("Authorization", ul.getAPI_KEY());
+                                        return params;
+                                    }
+                                };
+                                requestQueue.add(arrayJsonrequest2);
                             }
                             commentPresenter.chargeCommentList(Comments_post);
                         /*    adapt = new CommentAdapter(Comments_post);

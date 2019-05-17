@@ -97,7 +97,7 @@
     <string name="borrar">Borrar</string>
     <string name="linea_separadora">-------------------------------------------------------------------</string>
     <string name="todo">TODO</string>
-    <string name="ver_respuestas">Ver respuestas</string>
+    <string name="ver_respuestas">Escribe una respuesta...</string>
 
     <string name="facebook_app_id">2316633415254454</string>
     <string name="fb_login_protocol_scheme">fb2316633415254454</string>

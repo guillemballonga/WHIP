@@ -20,8 +20,8 @@ public class CommentPresenter {
         commentServer.createComment(this, URL_comments, boxtext);
     }
 
-    public void getComments(String URL_comments) {
-        commentServer.getComments(this, URL_comments);
+    public void getComments(String URL_comments, String URL_comments_comments) {
+        commentServer.getComments(this, URL_comments, URL_comments_comments);
     }
 
     public void deleteComment(String URL_comments, String id_comment) {
