@@ -39,11 +39,8 @@ import java.util.Map;
 
 public class AdoptionList extends AppCompatActivity implements PostPresenter.View {
 
-    PostPresenter postPresenter = new PostPresenter((PostPresenter.View) this);
+    PostPresenter postPresenter = new PostPresenter(this);
     private String URL, URL_filtre;
-    private RequestQueue requestqueue;
-    private JSONArray resultat;
-    private ArrayList<Post> Posts_adoption;
     private PostAdapter adapt;
     private SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView contenedor_adopt;
@@ -84,7 +81,6 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
         //Coneixón con la API
         URL = "https://whip-api.herokuapp.com/contributions/adoptionposts";
         URL_filtre = "https://whip-api.herokuapp.com/contributions/adoptionposts?sort=";
-        requestqueue = Volley.newRequestQueue(this);
 
         Toolbar tool = findViewById(R.id.toolbar_listadoAdopt);
         setSupportActionBar(tool);

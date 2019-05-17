@@ -39,6 +39,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -99,7 +100,8 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
         goToMostrarPerfilGuardant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                urlFoto = UploadImageFirebase.getIdentificadorImatge();
+                if (UploadImageFirebase.getIdentificadorImatge() != null)
+                    urlFoto = UploadImageFirebase.getIdentificadorImatge();
 
                 if (nom.getText().toString().equals("") || cp.getText().toString().equals("") || cognom.getText().toString().equals("") || user.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
@@ -201,5 +203,10 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
     public void changeActivity() {
         startActivity(new Intent(EditProfile.this, MostrarPerfil.class));
         finish();
+    }
+
+    @Override
+    public void setUserPosts(ArrayList mis_posts) {
+
     }
 }

@@ -111,10 +111,5 @@
     <string name="hora">Hora</string>
     <string name="formato_hora">HH:MM</string>
     <string name="enviar_quedada">Enviar Quedada</string>
-    <string name="motivo_de_la_adopci_n">Motivo de la Adopción</string>
-    <string name="enviar_solicitud">ENVIAR SOLICITUD</string>
-    <string name="expon_en_este_espacio_los_motivos_por_los_cuales_quieres_adoptar_al_animal">Expon en este espacio los motivos por los cuales quieres adoptar al animal.</string>
-    <string name="creador_del_post">CREADOR DEL POST:</string>
-    <string name="creador">CREADOR:</string>
 
 </resources>

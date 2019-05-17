@@ -274,4 +274,9 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
     public void recharge() {
         recreate();
     }
+
+    @Override
+    public void notifyCreate(String id) {
+
+    }
 }

@@ -25,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.Presenters.ConcretePostPresenter;
 import com.bernal.jonatan.whip.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,8 +42,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NewPostLost extends AppCompatActivity {
+public class NewPostLost extends AppCompatActivity implements ConcretePostPresenter.View {
 
+    ConcretePostPresenter concretePostPresenter = new ConcretePostPresenter(this);
     @SuppressLint("StaticFieldLeak")
     static ImageView foto;
     Spinner especie, tipo;
@@ -119,7 +121,7 @@ public class NewPostLost extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-
+  /*
                 //jason para comunicación con back
                 JSONObject post = new JSONObject();
                 JSONArray k = new JSONArray();
@@ -145,13 +147,15 @@ public class NewPostLost extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
+            */
                 if (titulo.getText().toString().equals("") || cp.getText().toString().equals("") || raza.getText().toString().equals("") || especie.getSelectedItem().toString().equals("") || tipo.getSelectedItem().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Los campos con * son obligatorios", Toast.LENGTH_SHORT).show();
 
                 } else {
+                    concretePostPresenter.createPost(URL, especie.getSelectedItem().toString(), UploadImageFirebase.getIdentificadorImatge(), raza.getText().toString(), cp.getText().toString(), contenido.getText().toString(), titulo.getText().toString(), tipo.getSelectedItem().toString(), "Lost");
+                }
                     //Guardar los datos del formulario en BACK. NOTA: No olvidar guardar la fecha de creación del Post
-                    JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+         /*           JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                             JsonRequest.Method.POST,
                             URL,
                             post,
@@ -186,14 +190,14 @@ public class NewPostLost extends AppCompatActivity {
                             return params;
                         }
                     };
-                    requestqueue.add(objectJsonrequest);
+                    requestqueue.add(objectJsonrequest);  */
 //JASON
 
                     //Ir a ver el post en concreto
 
 
                 }
-            }
+
         });
 
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -251,4 +255,31 @@ public class NewPostLost extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status, String type) {
+
+    }
+
+    @Override
+    public void setFavorite(Boolean fav) {
+
+    }
+
+    @Override
+    public void setDeletePost() {
+
+    }
+
+    @Override
+    public void recharge() {
+        recreate();
+    }
+
+    @Override
+    public void notifyCreate(String id) {
+        Intent i = new Intent(NewPostLost.this, InfoPostLost.class);
+        i.putExtra("identificadorPost", id);
+        startActivity(i);
+        finish();
+    }
 }

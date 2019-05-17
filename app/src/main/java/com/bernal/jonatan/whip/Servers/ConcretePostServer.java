@@ -17,6 +17,7 @@ import com.bernal.jonatan.whip.R;
 import com.bernal.jonatan.whip.Views.UserLoggedIn;
 import com.google.gson.JsonObject;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -185,6 +186,62 @@ public class ConcretePostServer {
                     @Override
                     public void onResponse(JSONObject response) {
                         concretePostPresenter.recharge();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
+                return params;
+            }
+        };
+        requestQueue.add(objectJsonrequest);
+    }
+
+    public void createPost(final ConcretePostPresenter concretePostPresenter, String URL, String especie, String identificadorImatge, String race, String cp, String text, String title, String type, String tipusPost) {
+        JSONObject post = new JSONObject();
+        JSONArray photos = new JSONArray();
+        photos.put(identificadorImatge);
+        photos.put("");
+        photos.put("");
+        photos.put("");
+        try {
+            post.put("specie", especie);
+            post.put("urls", photos);
+            post.put("race", race);
+            post.put("post_code", cp);
+            post.put("text", text);
+            post.put("title", title);
+            // if (tipo.getSelectedItem().toString().equals("Encontrado"))
+            //     post.put("type", "F");
+            // else post.put("type", "L");
+            if (tipusPost.equals("Lost")) {
+                if (type.equals("Encontrado")) post.put("type", "F");
+                else post.put("type", "L");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        requestQueue = Volley.newRequestQueue((Context) concretePostPresenter.getView());
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.POST,
+                URL,
+                post,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            concretePostPresenter.notifyCreate(response.getString("id"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {

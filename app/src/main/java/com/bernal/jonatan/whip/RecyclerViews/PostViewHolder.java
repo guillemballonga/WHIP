@@ -17,10 +17,6 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     TextView contenido_postPerdi, nombre_postPerdi, type_post;
     String id_post;
 
-
-
-
-
     PostViewHolder(@NonNull final View itemView, List<Post> datos, final OnListListener onListListener) {
         super(itemView);
 

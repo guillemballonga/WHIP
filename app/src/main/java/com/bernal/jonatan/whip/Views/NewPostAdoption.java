@@ -25,6 +25,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.Models.Post;
+import com.bernal.jonatan.whip.Presenters.ConcretePostPresenter;
 import com.bernal.jonatan.whip.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,7 +43,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NewPostAdoption extends AppCompatActivity {
+public class NewPostAdoption extends AppCompatActivity implements ConcretePostPresenter.View {
+
+    ConcretePostPresenter concretePostPresenter = new ConcretePostPresenter(this);
 
     @SuppressLint("StaticFieldLeak")
     static ImageView foto;
@@ -118,7 +122,7 @@ public class NewPostAdoption extends AppCompatActivity {
             public void onClick(View view) {
 
                 //jason para comunicación con back
-                JSONObject post = new JSONObject();
+     /*           JSONObject post = new JSONObject();
                 JSONArray k = new JSONArray();
 
                 //falta afegir imatge FIREBASE
@@ -127,9 +131,9 @@ public class NewPostAdoption extends AppCompatActivity {
                 k.put(identificadorImatge);
                 k.put("");
                 k.put("");
-                k.put("");
+                k.put(""); */
 //JASON
-                try {
+           /*     try {
                     post.put("specie", especie.getSelectedItem().toString());
                     post.put("urls", k);
                     post.put("race", raza.getText().toString());
@@ -139,14 +143,15 @@ public class NewPostAdoption extends AppCompatActivity {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
+                }  */
 
                 if (titulo.getText().toString().equals("") || cp.getText().toString().equals("") || raza.getText().toString().equals("") || especie.getSelectedItem().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Los campos con * son obligatorios", Toast.LENGTH_SHORT).show();
 
                 } else {
+                    concretePostPresenter.createPost(URL, especie.getSelectedItem().toString(), UploadImageFirebase.getIdentificadorImatge(), raza.getText().toString(), cp.getText().toString(), contenido.getText().toString(), titulo.getText().toString(), "", "Adoption");
                     //Guardar los datos del formulario en BACK. NOTA: No olvidar guardar la fecha de creación del Post
-                    JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+              /*      JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
                             JsonRequest.Method.POST,
                             URL,
                             post,
@@ -181,7 +186,7 @@ public class NewPostAdoption extends AppCompatActivity {
                             return params;
                         }
                     };
-                    requestqueue.add(objectJsonrequest);
+                    requestqueue.add(objectJsonrequest);  */
 //JASON
 
                     //Ir a ver el post en concreto
@@ -250,4 +255,32 @@ public class NewPostAdoption extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status, String type) {
+
+    }
+
+    @Override
+    public void setFavorite(Boolean fav) {
+
+    }
+
+    @Override
+    public void setDeletePost() {
+
+    }
+
+    @Override
+    public void recharge() {
+        recreate();
+    }
+
+    @Override
+    public void notifyCreate(String id) {
+        Intent i = new Intent(NewPostAdoption.this, InfoPostAdoption.class);
+        i.putExtra("identificadorPost", id);
+        startActivity(i);
+        finish();
+
+    }
 }
