@@ -2,11 +2,12 @@ package com.bernal.jonatan.whip.Servers;
 
 import android.content.Context;
 
+import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Event;
 import com.bernal.jonatan.whip.Presenters.EventPresenter;
@@ -29,7 +30,7 @@ public class EventServer {
     public void getEvents(final EventPresenter eventPresenter, String URL) {
         requestQueue = Volley.newRequestQueue((Context) eventPresenter.getView());
         JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
-                JsonRequest.Method.GET,
+                Method.GET,
                 URL,
                 null,
                 new Response.Listener<JSONArray>() {
@@ -40,7 +41,9 @@ public class EventServer {
                             JSONObject usr_event = new JSONObject();
                             for (int i = 0; i < response.length(); ++i) {
                                 usr_event = response.getJSONObject(i);
-                                User_events.add(new Event(usr_event.getString("userIdFromPost"), usr_event.getString("userId"), usr_event.getString("place"), usr_event.getString("date").split("T")[0], usr_event.getString("date").split("T")[1]));
+                                User_events.add(new Event(usr_event.getString("userIdFromPost"), usr_event.getString("userId"),
+                                        usr_event.getString("place"), usr_event.getString("date").split("T")[0],
+                                        usr_event.getString("date").split("T")[1], usr_event.getString("id") ));
                             }
                             eventPresenter.chargeEvents(User_events);
                         } catch (JSONException e) {
@@ -63,4 +66,40 @@ public class EventServer {
         };
         requestQueue.add(arrayJsonrequest);
     }
+
+    public void updateEvent(final EventPresenter eventPresenter, String urlUpdateAccept) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("auth", u1.getToken());
+        requestQueue = Volley.newRequestQueue((Context) eventPresenter.getView());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Method.PATCH,
+                urlUpdateAccept,
+                jsonObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        eventPresenter.recharge();
+
+                    }
+                },
+
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", u1.getAPI_KEY());
+                return params;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
+    }
 }
+

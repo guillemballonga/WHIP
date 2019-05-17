@@ -240,7 +240,7 @@
                 tools:layout_editor_absoluteY="586dp">
 
                 <Button
-                    android:id="@+id/boton_acceptar_event"
+                    android:id="@+id/boto_acceptar_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 

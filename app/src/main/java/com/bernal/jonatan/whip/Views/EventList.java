@@ -82,11 +82,19 @@ public class EventList extends AppCompatActivity implements EventPresenter.View 
         adapt.setOnEventListener(new OnEventListener() {
             @Override
             public void onEventClicked(int position, View vista) {
-                String id_event = ((Event) events.get(contenedor_events.getChildAdapterPosition(vista))).getId();
+                Event event = (Event) events.get(contenedor_events.getChildAdapterPosition(vista));
+                String idEvent = event.getId();
                 Intent i = new Intent(EventList.this, InfoEvent.class);
+                i.putExtra("idEvent", idEvent);
                 startActivity(i);
                 //llamar a la activity de InfoEvent
             }
         });
+    }
+
+    @Override
+    public void recharge() {
+        recreate();
+
     }
 }
