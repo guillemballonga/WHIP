@@ -9,16 +9,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.bernal.jonatan.whip.Presenters.ConcretePostPresenter;
+import com.bernal.jonatan.whip.Presenters.EventPresenter;
 import com.bernal.jonatan.whip.R;
 
-public class InfoEvent extends AppCompatActivity implements ConcretePostPresenter.View{
+import org.json.JSONException;
 
-    private String URL;
+import java.util.ArrayList;
+
+
+public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
+
+    EventPresenter eventPresenter = new EventPresenter( this);
+
+    private String URL, URLUpdateAccept, URLUpdateReject ;
     private RequestQueue requestqueue;
     TextView titulo, fechaPost, fechaQuedada, hora, lugar, idSolicitante;
     private String idEvent;
     private Button acceptarQuedada, rebutjarQuedada;
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
 
     @Override
@@ -30,15 +38,23 @@ public class InfoEvent extends AppCompatActivity implements ConcretePostPresente
 
 
         acceptarQuedada = findViewById(R.id.boto_acceptar_event);
-        rebutjarQuedada = findViewById(R.id.boton_cancelNewPostAdopcio);
+        rebutjarQuedada = findViewById(R.id.boto_rebutjar_event);
+        URLUpdateAccept = "/event/" + idEvent + "/answer?action=accept";
+        URLUpdateReject = "/event/" + idEvent + "/answer?action=reject";
 
         acceptarQuedada.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
+                try {
+                    eventPresenter.updateEvent(URLUpdateAccept);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                    Toast.makeText(getApplicationContext(), "Quedada acceptada", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(getApplicationContext(), "Quedada acceptada", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -47,6 +63,13 @@ public class InfoEvent extends AppCompatActivity implements ConcretePostPresente
 
             @Override
             public void onClick(View view) {
+                try {
+                    eventPresenter.updateEvent(URLUpdateReject);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
 
                 Toast.makeText(getApplicationContext(), "Quedada rebutjada", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(InfoEvent.this, EventList.class));
@@ -56,37 +79,16 @@ public class InfoEvent extends AppCompatActivity implements ConcretePostPresente
 
     }
 
-    @Override
-    public void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status, String type) {
-
-        titulo.setText(title);
-        fechaPost.setText(data[0]);
-
-
-    }
-
 
 
     @Override
-    public void setFavorite(Boolean fav) {
-
-    }
-
-    @Override
-    public void setDeletePost() {
+    public void chargeEvents(ArrayList events) {
 
     }
 
     @Override
     public void recharge() {
+        recreate();
 
     }
-
-    @Override
-    public void notifyCreate(String id) {
-
-    }
-
-
-
 }

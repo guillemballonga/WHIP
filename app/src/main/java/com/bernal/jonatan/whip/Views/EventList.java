@@ -90,4 +90,10 @@ public class EventList extends AppCompatActivity implements EventPresenter.View 
             }
         });
     }
+
+    @Override
+    public void recharge() {
+        recreate();
+
+    }
 }

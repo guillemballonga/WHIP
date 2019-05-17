@@ -1,9 +1,8 @@
 package com.bernal.jonatan.whip.Presenters;
 
-import android.view.View;
-
 import com.bernal.jonatan.whip.Servers.EventServer;
-import com.bernal.jonatan.whip.Views.EventList;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -30,8 +29,19 @@ public class EventPresenter {
         return this.view;
     }
 
+    public void updateEvent(String urlUpdate) throws JSONException {
+        eventServer.updateEvent(this, urlUpdate);
+
+    }
+
+
+    public void recharge() {
+        view.recharge();
+    }
+
     public interface View {
 
         void chargeEvents(ArrayList events);
+        void recharge();
     }
 }
