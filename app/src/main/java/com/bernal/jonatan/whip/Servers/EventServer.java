@@ -12,6 +12,7 @@ import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Event;
 import com.bernal.jonatan.whip.Presenters.EventPresenter;
 import com.bernal.jonatan.whip.Views.UserLoggedIn;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -79,6 +80,46 @@ public class EventServer {
                     @Override
                     public void onResponse(JSONObject response) {
                         eventPresenter.recharge();
+
+                    }
+                },
+
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", u1.getAPI_KEY());
+                return params;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public void getEventInfo(final EventPresenter eventPresenter, String url) {
+        requestQueue = Volley.newRequestQueue((Context) eventPresenter.getView());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            Event event = new Event(response.getString("userIdFromPost"), response.getString("userId"),
+                                    response.getString("place"), response.getString("date").split("T")[0],
+                                    response.getString("date").split("T")[1], response.getString("id") );
+                            eventPresenter.setEvent(event);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
                     }
                 },
