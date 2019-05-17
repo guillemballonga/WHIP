@@ -2,19 +2,16 @@ package com.bernal.jonatan.whip.Servers;
 
 import android.content.Context;
 
-import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Event;
 import com.bernal.jonatan.whip.Presenters.EventPresenter;
 import com.bernal.jonatan.whip.Views.UserLoggedIn;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,7 +41,9 @@ public class EventServer {
                             JSONObject usr_event = new JSONObject();
                             for (int i = 0; i < response.length(); ++i) {
                                 usr_event = response.getJSONObject(i);
-                                User_events.add(new Event(usr_event.getString("userIdFromPost"), usr_event.getString("userId"), usr_event.getString("place"), usr_event.getString("date").split("T")[0], usr_event.getString("date").split("T")[1]));
+                                User_events.add(new Event(usr_event.getString("userIdFromPost"), usr_event.getString("userId"),
+                                        usr_event.getString("place"), usr_event.getString("date").split("T")[0],
+                                        usr_event.getString("date").split("T")[1], usr_event.getString("id") ));
                             }
                             eventPresenter.chargeEvents(User_events);
                         } catch (JSONException e) {
