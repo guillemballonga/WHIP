@@ -17,7 +17,7 @@ import com.bernal.jonatan.whip.R;
 
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    Button lost, adoption;
+    Button lost, adoption, events;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
 
@@ -28,6 +28,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
         lost = findViewById(R.id.boton_lost);
         adoption = findViewById(R.id.boton_adoption);
+        events = findViewById(R.id.boton_eventos);
 
         Toolbar tool = findViewById(R.id.toolbar_menuPrincipal);
         setSupportActionBar(tool);
@@ -56,6 +57,13 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
             }
         });
+
+        events.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainMenu.this, EventList.class));
+            }
+        });
     }
 
     @Override
@@ -73,7 +81,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(new Intent(MainMenu.this, MostrarPerfil.class));
                 break;
             case R.id.nav_eventos:
-
+                startActivity(new Intent(MainMenu.this, EventList.class));
                 break;
             case R.id.nav_logout:
 

@@ -22,7 +22,6 @@ import java.util.Map;
 
 public class EventServer {
 
-    static String URL = "https://whip-api.herokuapp.com/events";
     private UserLoggedIn u1 = UserLoggedIn.getUsuariLogejat("", "");
     private String api = u1.getAPI_KEY();
     private RequestQueue requestQueue;
@@ -41,10 +40,8 @@ public class EventServer {
                             JSONObject usr_event = new JSONObject();
                             for (int i = 0; i < response.length(); ++i) {
                                 usr_event = response.getJSONObject(i);
+                                User_events.add(new Event(usr_event.getString("userIdFromPost"), usr_event.getString("userId"), usr_event.getString("place"), usr_event.getString("date").split("T")[0], usr_event.getString("date").split("T")[1]));
                             }
-//UserFromPost, date, place
-                            User_events.add(new Event(usr_event.getString("userIdFromPost"), usr_event.getString("userId"), usr_event.getString("place"), usr_event.getString("date").split("T")[0], usr_event.getString("date").split("T")[1]));
-
                             eventPresenter.chargeEvents(User_events);
                         } catch (JSONException e) {
                             e.printStackTrace();

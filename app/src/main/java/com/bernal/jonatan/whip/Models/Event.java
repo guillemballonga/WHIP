@@ -13,12 +13,12 @@ public class Event {
     private String place;
     private String postId;
 
-    public Event(String userIdFromPost, String userId, String place, String s, String s1) {
+    public Event(String userIdFromPost, String userId, String place, String date, String time) {
         this.userFromPostId = userIdFromPost;
         this.userId = userId;
         this.place = place;
-        this.date = s;
-        this.date = s1;
+        this.date = date;
+        this.time = time;
     }
 
     public String getTime() {

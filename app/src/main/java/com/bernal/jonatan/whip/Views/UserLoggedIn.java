@@ -30,7 +30,7 @@ public class UserLoggedIn {
         this.api_key = api_key;
     }
 
-    String getCorreo_user() {
+    public String getCorreo_user() {
         return correo_user;
     }
 
