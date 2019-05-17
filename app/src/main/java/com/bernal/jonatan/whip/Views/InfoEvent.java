@@ -37,6 +37,11 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
         idEvent = getIntent().getStringExtra("idEvent");
 
 
+        Toast.makeText(getApplicationContext(), "token usu " + ul.getToken(), Toast.LENGTH_SHORT).show();
+        String xxx = ul.getToken();
+        System.out.println("token id: " + ul.getToken());
+
+
         acceptarQuedada = findViewById(R.id.boto_acceptar_event);
         rebutjarQuedada = findViewById(R.id.boto_rebutjar_event);
         URLUpdateAccept = "https://whip-api.herokuapp.com/event/" + idEvent + "/answer?action=accept";
@@ -55,6 +60,8 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
 
 
                 Toast.makeText(getApplicationContext(), "Quedada acceptada", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(InfoEvent.this, EventList.class));
+                finish();
 
             }
         });
