@@ -45,13 +45,13 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     //private static final String  = ;
     TextView titulo, fecha, especie, tipo, raza, contenido, num_comments, idCreador;
     ImageView foto_post, foto_user, compartirRRSS;
-    EditText box_comment, box_comment_comment;
+    EditText box_comment;
     String Identificador;
     Button cerrar_post, crear_comment, borrar_comment, organ_quedada;
     RecyclerView comments;
 
 
-    private String URL, URL_favs, URL_like, URL_close, URL_comments, URL_comments_comments;
+    private String URL, URL_favs, URL_like, URL_close, URL_comments;
     private RequestQueue requestqueue;
     private CommentAdapter adapt;
     private ArrayList<Comment> Comments_post;
@@ -106,7 +106,6 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         URL_like = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=lost";
         URL_close = "https://whip-api.herokuapp.com/contributions/close/" + Identificador + "/?type=lost";
         URL_comments = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador + "/comments";
-        URL_comments_comments = "https://whip-api.herokuapp.com/comments/";
 
         requestqueue = Volley.newRequestQueue(this);
 
@@ -199,7 +198,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     }
 
     private void carregar_comments() {
-        commentPresenter.getComments(URL_comments, URL_comments_comments);
+        commentPresenter.getComments(URL_comments);
        /* JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
                 JsonRequest.Method.GET,
                 URL_comments,
@@ -509,14 +508,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
             }
 
             @Override
-            public void onResponseComment(int position, View vista) {
-                box_comment_comment = vista.findViewById(R.id.response_comment);
-                if (box_comment_comment.getText().toString().equals(""))
-                    Toast.makeText(getApplicationContext(), "Debe escribir un comentario", Toast.LENGTH_SHORT).show();
-                else {
-                    commentPresenter.createComment(URL_comments, box_comment_comment.getText().toString());
-                }
-
+            public void onVerCommentsClicked(View vista) {
             }
         });
         comments.setAdapter(adapt);
