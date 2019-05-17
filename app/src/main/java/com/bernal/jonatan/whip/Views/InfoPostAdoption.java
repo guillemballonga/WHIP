@@ -46,7 +46,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
 
     private String mail_creador;
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
     private Menu menu_fav;
 

@@ -24,7 +24,7 @@ import java.util.Map;
 public class CommentServer {
 
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
     private String api = ul.getAPI_KEY();
     private RequestQueue requestQueue;
 

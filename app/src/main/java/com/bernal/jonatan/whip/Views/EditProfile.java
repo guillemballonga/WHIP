@@ -20,10 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Presenters.UserPresenter;
 import com.bernal.jonatan.whip.R;
@@ -34,14 +30,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.master.glideimageview.GlideImageView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 
@@ -58,7 +49,7 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
     //variables para comucicación back
     private String URL, urlFoto;
     private RequestQueue requestqueue;
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "" );
     private String api = ul.getAPI_KEY();
     private Uri path;
 
@@ -192,11 +183,14 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
         cp.setText(cpt);
         correu.setText(email);
         urlFoto = photoURL;
-        if (photoURL.substring(1, 7).equals("images")) {
-            retrieveImage(urlFoto);
-        } else { //CARREGAR IMATGE DE GOOGLE
+        if (photoURL.equals("") || urlFoto.equals("null")) {
+
+        } else if (photoURL.substring(1, 7).equals("images")) {
+            retrieveImage(photoURL);
+        } else  { //CARREGAR IMATGE DE GOOGLE
             fotoperfil.loadImageUrl(urlFoto);
         }
+
     }
 
     @Override

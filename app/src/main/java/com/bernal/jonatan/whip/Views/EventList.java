@@ -1,6 +1,5 @@
 package com.bernal.jonatan.whip.Views;
 
-import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,16 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.bernal.jonatan.whip.Models.Event;
 import com.bernal.jonatan.whip.Presenters.EventPresenter;
-import com.bernal.jonatan.whip.Presenters.PostPresenter;
 import com.bernal.jonatan.whip.R;
 import com.bernal.jonatan.whip.RecyclerViews.EventAdapter;
 import com.bernal.jonatan.whip.RecyclerViews.OnEventListener;
-import com.bernal.jonatan.whip.RecyclerViews.PostAdapter;
 
 import java.util.ArrayList;
 
@@ -32,7 +27,7 @@ public class EventList extends AppCompatActivity implements EventPresenter.View 
     RecyclerView contenedor_events;
 
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "" );
     private String api = ul.getAPI_KEY();
 
     @Override

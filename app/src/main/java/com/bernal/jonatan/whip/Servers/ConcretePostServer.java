@@ -1,10 +1,7 @@
 package com.bernal.jonatan.whip.Servers;
 
 import android.content.Context;
-import android.view.View;
-import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -13,9 +10,7 @@ import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Post;
 import com.bernal.jonatan.whip.Presenters.ConcretePostPresenter;
-import com.bernal.jonatan.whip.R;
 import com.bernal.jonatan.whip.Views.UserLoggedIn;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,7 +22,7 @@ import java.util.Map;
 public class ConcretePostServer {
 
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
     private String api = ul.getAPI_KEY();
     private RequestQueue requestQueue;
 

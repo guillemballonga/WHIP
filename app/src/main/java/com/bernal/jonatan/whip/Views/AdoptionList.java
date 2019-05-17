@@ -17,25 +17,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Post;
 import com.bernal.jonatan.whip.Presenters.PostPresenter;
 import com.bernal.jonatan.whip.R;
 import com.bernal.jonatan.whip.RecyclerViews.OnListListener;
 import com.bernal.jonatan.whip.RecyclerViews.PostAdapter;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class AdoptionList extends AppCompatActivity implements PostPresenter.View {
 
@@ -46,7 +34,7 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
     RecyclerView contenedor_adopt;
 
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "" );
     private String api = ul.getAPI_KEY();
     private Spinner spinnerFiltre;
     private TextView orderBy;

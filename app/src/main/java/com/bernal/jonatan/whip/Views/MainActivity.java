@@ -284,11 +284,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             user.put("fam_name", account.getFamilyName());
             user.put("username", "");
             user.put("photo_url", account.getPhotoUrl());
+            String tokenCalendar = account.getIdToken();
+            Log.w(TAG, "token de calendar: " + tokenCalendar);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        guardarUsuari(user);
+        guardarUsuari(user, account.getIdToken());
     }
 
     private void userJsonFacebook(JSONObject object) {
@@ -311,9 +313,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        guardarUsuari(user);
+        guardarUsuari(user, "");
     }
-    private void guardarUsuari(JSONObject user) {
+    private void guardarUsuari(JSONObject user, final String idToken) {
 
         Log.w(TAG, "guardarUsuari; facebook = " + facebook);
 
@@ -327,9 +329,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.makeText(getApplicationContext(), "Usuari logejat  correctament", Toast.LENGTH_SHORT).show();
                         //todo guardar api key en el singleton
                         try {
-                            ul = UserLoggedIn.getUsuariLogejat(response.getString("api_key"), response.getString("email"));
+                            ul = UserLoggedIn.getUsuariLogejat(response.getString("api_key"), response.getString("email"), idToken );
                             ul.setAPI_KEY(response.getString("api_key"));
                             ul.setCorreo_user(response.getString("email"));
+                            ul.setToken(idToken);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

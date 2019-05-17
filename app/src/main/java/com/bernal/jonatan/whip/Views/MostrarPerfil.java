@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Presenters.UserPresenter;
 import com.bernal.jonatan.whip.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,7 +25,6 @@ import com.google.firebase.storage.StorageReference;
 import com.master.glideimageview.GlideImageView;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -56,7 +54,7 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
     private JSONArray resultat;
     private JSONObject result;
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
     private String api = ul.getAPI_KEY();
 
     public static String getCorreu() {
@@ -164,9 +162,11 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
         cp.setText(cpt);
         correu.setText(email);
         urlFoto = photoURL;
-        if (photoURL.substring(1, 7).equals("images")) {
+        if (urlFoto.equals("") || urlFoto.equals("null")) {
+
+        } else if (photoURL.substring(1, 7).equals("images")) {
             retrieveImage(photoURL);
-        } else { //CARREGAR IMATGE DE GOOGLE
+        } else  { //CARREGAR IMATGE DE GOOGLE
             imatge.loadImageUrl(photoURL);
         }
     }

@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bernal.jonatan.whip.Models.Event;
-import com.bernal.jonatan.whip.Models.Post;
 import com.bernal.jonatan.whip.R;
 import com.bernal.jonatan.whip.Views.UserLoggedIn;
 
@@ -18,7 +17,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
     private List<Event> listaObjetos;
     private OnEventListener onEventListener;
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
     public void setOnEventListener(OnEventListener onEventListener) {
         this.onEventListener = onEventListener;

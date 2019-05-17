@@ -1,10 +1,6 @@
 package com.bernal.jonatan.whip.Servers;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
-import android.view.View;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -14,10 +10,6 @@ import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Post;
 import com.bernal.jonatan.whip.Presenters.PostPresenter;
-import com.bernal.jonatan.whip.RecyclerViews.OnListListener;
-import com.bernal.jonatan.whip.RecyclerViews.PostAdapter;
-import com.bernal.jonatan.whip.Views.AdoptionList;
-import com.bernal.jonatan.whip.Views.InfoPostAdoption;
 import com.bernal.jonatan.whip.Views.UserLoggedIn;
 
 import org.json.JSONArray;
@@ -32,7 +24,7 @@ import java.util.Map;
 public class PostServer {
 
     static String URL = "https://whip-api.herokuapp.com/users/profile";
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
     private String api = ul.getAPI_KEY();
     private RequestQueue requestQueue;
 

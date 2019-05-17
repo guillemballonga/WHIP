@@ -28,6 +28,7 @@
         <activity android:name=".Views.EditProfile" />
         <activity android:name=".Views.InfoPostLost" />
         <activity android:name=".Views.MyPosts" />
+        <activity android:name=".Views.EventList" />
         <activity android:name=".Views.NewPostLost" />
         <activity android:name=".Views.MainActivity">
 

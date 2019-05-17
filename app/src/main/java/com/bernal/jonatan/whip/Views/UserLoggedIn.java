@@ -6,18 +6,22 @@ public class UserLoggedIn {
     private String api_key;
     private String correo_user;
 
-    private UserLoggedIn(String api_key, String correo) {
+
+    private String token;
+
+    private UserLoggedIn(String api_key, String correo, String token) {
 
         this.api_key = api_key;
         this.correo_user = correo;
+        this.token = token;
 
     }
 
-    public static UserLoggedIn getUsuariLogejat(String api_key, String correo) {
+    public static UserLoggedIn getUsuariLogejat(String api_key, String correo, String token) {
 
         if (instancia == null) {
 
-            instancia = new UserLoggedIn(api_key, correo);
+            instancia = new UserLoggedIn(api_key, correo, token );
         }
         return instancia;
     }
@@ -37,4 +41,13 @@ public class UserLoggedIn {
     void setCorreo_user(String correo_user) {
         this.correo_user = correo_user;
     }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
 }

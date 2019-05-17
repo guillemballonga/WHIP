@@ -18,15 +18,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Post;
 import com.bernal.jonatan.whip.Presenters.PostPresenter;
 import com.bernal.jonatan.whip.R;
 import com.bernal.jonatan.whip.RecyclerViews.OnListListener;
 import com.bernal.jonatan.whip.RecyclerViews.PostAdapter;
-
-import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -40,7 +36,7 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
     RecyclerView contenedor;
     Button organQuedada;
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
     private String api = ul.getAPI_KEY();
     private Spinner spinnerFiltre;
     String selectedItem = "";
