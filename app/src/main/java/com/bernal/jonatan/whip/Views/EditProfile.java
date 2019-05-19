@@ -93,17 +93,19 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
             @Override
             public void onClick(View v) {
 
-                if (urlBD.equals("") || urlBD.equals("null")) {}
+                if (urlBD.equals("") || urlBD.equals("null")) {
+
+                }
                 else if (urlBD.substring(1,7).equals("image")) {
                     urlFoto = UploadImageFirebase.getIdentificadorImatge();
                 }
                 else urlFoto = urlBD;
                 if (!urlFoto.equals("")) retrieveImage(urlFoto);
 
-                /*
+
                 if (UploadImageFirebase.getIdentificadorImatge() != null)
                     urlFoto = UploadImageFirebase.getIdentificadorImatge();
-                */
+
 
                 if (nom.getText().toString().equals("") || cp.getText().toString().equals("") || cognom.getText().toString().equals("") || user.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
