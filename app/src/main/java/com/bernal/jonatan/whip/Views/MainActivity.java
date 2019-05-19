@@ -297,7 +297,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        guardarUsuari(user,account.getAccount().name);
+        guardarUsuari(user);
     }
 
     private void userJsonFacebook(JSONObject object) {
@@ -320,9 +320,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        guardarUsuari(user, "");
+        guardarUsuari(user);
     }
-    private void guardarUsuari(JSONObject user, final String accountName) {
+    private void guardarUsuari(JSONObject user) {
 
         Log.w(TAG, "guardarUsuari; facebook = " + facebook);
         Log.w(TAG, "guardarUsuari; token calendar = " + tokenCalendar);
@@ -365,17 +365,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
         requestqueue.add(objectJsonrequest);
-        userPutToken(accountName);
+        if (!facebook) userPutToken();
 
 
     }
 
-    private void userPutToken(String accountName) {
-
-        new RetrieveTokenTask().execute(accountName);
-
-
-
+    private void userPutToken() {
+      //  new RetrieveTokenTask().execute(ul.getCorreo_user()); //nomes amb google
     }
     // [END handleSignInResult]
 

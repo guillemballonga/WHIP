@@ -162,6 +162,7 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
         cp.setText(cpt);
         correu.setText(email);
         urlFoto = photoURL;
+
         if (urlFoto.equals("") || urlFoto.equals("null")) {
 
         } else if (photoURL.substring(1, 7).equals("images")) {

@@ -48,6 +48,7 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
     UserPresenter userPresenter = new UserPresenter((UserPresenter.View) this);
     //variables para comucicación back
     private String URL, urlFoto;
+    private String urlBD = MostrarPerfil.getFoto();
     private RequestQueue requestqueue;
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "" );
     private String api = ul.getAPI_KEY();
@@ -91,8 +92,18 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
         goToMostrarPerfilGuardant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (urlBD.equals("") || urlBD.equals("null")) {}
+                else if (urlBD.substring(1,7).equals("image")) {
+                    urlFoto = UploadImageFirebase.getIdentificadorImatge();
+                }
+                else urlFoto = urlBD;
+                if (!urlFoto.equals("")) retrieveImage(urlFoto);
+
+                /*
                 if (UploadImageFirebase.getIdentificadorImatge() != null)
                     urlFoto = UploadImageFirebase.getIdentificadorImatge();
+                */
 
                 if (nom.getText().toString().equals("") || cp.getText().toString().equals("") || cognom.getText().toString().equals("") || user.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();

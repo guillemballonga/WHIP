@@ -38,8 +38,6 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
 
 
         Toast.makeText(getApplicationContext(), "token usu " + ul.getToken(), Toast.LENGTH_SHORT).show();
-        String xxx = ul.getToken();
-        System.out.println("token id: " + ul.getToken());
 
 
         acceptarQuedada = findViewById(R.id.boto_acceptar_event);
