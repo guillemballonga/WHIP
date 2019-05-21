@@ -2,6 +2,7 @@
 package com.bernal.jonatan.whip;
 
 
+import com.bernal.jonatan.whip.Views.UserLoggedIn;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
@@ -22,6 +23,7 @@ import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.EventReminder;
 import com.google.api.services.calendar.model.Events;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,20 +31,27 @@ import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Calendar;
 
-public class Calendar {
+public class CalendarGoogle {
 
     private static final String APPLICATION_NAME = "Whip";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
+
+    final HttpTransport transport = AndroidHttp.newCompatibleTransport();
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
+    private final String TOKEN_USU =  ul.getToken();
+
 
     /**
      * Global instance of the scopes required by this quickstart.
      * If modifying these scopes, delete your previously saved tokens/ folder.
      */
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
-    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+    private static final String CREDENTIALS_FILE_PATH = "/client_secret.json";
 
     /**
      * Creates an authorized Credential object.
@@ -53,7 +62,8 @@ public class Calendar {
      */
     private static Credential getCredentials(final HttpTransport HTTP_TRANSPORT) throws IOException {
         // Load client secrets.
-        InputStream in = Calendar.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
+        InputStream in = CalendarGoogle.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
+        //TODO: no funciona. no troba fitxer
 
         if (in == null) {
             throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
@@ -63,7 +73,7 @@ public class Calendar {
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
+                .setDataStoreFactory(new FileDataStoreFactory(new File(TOKENS_DIRECTORY_PATH)))
                 .setAccessType("offline")
                 .build();
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
@@ -71,17 +81,23 @@ public class Calendar {
     }
 
 
+
+
     public static com.google.api.services.calendar.Calendar apiCalendar() throws GeneralSecurityException, IOException {
         // Build a new authorized API client service.
         //final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        final HttpTransport HTTP_TRANSPORT2 = AndroidHttp.newCompatibleTransport();
-        com.google.api.services.calendar.Calendar service = new com.google.api.services.calendar.Calendar.Builder(HTTP_TRANSPORT2, JSON_FACTORY, getCredentials(HTTP_TRANSPORT2))
+        final HttpTransport HTTP_TRANSPORT = AndroidHttp.newCompatibleTransport();
+
+        com.google.api.services.calendar.Calendar service = new com.google.api.services.calendar.Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
-        getCredentials(HTTP_TRANSPORT2);
+
+        getCredentials(HTTP_TRANSPORT);
         return service;
 
     }
+
+
 
     public void listEventsFromPrimaryCalendar(com.google.api.services.calendar.Calendar service) throws IOException {
         // List the next 10 events from the primary calendar.
@@ -108,7 +124,7 @@ public class Calendar {
     }
 
 
-    public static void createEvent() throws GeneralSecurityException, IOException {
+    public static void createEvent(String place, String dateTime) throws Exception {
 
         //TODO passar els parametres correctes
 
@@ -117,8 +133,9 @@ public class Calendar {
 // Change the scope to CalendarScopes.CALENDAR and delete any stored
 // credentials.
 
-        com.google.api.services.calendar.Calendar service = apiCalendar();
 
+        com.google.api.services.calendar.Calendar service = apiCalendar();
+        //TODO: PROBLEMA AQUI
         Event event = new Event()
                 .setSummary("Google I/O 2015")
                 .setLocation("800 Howard St., San Francisco, CA 94103")
@@ -130,7 +147,7 @@ public class Calendar {
                 .setTimeZone("America/Los_Angeles");
         event.setStart(start);
 
-        DateTime endDateTime = new DateTime("2015-05-28T17:00:00-07:00");
+        DateTime endDateTime = new DateTime("2015-05-28T09:00:00-07:00");
         EventDateTime end = new EventDateTime()
                 .setDateTime(endDateTime)
                 .setTimeZone("America/Los_Angeles");
@@ -159,6 +176,8 @@ public class Calendar {
         System.out.printf("Event created: %s\n", event.getHtmlLink());
 
     }
+
+
 
 
     public static void main(String... args) throws IOException, GeneralSecurityException {

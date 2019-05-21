@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.bernal.jonatan.whip.Calendar;
+import com.bernal.jonatan.whip.CalendarGoogle;
 import com.bernal.jonatan.whip.Presenters.EventPresenter;
 import com.bernal.jonatan.whip.R;
 
@@ -61,10 +61,12 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
 
                 //aqui crido a crear quedada al google calendar
                 try {
-                    Calendar.createEvent();
+                    CalendarGoogle.createEvent("","" );
                 } catch (GeneralSecurityException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
