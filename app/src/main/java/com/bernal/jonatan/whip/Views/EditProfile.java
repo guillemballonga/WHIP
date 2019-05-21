@@ -51,7 +51,7 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
     private String urlFoto = ""; //la que agafo si canvio de foto
     private String urlBD = MostrarPerfil.getFoto();
     private RequestQueue requestqueue;
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "" );
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
     private String api = ul.getAPI_KEY();
     private Uri path;
 
@@ -101,16 +101,12 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
 
                     //si no l he canviat
                     urlFoto = urlBD;
-                }
-                else if (urlFoto.substring(1,7).equals("images")) { // si l he canviat
+                } else if (urlFoto.substring(1, 7).equals("images")) { // si l he canviat
                     urlBD = urlFoto;
                     //urlFoto = UploadImageFirebase.getIdentificadorImatge();
                 }
                 //else urlFoto = urlBD;
                 if (!urlFoto.equals("") && !urlFoto.equals("null")) retrieveImage(urlFoto);
-
-
-
 
 
                 if (nom.getText().toString().equals("") || cp.getText().toString().equals("") || cognom.getText().toString().equals("") || user.getText().toString().equals("")) {
@@ -144,7 +140,6 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
 
 
     }
-
 
 
     @SuppressLint("IntentReset")
@@ -194,8 +189,8 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
 
     @Override
     public void getUserInfo(String cpt, String email, String family_name, String first_name, String photoURL, String username) {
-        if(username.toString().equals("null")) username="";
-        if(cpt.toString().equals("null")) cpt="";
+        if (username.toString().equals("null")) username = "";
+        if (cpt.toString().equals("null")) cpt = "";
         nom.setText(first_name);
         cognom.setText(family_name);
         user.setText(username);
@@ -206,7 +201,7 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
 
         } else if (photoURL.substring(1, 7).equals("images")) {
             retrieveImage(photoURL);
-        } else  { //CARREGAR IMATGE DE GOOGLE
+        } else { //CARREGAR IMATGE DE GOOGLE
             fotoperfil.loadImageUrl(urlFoto);
         }
 
