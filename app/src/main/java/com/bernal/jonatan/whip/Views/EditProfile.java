@@ -47,7 +47,8 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
 
     UserPresenter userPresenter = new UserPresenter((UserPresenter.View) this);
     //variables para comucicación back
-    private String URL, urlFoto;
+    private String URL;
+    private String urlFoto = ""; //la que agafo si canvio de foto
     private String urlBD = MostrarPerfil.getFoto();
     private RequestQueue requestqueue;
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "" );
@@ -93,18 +94,23 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
             @Override
             public void onClick(View v) {
 
-                if (urlBD.equals("") || urlBD.equals("null")) {
-
-                }
-                else if (urlBD.substring(1,7).equals("image")) {
-                    urlFoto = UploadImageFirebase.getIdentificadorImatge();
-                }
-                else urlFoto = urlBD;
-                if (!urlFoto.equals("")) retrieveImage(urlFoto);
-
-
                 if (UploadImageFirebase.getIdentificadorImatge() != null)
-                    urlFoto = UploadImageFirebase.getIdentificadorImatge();
+                    urlFoto = UploadImageFirebase.getIdentificadorImatge(); //si lhe canviat tindra valor, sino vindra buit
+
+                if (urlFoto.equals("") || urlFoto.equals("null")) {
+
+                    //si no l he canviat
+                    urlFoto = urlBD;
+                }
+                else if (urlFoto.substring(1,7).equals("images")) { // si l he canviat
+                    urlBD = urlFoto;
+                    //urlFoto = UploadImageFirebase.getIdentificadorImatge();
+                }
+                //else urlFoto = urlBD;
+                if (!urlFoto.equals("") && !urlFoto.equals("null")) retrieveImage(urlFoto);
+
+
+
 
 
                 if (nom.getText().toString().equals("") || cp.getText().toString().equals("") || cognom.getText().toString().equals("") || user.getText().toString().equals("")) {
