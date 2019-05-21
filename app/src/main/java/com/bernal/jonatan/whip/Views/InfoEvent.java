@@ -9,11 +9,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.bernal.jonatan.whip.Calendar;
 import com.bernal.jonatan.whip.Presenters.EventPresenter;
 import com.bernal.jonatan.whip.R;
 
 import org.json.JSONException;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 
 
@@ -56,8 +59,19 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
                     e.printStackTrace();
                 }
 
+                //aqui crido a crear quedada al google calendar
+                try {
+                    Calendar.createEvent();
+                } catch (GeneralSecurityException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
 
                 Toast.makeText(getApplicationContext(), "Quedada acceptada", Toast.LENGTH_SHORT).show();
+
+
                 startActivity(new Intent(InfoEvent.this, EventList.class));
                 finish();
 
