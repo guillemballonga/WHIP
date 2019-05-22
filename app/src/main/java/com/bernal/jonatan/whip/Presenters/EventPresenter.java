@@ -1,5 +1,6 @@
 package com.bernal.jonatan.whip.Presenters;
 
+import com.bernal.jonatan.whip.Models.Event;
 import com.bernal.jonatan.whip.Servers.EventServer;
 
 import org.json.JSONException;
@@ -16,8 +17,17 @@ public class EventPresenter {
         this.eventServer = new EventServer();
     }
 
+    public void setEvent(Event event) {
+        view.setEvent(event.getUserFromPostId(), event.getUserId(), event.getPlace(), event.getDate(), event.getTime());
+    }
+
+
     public void getEvents(String URL) {
         eventServer.getEvents(this, URL);
+    }
+
+    public void getEventInfo(String URL) {
+        eventServer.getEventInfo(this, URL);
     }
 
     public void chargeEvents(ArrayList events) {
@@ -40,7 +50,7 @@ public class EventPresenter {
     }
 
     public interface View {
-
+        void setEvent(String UserFromPostId, String UserId, String Place, String Date, String Time);
         void chargeEvents(ArrayList events);
         void recharge();
     }

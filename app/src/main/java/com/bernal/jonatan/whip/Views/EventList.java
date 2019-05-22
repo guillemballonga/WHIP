@@ -67,9 +67,15 @@ public class EventList extends AppCompatActivity implements EventPresenter.View 
         switch (item.getItemId()) {
             case R.id.icono_calendario:
                 startActivity(new Intent(EventList.this, InfoPostLost.class));
+                finish();
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void setEvent(String UserFromPostId, String UserId, String Place, String Date, String Time) {
+
     }
 
     @Override
