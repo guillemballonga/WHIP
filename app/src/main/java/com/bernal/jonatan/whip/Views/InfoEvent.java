@@ -23,13 +23,14 @@ import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 
 
-public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
+public class InfoEvent extends AppCompatActivity implements EventPresenter.View {
 
-    EventPresenter eventPresenter = new EventPresenter( this);
+    EventPresenter eventPresenter = new EventPresenter(this);
 
-    private String URL, URLUpdateAccept, URLUpdateReject ;
+    private String URL, URLUpdateAccept, URLUpdateReject;
     private RequestQueue requestqueue;
-    TextView title, dataPost, dataQuedada, hora, place, idSolicitante;
+    TextView title, dataPost, dataQuedada, hora, lloc, idSolicitante;
+    String titleEvent = "", datePost = "", dateEvent = "", horaEvent = "", placeEvent = "", idSolicitanteEvent = "";
     private String idEvent;
     private Button acceptarQuedada, rebutjarQuedada;
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
@@ -54,9 +55,8 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
         dataPost = findViewById(R.id.fecha_post_provinente);
         dataQuedada = findViewById(R.id.fecha_info_quedada);
         hora = findViewById(R.id.hora_info_quedada);
-        place = findViewById(R.id.lugar_info_quedada);
+        lloc = findViewById(R.id.lugar_info_quedada);
         idSolicitante = findViewById(R.id.id_creadorQuedada);
-
 
 
         acceptarQuedada.setOnClickListener(new View.OnClickListener() {
@@ -80,23 +80,22 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
                     AssetManager am = getApplicationContext().getAssets();
                     int idCredentials = R.raw.credentials;
 
-                    InputStream im =  credentials(idCredentials);
+                    InputStream im = credentials(idCredentials);
 
-/*
-                    CalendarGoogle.createEvent(im, ul.getCorreo_user(), "correuSolicitant","dataQuedada", "hora", "lloc" );
+
+                    CalendarGoogle.createEvent(im, ul.getCorreo_user(), idSolicitanteEvent, dateEvent, horaEvent, placeEvent);
 
                 } catch (GeneralSecurityException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
-*/
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
 
                 Toast.makeText(getApplicationContext(), "Quedada acceptada", Toast.LENGTH_SHORT).show();
-
 
 
                 startActivity(new Intent(InfoEvent.this, EventList.class));
@@ -117,7 +116,6 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
                 }
 
 
-
                 Toast.makeText(getApplicationContext(), "Quedada rebutjada", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(InfoEvent.this, EventList.class));
                 finish();
@@ -136,13 +134,19 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
     }
 
     @Override
-    public void setEvent(String UserFromPostId, String UserId, String Place, String Date, String Time) {
+    public void setEvent(String userFromPostId, String userId, String place, String date, String time) {
         //title = findViewById(R.id.titulo_post_provinente);
         //dataPost = findViewById(R.id.fecha_post_provinente);
-        dataQuedada.setText(Date);
-        hora.setText(Time);
-        place.setText(Place);
-        idSolicitante.setText(UserFromPostId);
+        dataQuedada.setText(date);
+        hora.setText(time);
+        lloc.setText(place);
+        idSolicitante.setText(userFromPostId);
+
+        placeEvent = place;
+        horaEvent = time;
+
+        dateEvent = date;
+        idSolicitanteEvent = userFromPostId;
 
 
     }
