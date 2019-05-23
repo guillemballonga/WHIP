@@ -31,9 +31,7 @@ import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.Calendar;
 
 public class CalendarGoogle {
 
@@ -43,7 +41,7 @@ public class CalendarGoogle {
 
     final HttpTransport transport = AndroidHttp.newCompatibleTransport();
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
-    private final String TOKEN_USU =  ul.getToken();
+
 
 
     /**
@@ -51,20 +49,22 @@ public class CalendarGoogle {
      * If modifying these scopes, delete your previously saved tokens/ folder.
      */
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
-    private static final String CREDENTIALS_FILE_PATH = "/client_secret.json";
+    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
     /**
      * Creates an authorized Credential object.
      *
      * @param HTTP_TRANSPORT The network HTTP Transport.
+     * @param in
      * @return An authorized Credential object.
      * @throws IOException If the credentials.json file cannot be found.
      */
-    private static Credential getCredentials(final HttpTransport HTTP_TRANSPORT) throws IOException {
+    private static Credential getCredentials(final HttpTransport HTTP_TRANSPORT, InputStream in) throws IOException {
         // Load client secrets.
-        InputStream in = CalendarGoogle.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
-        //TODO: no funciona. no troba fitxer
+        //InputStream in = CalendarGoogle.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
 
+
+        //TODO: no funciona. no troba fitxer
         if (in == null) {
             throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
         }
@@ -83,16 +83,16 @@ public class CalendarGoogle {
 
 
 
-    public static com.google.api.services.calendar.Calendar apiCalendar() throws GeneralSecurityException, IOException {
+    public static com.google.api.services.calendar.Calendar apiCalendar(InputStream im) throws GeneralSecurityException, IOException {
         // Build a new authorized API client service.
         //final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         final HttpTransport HTTP_TRANSPORT = AndroidHttp.newCompatibleTransport();
 
-        com.google.api.services.calendar.Calendar service = new com.google.api.services.calendar.Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+        com.google.api.services.calendar.Calendar service = new com.google.api.services.calendar.Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT, im))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
 
-        getCredentials(HTTP_TRANSPORT);
+        getCredentials(HTTP_TRANSPORT, im);
         return service;
 
     }
@@ -124,9 +124,9 @@ public class CalendarGoogle {
     }
 
 
-    public static void createEvent(String place, String dateTime) throws Exception {
+    public static void createEvent(InputStream im, String place, String dateTime) throws Exception {
 
-        //TODO passar els parametres correctes
+
 
 // Refer to the Java quickstart on how to setup the environment:
 // https://developers.google.com/calendar/quickstart/java
@@ -134,8 +134,9 @@ public class CalendarGoogle {
 // credentials.
 
 
-        com.google.api.services.calendar.Calendar service = apiCalendar();
-        //TODO: PROBLEMA AQUI
+        com.google.api.services.calendar.Calendar service = apiCalendar(im);
+
+
         Event event = new Event()
                 .setSummary("Google I/O 2015")
                 .setLocation("800 Howard St., San Francisco, CA 94103")
@@ -183,10 +184,12 @@ public class CalendarGoogle {
     public static void main(String... args) throws IOException, GeneralSecurityException {
 
         // Build a new authorized API client service.
+        /*
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        com.google.api.services.calendar.Calendar service = new com.google.api.services.calendar.Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+        com.google.api.services.calendar.Calendar service = new com.google.api.services.calendar.Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT, in))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
+
 
 
         // List the next 10 events from the primary calendar.
@@ -210,5 +213,7 @@ public class CalendarGoogle {
                 System.out.printf("%s (%s)\n", event.getSummary(), start);
             }
         }
+        */
     }
+
 }

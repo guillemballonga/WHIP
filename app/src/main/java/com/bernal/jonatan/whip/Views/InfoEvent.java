@@ -1,6 +1,8 @@
 package com.bernal.jonatan.whip.Views;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.bernal.jonatan.whip.R;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 
@@ -61,7 +64,15 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
 
                 //aqui crido a crear quedada al google calendar
                 try {
-                    CalendarGoogle.createEvent("","" );
+
+
+                    AssetManager am = getApplicationContext().getAssets();
+                    int idCredentials = R.raw.credentials;
+
+                    InputStream im =  credentials(idCredentials);
+
+                    CalendarGoogle.createEvent(im,"","" );
+
                 } catch (GeneralSecurityException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -74,7 +85,9 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
                 Toast.makeText(getApplicationContext(), "Quedada acceptada", Toast.LENGTH_SHORT).show();
 
 
+
                 startActivity(new Intent(InfoEvent.this, EventList.class));
+
                 finish();
 
             }
@@ -100,6 +113,12 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
 
     }
 
+    public InputStream credentials(int idCredentials) {
+        Resources resources = getApplicationContext().getResources();
+        InputStream is = resources.openRawResource(idCredentials);
+
+        return is;
+    }
 
 
     @Override
