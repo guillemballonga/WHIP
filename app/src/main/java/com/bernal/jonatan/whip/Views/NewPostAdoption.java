@@ -128,7 +128,7 @@ public class NewPostAdoption extends AppCompatActivity implements ConcretePostPr
                     post.put("race", raza.getText().toString());
                     post.put("post_code", cp.getText().toString());
                     post.put("text", contenido.getText().toString());
-                    post.put("title", titulo.getText().toString());
+                    post.put("title", title.getText().toString());
 
                 } catch (JSONException e) {
                     e.printStackTrace();

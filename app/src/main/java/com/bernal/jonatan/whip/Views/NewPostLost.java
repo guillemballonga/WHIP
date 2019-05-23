@@ -130,7 +130,7 @@ public class NewPostLost extends AppCompatActivity implements ConcretePostPresen
                     post.put("race", raza.getText().toString());
                     post.put("post_code", cp.getText().toString());
                     post.put("text", contenido.getText().toString());
-                    post.put("title", titulo.getText().toString());
+                    post.put("title", title.getText().toString());
                     if (tipo.getSelectedItem().toString().equals("Encontrado"))
                         post.put("type", "F");
                     else post.put("type", "L");

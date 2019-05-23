@@ -29,7 +29,7 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
 
     private String URL, URLUpdateAccept, URLUpdateReject ;
     private RequestQueue requestqueue;
-    TextView titulo, fechaPost, fechaQuedada, hora, lugar, idSolicitante;
+    TextView title, dataPost, dataQuedada, hora, place, idSolicitante;
     private String idEvent;
     private Button acceptarQuedada, rebutjarQuedada;
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
@@ -50,11 +50,11 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
         URLUpdateAccept = "https://whip-api.herokuapp.com/event/" + idEvent + "/answer?action=accept";
         URLUpdateReject = "https://whip-api.herokuapp.com/event/" + idEvent + "/answer?action=reject";
 
-        titulo = findViewById(R.id.titulo_post_provinente);
-        fechaPost = findViewById(R.id.fecha_post_provinente);
-        fechaQuedada = findViewById(R.id.fecha_info_quedada);
+        title = findViewById(R.id.titulo_post_provinente);
+        dataPost = findViewById(R.id.fecha_post_provinente);
+        dataQuedada = findViewById(R.id.fecha_info_quedada);
         hora = findViewById(R.id.hora_info_quedada);
-        lugar = findViewById(R.id.lugar_info_quedada);
+        place = findViewById(R.id.lugar_info_quedada);
         idSolicitante = findViewById(R.id.id_creadorQuedada);
 
 
@@ -66,8 +66,9 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
 
                 try {
                     eventPresenter.updateEvent(URLUpdateAccept);
-                    startActivity(new Intent(InfoEvent.this, EventList.class));
-                    finish();
+
+                    //startActivity(new Intent(InfoEvent.this, EventList.class));
+                    //finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -81,7 +82,9 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
 
                     InputStream im =  credentials(idCredentials);
 
-                    CalendarGoogle.createEvent(im,"","" );
+
+                    CalendarGoogle.createEvent(im, ul.getCorreo_user(), "correuSolicitant",
+                            "dataQuedada", "hora", "lloc" );
 
                 } catch (GeneralSecurityException e) {
                     e.printStackTrace();
@@ -134,13 +137,12 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
 
     @Override
     public void setEvent(String UserFromPostId, String UserId, String Place, String Date, String Time) {
-        //titulo = findViewById(R.id.titulo_post_provinente);
-        //fechaPost = findViewById(R.id.fecha_post_provinente);
-        fechaQuedada.setText(Date);
+        //title = findViewById(R.id.titulo_post_provinente);
+        //dataPost = findViewById(R.id.fecha_post_provinente);
+        dataQuedada.setText(Date);
         hora.setText(Time);
-        lugar.setText(Place);
+        place.setText(Place);
         idSolicitante.setText(UserFromPostId);
-
 
 
     }

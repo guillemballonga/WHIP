@@ -67,7 +67,7 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
                         quedada.put("lostPostId", postID);
                     }
                     quedada.put("date", año + "-" + mes + "-" + dia + " " + hora + ":" + min + ": 00");
-                    quedada.put("place", lugar.getText().toString());
+                    quedada.put("place", place.getText().toString());
         *
         * */
 

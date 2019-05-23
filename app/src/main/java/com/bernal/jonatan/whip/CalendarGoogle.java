@@ -124,7 +124,7 @@ public class CalendarGoogle {
     }
 
 
-    public static void createEvent(InputStream im, String place, String dateTime) throws Exception {
+    public static void createEvent(InputStream im,String correuUsuari, String correuSolicitant, String dataQuedada, String hora, String place) throws Exception {
 
 
 
