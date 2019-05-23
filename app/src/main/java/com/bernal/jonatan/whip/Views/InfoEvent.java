@@ -1,6 +1,8 @@
 package com.bernal.jonatan.whip.Views;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +11,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.bernal.jonatan.whip.CalendarGoogle;
 import com.bernal.jonatan.whip.Presenters.EventPresenter;
 import com.bernal.jonatan.whip.R;
 
 import org.json.JSONException;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 
 
@@ -66,9 +72,32 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
                     e.printStackTrace();
                 }
 
+                //aqui crido a crear quedada al google calendar
+                try {
+
+
+                    AssetManager am = getApplicationContext().getAssets();
+                    int idCredentials = R.raw.credentials;
+
+                    InputStream im =  credentials(idCredentials);
+
+                    CalendarGoogle.createEvent(im,"","" );
+
+                } catch (GeneralSecurityException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
 
                 Toast.makeText(getApplicationContext(), "Quedada acceptada", Toast.LENGTH_SHORT).show();
+
+
+
                 startActivity(new Intent(InfoEvent.this, EventList.class));
+
                 finish();
 
             }
@@ -96,6 +125,12 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
 
     }
 
+    public InputStream credentials(int idCredentials) {
+        Resources resources = getApplicationContext().getResources();
+        InputStream is = resources.openRawResource(idCredentials);
+
+        return is;
+    }
 
     @Override
     public void setEvent(String UserFromPostId, String UserId, String Place, String Date, String Time) {
