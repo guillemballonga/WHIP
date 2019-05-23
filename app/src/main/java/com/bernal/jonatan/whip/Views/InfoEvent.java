@@ -82,14 +82,14 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
 
                     InputStream im =  credentials(idCredentials);
 
-
-                    CalendarGoogle.createEvent(im, ul.getCorreo_user(), "correuSolicitant",
-                            "dataQuedada", "hora", "lloc" );
+/*
+                    CalendarGoogle.createEvent(im, ul.getCorreo_user(), "correuSolicitant","dataQuedada", "hora", "lloc" );
 
                 } catch (GeneralSecurityException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
+*/
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
