@@ -1,5 +1,6 @@
 package com.bernal.jonatan.whip.Views;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -49,6 +50,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     String Identificador;
     Button cerrar_post, crear_comment, borrar_comment, organ_quedada;
     RecyclerView comments;
+    Dialog comments_dialog;
 
 
     private String URL, URL_favs, URL_like, URL_close, URL_comments;
@@ -92,6 +94,8 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         borrar_comment = findViewById(R.id.borrar_comment);
 
         comments = findViewById(R.id.contenedor_comments);
+
+        comments_dialog = new Dialog(this);
 
         //Gestión toolbar
         Toolbar tool = findViewById(R.id.toolbar_infoPostPerd);
@@ -495,7 +499,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     }
 
     @Override
-    public void chargeCommentList(ArrayList comments_post) {
+    public void chargeCommentList(final ArrayList comments_post) {
         Comments_post = comments_post;
         num_comments.setText("Comentarios " + comments_post.size());
         LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
@@ -509,6 +513,12 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
 
             @Override
             public void onVerCommentsClicked(View vista) {
+                Comment comment = (Comment) comments_post.get(comments.getChildAdapterPosition(vista));
+                String id_comment = comment.getId();
+                comments_dialog.setContentView(R.layout.popupcomments);
+                comments_dialog.
+                comments_dialog.show();
+
             }
         });
         comments.setAdapter(adapt);
