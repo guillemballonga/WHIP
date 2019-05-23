@@ -81,7 +81,7 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
                     int idCredentials = R.raw.credentials;
 
                     InputStream im = credentials(idCredentials);
-
+/*
 
                     CalendarGoogle.createEvent(im, ul.getCorreo_user(), idSolicitanteEvent, dateEvent, horaEvent, placeEvent);
 
@@ -89,7 +89,7 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
-
+*/
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
