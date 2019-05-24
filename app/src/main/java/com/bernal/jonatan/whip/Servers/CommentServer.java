@@ -28,10 +28,13 @@ public class CommentServer {
     private String api = ul.getAPI_KEY();
     private RequestQueue requestQueue;
 
-    public void createComment(final CommentPresenter commentPresenter, String URL_comments, String boxtext) {
+    public void createComment(final CommentPresenter commentPresenter, String URL_comments, String boxtext, String id_comment_parent) {
         JSONObject post = new JSONObject();
         try {
             post.put("text", boxtext);
+            if (!id_comment_parent.equals("")) {
+                post.put("parentComment",id_comment_parent);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
