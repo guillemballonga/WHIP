@@ -85,7 +85,7 @@ public class CommentServer {
                             JSONObject comment;
                             for (int i = 0; i < response.length(); i++) {
                                 comment = response.getJSONObject(i);
-                                Comments_post.add(new Comment(comment.getString("id"), comment.getString("userId"), " ", comment.getString("text"), comment.getString("createdAt").split("T")[0]));
+                                if (comment.getString("parentComment") == null) Comments_post.add(new Comment(comment.getString("id"), comment.getString("userId"), " ", comment.getString("text"), comment.getString("createdAt").split("T")[0]));
                             }
                             commentPresenter.chargeCommentList(Comments_post);
                         /*    adapt = new CommentAdapter(Comments_post);
