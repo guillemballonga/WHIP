@@ -23,6 +23,7 @@ public class ShowImage extends AppCompatActivity {
     private ImageView imageView;
     private String idImage = "/images/71117394-90cf-4dfb-aa3c-6eaa076a7a33";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,5 +56,32 @@ public class ShowImage extends AppCompatActivity {
             });
         } catch (IOException ignored) {
         }
+    }
+    public static Bitmap retrieveImageBitmap(String idImageFirebase) {
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
+        StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
+
+        System.out.println("retrieveImageBitmap: " + storageReference.getPath());
+        final Bitmap[] bitmap = new Bitmap[1];
+
+        try {
+            final File localFile = File.createTempFile("images", "jpg");
+            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    bitmap[0] = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                    //imageView.setImageBitmap(bitmap[0]);
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                }
+            });
+        } catch (IOException ignored) {
+        }
+        return bitmap[0];
     }
 }

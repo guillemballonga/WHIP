@@ -44,6 +44,7 @@ public class ShareFacebook extends AppCompatActivity {
     Target target = new Target() {
         @Override
         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+
             SharePhoto sharePhoto = new SharePhoto.Builder().setBitmap(bitmap).build();
             if(ShareDialog.canShow(SharePhotoContent.class)) {
                 SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(sharePhoto).build();
@@ -81,6 +82,7 @@ public class ShareFacebook extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
         shareDialog = new ShareDialog(this);
 
+
         btnShareLink.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -107,6 +109,7 @@ public class ShareFacebook extends AppCompatActivity {
 
 
                 ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                        .setContentTitle("hola soc el titulin")
                         .setQuote("this is useful link")
                         .setContentUrl(Uri.parse("https://youtube.com"))
                         .build();
@@ -144,7 +147,9 @@ public class ShareFacebook extends AppCompatActivity {
 
                 //we will fetch photo from link and convert to bitmap
 
-                Picasso.with(getBaseContext()).load("path").into(target);
+                //Picasso.with(getBaseContext()).load("path").into(target);
+
+
 
 
             }
@@ -185,5 +190,10 @@ public class ShareFacebook extends AppCompatActivity {
                     shareDialog.show(videoContent);
             }
         }
+    }
+
+    public void publicarPost(String idImatge ) {
+
+        Bitmap bitmap = ShowImage.retrieveImageBitmap("");
     }
 }

@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //loginButtonFacebook.setReadPermissions("email");
         callbackManager = CallbackManager.Factory.create();
         facebook = false;
-//        loginButtonFacebook.setReadPermissions(Arrays.asList("email","public_profile"));
+        loginButtonFacebook.setReadPermissions(Arrays.asList("email","public_profile"));
         checkLoginStatus();
 
 
