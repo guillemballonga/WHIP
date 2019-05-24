@@ -101,7 +101,7 @@ public class CommentComment extends AppCompatActivity implements CommentPresente
         Comments_comments = comments_post;
         LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-        adapt = new CommentAdapter(Comments_comments);
+        adapt = new CommentAdapter(Comments_comments, "CommentComment");
         adapt.setOnCommentListener(new OnCommentListener() {
             @Override
             public void onEliminateClicked(int position, View vista) {

@@ -15,7 +15,7 @@ public class CommentViewHolder extends RecyclerView.ViewHolder {
     private String id_comment;
 
 
-    public CommentViewHolder(@NonNull final View itemView, final OnCommentListener onCommentListener) {
+    public CommentViewHolder(@NonNull final View itemView, final OnCommentListener onCommentListener, String type) {
         super(itemView);
 
         imagen_comment = itemView.findViewById(R.id.imagen_comment);
@@ -24,6 +24,8 @@ public class CommentViewHolder extends RecyclerView.ViewHolder {
         data_comment = itemView.findViewById(R.id.date_comment);
         delete_button = itemView.findViewById(R.id.delete_comment);
         ver_comments = itemView.findViewById(R.id.ver_comments);
+
+        if (type.equals("CommentComment")) ver_comments.setVisibility(View.GONE);
 
 
         delete_button.setOnClickListener(new View.OnClickListener() {

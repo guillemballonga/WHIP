@@ -67,7 +67,7 @@ public class CommentServer {
         requestQueue.add(objectJsonrequest);
     }
 
-    public void getComments(final CommentPresenter commentPresenter, String URL_comments) {
+    public void getComments(final CommentPresenter commentPresenter, final String URL_comments) {
         requestQueue = Volley.newRequestQueue((Context) commentPresenter.getView());
         JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
                 JsonRequest.Method.GET,
@@ -85,8 +85,9 @@ public class CommentServer {
                             JSONObject comment;
                             for (int i = 0; i < response.length(); i++) {
                                 comment = response.getJSONObject(i);
-                                if (comment.getString("parentComment") == null) Comments_post.add(new Comment(comment.getString("id"), comment.getString("userId"), " ", comment.getString("text"), comment.getString("createdAt").split("T")[0]));
+                                Comments_post.add(new Comment(comment.getString("id"), comment.getString("userId"), " ", comment.getString("text"), comment.getString("createdAt").split("T")[0]));
                             }
+
                             commentPresenter.chargeCommentList(Comments_post);
                         /*    adapt = new CommentAdapter(Comments_post);
                             adapt.setOnCommentListener(new OnCommentListener() {

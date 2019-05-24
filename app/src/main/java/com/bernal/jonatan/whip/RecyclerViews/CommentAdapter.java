@@ -17,13 +17,15 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
 
     private List<Comment> listaObjetos;
     private OnCommentListener onCommentListener;
+    private String type;
 
     public void setOnCommentListener(OnCommentListener onCommentListener) {
         this.onCommentListener = onCommentListener;
     }
 
-    public CommentAdapter(List<Comment> listaObjects) {
+    public CommentAdapter(List<Comment> listaObjects, String type) {
         this.listaObjetos = listaObjects;
+        this.type = type;
     }
 
     @NonNull
@@ -32,7 +34,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
 
         View vista = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_item_comment, viewGroup, false);
 
-        return new CommentViewHolder(vista,onCommentListener);
+        return new CommentViewHolder(vista,onCommentListener, type);
     }
 
     @Override

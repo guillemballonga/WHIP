@@ -378,7 +378,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         num_comments.setText("Comentarios " + comments_post.size());
         LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-        adapt = new CommentAdapter(Comments_post);
+        adapt = new CommentAdapter(Comments_post, "CommentPost");
         adapt.setOnCommentListener(new OnCommentListener() {
             @Override
             public void onEliminateClicked(int position, View vista) {
