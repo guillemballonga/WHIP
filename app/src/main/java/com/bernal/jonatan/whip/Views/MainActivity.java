@@ -131,10 +131,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestScopes(new Scope(Scopes.DRIVE_APPFOLDER))
+                .requestScopes(new Scope("https://www.googleapis.com/auth/admin.directory.resource.calendar"))
+                .requestScopes(new Scope("https://www.googleapis.com/auth/calendar"))
+
                 // The serverClientId is an OAuth 2.0 web client ID
                 // Details at: https://developers.google.com/identity/sign-in/android/?utm_campaign=android_discussion_server_021116&utm_source=anddev&utm_medium=blogstart step 4
                 .requestServerAuthCode(server_client_id)
+                .requestIdToken(server_client_id)
                 .requestEmail()
                 .build();
         // [END configure_signin]

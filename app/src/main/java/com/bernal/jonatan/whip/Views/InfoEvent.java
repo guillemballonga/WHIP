@@ -67,7 +67,7 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
                 try {
 
 
-                    AssetManager am = getApplicationContext().getAssets();
+
                     int idCredentials = R.raw.credentials;
 
                     InputStream im =  credentials(idCredentials);
