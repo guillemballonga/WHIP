@@ -16,8 +16,8 @@ public class CommentPresenter {
         this.commentServer = new CommentServer();
     }
 
-    public void createComment(String URL_comments, String boxtext) {
-        commentServer.createComment(this, URL_comments, boxtext);
+    public void createComment(String URL_comments, String boxtext, String id_comment_parent) {
+        commentServer.createComment(this, URL_comments, boxtext, id_comment_parent);
     }
 
     public void getComments(String URL_comments) {

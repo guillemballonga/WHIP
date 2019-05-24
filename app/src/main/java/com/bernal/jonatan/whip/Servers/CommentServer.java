@@ -28,10 +28,13 @@ public class CommentServer {
     private String api = ul.getAPI_KEY();
     private RequestQueue requestQueue;
 
-    public void createComment(final CommentPresenter commentPresenter, String URL_comments, String boxtext) {
+    public void createComment(final CommentPresenter commentPresenter, String URL_comments, String boxtext, String id_comment_parent) {
         JSONObject post = new JSONObject();
         try {
             post.put("text", boxtext);
+            if (!id_comment_parent.equals("")) {
+                post.put("parentComment",id_comment_parent);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -64,7 +67,7 @@ public class CommentServer {
         requestQueue.add(objectJsonrequest);
     }
 
-    public void getComments(final CommentPresenter commentPresenter, String URL_comments) {
+    public void getComments(final CommentPresenter commentPresenter, final String URL_comments) {
         requestQueue = Volley.newRequestQueue((Context) commentPresenter.getView());
         JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
                 JsonRequest.Method.GET,
@@ -84,6 +87,7 @@ public class CommentServer {
                                 comment = response.getJSONObject(i);
                                 Comments_post.add(new Comment(comment.getString("id"), comment.getString("userId"), " ", comment.getString("text"), comment.getString("createdAt").split("T")[0]));
                             }
+
                             commentPresenter.chargeCommentList(Comments_post);
                         /*    adapt = new CommentAdapter(Comments_post);
                             adapt.setOnCommentListener(new OnCommentListener() {

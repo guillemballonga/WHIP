@@ -1,5 +1,6 @@
 package com.bernal.jonatan.whip.Views;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -52,7 +53,6 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
 
 
     private String URL, URL_favs, URL_like, URL_close, URL_comments;
-    private RequestQueue requestqueue;
     private CommentAdapter adapt;
     private ArrayList<Comment> Comments_post;
 
@@ -107,9 +107,6 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         URL_close = "https://whip-api.herokuapp.com/contributions/close/" + Identificador + "/?type=lost";
         URL_comments = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador + "/comments";
 
-        requestqueue = Volley.newRequestQueue(this);
-
-
         cerrar_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -158,104 +155,13 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         if (box_comment.getText().toString().equals(""))
             Toast.makeText(getApplicationContext(), "Debe escribir un comentario", Toast.LENGTH_SHORT).show();
         else {
-            // JSONObject post = new JSONObject();
-            //  try {
-            commentPresenter.createComment(URL_comments, box_comment.getText().toString());
-            //    post.put("text", box_comment.getText().toString());
-            // } catch (JSONException e) {
-            //     e.printStackTrace();
-            // }
-
-        /*    JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                    JsonRequest.Method.POST,
-                    URL_comments,
-                    post,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            recreate();
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getApplicationContext(), "Error al comentar", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-            ) {
-                @Override
-                public Map<String, String> getHeaders() {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("Content-Type", "application/json");
-                    params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
-                    return params;
-                }
-            };
-            requestqueue.add(objectJsonrequest);  */
+            commentPresenter.createComment(URL_comments, box_comment.getText().toString(),"");
         }
 
     }
 
     private void carregar_comments() {
         commentPresenter.getComments(URL_comments);
-       /* JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
-                JsonRequest.Method.GET,
-                URL_comments,
-                null,
-                new Response.Listener<JSONArray>() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            num_comments.setText("Comentarios " + response.length());
-                            Comments_post = new ArrayList<>();
-                            LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
-                            layout.setOrientation(LinearLayoutManager.VERTICAL);
-                            JSONObject comment;
-                            for (int i = 0; i < response.length(); i++) {
-                                comment = response.getJSONObject(i);
-                                Comments_post.add(new Comment(comment.getString("id"), comment.getString("userId"), " ", comment.getString("text"), comment.getString("createdAt").split("T")[0]));
-                            }
-                            adapt = new CommentAdapter(Comments_post);
-                            adapt.setOnCommentListener(new OnCommentListener() {
-                                @Override
-                                public void onEliminateClicked(int position, View vista) {
-                                    Toast.makeText(getApplicationContext(), "Elimino este comentario", Toast.LENGTH_SHORT).show();
-                                    eliminar_comentari(vista);
-                                }
-
-                                @Override
-                                public void onVerCommentsClicked(View vista) {
-                                    Toast.makeText(getApplicationContext(), "Viendo comentarios", Toast.LENGTH_SHORT).show();
-
-
-                                }
-                            });
-                            comments.setAdapter(adapt);
-                            comments.setLayoutManager(layout);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
-                return params;
-            }
-        };
-        requestqueue.add(arrayJsonrequest); */
     }
 
     private void eliminar_comentari(View vista) {
@@ -269,34 +175,6 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             commentPresenter.deleteComment(URL_comments, id_comment);
-                        /*    JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                                    JsonRequest.Method.DELETE,
-                                    URL_comments + "/" + id_comment,
-                                    null,
-                                    new Response.Listener<JSONObject>() {
-                                        @Override
-                                        public void onResponse(JSONObject response) {
-
-                                        }
-                                    },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getApplicationContext(), "ERROOOOOOOR EN ELIMINAR COMENTARIO", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                            ) {
-                                @Override
-                                public Map<String, String> getHeaders() {
-                                    Map<String, String> params = new HashMap<>();
-                                    params.put("Content-Type", "application/json");
-                                    params.put("Authorization", ul.getAPI_KEY());
-                                    return params;
-                                }
-                            };
-                            requestqueue.add(objectJsonrequest); */
-                            //    recreate();
-
                         }
                     })
                     .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -495,12 +373,12 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     }
 
     @Override
-    public void chargeCommentList(ArrayList comments_post) {
+    public void chargeCommentList(final ArrayList comments_post) {
         Comments_post = comments_post;
         num_comments.setText("Comentarios " + comments_post.size());
         LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-        adapt = new CommentAdapter(Comments_post);
+        adapt = new CommentAdapter(Comments_post, "CommentPost");
         adapt.setOnCommentListener(new OnCommentListener() {
             @Override
             public void onEliminateClicked(int position, View vista) {
@@ -509,6 +387,20 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
 
             @Override
             public void onVerCommentsClicked(View vista) {
+                Comment comment = (Comment) comments_post.get(comments.getChildAdapterPosition(vista));
+                String id_comment = comment.getId();
+                String foto_comment = comment.getImagen();
+                String user_comment = comment.getUser();
+                String content_comment = comment.getContenido();
+                String fecha_comment = comment.getFecha();
+                Intent i = new Intent(InfoPostLost.this, CommentComment.class);
+                i.putExtra("identificadorComment", id_comment);
+                i.putExtra("fotoComment", foto_comment);
+                i.putExtra("userComment", user_comment);
+                i.putExtra("contentComment", content_comment);
+                i.putExtra("fechaComment", fecha_comment);
+                i.putExtra("idPost",Identificador);
+                startActivity(i);
             }
         });
         comments.setAdapter(adapt);

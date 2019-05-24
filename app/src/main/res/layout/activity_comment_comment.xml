@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#EA9999"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:padding="15dp"
+    tools:context=".Views.CommentComment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="5dp"
+        android:background="#e88484">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imagen_comment_comment"
+            android:layout_width="75dp"
+            android:layout_height="75dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/user_comment_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textColor="#E4D4D4"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:layout_marginStart="20dp"
+                tools:ignore="RtlHardcoded,SmallSp"/>
+
+            <TextView
+                android:id="@+id/date_comment_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textColor="#E4D4D4"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:layout_marginStart="20dp"
+                tools:ignore="RtlHardcoded,SmallSp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp">
+        <TextView
+            android:id="@+id/Contenido_comment_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="25dp"
+            android:paddingBottom="15dp"
+            android:textColor="#434040"
+            android:textSize="20sp"
+            tools:ignore="RtlHardcoded,RtlSymmetry"
+            android:background="#e88484"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imagen_coment_comment_user"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:contentDescription="@string/todo" />
+
+        <EditText
+            android:id="@+id/box_comment_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="@string/a_ade_un_comentario" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/crear_comment_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/boton_comment"
+            android:text="@string/crear"
+            android:textColor="@color/blanco"
+            android:textSize="15sp"/>
+
+        <Button
+            android:id="@+id/borrar_comment_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/boton_comment"
+            android:text="@string/borrar"
+            android:textColor="@color/blanco"
+            android:textSize="15sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/contenedor_comments_comments"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+</LinearLayout>

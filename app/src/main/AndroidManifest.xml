@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Views.InfoEvent"></activity>
+        <activity android:name=".Views.CommentComment"></activity>
+        <activity android:name=".Views.InfoEvent" />
         <activity android:name=".Views.NewAdoptionRequest" />
         <activity android:name=".Views.NewQuedada" />
         <activity android:name=".Views.InfoPostAdoption" />
