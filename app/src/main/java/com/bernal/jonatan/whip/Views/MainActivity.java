@@ -35,6 +35,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Scope;
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CallbackManager callbackManager;
     private LoginButton loginButtonFacebook;
     private boolean facebook = false;
+    private String authCode ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,11 +125,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
+        String server_client_id = "165813394161-g8paonp3kugst715s14eloh84l9lvneu.apps.googleusercontent.com";
 
         // [START configure_signin]
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestScopes(new Scope(Scopes.DRIVE_APPFOLDER))
+                // The serverClientId is an OAuth 2.0 web client ID
+                // Details at: https://developers.google.com/identity/sign-in/android/?utm_campaign=android_discussion_server_021116&utm_source=anddev&utm_medium=blogstart step 4
+                .requestServerAuthCode(server_client_id)
                 .requestEmail()
                 .build();
         // [END configure_signin]
@@ -135,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // [START build_client]
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
         // [END build_client]
 
         // [START customize_button]
@@ -265,6 +273,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
+            authCode = account.getServerAuthCode();
+
             //dona d alta aqui
             Toast.makeText(getApplicationContext(), "login  per iniciar ", Toast.LENGTH_SHORT).show();
 
@@ -337,9 +347,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.makeText(getApplicationContext(), "Usuari logejat  correctament", Toast.LENGTH_SHORT).show();
                         //todo guardar api key en el singleton
                         try {
-                            ul = UserLoggedIn.getUsuariLogejat(response.getString("api_key"), response.getString("email"), "" );
+                            ul = UserLoggedIn.getUsuariLogejat(response.getString("api_key"), response.getString("email"), authCode );
                             ul.setAPI_KEY(response.getString("api_key"));
                             ul.setCorreo_user(response.getString("email"));
+                            ul.setToken(authCode);
 
 
 
@@ -365,7 +376,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
         requestqueue.add(objectJsonrequest);
-        if (!facebook) userPutToken();
+        //if (!facebook) userPutToken();
 
 
     }
