@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Views.InfoEvent"></activity>
+        <activity android:name=".Views.ShareFacebook"></activity>
+        <activity android:name=".Views.InfoEvent" />
         <activity android:name=".Views.NewAdoptionRequest" />
         <activity android:name=".Views.NewQuedada" />
         <activity android:name=".Views.InfoPostAdoption" />
@@ -62,8 +63,11 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-  
 
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider2316633415254454"
+            android:exported="true" />
     </application>
 
 </manifest>
