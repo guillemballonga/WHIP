@@ -43,7 +43,7 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
     static String cpBack;
     static String correuBack;
     static String urlFoto;
-    Button goToEditarPerfil, goToMisPosts;
+    Button goToEditarPerfil, goToMisPosts, gotoMessages;
     TextView nom, cognom, user, cp, correu;
     //ImageView imatge;
     GlideImageView imatge;
@@ -89,6 +89,7 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
         setContentView(R.layout.activity_mostrar_perfil);
         goToEditarPerfil = findViewById(R.id.boto_editar_perfil);
         goToMisPosts = findViewById(R.id.boto_mis_posts);
+        gotoMessages = findViewById(R.id.boto_mis_mensajes);
         UserPresenter userPresenter = new UserPresenter(this);
         nom = findViewById(R.id.escr_nom);
         cognom = findViewById(R.id.escr_cognom);
@@ -123,6 +124,13 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
 
                 startActivity(new Intent(MostrarPerfil.this, MyPosts.class));
                 //finish();
+            }
+        });
+
+        gotoMessages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MostrarPerfil.this, ChatList.class));
             }
         });
     }

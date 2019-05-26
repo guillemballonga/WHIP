@@ -176,7 +176,6 @@ public class UserServer {
     }
 
     public void getOthersInfo(final UserPresenter userPresenter, final ArrayList user_chats) {
-        ArrayList aux = user_chats;
         final SortedList userIds = null;
         int i;
         for (i = 0; i < user_chats.size(); ++i) {

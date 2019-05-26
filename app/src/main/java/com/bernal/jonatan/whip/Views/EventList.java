@@ -49,7 +49,7 @@ public class EventList extends AppCompatActivity implements EventPresenter.View 
 
         URL_eventos = "https://whip-api.herokuapp.com/events";
 
-        Toolbar tool = findViewById(R.id.toolbar_listadoEvents);
+        Toolbar tool = findViewById(R.id.toolbar_listadoChats);
         setSupportActionBar(tool);
         getSupportActionBar().setTitle("EVENTOS");
 

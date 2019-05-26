@@ -56,7 +56,7 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View, U
 
         URL_chats = "https://whip-api.herokuapp.com/chats";
 
-        Toolbar tool = findViewById(R.id.toolbar_listadoEvents);
+        Toolbar tool = findViewById(R.id.toolbar_listadoChats);
         setSupportActionBar(tool);
         getSupportActionBar().setTitle("CHATS");
 

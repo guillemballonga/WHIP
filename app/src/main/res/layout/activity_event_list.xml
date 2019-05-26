@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <include
-        android:id="@+id/toolbar_listadoEvents"
+        android:id="@+id/toolbar_listadoChats"
         layout="@layout/toolbar" />
 
 
