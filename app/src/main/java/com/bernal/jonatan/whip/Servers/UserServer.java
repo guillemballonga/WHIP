@@ -10,6 +10,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.CustomComparator;
 import com.bernal.jonatan.whip.Models.ChatRelation;
 import com.bernal.jonatan.whip.Models.Post;
 import com.bernal.jonatan.whip.Models.User;
@@ -179,30 +180,40 @@ public class UserServer {
     }
 
     public void getOthersInfo(final UserPresenter userPresenter, final ArrayList user_chats) {
-        final ArrayList<String> userIds = new ArrayList<>();
+  /*      final ArrayList<String> userIds = new ArrayList<>();
+        ArrayList<String> chatIdsNotSorted = new ArrayList<>();
         int i;
         for (i = 0; i < user_chats.size(); ++i) {
             ChatRelation cr = (ChatRelation) user_chats.get(i);
             userIds.add(cr.getOtherUserId());
         }
-        Collections.sort(userIds, new Comparator<String>() {
+  */
+        Collections.sort(user_chats, new CustomComparator());  //Ahora tengo ordenados los user_chats por orden alfabetico
+
+   /*     Collections.sort(userIds, new Comparator<String>() {
             @Override
             public int compare(String s, String t1) {
                 return s.compareTo(t1);
             }
-        });
+        });  */
         //Users ordenados, ahora hay q relacionarlo con los id's del chat
-        final ArrayList chatIds = new ArrayList();
+
+     /*   final ArrayList chatIds = new ArrayList();
         for (int k = 0; k < userIds.size(); ++k) {
             int index = user_chats.indexOf(userIds.get(k)); //Encontramos en que posición del array original estaba
             chatIds.add(user_chats.get(index));  //guardamos los ids en el mismo orden que los users
-        }
+        }  */
         //Tenemos ordenados los ids que vamos a buscar, esto está hecho así para que se corresponda con el orden en el que nos los devolverá
         //back, así nos ahorramos el coste de asociar los ids con los resultados que obtenemos en back
         String URL = "http://localhost:3000/users/profile/list?";
-        if (userIds.size() > 0) URL = URL + "id=" + userIds.get(0);
+    /*    if (userIds.size() > 0) URL = URL + "id=" + userIds.get(0);
         for (int j = 1; j < userIds.size(); ++j) {
             URL += "&id=" + userIds.get(j);
+        }  */
+
+        if (user_chats.size() > 0) URL = URL + "id=" + user_chats.get(0);
+        for (int j = 1; j < user_chats.size(); ++j) {
+            URL += "&id=" + user_chats.get(j);
         }
         //Aqui termina la preparación de los datos para hacer la llamada a back
 
@@ -219,7 +230,8 @@ public class UserServer {
                             JSONObject userNP;
                             for (int i = 0; i < response.length(); ++i) {
                                 userNP = response.getJSONObject(i);
-                                userInfoForChat.add(new ChatRelation(userNP.getString("username"), userNP.getString("photo_url"), (String) chatIds.get(i)));
+                                ChatRelation cr = (ChatRelation) user_chats.get(i);
+                                userInfoForChat.add(new ChatRelation(userNP.getString("username"), userNP.getString("photo_url"), cr.getId()));
                             }
                             userPresenter.sendInfoForChat(userInfoForChat);
                         } catch (JSONException e) {
