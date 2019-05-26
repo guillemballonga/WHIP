@@ -40,9 +40,13 @@ public class ChatServer {
                         try {
                             ArrayList User_chats = new ArrayList<>();
                             JSONObject usr_chat = new JSONObject();
+                            String otherUser;
                             for (int i = 0; i < response.length(); ++i) {
                                 usr_chat = response.getJSONObject(i);
-                                User_chats.add(new ChatRelation(usr_chat.getString("userId1"), usr_chat.getString("userId2"), usr_chat.getString("id)")));
+                                if (u1.getCorreo_user().equals(usr_chat.getString("userId1")))
+                                    otherUser = usr_chat.getString("userId2");
+                                else otherUser = usr_chat.getString("userId1");
+                                User_chats.add(new ChatRelation(otherUser, usr_chat.getString("id)")));
                             }
                             chatPresenter.chargeChats(User_chats);
                         } catch (JSONException e) {

@@ -6,7 +6,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bernal.jonatan.whip.Models.ChatRelation;
 import com.bernal.jonatan.whip.R;
+
+import java.util.List;
 
 public class ChatViewHolder extends RecyclerView.ViewHolder {
 
@@ -15,11 +18,12 @@ public class ChatViewHolder extends RecyclerView.ViewHolder {
     private String id_chatRelation;
 
 
-    public ChatViewHolder(@NonNull final View itemView, final OnChatListener onChatListener) {
+    public ChatViewHolder(@NonNull final View itemView, List<ChatRelation> listaObjetos, final OnChatListener onChatListener) {
         super(itemView);
 
         imagen_user = itemView.findViewById(R.id.imagen_user);
-        delete_button = itemView.findViewById(R.id.delete_comment);
+        user_chat = itemView.findViewById(R.id.user_chat);
+        delete_button = itemView.findViewById(R.id.delete_chat);
 
 
         delete_button.setOnClickListener(new View.OnClickListener() {

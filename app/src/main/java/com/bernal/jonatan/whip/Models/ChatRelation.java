@@ -6,17 +6,23 @@ public class ChatRelation {
 
     private String id;
 
-    private String userIdOne;
+    private String otherUserId;
 
-    private String userIdTwo;
+    private String otherUserName;
 
     private String photoUrl;
 
 
-    public ChatRelation(String id, String userIdOne, String userIdTwo) {
+    public ChatRelation(String otherUser, String id) {
+        this.otherUserId = otherUser;
+
         this.id = id;
-        this.userIdOne = userIdOne;
-        this.userIdTwo = userIdTwo;
+    }
+
+    public ChatRelation(String username, String photo_url, String id) {
+        this.otherUserName = username;
+        this.photoUrl = photo_url;
+        this.id = id;
     }
 
 
@@ -24,12 +30,12 @@ public class ChatRelation {
         return id;
     }
 
-    public String getUserIdOne() {
-        return userIdOne;
+    public String getOtherUserId() {
+        return otherUserId;
     }
 
-    public String getUserIdTwo() {
-        return userIdTwo;
+    public String getOtherUserName() {
+        return otherUserName;
     }
 
     public String getPhotoUrl() {
@@ -40,12 +46,12 @@ public class ChatRelation {
         this.id = id;
     }
 
-    public void setUserIdOne(String userIdOne) {
-        this.userIdOne = userIdOne;
+    public void setOtherUserId(String otherUserId) {
+        this.otherUserId = otherUserId;
     }
 
-    public void setuserIdTwo(String userIdTwo) {
-        this.userIdTwo = userIdTwo;
+    public void setOtherUserName(String otherUserName) {
+        this.otherUserName = otherUserName;
     }
 
     public void setPhotoUrl(String photoUrl) {

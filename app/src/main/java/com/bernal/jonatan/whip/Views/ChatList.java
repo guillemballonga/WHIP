@@ -14,16 +14,18 @@ import android.view.View;
 
 import com.bernal.jonatan.whip.Models.ChatRelation;
 import com.bernal.jonatan.whip.Presenters.ChatPresenter;
+import com.bernal.jonatan.whip.Presenters.UserPresenter;
 import com.bernal.jonatan.whip.R;
 import com.bernal.jonatan.whip.RecyclerViews.ChatAdapter;
 import com.bernal.jonatan.whip.RecyclerViews.OnChatListener;
 
 import java.util.ArrayList;
 
-public class ChatList extends AppCompatActivity implements ChatPresenter.View {
+public class ChatList extends AppCompatActivity implements ChatPresenter.View, UserPresenter.View {
 
 
     ChatPresenter chatPresenter = new ChatPresenter(this);
+    UserPresenter userPresenter = new UserPresenter(this);
     private String URL_chats;
     private ChatAdapter adapt;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -66,9 +68,31 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View {
     public void chargeChats(final ArrayList user_chats) {
         //Aquí en realidad debería de llamar de nuevo al presenter, con los ids de user conseguir el username y la foto, y la que vuelva
         //de esa llamada sí hara esto de aquí, vaya percal xD
+        userPresenter.getOthersInfo(user_chats);
+
+
+    }
+
+    @Override
+    public void getUserInfo(String cp, String email, String family_name, String first_name, String photoURL, String username) {
+
+    }
+
+    @Override
+    public void changeActivity() {
+
+    }
+
+    @Override
+    public void setUserPosts(ArrayList mis_posts) {
+
+    }
+
+    @Override
+    public void sendInfoForChat(final ArrayList userInfoForChat) {
         LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-        adapt = new ChatAdapter(user_chats);
+        adapt = new ChatAdapter(userInfoForChat);
         contenedor_chats.setAdapter(adapt);
         contenedor_chats.setLayoutManager(layout);
         adapt.setOnChatListener(new OnChatListener() {
@@ -98,7 +122,7 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View {
 
             @Override
             public void onChatClicked(int position, View vista) {
-                ChatRelation chatRelation = (ChatRelation) user_chats.get(contenedor_chats.getChildAdapterPosition(vista));
+                ChatRelation chatRelation = (ChatRelation) userInfoForChat.get(contenedor_chats.getChildAdapterPosition(vista));
                 String idChat = chatRelation.getId();
                 Intent i = new Intent(ChatList.this, InfoEvent.class);
                 i.putExtra("idChat", idChat);

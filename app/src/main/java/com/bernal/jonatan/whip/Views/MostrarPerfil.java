@@ -181,4 +181,9 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
     public void setUserPosts(ArrayList mis_posts) {
 
     }
+
+    @Override
+    public void sendInfoForChat(ArrayList userInfoForChat) {
+
+    }
 }

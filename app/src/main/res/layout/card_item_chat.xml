@@ -50,6 +50,14 @@
 
             />
 
+        <ImageView
+            android:id="@+id/delete_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/papelera"
+            android:contentDescription="@string/todo"
+            android:layout_marginStart="150dp" />
+
 
     </LinearLayout>
 
