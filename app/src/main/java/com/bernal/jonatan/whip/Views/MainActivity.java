@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(MainActivity.this,"User facebook Logged IN",Toast.LENGTH_LONG).show();
                     Toast.makeText(MainActivity.this,first_name,Toast.LENGTH_LONG).show();
 
-                    mStatusTextView.setText(getString(R.string.signed_in_fmt, first_name));
+                    mStatusTextView.setText(getString(R.string.signed_in_fmt_es, first_name));
 
                     findViewById(R.id.login_facebook_button).setVisibility(View.GONE);
                     findViewById(R.id.login_google_button).setVisibility(View.GONE);
@@ -419,14 +419,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //facebook = false;
         if (account != null) {
 
-            mStatusTextView.setText(getString(R.string.signed_in_fmt, account.getDisplayName()));
+            mStatusTextView.setText(getString(R.string.signed_in_fmt_es, account.getDisplayName()));
 
             findViewById(R.id.login_facebook_button).setVisibility(View.GONE);
             findViewById(R.id.login_google_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
 
         } else {
-            mStatusTextView.setText(R.string.signed_out);
+            mStatusTextView.setText(R.string.signed_out_es);
 
             findViewById(R.id.login_facebook_button).setVisibility(View.VISIBLE);
             findViewById(R.id.login_google_button).setVisibility(View.VISIBLE);
