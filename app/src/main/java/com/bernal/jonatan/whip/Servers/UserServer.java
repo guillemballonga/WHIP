@@ -21,6 +21,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -176,12 +179,18 @@ public class UserServer {
     }
 
     public void getOthersInfo(final UserPresenter userPresenter, final ArrayList user_chats) {
-        final SortedList userIds = null;
+        final ArrayList<String> userIds = new ArrayList<>();
         int i;
         for (i = 0; i < user_chats.size(); ++i) {
             ChatRelation cr = (ChatRelation) user_chats.get(i);
             userIds.add(cr.getOtherUserId());
         }
+        Collections.sort(userIds, new Comparator<String>() {
+            @Override
+            public int compare(String s, String t1) {
+                return s.compareTo(t1);
+            }
+        });
         //Users ordenados, ahora hay q relacionarlo con los id's del chat
         final ArrayList chatIds = new ArrayList();
         for (int k = 0; k < userIds.size(); ++k) {

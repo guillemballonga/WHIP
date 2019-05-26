@@ -43,10 +43,10 @@ public class ChatServer {
                             String otherUser;
                             for (int i = 0; i < response.length(); ++i) {
                                 usr_chat = response.getJSONObject(i);
-                                if (u1.getCorreo_user().equals(usr_chat.getString("userId1")))
+                                if (u1.getCorreo_user().equals(usr_chat.getString("userId")))
                                     otherUser = usr_chat.getString("userId2");
-                                else otherUser = usr_chat.getString("userId1");
-                                User_chats.add(new ChatRelation(otherUser, usr_chat.getString("id)")));
+                                else otherUser = usr_chat.getString("userId");
+                                User_chats.add(new ChatRelation(otherUser, usr_chat.getString("id")));
                             }
                             chatPresenter.chargeChats(User_chats);
                         } catch (JSONException e) {
