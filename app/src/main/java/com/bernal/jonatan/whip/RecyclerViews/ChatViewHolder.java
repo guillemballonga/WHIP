@@ -8,14 +8,16 @@ import android.widget.TextView;
 
 import com.bernal.jonatan.whip.Models.ChatRelation;
 import com.bernal.jonatan.whip.R;
+import com.master.glideimageview.GlideImageView;
 
 import java.util.List;
 
 public class ChatViewHolder extends RecyclerView.ViewHolder {
 
-    ImageView imagen_user, delete_button;
+    ImageView delete_button;
     TextView user_chat;
     private String id_chatRelation;
+    GlideImageView imagen_user;
 
 
     public ChatViewHolder(@NonNull final View itemView, List<ChatRelation> listaObjetos, final OnChatListener onChatListener) {

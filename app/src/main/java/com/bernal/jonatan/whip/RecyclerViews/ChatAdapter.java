@@ -49,9 +49,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
     public void onBindViewHolder(@NonNull ChatViewHolder chatViewHolder, int i) {
 
         chatViewHolder.user_chat.setText(listaObjetos.get(i).getOtherUserName());
-        if (!listaObjetos.get(i).getPhotoUrl().equals(""))
-            retrieveImage(listaObjetos.get(i).getPhotoUrl(), chatViewHolder);
-        else chatViewHolder.imagen_user.setImageResource(R.drawable.icono_usuario);
+
+        if (listaObjetos.get(i).getPhotoUrl().equals("") || listaObjetos.get(i).getPhotoUrl() == null) {
+            chatViewHolder.imagen_user.setImageResource(R.drawable.icono_usuario);
+        }else if (listaObjetos.get(i).getPhotoUrl().substring(1, 7).equals("images")) {
+            retrieveImage(listaObjetos.get(i).getPhotoUrl(),chatViewHolder);
+        } else { //CARREGAR IMATGE DE GOOGLE
+            chatViewHolder.imagen_user.loadImageUrl(listaObjetos.get(i).getPhotoUrl());
+        }
+
+
         chatViewHolder.setId_chatRelation(listaObjetos.get(i).getId());
 
 

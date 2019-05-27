@@ -205,15 +205,16 @@ public class UserServer {
         }  */
         //Tenemos ordenados los ids que vamos a buscar, esto está hecho así para que se corresponda con el orden en el que nos los devolverá
         //back, así nos ahorramos el coste de asociar los ids con los resultados que obtenemos en back
-        String URL = "http://localhost:3000/users/profile/list?";
+        String URL = "https://whip-api.herokuapp.com/users/profile/list?";
     /*    if (userIds.size() > 0) URL = URL + "id=" + userIds.get(0);
         for (int j = 1; j < userIds.size(); ++j) {
             URL += "&id=" + userIds.get(j);
         }  */
-
-        if (user_chats.size() > 0) URL = URL + "id=" + user_chats.get(0);
+        ChatRelation cr = (ChatRelation) user_chats.get(0);
+        if (user_chats.size() > 0) URL = URL + "id=" + cr.getOtherUserId();
         for (int j = 1; j < user_chats.size(); ++j) {
-            URL += "&id=" + user_chats.get(j);
+            cr = (ChatRelation) user_chats.get(j);
+            URL += "&id=" + cr.getOtherUserId();
         }
         //Aqui termina la preparación de los datos para hacer la llamada a back
 
