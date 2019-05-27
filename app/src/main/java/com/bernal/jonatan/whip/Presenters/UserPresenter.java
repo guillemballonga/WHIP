@@ -48,11 +48,22 @@ public class UserPresenter {
         view.setUserPosts(mis_posts);
     }
 
+    public void getOthersInfo(ArrayList user_chats) {
+        userServer.getOthersInfo(this, user_chats);
+    }
+
+    public void sendInfoForChat(ArrayList userInfoForChat) {
+        view.sendInfoForChat(userInfoForChat);
+    }
+
+
     public interface View{
         void getUserInfo(String cp, String email, String family_name, String first_name,String photoURL, String username);
         void changeActivity();
 
         void setUserPosts(ArrayList mis_posts);
+
+        void sendInfoForChat(ArrayList userInfoForChat);
     }
 
 

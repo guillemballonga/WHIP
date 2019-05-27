@@ -1,6 +1,7 @@
 package com.bernal.jonatan.whip.Servers;
 
 import android.content.Context;
+import android.support.v7.util.SortedList;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -9,6 +10,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.CustomComparator;
+import com.bernal.jonatan.whip.Models.ChatRelation;
 import com.bernal.jonatan.whip.Models.Post;
 import com.bernal.jonatan.whip.Models.User;
 import com.bernal.jonatan.whip.Presenters.UserPresenter;
@@ -19,6 +22,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -152,6 +158,83 @@ public class UserServer {
                                     startActivity(i);
                                 }
                             });*/
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", api); //valor de V ha de ser el de la var global
+                return params;
+            }
+        };
+        requestQueue.add(arrayJsonrequest);
+    }
+
+    public void getOthersInfo(final UserPresenter userPresenter, final ArrayList user_chats) {
+  /*      final ArrayList<String> userIds = new ArrayList<>();
+        ArrayList<String> chatIdsNotSorted = new ArrayList<>();
+        int i;
+        for (i = 0; i < user_chats.size(); ++i) {
+            ChatRelation cr = (ChatRelation) user_chats.get(i);
+            userIds.add(cr.getOtherUserId());
+        }
+  */
+        Collections.sort(user_chats, new CustomComparator());  //Ahora tengo ordenados los user_chats por orden alfabetico
+
+   /*     Collections.sort(userIds, new Comparator<String>() {
+            @Override
+            public int compare(String s, String t1) {
+                return s.compareTo(t1);
+            }
+        });  */
+        //Users ordenados, ahora hay q relacionarlo con los id's del chat
+
+     /*   final ArrayList chatIds = new ArrayList();
+        for (int k = 0; k < userIds.size(); ++k) {
+            int index = user_chats.indexOf(userIds.get(k)); //Encontramos en que posición del array original estaba
+            chatIds.add(user_chats.get(index));  //guardamos los ids en el mismo orden que los users
+        }  */
+        //Tenemos ordenados los ids que vamos a buscar, esto está hecho así para que se corresponda con el orden en el que nos los devolverá
+        //back, así nos ahorramos el coste de asociar los ids con los resultados que obtenemos en back
+        String URL = "https://whip-api.herokuapp.com/users/profile/list?";
+    /*    if (userIds.size() > 0) URL = URL + "id=" + userIds.get(0);
+        for (int j = 1; j < userIds.size(); ++j) {
+            URL += "&id=" + userIds.get(j);
+        }  */
+        ChatRelation cr = (ChatRelation) user_chats.get(0);
+        if (user_chats.size() > 0) URL = URL + "id=" + cr.getOtherUserId();
+        for (int j = 1; j < user_chats.size(); ++j) {
+            cr = (ChatRelation) user_chats.get(j);
+            URL += "&id=" + cr.getOtherUserId();
+        }
+        //Aqui termina la preparación de los datos para hacer la llamada a back
+
+        requestQueue = Volley.newRequestQueue((Context) userPresenter.getView());
+        JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
+                JsonRequest.Method.GET,
+                URL,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            ArrayList userInfoForChat = new ArrayList();
+                            JSONObject userNP;
+                            for (int i = 0; i < response.length(); ++i) {
+                                userNP = response.getJSONObject(i);
+                                ChatRelation cr = (ChatRelation) user_chats.get(i);
+                                userInfoForChat.add(new ChatRelation(userNP.getString("username"), userNP.getString("photo_url"), cr.getId()));
+                            }
+                            userPresenter.sendInfoForChat(userInfoForChat);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

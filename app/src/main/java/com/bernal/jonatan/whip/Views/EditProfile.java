@@ -217,4 +217,9 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
     public void setUserPosts(ArrayList mis_posts) {
 
     }
+
+    @Override
+    public void sendInfoForChat(ArrayList userInfoForChat) {
+
+    }
 }

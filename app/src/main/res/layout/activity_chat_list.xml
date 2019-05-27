@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Views.EventList"
+    tools:context=".Views.ChatList"
     android:orientation="vertical">
 
     <include
@@ -13,12 +13,12 @@
 
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout_events"
+        android:id="@+id/swipeRefreshLayout_chats"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/contenedor_events"
+            android:id="@+id/contenedor_chats"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
