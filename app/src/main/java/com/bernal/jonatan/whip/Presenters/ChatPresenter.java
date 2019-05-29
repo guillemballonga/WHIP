@@ -31,13 +31,19 @@ public class ChatPresenter {
     }
 
     public void deleteChat(String url_chats, String id_chat) {
-        chatServer.deleteChat(url_chats, id_chat);
+        chatServer.deleteChat(this, url_chats, id_chat);
+    }
+
+    public void recharge() {
+        view.recharge();
     }
 
 
     public interface View {
 
         void chargeChats(ArrayList user_chats);
+
+        void recharge();
     }
 
 
