@@ -61,6 +61,8 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
     private Menu menu_fav;
+    private String titlePost, descriptionPost;
+    private String idImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +117,12 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(InfoPostLost.this, ShareFacebook.class));
+
+                Intent i = new Intent(InfoPostLost.this, ShareFacebook.class);
+                i.putExtra("titlePost", titlePost);
+                i.putExtra("descriptionPost", descriptionPost);
+                i.putExtra("urlImage", idImage);
+                startActivity(i);
 
             }
         });
@@ -458,6 +465,9 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         contenido.setText(text);
         mail_creador = userId;
         idCreador.setText(username);
+        titlePost = title;
+        descriptionPost = "Lost POST in Whip app ";
+        idImage = photo_url_1;
 
 
         if (type.equals("F")) {

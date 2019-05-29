@@ -37,16 +37,19 @@ import java.util.jar.JarFile;
 public class ShareFacebook extends AppCompatActivity {
 
     private static final int REQUEST_VIDEO_CODE = 1000;
-    Button btnShareLink, btnSharePhoto, btnShareVideo;
+    Button btnShareLink, btnSharePhoto, btnShareVideo, btnSharePost;
     CallbackManager callbackManager;
     ShareDialog shareDialog;
+
 
     Target target = new Target() {
         @Override
         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
 
+            bitmap = ShowImage.retrieveImageBitmap(idImatge);
+
             SharePhoto sharePhoto = new SharePhoto.Builder().setBitmap(bitmap).build();
-            if(ShareDialog.canShow(SharePhotoContent.class)) {
+            if (ShareDialog.canShow(SharePhotoContent.class)) {
                 SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(sharePhoto).build();
                 shareDialog.show(content);
             }
@@ -59,12 +62,13 @@ public class ShareFacebook extends AppCompatActivity {
         }
 
 
-
         @Override
         public void onPrepareLoad(Drawable placeHolderDrawable) {
 
         }
     };
+    private String titlePost = "", descriPost = "";
+    private String idImatge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,11 +80,22 @@ public class ShareFacebook extends AppCompatActivity {
         btnShareLink = (Button) findViewById(R.id.btnShareLink);
         btnSharePhoto = (Button) findViewById(R.id.btnSharePhoto);
         btnShareVideo = (Button) findViewById(R.id.btnShareVideo);
+        btnSharePost = (Button) findViewById(R.id.btnSharePost);
 
         //init FB
 
         callbackManager = CallbackManager.Factory.create();
         shareDialog = new ShareDialog(this);
+
+
+        titlePost = getIntent().getStringExtra("titlePost");
+        if (titlePost == null) titlePost = "";
+
+        descriPost = getIntent().getStringExtra("descriptionPost");
+        if (descriPost == null) descriPost = "";
+
+        idImatge = getIntent().getStringExtra("urlImage");
+        if (idImatge == null) idImatge = "";
 
 
         btnShareLink.setOnClickListener(new View.OnClickListener() {
@@ -145,11 +160,67 @@ public class ShareFacebook extends AppCompatActivity {
                     }
                 });
 
+
                 //we will fetch photo from link and convert to bitmap
 
-                //Picasso.with(getBaseContext()).load("path").into(target);
+                if (!idImatge.equals("")){
+                    String pathImatge = getPathImage(idImatge);
+
+                    System.out.println("path image sencer: " + pathImatge);
+                    Picasso.with(getBaseContext()).load(pathImatge).into(target);
+                }
 
 
+
+
+            }
+        });
+
+        btnSharePost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //create callback
+                System.out.println("entro a post");
+
+                shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+                    @Override
+                    public void onSuccess(Sharer.Result result) {
+                        Toast.makeText(ShareFacebook.this, "ShareFacebookfoto correcta", Toast.LENGTH_SHORT);
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(ShareFacebook.this, "ShareFacebookfoto CANCEL", Toast.LENGTH_SHORT);
+
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+
+                        Toast.makeText(ShareFacebook.this, "ShareFacebookfoto ERROR: " + error.getMessage(), Toast.LENGTH_SHORT);
+                    }
+                });
+
+
+                ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                        .setContentTitle(titlePost)
+                        .setQuote(descriPost)
+                        .setContentUrl(Uri.parse("whip@gmail.com"))
+                        .build();
+
+                if (ShareDialog.canShow(ShareLinkContent.class)) {
+                    shareDialog.show(linkContent);
+                }
+                //we will fetch photo from link and convert to bitmap
+
+
+                if (!idImatge.equals("")){
+                    String pathImatge = getPathImage(idImatge);
+
+                    System.out.println("path image sencer: " + pathImatge);
+                    Picasso.with(getBaseContext()).load(pathImatge).into(target);
+                }
 
 
             }
@@ -159,7 +230,6 @@ public class ShareFacebook extends AppCompatActivity {
             @TargetApi(Build.VERSION_CODES.LOLLIPOP_MR1)
             @Override
             public void onClick(View v) {
-
 
 
                 //choose video dialog
@@ -192,8 +262,15 @@ public class ShareFacebook extends AppCompatActivity {
         }
     }
 
-    public void publicarPost(String idImatge ) {
+    public String getPathImage(String idImatge) {
 
-        Bitmap bitmap = ShowImage.retrieveImageBitmap("");
+        String path = ShowImage.retrieveImageUri(idImatge);
+
+        if (path == null) {
+            return "";
+
+        } else return path;
+
+
     }
 }

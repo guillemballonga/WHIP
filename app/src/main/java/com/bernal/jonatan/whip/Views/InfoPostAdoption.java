@@ -38,6 +38,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
     ImageView foto_post, compartirRRSS, Organ_quedada;
     String Identificador, correuUsuari;
     Button close_buton, solicitud_adopcion;
+    String titlePost = "", descriptionPost = "";
 
     private String URL, URL_favs, URL_like, URL_close;
     private RequestQueue requestqueue;
@@ -49,6 +50,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
     private Menu menu_fav;
+    private String idImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +100,22 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
                     startActivity(new Intent(InfoPostAdoption.this, NewAdoptionRequest.class));
                     finish();
                 }
+            }
+        });
+
+
+        compartirRRSS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(InfoPostAdoption.this, ShareFacebook.class);
+                i.putExtra("titlePost", titlePost);
+                i.putExtra("descriptionPost", descriptionPost);
+                i.putExtra("urlImage", idImage);
+                startActivity(i);
+
+
+
             }
         });
 
@@ -239,7 +257,11 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         raza.setText(race);
         contenido.setText(text);
         mail_creador = userId;
+        titlePost = title;
+        descriptionPost = "Adoption POST in Whip app ";
         idCreador.setText(username);
+
+        idImage = photo_url_1;
         //Fotografías con Firebase
         String urlFoto1 = photo_url_1; //LAURA->
         if (!urlFoto1.equals("")) retrieveImage(urlFoto1);

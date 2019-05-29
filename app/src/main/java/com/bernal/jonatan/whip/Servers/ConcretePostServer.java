@@ -263,6 +263,10 @@ public class ConcretePostServer {
         requestQueue.add(objectJsonrequest);
     }
 
+    public void shareFacebook(){
+
+    }
+
 }
 
 

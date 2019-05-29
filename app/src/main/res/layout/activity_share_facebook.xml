@@ -30,6 +30,11 @@
             android:text="Share Video"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btnSharePost"
+            android:text="Share Post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </RelativeLayout>

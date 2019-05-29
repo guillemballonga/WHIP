@@ -2,17 +2,21 @@ package com.bernal.jonatan.whip.Views;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bernal.jonatan.whip.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,6 +46,7 @@ public class ShowImage extends AppCompatActivity {
         imageView = findViewById(R.id.imageFirebase);
         try {
             final File localFile = File.createTempFile("images", "jpg");
+            String xxx = storageReference.getPath();
             storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
@@ -84,4 +89,40 @@ public class ShowImage extends AppCompatActivity {
         }
         return bitmap[0];
     }
+    public static String retrieveImageUri(String idImageFirebase) {
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
+        StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
+
+        final String[] generatedFilePath = {""};
+
+        System.out.println("retrieveImageBitmap: " + storageReference.getPath());
+
+
+        try {
+            final File localFile = File.createTempFile("images", "jpg");
+            String xxx = storageReference.getPath();
+            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                }
+            });
+
+        } catch (IOException e) {
+            System.out.println("error en retrieveImageUri: " + e.getMessage());
+
+        }
+        return storageReference.getDownloadUrl().toString();
+    }
+
+
+
 }
