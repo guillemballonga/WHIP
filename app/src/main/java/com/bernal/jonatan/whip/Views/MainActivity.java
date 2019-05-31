@@ -1,6 +1,9 @@
 package com.bernal.jonatan.whip.Views;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -46,6 +49,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -83,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         loginButtonFacebook = (LoginButton) findViewById(R.id.login_facebook_button);
         //loginButtonFacebook.setReadPermissions("email");
         callbackManager = CallbackManager.Factory.create();
+        facebook = false;
         loginButtonFacebook.setReadPermissions(Arrays.asList("email","public_profile"));
         checkLoginStatus();
 
@@ -143,6 +149,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         loginFacebook.setSize(SignInButton.SIZE_STANDARD);
         loginFacebook.setColorScheme(SignInButton.COLOR_LIGHT);
         // [END customize_button]
+
+        printKeyHash();
+    }
+
+    private void printKeyHash() {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo("com.bernal.jonatan.whip", PackageManager.GET_SIGNATURES);
+
+            for (Signature signature: info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
     }
 
 

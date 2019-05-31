@@ -11,6 +11,8 @@ import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Post;
 import com.bernal.jonatan.whip.Presenters.ConcretePostPresenter;
 import com.bernal.jonatan.whip.Views.UserLoggedIn;
+import com.facebook.CallbackManager;
+import com.facebook.share.widget.ShareDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +27,10 @@ public class ConcretePostServer {
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
     private String api = ul.getAPI_KEY();
     private RequestQueue requestQueue;
+
+    CallbackManager callbackManager;
+    ShareDialog shareDialog;
+
 
     public void getPost(final ConcretePostPresenter concretePostPresenter, String URL, final String tipo_post) {
         requestQueue = Volley.newRequestQueue((Context) concretePostPresenter.getView());
@@ -256,6 +262,11 @@ public class ConcretePostServer {
         };
         requestQueue.add(objectJsonrequest);
     }
+
+    public void shareFacebook(){
+
+    }
+
 }
 
 

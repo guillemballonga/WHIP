@@ -61,6 +61,8 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
     private Menu menu_fav;
+    private String titlePost, descriptionPost;
+    private String idImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +89,11 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         //  organ_quedada = findViewById(R.id.organ_quedadaPerd);
         box_comment = findViewById(R.id.box_comment);
 
+
         cerrar_post = findViewById(R.id.boton_cerrar);
         crear_comment = findViewById(R.id.crear_comment);
         borrar_comment = findViewById(R.id.borrar_comment);
+
 
         comments = findViewById(R.id.contenedor_comments);
 
@@ -106,6 +110,23 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         URL_like = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=lost";
         URL_close = "https://whip-api.herokuapp.com/contributions/close/" + Identificador + "/?type=lost";
         URL_comments = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador + "/comments";
+
+        requestqueue = Volley.newRequestQueue(this);
+
+        compartirRRSS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent i = new Intent(InfoPostLost.this, ShareFacebook.class);
+                i.putExtra("titlePost", titlePost);
+                i.putExtra("descriptionPost", descriptionPost);
+                i.putExtra("urlImage", idImage);
+                startActivity(i);
+
+            }
+        });
+
 
         cerrar_post.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -325,6 +346,9 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         contenido.setText(text);
         mail_creador = userId;
         idCreador.setText(username);
+        titlePost = title;
+        descriptionPost = "Lost POST in Whip app ";
+        idImage = photo_url_1;
 
 
         if (type.equals("F")) {

@@ -40,6 +40,7 @@ public class UploadImageFirebase extends AppCompatActivity {
     private Uri filePath;
 
     private final int PICK_IMAGE_REQUEST = 71; //is the request code defined as an instance variable.
+    private Task<Uri> xxx;
 
     public static String getIdentificadorImatge() {
         return identificadorImatge;
@@ -129,7 +130,9 @@ public class UploadImageFirebase extends AppCompatActivity {
             StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
 
 
+
             identificadorImatge = ref.getPath();
+
 
             ref.putFile(filePath)
                     .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {

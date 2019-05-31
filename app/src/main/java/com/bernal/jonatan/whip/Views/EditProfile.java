@@ -168,6 +168,7 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
         //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
         StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
 
+        String xxxx = storageReference.getPath();
         //foto_post = (ImageView) findViewById(R.id.foto_postPerd);
         try {
             final File localFile = File.createTempFile("images", "jpg");
