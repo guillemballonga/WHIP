@@ -50,6 +50,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     String Identificador;
     Button cerrar_post, crear_comment, borrar_comment, organ_quedada;
     RecyclerView comments;
+    private RequestQueue requestqueue;
 
 
     private String URL, URL_favs, URL_like, URL_close, URL_comments;
