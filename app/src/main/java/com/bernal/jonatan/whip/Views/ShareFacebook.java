@@ -41,6 +41,7 @@ public class ShareFacebook extends AppCompatActivity {
     CallbackManager callbackManager;
     ShareDialog shareDialog;
 
+    /*
 
     Target target = new Target() {
         @Override
@@ -67,6 +68,7 @@ public class ShareFacebook extends AppCompatActivity {
 
         }
     };
+    */
     private String titlePost = "", descriPost = "";
     private String idImatge;
 
@@ -167,7 +169,7 @@ public class ShareFacebook extends AppCompatActivity {
                     String pathImatge = getPathImage(idImatge);
 
                     System.out.println("path image sencer: " + pathImatge);
-                    Picasso.with(getBaseContext()).load(pathImatge).into(target);
+                    //Picasso.with(getBaseContext()).load(pathImatge).into(target);
                 }
 
 
@@ -183,45 +185,15 @@ public class ShareFacebook extends AppCompatActivity {
                 //create callback
                 System.out.println("entro a post");
 
-                shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
-                    @Override
-                    public void onSuccess(Sharer.Result result) {
-                        Toast.makeText(ShareFacebook.this, "ShareFacebookfoto correcta", Toast.LENGTH_SHORT);
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        Toast.makeText(ShareFacebook.this, "ShareFacebookfoto CANCEL", Toast.LENGTH_SHORT);
-
-                    }
-
-                    @Override
-                    public void onError(FacebookException error) {
-
-                        Toast.makeText(ShareFacebook.this, "ShareFacebookfoto ERROR: " + error.getMessage(), Toast.LENGTH_SHORT);
-                    }
-                });
+                Bitmap image = ShowImage.retrieveImageBitmap(idImatge);
 
 
-                ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                        .setContentTitle(titlePost)
-                        .setQuote(descriPost)
-                        .setContentUrl(Uri.parse("whip@gmail.com"))
+                SharePhoto photo = new SharePhoto.Builder()
+                        .setBitmap(image)
                         .build();
-
-                if (ShareDialog.canShow(ShareLinkContent.class)) {
-                    shareDialog.show(linkContent);
-                }
-                //we will fetch photo from link and convert to bitmap
-
-
-                if (!idImatge.equals("")){
-                    String pathImatge = getPathImage(idImatge);
-
-                    System.out.println("path image sencer: " + pathImatge);
-                    Picasso.with(getBaseContext()).load(pathImatge).into(target);
-                }
-
+                SharePhotoContent content = new SharePhotoContent.Builder()
+                        .addPhoto(photo)
+                        .build();
 
             }
         });

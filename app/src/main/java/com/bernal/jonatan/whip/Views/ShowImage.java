@@ -77,7 +77,7 @@ public class ShowImage extends AppCompatActivity {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     bitmap[0] = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    //imageView.setImageBitmap(bitmap[0]);
+                    Bitmap bitmap2 = bitmap[0];
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -91,36 +91,8 @@ public class ShowImage extends AppCompatActivity {
     }
     public static String retrieveImageUri(String idImageFirebase) {
 
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
-        StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
-
-        final String[] generatedFilePath = {""};
-
-        System.out.println("retrieveImageBitmap: " + storageReference.getPath());
-
-
-        try {
-            final File localFile = File.createTempFile("images", "jpg");
-            String xxx = storageReference.getPath();
-            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                }
-            });
-
-        } catch (IOException e) {
-            System.out.println("error en retrieveImageUri: " + e.getMessage());
-
-        }
-        return storageReference.getDownloadUrl().toString();
+       //TODO
+        return "";
     }
 
 
