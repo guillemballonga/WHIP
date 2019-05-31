@@ -210,12 +210,16 @@ public class UserServer {
         for (int j = 1; j < userIds.size(); ++j) {
             URL += "&id=" + userIds.get(j);
         }  */
-        ChatRelation cr = (ChatRelation) user_chats.get(0);
-        if (user_chats.size() > 0) URL = URL + "id=" + cr.getOtherUserId();
-        for (int j = 1; j < user_chats.size(); ++j) {
-            cr = (ChatRelation) user_chats.get(j);
-            URL += "&id=" + cr.getOtherUserId();
+        ChatRelation cr;
+        if (user_chats.size() > 0 ) {
+            cr = (ChatRelation) user_chats.get(0);
+            URL = URL + "id=" + cr.getOtherUserId();
+            for (int j = 1; j < user_chats.size(); ++j) {
+                cr = (ChatRelation) user_chats.get(j);
+                URL += "&id=" + cr.getOtherUserId();
+            }
         }
+
         //Aqui termina la preparación de los datos para hacer la llamada a back
 
         requestQueue = Volley.newRequestQueue((Context) userPresenter.getView());
