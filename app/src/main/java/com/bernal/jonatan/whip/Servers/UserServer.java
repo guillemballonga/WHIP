@@ -211,12 +211,17 @@ public class UserServer {
             URL += "&id=" + userIds.get(j);
         }  */
         ChatRelation cr;
+        final ArrayList<String> crNoUser = new ArrayList<>();
         if (user_chats.size() > 0 ) {
             cr = (ChatRelation) user_chats.get(0);
-            URL = URL + "id=" + cr.getOtherUserId();
+            if (cr.getOtherUserId().equals("null")) {
+                URL = URL + "id=" + cr.getOtherUserId();
+            }
+            else crNoUser.add(cr.getId());
             for (int j = 1; j < user_chats.size(); ++j) {
                 cr = (ChatRelation) user_chats.get(j);
                 URL += "&id=" + cr.getOtherUserId();
+                if(cr.getOtherUserId().equals("null")) crNoUser.add(cr.getId());
             }
         }
 
@@ -237,6 +242,9 @@ public class UserServer {
                                 userNP = response.getJSONObject(i);
                                 ChatRelation cr = (ChatRelation) user_chats.get(i);
                                 userInfoForChat.add(new ChatRelation(userNP.getString("username"), userNP.getString("photo_url"), cr.getId()));
+                            }
+                            for(int j = 0; j < crNoUser.size();++j){
+                                userInfoForChat.add(new ChatRelation("Other User Deleted chat", "", crNoUser.get(j) ));
                             }
                             userPresenter.sendInfoForChat(userInfoForChat);
                         } catch (JSONException e) {
