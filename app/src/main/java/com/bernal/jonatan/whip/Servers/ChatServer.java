@@ -7,6 +7,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.ChatRelation;
 import com.bernal.jonatan.whip.Presenters.ChatPresenter;
@@ -71,7 +73,33 @@ public class ChatServer {
 
     }
 
-    public void deleteChat(String url_chats, String id_chat) {
+    public void deleteChat(final ChatPresenter chatPresenter, String url_chats, String id_chat) {
+        requestQueue = Volley.newRequestQueue((Context) chatPresenter.getView());
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.PATCH,
+                url_chats + "/" + id_chat,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        chatPresenter.recharge();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", api);
+                return params;
+            }
+        };
+        requestQueue.add(objectJsonrequest);
     }
 }
 
