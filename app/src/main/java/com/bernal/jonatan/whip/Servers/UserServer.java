@@ -214,7 +214,7 @@ public class UserServer {
         final ArrayList<String> crNoUser = new ArrayList<>();
         if (user_chats.size() > 0 ) {
             cr = (ChatRelation) user_chats.get(0);
-            if (cr.getOtherUserId().equals("null")) {
+            if (!cr.getOtherUserId().equals("null")) {
                 URL = URL + "id=" + cr.getOtherUserId();
             }
             else crNoUser.add(cr.getId());
