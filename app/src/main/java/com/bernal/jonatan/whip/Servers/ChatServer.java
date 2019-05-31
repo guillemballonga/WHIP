@@ -76,7 +76,7 @@ public class ChatServer {
     public void deleteChat(final ChatPresenter chatPresenter, String url_chats, String id_chat) {
         requestQueue = Volley.newRequestQueue((Context) chatPresenter.getView());
         JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                JsonRequest.Method.DELETE,
+                JsonRequest.Method.PATCH,
                 url_chats + "/" + id_chat,
                 null,
                 new Response.Listener<JSONObject>() {
