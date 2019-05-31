@@ -75,7 +75,7 @@ public class CalendarGoogle {
      * @return An authorized Credential object.
      * @throws IOException If the credentials.json file cannot be found.
      */
-    private static Credential getCredentials(final HttpTransport HTTP_TRANSPORT, InputStream in, String authCode) throws IOException {
+    private static Credential getCredentials(final HttpTransport HTTP_TRANSPORT, InputStream in, String authCode) throws Exception {
 
 
         String REDIRECT_URI = "";
@@ -86,40 +86,61 @@ public class CalendarGoogle {
         }
         //GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
-        GoogleClientSecrets clientSecrets =
-                GoogleClientSecrets.load(
-                        JacksonFactory.getDefaultInstance(), new InputStreamReader(in));
+        GoogleClientSecrets clientSecrets;
+        try {
+             clientSecrets = GoogleClientSecrets.load(JacksonFactory.getDefaultInstance(), new InputStreamReader(in));
 
-        GoogleTokenResponse tokenResponse =
-                new GoogleAuthorizationCodeTokenRequest(
-                        new NetHttpTransport(),
-                        JacksonFactory.getDefaultInstance(),
-                        "https://www.googleapis.com/oauth2/v4/token",
-                        clientSecrets.getDetails().getClientId(),
-                        clientSecrets.getDetails().getClientSecret(),
-                        authCode,
-                        REDIRECT_URI)
-                        .execute();
-        String accessToken = tokenResponse.getAccessToken();
-        String refreshToken = tokenResponse.getRefreshToken();
-        Long expiresInSeconds = tokenResponse.getExpiresInSeconds();
+        } catch (Exception e) {
+            throw new Exception("error en getCredentials. clientSecrets");
+        }
+
+        System.out.println("clientsecret correcta");
+
+        GoogleTokenResponse tokenResponse;
+        String accessToken = "", refreshToken = "";
+        Long expiresInSeconds;
+        try {
+            tokenResponse = new GoogleAuthorizationCodeTokenRequest(
+                    new NetHttpTransport(),
+                    JacksonFactory.getDefaultInstance(),
+                    "https://www.googleapis.com/oauth2/v4/token",
+                    clientSecrets.getDetails().getClientId(),
+                    clientSecrets.getDetails().getClientSecret(),
+                    authCode,
+                    REDIRECT_URI)
+                    .execute();
+            System.out.println("clientsecret correcta");
+            accessToken = tokenResponse.getAccessToken();
+            refreshToken = tokenResponse.getRefreshToken();
+            expiresInSeconds = tokenResponse.getExpiresInSeconds();
+        } catch (Exception e) {
+            throw new Exception("error en tokenResponse: " + e.getMessage());
+        }
 
 
-        GoogleCredential credential = new GoogleCredential.Builder()
-                .setTransport(new NetHttpTransport())
-                .setJsonFactory(JacksonFactory.getDefaultInstance())
-                .setClientSecrets(clientSecrets)
-                .build();
-        credential.setAccessToken(accessToken);
-        credential.setExpiresInSeconds(expiresInSeconds);
-        credential.setRefreshToken(refreshToken);
+
+
+
+        GoogleCredential credential;
+        try {
+            credential = new GoogleCredential.Builder()
+                    .setTransport(new NetHttpTransport())
+                    .setJsonFactory(JacksonFactory.getDefaultInstance())
+                    .setClientSecrets(clientSecrets)
+                    .build();
+            credential.setAccessToken(accessToken);
+            credential.setExpiresInSeconds(expiresInSeconds);
+            credential.setRefreshToken(refreshToken);
+        } catch (Exception e) {
+            throw new Exception( "error en credentials: " + e.getMessage() );
+        }
 
         return credential;
     }
 
 
 
-    public static com.google.api.services.calendar.Calendar apiCalendar(InputStream im, String authCode) throws GeneralSecurityException, IOException {
+    public static com.google.api.services.calendar.Calendar apiCalendar(InputStream im, String token) throws GeneralSecurityException, IOException {
 
 
         if (android.os.Build.VERSION.SDK_INT > 9)
@@ -130,7 +151,12 @@ public class CalendarGoogle {
         // Build a new authorized API client service.
         final HttpTransport HTTP_TRANSPORT = AndroidHttp.newCompatibleTransport();
 
-        Credential credentials = getCredentials(HTTP_TRANSPORT, im, authCode);
+        Credential credentials = null;
+        try {
+            credentials = getCredentials(HTTP_TRANSPORT, im, token);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         com.google.api.services.calendar.Calendar service = new com.google.api.services.calendar.Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, credentials )
                 .setApplicationName(APPLICATION_NAME)
