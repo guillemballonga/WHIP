@@ -106,14 +106,16 @@ public class CalendarGoogle {
             String clientSecret = "jFt8NzVu2-gkjxPnzQ14i3dk";
             String authUri = clientSecrets.getDetails().getAuthUri();
             String tokenUri = clientSecrets.getDetails().getTokenUri();
+            HttpTransport transport = new NetHttpTransport();
+            JacksonFactory jsonFactory = new JacksonFactory();
 
             System.out.println("client id i client secret: ");
             System.out.println(clientId);
             System.out.println(clientSecret);
 
             tokenResponse = new GoogleAuthorizationCodeTokenRequest(
-                    new NetHttpTransport(),
-                    JacksonFactory.getDefaultInstance(),
+                    transport,
+                    jsonFactory,
                     clientId,
                     clientSecret,
                     authCode,

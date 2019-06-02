@@ -45,7 +45,7 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
         //Toast.makeText(getApplicationContext(), "token usu " + ul.getToken(), Toast.LENGTH_SHORT).show();
         Toast.makeText(getApplicationContext(), "token usu " + ul.getToken(), Toast.LENGTH_SHORT).show();
 
-        final String   authCode = ul.getToken();
+        final String  authCode = ul.getToken();
 
         acceptarQuedada = findViewById(R.id.boto_acceptar_event);
         rebutjarQuedada = findViewById(R.id.boto_rebutjar_event);
@@ -83,7 +83,7 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
                     int idCredentials = R.raw.clientextra;
 
                     InputStream im = credentials(idCredentials);
-/*
+
 
                     CalendarGoogle.apiCalendar(im, authCode);
 
@@ -91,7 +91,7 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
-*/
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
