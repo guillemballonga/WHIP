@@ -29,7 +29,7 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View, U
     private String URL_chats;
     private ChatAdapter adapt;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ArrayList<ChatRelation> chatsUser;
+
 
     RecyclerView contenedor_chats;
 
@@ -46,6 +46,7 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View, U
         contenedor_chats = findViewById(R.id.contenedor_chats);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout_chats);
 
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -54,13 +55,13 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View, U
             }
         });
 
-        URL_chats = "https://whip-api.herokuapp.com/chats";
+        URL_chats = "https://whip-api.herokuapp.com";
 
         Toolbar tool = findViewById(R.id.toolbar_listadoChats);
         setSupportActionBar(tool);
         getSupportActionBar().setTitle("CHATS");
 
-        chatPresenter.getChats(URL_chats);
+        chatPresenter.getChats(URL_chats+"/chats");
     }
 
 
@@ -108,14 +109,15 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View, U
         adapt.setOnChatListener(new OnChatListener() {
             @Override
             public void onEliminateClicked(int position, View vista) {
-                final String id_chat = chatsUser.get(contenedor_chats.getChildAdapterPosition(vista)).getId();
+                final ChatRelation cr = (ChatRelation) userInfoForChat.get(contenedor_chats.getChildAdapterPosition(vista));
+                final String id_chat = cr.getId();
                 AlertDialog.Builder alert = new AlertDialog.Builder(ChatList.this);
-                alert.setMessage("¿Estás seguro que deseas eliminar este Comentario?")
+                alert.setMessage("¿Estás seguro que deseas eliminar este Chat?")
                         .setCancelable(false)
                         .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                chatPresenter.deleteChat(URL_chats, id_chat);
+                                chatPresenter.deleteChat(URL_chats+"/chat", id_chat);
 
                             }
                         })
