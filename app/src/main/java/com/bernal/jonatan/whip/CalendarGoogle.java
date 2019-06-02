@@ -54,6 +54,7 @@ public class CalendarGoogle {
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
 
+
     final HttpTransport transport = AndroidHttp.newCompatibleTransport();
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
@@ -82,7 +83,7 @@ public class CalendarGoogle {
 
 
         if (in == null) {
-            throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
+            throw new FileNotFoundException("Resource not found: ");
         }
         //GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
@@ -100,15 +101,26 @@ public class CalendarGoogle {
         String accessToken = "", refreshToken = "";
         Long expiresInSeconds;
         try {
+
+            String clientId = clientSecrets.getDetails().getClientId();
+            String clientSecret = "jFt8NzVu2-gkjxPnzQ14i3dk";
+            String authUri = clientSecrets.getDetails().getAuthUri();
+            String tokenUri = clientSecrets.getDetails().getTokenUri();
+
+            System.out.println("client id i client secret: ");
+            System.out.println(clientId);
+            System.out.println(clientSecret);
+
             tokenResponse = new GoogleAuthorizationCodeTokenRequest(
                     new NetHttpTransport(),
                     JacksonFactory.getDefaultInstance(),
-                    "https://oauth2.googleapis.com/token",
-                    clientSecrets.getInstalled().getClientId(),
-                    clientSecrets.getInstalled().getClientSecret(),
+                    clientId,
+                    clientSecret,
                     authCode,
                     REDIRECT_URI)
                     .execute();
+
+
             System.out.println("clientsecret correcta");
             accessToken = tokenResponse.getAccessToken();
             refreshToken = tokenResponse.getRefreshToken();
