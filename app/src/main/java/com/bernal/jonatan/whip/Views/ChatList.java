@@ -79,6 +79,11 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View, U
     }
 
     @Override
+    public void chargeMessages(ArrayList chat_messages) {
+
+    }
+
+    @Override
     public void getUserInfo(String cp, String email, String family_name, String first_name, String photoURL, String username) {
 
     }

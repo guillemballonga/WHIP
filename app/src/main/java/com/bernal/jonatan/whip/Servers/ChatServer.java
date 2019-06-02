@@ -10,6 +10,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.Models.ChatMessage;
 import com.bernal.jonatan.whip.Models.ChatRelation;
 import com.bernal.jonatan.whip.Presenters.ChatPresenter;
 import com.bernal.jonatan.whip.Views.UserLoggedIn;
@@ -100,6 +101,45 @@ public class ChatServer {
             }
         };
         requestQueue.add(objectJsonrequest);
+    }
+
+    public void getMessages(final ChatPresenter chatPresenter, String url) {
+        requestQueue = Volley.newRequestQueue((Context) chatPresenter.getView());
+        JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            ArrayList chat_messages = new ArrayList<>();
+                            JSONObject chat_msg = new JSONObject();
+                            String otherUser;
+                            for (int i = 0; i < response.length(); ++i) {
+                                chat_msg = response.getJSONObject(i);
+                                chat_messages.add(new ChatMessage(chat_msg.getString("id"), chat_msg.getString("userId"), chat_msg.getString("message"), chat_msg.getString("CreatedAt").split("T")[0], chat_msg.getString("CreatedAt").split("T")[1]));
+                            }
+                            chatPresenter.chargeMessages(chat_messages);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", api);
+                return params;
+            }
+        };
+        requestQueue.add(arrayJsonrequest);
     }
 }
 

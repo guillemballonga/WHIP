@@ -38,12 +38,22 @@ public class ChatPresenter {
         view.recharge();
     }
 
+    public void getMessages(String url) {
+        chatServer.getMessages(this, url);
+    }
+
+    public void chargeMessages(ArrayList chat_messages) {
+        view.chargeMessages(chat_messages);
+    }
+
 
     public interface View {
 
         void chargeChats(ArrayList user_chats);
 
         void recharge();
+
+        void chargeMessages(ArrayList chat_messages);
     }
 
 
