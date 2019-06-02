@@ -1,7 +1,6 @@
 package com.bernal.jonatan.whip.Views;
 
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -68,7 +67,7 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View{
 
 
 
-                    int idCredentials = R.raw.credentials;
+                    int idCredentials = R.raw.clientextra;
 
                     InputStream im =  credentials(idCredentials);
 
