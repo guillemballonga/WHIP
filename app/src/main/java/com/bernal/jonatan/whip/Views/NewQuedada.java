@@ -33,19 +33,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class NewQuedada extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+public class NewQuedada extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private String URL;
-    static String postID, type;
+    static String postID, type, idEvento;
     static String UsernameFromPost;
     private String dia, mes;
     private int hora, min, año;
-    String horaForm="";
-    String minForm="";
+    String horaForm = "";
+    String minForm = "";
     private RequestQueue requestqueue;
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
     private String api = ul.getAPI_KEY();
     Button selecionar_fecha, crear_quedada, seleccionar_hora;
     EditText lugar;
+    static int replanificar=0;
+
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -58,6 +62,7 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
         Toolbar tool = findViewById(R.id.toolbar_nova_quedada);
         setSupportActionBar(tool);
         Objects.requireNonNull(getSupportActionBar()).setTitle("QUEDADA");
+
 
         //JSON
         /*
@@ -73,9 +78,14 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
 
 
         //Coneixón con la API
-        URL = "https://whip-api.herokuapp.com/contributions/" + postID + "/event?type=" + type;
-        requestqueue = Volley.newRequestQueue(this);
-
+        if(replanificar==0) {
+            URL = "https://whip-api.herokuapp.com/contributions/" + postID + "/event?type=" + type;
+            requestqueue = Volley.newRequestQueue(this);
+        }
+        else{
+            URL = "https://whip-api.herokuapp.com/event/" + idEvento;
+            requestqueue = Volley.newRequestQueue(this);
+        }
         seleccionar_hora = findViewById(R.id.hora_quedada);
         seleccionar_hora.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,70 +105,114 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
             }
         });
 
-       crear_quedada = findViewById(R.id.boton_enviar_quedada);
-       crear_quedada.setOnClickListener(new View.OnClickListener() {
+
+
+        crear_quedada = findViewById(R.id.boton_enviar_quedada);
+        crear_quedada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                 //jason para comunicación con back
+                //jason para comunicación con back
                 JSONObject quedada = new JSONObject();
                 lugar = findViewById(R.id.lugar_quedada);
                 seleccionar_hora = findViewById(R.id.hora_quedada);
 
                 if (selecionar_fecha.getText().toString().equals("") || seleccionar_hora.getText().toString().equals("") || lugar.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
-                }else {
-                //JASON
+                } else {
+                    //JASON
                     try {
-                        if (type.equals("adoption")){
-                            quedada.put("adoptionPostId", postID);
-                        } else {
-                            quedada.put("lostPostId", postID);
+                        if (replanificar == 0) {
+                            if (type.equals("adoption")) {
+                                quedada.put("adoptionPostId", postID);
+                            } else {
+                                quedada.put("lostPostId", postID);
+                            }
                         }
                         quedada.put("date", año + "-" + mes + "-" + dia + " " + horaForm + ":" + minForm + ": 00");
                         quedada.put("place", lugar.getText().toString());
                         quedada.put("userIdFromPost", UsernameFromPost);
 
+                        if (replanificar == 1){
+                            quedada.put("userId", ul.getCorreo_user());
+                        }
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    //Guardar los datos del formulario en BACK.
+                    if (replanificar == 0) {
+                        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                                JsonRequest.Method.POST,
+                                URL,
+                                quedada,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        startActivity(new Intent(NewQuedada.this, MainMenu.class));
+                                        Toast.makeText(getApplicationContext(), "Quedada Creada Correctamente", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
 
-                        //Guardar los datos del formulario en BACK.
-                    JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                            JsonRequest.Method.POST,
-                            URL,
-                            quedada,
 
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    startActivity(new Intent(NewQuedada.this, MainMenu.class));
-                                    Toast.makeText(getApplicationContext(), "Quedada Creada Correctamente", Toast.LENGTH_SHORT).show();
-                                    finish();
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                        error.printStackTrace();
+                                    }
                                 }
-
-
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-                                    error.printStackTrace();
-                                }
+                        ) {
+                            @Override
+                            public Map<String, String> getHeaders() {
+                                Map<String, String> params = new HashMap<>();
+                                params.put("Content-Type", "application/json");
+                                params.put("Authorization", api); //valor de V ha de ser el de la var global
+                                return params;
                             }
-                    ) {
-                        @Override
-                        public Map<String, String> getHeaders() {
-                            Map<String, String> params = new HashMap<>();
-                            params.put("Content-Type", "application/json");
-                            params.put("Authorization", api); //valor de V ha de ser el de la var global
-                            return params;
-                        }
-                    };
-                    requestqueue.add(objectJsonrequest);
+                        };
+                        requestqueue.add(objectJsonrequest);
 //JASON
+                    }
+                    else{
+                        replanificar=0;
+                        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                                JsonRequest.Method.PATCH,
+                                URL,
+                                quedada,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        startActivity(new Intent(NewQuedada.this, MainMenu.class));
+                                        Toast.makeText(getApplicationContext(), "UsernameFromPost= " + UsernameFromPost + " place " + lugar.getText().toString() + " userId " + ul.getCorreo_user(), Toast.LENGTH_SHORT).show();
+
+                                        //Toast.makeText(getApplicationContext(), "Quedada Replanificada Correctamente", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+
+
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                        error.printStackTrace();
+                                    }
+                                }
+                        ) {
+                            @Override
+                            public Map<String, String> getHeaders() {
+                                Map<String, String> params = new HashMap<>();
+                                params.put("Content-Type", "application/json");
+                                params.put("Authorization", api); //valor de V ha de ser el de la var global
+                                return params;
+                            }
+                        };
+                        requestqueue.add(objectJsonrequest);
+                    }
                 }
             }
+
         });
     }
 
@@ -167,19 +221,17 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-                if(hourOfDay<10) {
+                if (hourOfDay < 10) {
                     horaForm = "0" + hourOfDay;
-                }
-                else {
+                } else {
                     horaForm = "" + hourOfDay;
                 }
-                if(minute<10){
+                if (minute < 10) {
                     minForm = "0" + minute;
-                }
-                else {
+                } else {
                     minForm = "" + minute;
                 }
-                seleccionar_hora.setText(horaForm+":"+minForm);
+                seleccionar_hora.setText(horaForm + ":" + minForm);
             }
         }, hora, min, false);
         elijeHora.show();
@@ -192,22 +244,20 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-        month=month+1;
+        month = month + 1;
 
-        if(month<10) {
+        if (month < 10) {
             mes = "0" + month;
-        }
-        else if (month>10){
+        } else if (month > 10) {
             mes = "" + month;
         }
 
-        if(dayOfMonth<10){
+        if (dayOfMonth < 10) {
             dia = "0" + dayOfMonth;
-        }
-        else if (dayOfMonth>10){
+        } else if (dayOfMonth > 10) {
             dia = "" + dayOfMonth;
         }
-        año=year;
+        año = year;
         selecionar_fecha.setText(dia + "/" + mes + "/" + año);
 
 
@@ -217,10 +267,18 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
         postID = idPost;
         type = tipo;
     }
-
-    public static void setUsernameFromPost(String username){
-        UsernameFromPost=username;
+    public static void setIdEvent(String idEvent) {
+        idEvento=idEvent;
     }
+
+    public static void setUsernameFromPost(String username) {
+        UsernameFromPost = username;
+    }
+
+    public static void setReplanificar() {
+        replanificar = 1;
+    }
+
 
 
 }

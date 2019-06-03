@@ -10,15 +10,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.bernal.jonatan.whip.CalendarGoogle;
 import com.bernal.jonatan.whip.Presenters.EventPresenter;
 import com.bernal.jonatan.whip.R;
 
 import org.json.JSONException;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 
 
@@ -28,16 +25,17 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
 
     private String URL, URLUpdateAccept, URLUpdateReject;
     private RequestQueue requestqueue;
-    TextView title, dataPost, dataQuedada, hora, lloc, idSolicitante;
+    TextView title, dataPost, dataQuedada, hora, lloc, idSolicitante, id_destinatarioQuedada;
     String titleEvent = "", datePost = "", dateEvent = "", horaEvent = "", placeEvent = "", idSolicitanteEvent = "";
     private String idEvent;
-    private Button acceptarQuedada, rebutjarQuedada;
+    private Button acceptarQuedada, rebutjarQuedada, replanificarQuedada;
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_event);
+
 
         idEvent = getIntent().getStringExtra("idEvent");
 
@@ -59,6 +57,9 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
         hora = findViewById(R.id.hora_info_quedada);
         lloc = findViewById(R.id.lugar_info_quedada);
         idSolicitante = findViewById(R.id.id_creadorQuedada);
+        replanificarQuedada = findViewById(R.id.boto_replanificar_event);
+        id_destinatarioQuedada = findViewById(R.id.id_destinatarioQuedada);
+
 
 
         acceptarQuedada.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +125,32 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
             }
         });
 
+        replanificarQuedada.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                try {
+                    eventPresenter.updateEvent(URLUpdateReject);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                Toast.makeText(getApplicationContext(), "Introduce los datos para la nueva propuesta de quedada", Toast.LENGTH_SHORT).show();
+
+                NewQuedada.setReplanificar();
+                NewQuedada.setIdEvent(idEvent);
+                NewQuedada.setUsernameFromPost(idSolicitanteEvent);
+                startActivity(new Intent(InfoEvent.this, NewQuedada.class));
+                finish();
+            }
+        });
+
+
+
         eventPresenter.getEventInfo(URL);
+
+
 
     }
 
@@ -142,15 +168,22 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
         dataQuedada.setText(date);
         hora.setText(time);
         lloc.setText(place);
-        idSolicitante.setText(userFromPostId);
+        idSolicitante.setText(userId);
+        id_destinatarioQuedada.setText(userFromPostId);
+
 
         placeEvent = place;
         horaEvent = time;
 
         dateEvent = date;
-        idSolicitanteEvent = userFromPostId;
+        idSolicitanteEvent = userId;
 
+        if(idSolicitanteEvent.equals(ul.getCorreo_user())){
 
+            acceptarQuedada.setVisibility(View.GONE);
+            rebutjarQuedada.setVisibility(View.GONE);
+            replanificarQuedada.setVisibility(View.GONE);
+        }
     }
 
     @Override
