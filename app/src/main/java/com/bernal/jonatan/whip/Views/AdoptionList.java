@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,13 +41,17 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
     private Spinner spinnerFiltre;
     private TextView orderBy;
     private String selectedItem;
-
+    Button botoBuscar;
+    EditText textBuscarPostAdoption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_adoption);
 
+
+        textBuscarPostAdoption=findViewById(R.id.text_buscar_post_adoption);
+        botoBuscar=findViewById(R.id.boto_buscar_post_adoption);
 
         contenedor_adopt = findViewById(R.id.contenedor_adoption);
         spinnerFiltre = findViewById(R.id.spinner_filter_adoption);
@@ -108,6 +114,15 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
         //Llamada a la API
 
         postPresenter.getAdoptionPosts(URL); //hagamos sobre URL lo de los filtros y trabajamos sobre URL siempre, así nos ahorramos la repetcion
+
+        botoBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), getString(R.string.mensaje_buscar), Toast.LENGTH_SHORT).show();
+                /*NECESITO SABER COMO FUNCIONAN LAS LISTAS PARA FILTRAR BIEN*/
+                textBuscarPostAdoption.getText();
+            }
+        });
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

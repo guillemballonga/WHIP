@@ -130,6 +130,8 @@
     <string name="HORA">HORA:</string>
     <string name="LUGAR">LUGAR:</string>
     <string name="replanificar">REPLANIFICAR</string>
+    <string name="buscar_post">Buscar Post</string>
+    <string name="mensaje_buscar">Buscando Coincidecias en la lista de Posts</string>
 
 
 </resources>

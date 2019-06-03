@@ -3,4 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="center_fondoformlargo">109dp</dimen>
+    <dimen name="lupa_buscar_altura">37dp</dimen>
+    <dimen name="lupa_buscar_amplada">28dp</dimen>
+    <dimen name="separacio_lupa_filter">100dp</dimen>
+    <dimen name="distancia_lupa_buscar">5dp</dimen>
 </resources>

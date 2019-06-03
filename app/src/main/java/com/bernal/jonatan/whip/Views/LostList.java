@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,8 +34,9 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
     private String URL, URL_filtre;
     private PostAdapter adapt;
     private SwipeRefreshLayout swipeRefreshLayout;
+    EditText textBuscarPostLost;
     RecyclerView contenedor;
-    Button organQuedada;
+    Button botoBuscar;
 
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
     private String api = ul.getAPI_KEY();
@@ -47,6 +49,9 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_lost);
+
+        textBuscarPostLost=findViewById(R.id.text_buscar_post_lost);
+        botoBuscar=findViewById(R.id.boto_buscar_post_lost);
 
         /*
 
@@ -114,6 +119,15 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
         });
 
         if (selectedItem.equals("")) back_normal();
+
+        botoBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), getString(R.string.mensaje_buscar), Toast.LENGTH_SHORT).show();
+                /*NECESITO SABER COMO FUNCIONAN LAS LISTAS PARA FILTRAR BIEN*/
+            }
+        });
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
