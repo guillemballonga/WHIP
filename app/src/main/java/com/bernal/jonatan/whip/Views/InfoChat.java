@@ -10,7 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.bernal.jonatan.whip.Models.ChatMessage;
@@ -38,6 +40,8 @@ public class InfoChat extends AppCompatActivity implements ChatPresenter.View {
     RecyclerView contenedor_mensajes;
     private ArrayList<ChatMessage> chat_msgs;
     String idChat;
+    Button send_message;
+    EditText messageToSend;
 
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
@@ -49,6 +53,8 @@ public class InfoChat extends AppCompatActivity implements ChatPresenter.View {
 
         contenedor_mensajes = findViewById(R.id.contenedor_messages);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout_messages);
+        send_message = findViewById(R.id.enviar_mensaje);
+        messageToSend = findViewById(R.id.box_message);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -62,6 +68,17 @@ public class InfoChat extends AppCompatActivity implements ChatPresenter.View {
         idChat = getIntent().getStringExtra("idChat");
 
         URL = "https://whip-api.herokuapp.com/chat/" + idChat;
+
+
+        messageToSend.setText("");
+
+        send_message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                send_message();
+            }
+        });
+
 
         Toolbar tool = findViewById(R.id.toolbar_listadoMessages);
         setSupportActionBar(tool);
@@ -115,4 +132,17 @@ public class InfoChat extends AppCompatActivity implements ChatPresenter.View {
             }
         });
     }
+
+
+    private void send_message() {
+
+        if (messageToSend.getText().toString().equals(""))
+            Toast.makeText(getApplicationContext(), "Introduzca su mensaje", Toast.LENGTH_SHORT).show();
+        else {
+            chatPresenter.createMessage(messageToSend.getText().toString(), URL);
+        }
+
+    }
+
+
 }

@@ -63,8 +63,6 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View, U
 
         chatPresenter.getChats(URL_chats+"/chats");
     }
-
-
     @Override
     public void chargeChats(final ArrayList user_chats) {
         //Aquí en realidad debería de llamar de nuevo al presenter, con los ids de user conseguir el username y la foto, y la que vuelva

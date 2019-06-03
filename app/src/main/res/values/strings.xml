@@ -127,6 +127,7 @@
     <string name="fechaMayuscula">FECHA:</string>
     <string name="HORA">HORA:</string>
     <string name="LUGAR">LUGAR:</string>
+    <string name="a_ade_un_mensaje">Escribe un mensaje aquí</string>
 
 
 </resources>

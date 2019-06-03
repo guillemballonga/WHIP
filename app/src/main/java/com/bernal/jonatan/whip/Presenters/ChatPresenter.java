@@ -50,6 +50,10 @@ public class ChatPresenter {
         chatServer.deleteMessage(this, id_msg);
     }
 
+    public void createMessage(String message, String URL) {
+        chatServer.sendMessage(this, message, URL);
+    }
+
 
     public interface View {
 

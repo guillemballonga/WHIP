@@ -170,5 +170,40 @@ public class ChatServer {
         };
         requestQueue.add(objectJsonrequest);
     }
+
+    public void sendMessage(final ChatPresenter chatPresenter, String message, String URL) {
+        JSONObject msg = new JSONObject();
+        try {
+            msg.put("text", message);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        requestQueue = Volley.newRequestQueue((Context) chatPresenter.getView());
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.POST,
+                URL,
+                msg,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        chatPresenter.recharge();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", api); //valor de V ha de ser el de la var global
+                return params;
+            }
+        };
+        requestQueue.add(objectJsonrequest);
+    }
 }
 
