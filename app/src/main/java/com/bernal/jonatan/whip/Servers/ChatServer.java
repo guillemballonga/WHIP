@@ -115,7 +115,6 @@ public class ChatServer {
                         try {
                             ArrayList chat_messages = new ArrayList<>();
                             JSONObject chat_msg = new JSONObject();
-                            String otherUser;
                             for (int i = 0; i < response.length(); ++i) {
                                 chat_msg = response.getJSONObject(i);
                                 chat_messages.add(new ChatMessage(chat_msg.getString("id"), chat_msg.getString("userId"), chat_msg.getString("message"), chat_msg.getString("CreatedAt").split("T")[0], chat_msg.getString("CreatedAt").split("T")[1]));

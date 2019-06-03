@@ -41,6 +41,8 @@ public class InfoChat extends AppCompatActivity implements ChatPresenter.View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_chat);
 
+        contenedor_mensajes = findViewById(R.id.contenedor_messages);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout_messages);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -53,17 +55,12 @@ public class InfoChat extends AppCompatActivity implements ChatPresenter.View {
 
         idChat = getIntent().getStringExtra("idChat");
 
-        URL = "https://whip-api.herokuapp.com/chat" + idChat;
+        URL = "https://whip-api.herokuapp.com/chat/" + idChat;
 
-        Toolbar tool = findViewById(R.id.toolbar_listadoChats);
+        Toolbar tool = findViewById(R.id.toolbar_listadoMessages);
         setSupportActionBar(tool);
         getSupportActionBar().setTitle("MESSAGES");
 
-
-        setContentView(R.layout.activity_chat_list);
-
-        contenedor_mensajes = findViewById(R.id.contenedor_messages);
-        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout_chats);
 
         chatPresenter.getMessages(URL);
     }

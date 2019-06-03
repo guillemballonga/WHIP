@@ -134,12 +134,12 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View, U
 
             @Override
             public void onChatClicked(int position, View vista) {
-                /*ChatRelation chatRelation = (ChatRelation) userInfoForChat.get(contenedor_chats.getChildAdapterPosition(vista));
+                ChatRelation chatRelation = (ChatRelation) userInfoForChat.get(contenedor_chats.getChildAdapterPosition(vista));
                 String idChat = chatRelation.getId();
-                Intent i = new Intent(ChatList.this, InfoEvent.class);
+                Intent i = new Intent(ChatList.this, InfoChat.class);
                 i.putExtra("idChat", idChat);
                 startActivity(i);
-                //llamar a la activity de InfoChat*/
+                //llamar a la activity de InfoChat
             }
         });
     }

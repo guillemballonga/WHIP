@@ -31,11 +31,11 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         //text, date y time
-        delete_button = itemView.findViewById(R.id.delete_chat);
-        chat_message = itemView.findViewById(R.id.mensaje_chat);
-        date_of_msg = itemView.findViewById(R.id.date_chat);
-        time_of_msg = itemView.findViewById(R.id.time_chat);
-        user_message = itemView.findViewById(R.id.user_chat);
+        delete_button = itemView.findViewById(R.id.delete_message);
+        chat_message = itemView.findViewById(R.id.mensaje_message);
+        date_of_msg = itemView.findViewById(R.id.date_message);
+        time_of_msg = itemView.findViewById(R.id.time_message);
+        user_message = itemView.findViewById(R.id.user_message);
         //text_area
         //date_of_msg
         //time_of_msg
