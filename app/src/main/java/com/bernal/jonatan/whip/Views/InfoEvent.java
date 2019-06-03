@@ -43,7 +43,7 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
         idEvent = getIntent().getStringExtra("idEvent");
 
 
-        //Toast.makeText(getApplicationContext(), "token usu " + ul.getToken(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "token usu " + ul.getToken(), Toast.LENGTH_SHORT).show();Post
         Toast.makeText(getApplicationContext(), "token usu " + ul.getToken(), Toast.LENGTH_SHORT).show();
 
         final String  authCode = ul.getToken();
