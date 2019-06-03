@@ -126,8 +126,6 @@ public class UserServer {
                     public void onResponse(JSONArray response) {
                         try {
                             ArrayList Mis_Posts = new ArrayList<>();
-                            //            LinearLayoutManager layout = new LinearLayoutManager(getActivity().getApplicationContext());
-                            //            layout.setOrientation(LinearLayoutManager.VERTICAL);
                             JSONObject postite;
                             String tipo;
                             for (int i = 0; i < response.length(); i++) {

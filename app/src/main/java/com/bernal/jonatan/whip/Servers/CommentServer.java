@@ -78,10 +78,7 @@ public class CommentServer {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            //    num_comments.setText("Comentarios " + response.length());
                             ArrayList Comments_post = new ArrayList<>();
-                            //              LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
-                            //              layout.setOrientation(LinearLayoutManager.VERTICAL);
                             JSONObject comment;
                             for (int i = 0; i < response.length(); i++) {
                                 comment = response.getJSONObject(i);

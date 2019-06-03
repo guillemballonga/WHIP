@@ -123,25 +123,25 @@ public class CommentComment extends AppCompatActivity implements CommentPresente
         final String user_comment = Comments_comments.get(comments_comments.getChildAdapterPosition(view)).getUser();
         if (user_comment.equals(ul.getCorreo_user())) {
             AlertDialog.Builder alert = new AlertDialog.Builder(CommentComment.this);
-            alert.setMessage("¿Estás seguro que deseas eliminar este Comentario?")
+            alert.setMessage(R.string.delete_comment)
                     .setCancelable(false)
-                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             commentPresenter.deleteComment(URL_create_comments, id_comment);
                         }
                     })
-                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.cancel();
                         }
                     });
             AlertDialog title = alert.create();
-            title.setTitle("ELIMINAR COMENTARIO");
+            title.setTitle(getString(R.string.delete_comment_may));
             title.show();
 
         } else
-            Toast.makeText(getApplicationContext(), "COMENTARIO NO CREADO POR TI, NO PUEDES BORRARLO", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.not_create_comment, Toast.LENGTH_SHORT).show();
     }
 }

@@ -233,5 +233,77 @@
 
     <string name="debe_escribir">You must write a comment</string>
 
+    <string name="solicitar_quedada">You have requested a meeting</string>
+
+    <string name="TeHanSolicitado">Somebody have requested a meeting</string>
+
+    <string name="delete_comment">Are you sure you want to delete this comment?</string>
+
+    <string name="si">Yes</string>
+
+    <string name="delete_comment_may">DELETE COMMENT</string>
+
+    <string name="not_create_comment">YOU HAVE NOT CREATED THIS COMMENT, YOU CAN NOT DELETE IT</string>
+
+    <string name="fields_required">All fields are required</string>
+
+    <string name="accepted_meet">Accepted meeting</string>
+
+    <string name="refuse_meet">Refused meeting</string>
+
+    <string name="meeting_yourself">You can not create a meeting with yourself</string>
+
+    <string name="close_post">Are you sure you want to close this post?</string>
+
+    <string name="post_yourself">YOU HAVE NOT CREATED THIS POST, YOU CAN NOT CLOSE IT</string>
+
+    <string name="delete_post">Are you sure you want to delete this post?</string>
+
+    <string name="deletePost">DELETE POST</string>
+
+    <string name="delete_post_creator">YOU HAVE NOT CREATED THIS POST, YOU CAN NOT DELETE IT</string>
+
+    <string name="write_comment">You must write a comment</string>
+
+    <string name="found">Found</string>
+
+    <string name="lost">Lost</string>
+
+    <string name="comments">Comments </string>
+
+    <string name="logged_out_user">User Logged out</string>
+
+    <string name="facebook_logged_in">User facebook Logged IN</string>
+
+    <string name="correct_logged">User logged correctly</string>
+
+    <string name="loggin_error">Log-In error</string>
+
+    <string name="main_menu">MAIN MENU</string>
+
+    <string name="my_posts">Own Posts</string>
+
+    <string name="commented_posts">Commented Posts</string>
+
+    <string name="favourite_posts">Favourites Posts</string>
+
+    <string name="intro_desc">Introduce a description</string>
+
+    <string name="required_fields">The fields with * are required</string>
+
+    <string name="meeting">MEETING</string>
+
+    <string name="correct_meeting">Meeting created correctly</string>
+
+    <string name="select_picture">Select Picture</string>
+
+    <string name="subiendo">Uploading...</string>
+
+    <string name="subida">Uploaded</string>
+
+    <string name="failed">Failed</string>
+
+    <string name="solicitada_por">REQUESTED BY:</string>
+
 
 </resources>

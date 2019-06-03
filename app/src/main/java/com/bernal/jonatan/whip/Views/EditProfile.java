@@ -83,7 +83,7 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
         //Gestión de las Toolbars
         Toolbar tool = findViewById(R.id.toolbar_editarPerfil);
         setSupportActionBar(tool);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("PERFIL");
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.perfil);
 
         //Coneixón con la API
         URL = "https://whip-api.herokuapp.com/users/profile";
@@ -110,7 +110,7 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
 
 
                 if (nom.getText().toString().equals("") || cp.getText().toString().equals("") || cognom.getText().toString().equals("") || user.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.fields_required), Toast.LENGTH_SHORT).show();
                 } else {
                     userPresenter.modifyUser(cp.getText().toString(), nom.getText().toString(), cognom.getText().toString(), user.getText().toString(), urlFoto);
                 }
@@ -140,15 +140,6 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
 
 
     }
-
-
-    @SuppressLint("IntentReset")
-    private void obrirgaleria() {
-        @SuppressLint("IntentReset") Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        gallery.setType("image/");
-        startActivityForResult(Intent.createChooser(gallery, "Seleccione la Aplicación"), 10);
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

@@ -233,4 +233,76 @@
 
     <string name="debe_escribir">Debe escribir un comentario</string>
 
+    <string name="solicitar_quedada">Has solicitado una quedada</string>
+
+    <string name="TeHanSolicitado">Te han solicitado una quedada</string>
+
+    <string name="delete_comment">¿Estás seguro que deseas eliminar este Comentario?</string>
+
+    <string name="si">Sí</string>
+
+    <string name="delete_comment_may">ELIMINAR COMENTARIO</string>
+
+    <string name="not_create_comment">COMENTARIO NO CREADO POR TI, NO PUEDES BORRARLO</string>
+
+    <string name="fields_required">Todos los campos son obligatorios</string>
+
+    <string name="accepted_meet">Quedada acceptada</string>
+
+    <string name="refuse_meet">Quedada rechazada</string>
+
+    <string name="meeting_yourself">No puedes crear una quedada contigo mismo</string>
+
+    <string name="close_post">¿Estás seguro que deseas cerrar esta publicación?</string>
+
+    <string name="post_yourself">PUBLICACIÓN NO CREADA POR EL TI, NO PUEDES CERRARLA</string>
+
+    <string name="delete_post">¿Estás seguro que deseas eliminar esta publicación?</string>
+
+    <string name="deletePost">ELIMINAR PUBLICACIÓN</string>
+
+    <string name="delete_post_creator">PUBLICACIÓN NO CREADA POR EL TI, NO PUEDES BORRARLA</string>
+
+    <string name="write_comment">Debes escribir un comentario</string>
+
+    <string name="found">Encontrado</string>
+
+    <string name="lost">Pérdida</string>
+
+    <string name="comments">Comentarios </string>
+
+    <string name="logged_out_user">Usuario desconectado</string>
+
+    <string name="facebook_logged_in">Usuario de facebook conectado</string>
+
+    <string name="correct_logged">Usuario loggeado correctamente</string>
+
+    <string name="loggin_error">Error en el Log-In</string>
+
+    <string name="main_menu">MENÚ PRINCIPAL</string>
+
+    <string name="my_posts">Publicaciones Propias</string>
+
+    <string name="commented_posts">Publicaciones Comentadas</string>
+
+    <string name="favourite_posts">Publicaciones Favoritas</string>
+
+    <string name="intro_desc">Introduce una descripción</string>
+
+    <string name="required_fields">Los campos con * son obligatorios</string>
+
+    <string name="meeting">QUEDADA</string>
+
+    <string name="correct_meeting">Quedada creada correctamente</string>
+
+    <string name="select_picture">Selecciona una foto</string>
+
+    <string name="subiendo">Subiendo...</string>
+
+    <string name="subida">Subida</string>
+
+    <string name="failed">Fallido</string>
+
+    <string name="solicitada_por">SOLICITADA POR:</string>
+
 </resources>

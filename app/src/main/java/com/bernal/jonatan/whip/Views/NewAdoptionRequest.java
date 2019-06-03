@@ -50,7 +50,7 @@ public class NewAdoptionRequest extends AppCompatActivity {
         //Gestión de las Toolbars
         Toolbar tool = findViewById(R.id.toolbar_nova_solicitud_adopt);
         setSupportActionBar(tool);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("SOLICITUD DE ADOPCIÓN");
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.abandono_o_p_rdida);
 
         cosText = findViewById(R.id.descripcion_motivo_adopcion);
         toQuedada = findViewById(R.id.boton_enviar_quedada);
@@ -80,7 +80,7 @@ public class NewAdoptionRequest extends AppCompatActivity {
         JSONObject adoptionReq = new JSONObject();
 
         if (cosText.getText().toString().equals("")) {
-            Toast.makeText(getApplicationContext(), "Introduce una descripción", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.intro_desc), Toast.LENGTH_SHORT).show();
         }else {
             //JASON
             try {

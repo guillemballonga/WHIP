@@ -106,7 +106,7 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
         //Gestión de la toolbar
         Toolbar tool = findViewById(R.id.toolbar_mostrarPerfil);
         setSupportActionBar(tool);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("PERFIL");
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.perfil);
 
         goToEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -57,20 +57,7 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
         //Gestión de las Toolbars
         Toolbar tool = findViewById(R.id.toolbar_nova_quedada);
         setSupportActionBar(tool);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("QUEDADA");
-
-        //JSON
-        /*
-        *  if (type.equals("adoption")) {
-                        quedada.put("adoptionPostId", postID);
-                    } else {
-                        quedada.put("lostPostId", postID);
-                    }
-                    quedada.put("date", año + "-" + mes + "-" + dia + " " + hora + ":" + min + ": 00");
-                    quedada.put("place", place.getText().toString());
-        *
-        * */
-
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.meeting);
 
         //Coneixón con la API
         URL = "https://whip-api.herokuapp.com/contributions/" + postID + "/event?type=" + type;
@@ -106,7 +93,7 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
                 seleccionar_hora = findViewById(R.id.hora_quedada);
 
                 if (selecionar_fecha.getText().toString().equals("") || seleccionar_hora.getText().toString().equals("") || lugar.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.fields_required, Toast.LENGTH_SHORT).show();
                 }else {
                 //JASON
                     try {
@@ -133,7 +120,7 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
                                 @Override
                                 public void onResponse(JSONObject response) {
                                     startActivity(new Intent(NewQuedada.this, MainMenu.class));
-                                    Toast.makeText(getApplicationContext(), "Quedada Creada Correctamente", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), getString(R.string.correct_meeting), Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
 

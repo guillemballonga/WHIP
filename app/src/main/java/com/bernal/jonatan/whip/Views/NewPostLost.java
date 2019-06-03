@@ -58,7 +58,7 @@ public class NewPostLost extends AppCompatActivity implements ConcretePostPresen
         //Gestión de toolbar
         Toolbar tool = findViewById(R.id.toolbar_nuevoPostPerd);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("LOST");
+        getSupportActionBar().setTitle(R.string.p_rdida);
 
         foto = findViewById(R.id.perfil_perroPerd);
 
@@ -72,8 +72,8 @@ public class NewPostLost extends AppCompatActivity implements ConcretePostPresen
 
 
         // Spinner per a seleccionar els items
-        String[] itemsEspecie = new String[]{"Dog", "Cat", "Other"};
-        String[] itemsTipo = new String[]{"Encontrado", "Perdido"};
+        String[] itemsEspecie = new String[]{getString(R.string.dog), getString(R.string.cat), getString(R.string.other)};
+        String[] itemsTipo = new String[]{getString(R.string.found), getString(R.string.lost)};
 
         ArrayAdapter<String> adapterEspecie = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsEspecie);
         ArrayAdapter<String> adapterTipo = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsTipo);
@@ -111,83 +111,17 @@ public class NewPostLost extends AppCompatActivity implements ConcretePostPresen
 
             @Override
             public void onClick(View view) {
-  /*
-                //jason para comunicación con back
-                JSONObject post = new JSONObject();
-                JSONArray k = new JSONArray();
 
-                //falta afegir imatge FIREBASE
-                String identificadorImatge = UploadImageFirebase.getIdentificadorImatge();
-                UploadImageFirebase.netejaIdentificadorImatge();
-                k.put(identificadorImatge);
-                k.put("");
-                k.put("");
-                k.put("");
-//JASON
-                try {
-                    post.put("specie", especie.getSelectedItem().toString());
-                    post.put("urls", k);
-                    post.put("race", raza.getText().toString());
-                    post.put("post_code", cp.getText().toString());
-                    post.put("text", contenido.getText().toString());
-                    post.put("title", title.getText().toString());
-                    if (tipo.getSelectedItem().toString().equals("Encontrado"))
-                        post.put("type", "F");
-                    else post.put("type", "L");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            */
                 if (titulo.getText().toString().equals("") || cp.getText().toString().equals("") || raza.getText().toString().equals("") || especie.getSelectedItem().toString().equals("") || tipo.getSelectedItem().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(), "Los campos con * son obligatorios", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.required_fields, Toast.LENGTH_SHORT).show();
 
                 } else {
                     concretePostPresenter.createPost(URL, especie.getSelectedItem().toString(), UploadImageFirebase.getIdentificadorImatge(), raza.getText().toString(), cp.getText().toString(), contenido.getText().toString(), titulo.getText().toString(), tipo.getSelectedItem().toString(), "Lost");
                 }
-                    //Guardar los datos del formulario en BACK. NOTA: No olvidar guardar la fecha de creación del Post
-         /*           JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                            JsonRequest.Method.POST,
-                            URL,
-                            post,
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    try {
-                                        Toast.makeText(getApplicationContext(), "Post guardado correctamente"+response.getString("id"), Toast.LENGTH_SHORT).show();
-                                        Intent i = new Intent(NewPostLost.this, InfoPostLost.class);
-                                        i.putExtra("identificadorPost", response.getString("id"));
-                                        startActivity(i);
-                                        finish();
 
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
-
-                                }
-                            }
-                    ) {
-                        @Override
-                        public Map<String, String> getHeaders() {
-                            Map<String, String> params = new HashMap<>();
-                            params.put("Content-Type", "application/json");
-                            params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
-                            return params;
-                        }
-                    };
-                    requestqueue.add(objectJsonrequest);  */
-//JASON
-
-                    //Ir a ver el post en concreto
 
 
                 }
-
         });
 
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -201,13 +135,6 @@ public class NewPostLost extends AppCompatActivity implements ConcretePostPresen
 
     }
 
-    @SuppressLint("IntentReset")
-    public void openGallery() {
-        @SuppressLint("IntentReset") Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        gallery.setType("image/");
-        startActivityForResult(gallery.createChooser(gallery, "Seleccione la Aplicación"), 10);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -215,8 +142,6 @@ public class NewPostLost extends AppCompatActivity implements ConcretePostPresen
             assert data != null;
             Uri path = data.getData();
             foto.setImageURI(path);
-
-
         }
     }
 

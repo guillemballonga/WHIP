@@ -51,7 +51,7 @@ public class EventList extends AppCompatActivity implements EventPresenter.View 
 
         Toolbar tool = findViewById(R.id.toolbar_listadoEvents);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("EVENTOS");
+        getSupportActionBar().setTitle(R.string.eventos);
 
         eventPresenter.getEvents(URL_eventos);
     }

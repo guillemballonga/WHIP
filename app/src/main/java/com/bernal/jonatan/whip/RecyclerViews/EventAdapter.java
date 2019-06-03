@@ -43,10 +43,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
         eventViewHolder.place_event.setText(listaObjetos.get(i).getPlace());
         if (ul.getCorreo_user().equals(listaObjetos.get(i).getUserId())) {
             eventViewHolder.user_event.setText(listaObjetos.get(i).getUserFromPostId());
-            eventViewHolder.texto_plano.setText("Has solicitado una quedada");
+            eventViewHolder.texto_plano.setText(R.string.solicitar_quedada);
         } else {
             eventViewHolder.user_event.setText(listaObjetos.get(i).getUserId());
-            eventViewHolder.texto_plano.setText("Te han solicitado una quedada");
+            eventViewHolder.texto_plano.setText(R.string.TeHanSolicitado);
         }
         eventViewHolder.setId_event(listaObjetos.get(i).getId());
     }

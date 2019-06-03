@@ -59,7 +59,7 @@ public class NewPostAdoption extends AppCompatActivity implements ConcretePostPr
         //Gestión de toolbar
         Toolbar tool = findViewById(R.id.toolbar_nuevoPostAdopcio);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("ADOPCIÓN");
+        getSupportActionBar().setTitle(R.string.adopci_n);
 
         foto = findViewById(R.id.perfil_perroAdopcio);
 
@@ -73,7 +73,7 @@ public class NewPostAdoption extends AppCompatActivity implements ConcretePostPr
 
 
         // Spinner per a seleccionar els items
-        String[] itemsEspecie = new String[]{"Dog", "Cat", "Other"};
+        String[] itemsEspecie = new String[]{getString(R.string.dog), getString(R.string.cat), getString(R.string.other)};
 
         ArrayAdapter<String> adapterEspecie = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsEspecie);
 
@@ -90,8 +90,6 @@ public class NewPostAdoption extends AppCompatActivity implements ConcretePostPr
                 //Quan cliqui obrir UploadImagesFirebase -> per penjar la foto
                 //startActivity(new Intent(NewPostAdoption.this, UploadImageFirebase.class));
                 Intent i = new Intent(NewPostAdoption.this, UploadImageFirebase.class);
-                //i.putExtra("idImageView", R.id.perfil_perroPerd);
-                //i.putExtra("idImageView");
                 i.putExtra("idActivity", "adoption");
                 startActivity(i);
 
@@ -110,77 +108,11 @@ public class NewPostAdoption extends AppCompatActivity implements ConcretePostPr
             @Override
             public void onClick(View view) {
 
-                //jason para comunicación con back
-     /*           JSONObject post = new JSONObject();
-                JSONArray k = new JSONArray();
-
-                //falta afegir imatge FIREBASE
-                String identificadorImatge = UploadImageFirebase.getIdentificadorImatge();
-                UploadImageFirebase.netejaIdentificadorImatge();
-                k.put(identificadorImatge);
-                k.put("");
-                k.put("");
-                k.put(""); */
-//JASON
-           /*     try {
-                    post.put("specie", especie.getSelectedItem().toString());
-                    post.put("urls", k);
-                    post.put("race", raza.getText().toString());
-                    post.put("post_code", cp.getText().toString());
-                    post.put("text", contenido.getText().toString());
-                    post.put("title", title.getText().toString());
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }  */
-
                 if (titulo.getText().toString().equals("") || cp.getText().toString().equals("") || raza.getText().toString().equals("") || especie.getSelectedItem().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(), "Los campos con * son obligatorios", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.required_fields), Toast.LENGTH_SHORT).show();
 
                 } else {
                     concretePostPresenter.createPost(URL, especie.getSelectedItem().toString(), UploadImageFirebase.getIdentificadorImatge(), raza.getText().toString(), cp.getText().toString(), contenido.getText().toString(), titulo.getText().toString(), "", "Adoption");
-                    //Guardar los datos del formulario en BACK. NOTA: No olvidar guardar la fecha de creación del Post
-              /*      JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                            JsonRequest.Method.POST,
-                            URL,
-                            post,
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    Toast.makeText(getApplicationContext(), "Post guardado correctamente", Toast.LENGTH_SHORT).show();
-                                    try {
-                                        Intent i = new Intent(NewPostAdoption.this, InfoPostAdoption.class);
-                                        i.putExtra("identificadorPost", response.getString("id"));
-                                        startActivity(i);
-                                        finish();
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
-
-                                }
-                            }
-                    ) {
-                        @Override
-                        public Map<String, String> getHeaders() {
-                            Map<String, String> params = new HashMap<>();
-                            params.put("Content-Type", "application/json");
-                            params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
-                            return params;
-                        }
-                    };
-                    requestqueue.add(objectJsonrequest);  */
-//JASON
-
-                    //Ir a ver el post en concreto
-
-
                 }
             }
         });
@@ -189,19 +121,11 @@ public class NewPostAdoption extends AppCompatActivity implements ConcretePostPr
 
             @Override
             public void onClick(View view) {
-
                 finish();
             }
         });
 
 
-    }
-
-    @SuppressLint("IntentReset")
-    public void openGallery() {
-        @SuppressLint("IntentReset") Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        gallery.setType("image/");
-        startActivityForResult(gallery.createChooser(gallery, "Seleccione la Aplicación"), 10);
     }
 
     @Override
@@ -211,11 +135,6 @@ public class NewPostAdoption extends AppCompatActivity implements ConcretePostPr
             assert data != null;
             Uri path = data.getData();
             foto.setImageURI(path);
-
-
-            //Guardar el path de la foto en FIREBASE
-
-
         }
     }
 

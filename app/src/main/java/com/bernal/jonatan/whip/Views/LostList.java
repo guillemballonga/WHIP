@@ -48,19 +48,6 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_lost);
 
-        /*
-
-        organQuedada = findViewById(R.id.organ_quedadaPerd);     
-        organQuedada.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LostList.this, NewQuedada.class));
-                finish();
-            }
-        });
-
-        */
-
         contenedor = findViewById(R.id.contenedor);
         spinnerFiltre = findViewById(R.id.spinner_filter_lost);
         orderBy = findViewById(R.id.orderby_lost);
@@ -86,9 +73,9 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
 
         Toolbar tool = findViewById(R.id.toolbar_listadoPerd);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("LOST");
+        getSupportActionBar().setTitle(R.string.p_rdida);
         Toast.makeText(getApplicationContext(), ul.getAPI_KEY(), Toast.LENGTH_SHORT).show();
-        String[] itemsSort = new String[]{"", "Recent", "Dog", "Cat", "Other"};
+        String[] itemsSort = new String[]{"",  getString(R.string.recent), getString(R.string.dog), getString(R.string.cat), getString(R.string.other)};
         ArrayAdapter<String> adapterSort = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsSort);
 
         spinnerFiltre.setAdapter(adapterSort);

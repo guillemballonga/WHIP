@@ -42,7 +42,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
         Toolbar tool = findViewById(R.id.toolbar_menuPrincipal);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("MENÚ PRINCIPAL");
+        getSupportActionBar().setTitle(R.string.main_menu);
 
         mDrawerLayout = findViewById(R.id.drawer);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);

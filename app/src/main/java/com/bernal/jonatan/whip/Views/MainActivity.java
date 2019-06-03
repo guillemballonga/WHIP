@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             //facebook
             if(currentAccessToken==null) {
-                Toast.makeText(MainActivity.this,"User Logged out",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,getString(R.string.logged_out_user),Toast.LENGTH_LONG).show();
 
             }
             else
@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     String first_name = object.getString("first_name");
                     //String email = object.getString("email");
 
-                    Toast.makeText(MainActivity.this,"User facebook Logged IN",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,getString(R.string.facebook_logged_in),Toast.LENGTH_LONG).show();
                     Toast.makeText(MainActivity.this,first_name,Toast.LENGTH_LONG).show();
 
                     mStatusTextView.setText(getString(R.string.signed_in_fmt, first_name));
@@ -264,9 +264,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
-            //dona d alta aqui
-            Toast.makeText(getApplicationContext(), "login  per iniciar ", Toast.LENGTH_SHORT).show();
 
             assert account != null;
             userJsonGoogle(account);
@@ -334,7 +331,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(getApplicationContext(), "Usuari logejat  correctament", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.correct_logged), Toast.LENGTH_SHORT).show();
                         //todo guardar api key en el singleton
                         try {
                             ul = UserLoggedIn.getUsuariLogejat(response.getString("api_key"), response.getString("email"), "","en");
@@ -352,7 +349,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "guardarUsuari : ERROOOOOOOR", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.loggin_error), Toast.LENGTH_SHORT).show();
 
                     }
                 }

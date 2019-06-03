@@ -75,7 +75,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         //Gestión toolbar
         Toolbar tool = findViewById(R.id.toolbar_infoPostAdoption);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("ADOPCIÓN");
+        getSupportActionBar().setTitle(R.string.adopci_n);
 
 
         //Recoger los datos de Back y cargarlos en la vista
@@ -90,7 +90,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
             @Override
             public void onClick(View v) {
                 if(mail_creador.equals(correuUsuari)){
-                    Toast.makeText(getApplicationContext(), "No puedes crear una quedada contigo mismo", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.meeting_yourself, Toast.LENGTH_SHORT).show();
                 }
                 else {
                     NewAdoptionRequest.setAdoptionPostID(Identificador);
@@ -112,29 +112,28 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
     }
 
     private void tancar_post() {
-        //Toast.makeText(getApplicationContext(), "Cierro el post", Toast.LENGTH_SHORT).show();
         if (mail_creador.equals(ul.getCorreo_user())) {
             AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostAdoption.this);
-            alert.setMessage("¿Estás seguro que deseas cerrar este Post?")
+            alert.setMessage(R.string.close_post)
                     .setCancelable(false)
-                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             concretePostPresenter.closePost(URL_close);
                         }
                     })
-                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.cancel();
                         }
                     });
             AlertDialog title = alert.create();
-            title.setTitle("CERRAR POST");
+            title.setTitle(R.string.cerrar_post);
             title.show();
 
         } else
-            Toast.makeText(getApplicationContext(), "POST NO CREADO POR EL TI, NO PUEDES CERRARLO", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.post_yourself, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -172,25 +171,25 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         if (mail_creador.equals(ul.getCorreo_user())) {
 
             AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostAdoption.this);
-            alert.setMessage("¿Estás seguro que deseas eliminar este Post?")
+            alert.setMessage(R.string.delete_post)
                     .setCancelable(false)
-                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             concretePostPresenter.deletePost(URL);
                         }
                     })
-                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.cancel();
                         }
                     });
             AlertDialog title = alert.create();
-            title.setTitle("ELIMINAR POST");
+            title.setTitle(R.string.deletePost);
             title.show();
         } else
-            Toast.makeText(getApplicationContext(), "POST NO CREADO POR EL TI, NO PUEDES BORRARLO", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.delete_post_creator, Toast.LENGTH_SHORT).show();
     }
 
     private void BackFavs_dislike() {

@@ -81,21 +81,13 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
                     int idCredentials = R.raw.credentials;
 
                     InputStream im = credentials(idCredentials);
-/*
 
-                    CalendarGoogle.createEvent(im, ul.getCorreo_user(), idSolicitanteEvent, dateEvent, horaEvent, placeEvent);
-
-                } catch (GeneralSecurityException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-*/
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
 
-                Toast.makeText(getApplicationContext(), "Quedada acceptada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.accepted_meet, Toast.LENGTH_SHORT).show();
 
 
                 startActivity(new Intent(InfoEvent.this, EventList.class));
@@ -116,7 +108,7 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
                 }
 
 
-                Toast.makeText(getApplicationContext(), "Quedada rebutjada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.refuse_meet), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(InfoEvent.this, EventList.class));
                 finish();
             }
@@ -135,8 +127,6 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
 
     @Override
     public void setEvent(String userFromPostId, String userId, String place, String date, String time) {
-        //title = findViewById(R.id.titulo_post_provinente);
-        //dataPost = findViewById(R.id.fecha_post_provinente);
         dataQuedada.setText(date);
         hora.setText(time);
         lloc.setText(place);
