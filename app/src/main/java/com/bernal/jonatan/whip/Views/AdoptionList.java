@@ -76,7 +76,7 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
 
         Toast.makeText(getApplicationContext(), ul.getAPI_KEY(), Toast.LENGTH_SHORT).show();
 
-        String[] itemsSort = new String[]{"", R.string.recent, R.string.dog, R.string.cat, R.string.other};
+        String[] itemsSort = new String[]{"", Integer.toString(R.string.recent), Integer.toString(R.string.dog), Integer.toString(R.string.cat), Integer.toString(R.string.other)};
         ArrayAdapter<String> adapterSort = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsSort);
 
         spinnerFiltre.setAdapter(adapterSort);
