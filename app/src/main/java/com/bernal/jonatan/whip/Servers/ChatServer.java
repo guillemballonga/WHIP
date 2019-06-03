@@ -140,5 +140,35 @@ public class ChatServer {
         };
         requestQueue.add(arrayJsonrequest);
     }
+
+    public void deleteMessage(final ChatPresenter chatPresenter, String id_msg) {
+        String URL = "https://whip-api.herokuapp.com/chat/" + id_msg;
+        requestQueue = Volley.newRequestQueue((Context) chatPresenter.getView());
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.DELETE,
+                URL,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        chatPresenter.recharge();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", api);
+                return params;
+            }
+        };
+        requestQueue.add(objectJsonrequest);
+    }
 }
 

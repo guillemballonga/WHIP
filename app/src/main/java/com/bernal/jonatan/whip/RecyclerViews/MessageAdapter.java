@@ -25,7 +25,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
         this.listaObjetos = listaObjetos;
     }
 
-    public void setOnMessageListener(OnChatListener onChatListener) {
+    public void setOnMessageListener(OnMessageListener onMessageListener) {
         this.onMessageListener = onMessageListener;
     }
 

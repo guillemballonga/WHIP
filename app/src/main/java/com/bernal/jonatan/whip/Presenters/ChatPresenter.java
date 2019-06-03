@@ -46,6 +46,10 @@ public class ChatPresenter {
         view.chargeMessages(chat_messages);
     }
 
+    public void deleteMessage(String id_msg) {
+        chatServer.deleteMessage(this, id_msg);
+    }
+
 
     public interface View {
 
