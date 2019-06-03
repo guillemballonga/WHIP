@@ -6,7 +6,7 @@
     <item
         android:id="@+id/icono_calendario"
         android:icon="@drawable/calendario"
-        android:title="@string/calendario"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"
+        android:title="@string/calendario"/>
 
 </menu>

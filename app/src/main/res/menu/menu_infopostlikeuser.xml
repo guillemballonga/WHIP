@@ -6,14 +6,14 @@
     <item
         android:id="@+id/icono_fav_rell"
         android:icon="@drawable/estrella_fav_rellena"
-        android:title="@string/favorito"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"
+        android:title="@string/favorito"/>
 
     <item
         android:id="@+id/icono_delete"
         android:icon="@drawable/papelera"
-        android:title="@string/delete"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        android:title="@string/delete"/>
 
 
 </menu>

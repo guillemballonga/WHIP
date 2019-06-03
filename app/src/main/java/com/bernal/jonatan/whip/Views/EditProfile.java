@@ -51,7 +51,7 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
     private String urlFoto = ""; //la que agafo si canvio de foto
     private String urlBD = MostrarPerfil.getFoto();
     private RequestQueue requestqueue;
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
     private String api = ul.getAPI_KEY();
     private Uri path;
 

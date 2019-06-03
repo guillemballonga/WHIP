@@ -28,7 +28,7 @@ public class EventList extends AppCompatActivity implements EventPresenter.View 
     RecyclerView contenedor_events;
 
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "" );
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
     private String api = ul.getAPI_KEY();
 
     @Override
@@ -66,8 +66,8 @@ public class EventList extends AppCompatActivity implements EventPresenter.View 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.icono_calendario:
-                startActivity(new Intent(EventList.this, InfoPostLost.class));
-                finish();
+                //startActivity(new Intent(EventList.this, InfoPostLost.class));
+                //finish();
                 break;
         }
         return true;

@@ -35,7 +35,7 @@ public class CommentComment extends AppCompatActivity implements CommentPresente
     private CommentAdapter adapt;
     private ArrayList<Comment> Comments_comments;
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class CommentComment extends AppCompatActivity implements CommentPresente
     private void crear_comment() {
 
         if (box_comment_comment.getText().toString().equals(""))
-            Toast.makeText(getApplicationContext(), "Debe escribir un comentario", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.debe_escribir, Toast.LENGTH_SHORT).show();
         else {
             commentPresenter.createComment(URL_create_comments, box_comment_comment.getText().toString(),Identificador_comment);
         }

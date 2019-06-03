@@ -1,6 +1,7 @@
 package com.bernal.jonatan.whip.Views;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -12,14 +13,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.bernal.jonatan.whip.R;
+
+import java.util.Locale;
 
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     Button lost, adoption, events;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+    ImageView idioma_es,idioma_en;
+
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +36,9 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         lost = findViewById(R.id.boton_lost);
         adoption = findViewById(R.id.boton_adoption);
         events = findViewById(R.id.boton_eventos);
+
+        idioma_en = findViewById(R.id.idioma_ingles);
+        idioma_es = findViewById(R.id.idioma_espanol);
 
         Toolbar tool = findViewById(R.id.toolbar_menuPrincipal);
         setSupportActionBar(tool);
@@ -64,7 +74,34 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(new Intent(MainMenu.this, EventList.class));
             }
         });
+
+        idioma_es.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Locale localizacion = new Locale("es", "ES");
+                Locale.setDefault(localizacion);
+                Configuration config = new Configuration();
+                config.locale = localizacion;
+                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                recreate();
+            }
+        });
+
+        idioma_en.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Locale localizacion = new Locale("en", "EN");
+                Locale.setDefault(localizacion);
+                Configuration config = new Configuration();
+                config.locale = localizacion;
+                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                recreate();
+            }
+        });
+
     }
+
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

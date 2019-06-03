@@ -34,7 +34,7 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
     RecyclerView contenedor_adopt;
 
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "" );
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
     private String api = ul.getAPI_KEY();
     private Spinner spinnerFiltre;
     private TextView orderBy;
@@ -72,12 +72,11 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
 
         Toolbar tool = findViewById(R.id.toolbar_listadoAdopt);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("ADOPCIÓN");
+        getSupportActionBar().setTitle(R.string.adopci_n);
 
         Toast.makeText(getApplicationContext(), ul.getAPI_KEY(), Toast.LENGTH_SHORT).show();
 
-
-        String[] itemsSort = new String[]{"", "Recent", "Dog", "Cat", "Other"};
+        String[] itemsSort = new String[]{"", R.string.recent, R.string.dog, R.string.cat, R.string.other};
         ArrayAdapter<String> adapterSort = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsSort);
 
         spinnerFiltre.setAdapter(adapterSort);

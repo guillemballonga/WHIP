@@ -17,7 +17,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
     private List<Event> listaObjetos;
     private OnEventListener onEventListener;
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
 
     public void setOnEventListener(OnEventListener onEventListener) {
         this.onEventListener = onEventListener;

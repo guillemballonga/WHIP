@@ -42,7 +42,7 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
     String horaForm="";
     String minForm="";
     private RequestQueue requestqueue;
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
     private String api = ul.getAPI_KEY();
     Button selecionar_fecha, crear_quedada, seleccionar_hora;
     EditText lugar;

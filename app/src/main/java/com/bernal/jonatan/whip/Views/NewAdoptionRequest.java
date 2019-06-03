@@ -36,7 +36,7 @@ public class NewAdoptionRequest extends AppCompatActivity {
     EditText cosText;
     private String URL;
     private RequestQueue requestqueue;
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
     private String api = ul.getAPI_KEY();
 
 

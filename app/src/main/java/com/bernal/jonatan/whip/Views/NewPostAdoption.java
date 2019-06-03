@@ -45,7 +45,7 @@ public class NewPostAdoption extends AppCompatActivity implements ConcretePostPr
     //variables para comucicación back
     private String URL;
     private RequestQueue requestqueue;
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(MainActivity.this,"User facebook Logged IN",Toast.LENGTH_LONG).show();
                     Toast.makeText(MainActivity.this,first_name,Toast.LENGTH_LONG).show();
 
-                    mStatusTextView.setText(getString(R.string.signed_in_fmt_es, first_name));
+                    mStatusTextView.setText(getString(R.string.signed_in_fmt, first_name));
 
                     findViewById(R.id.login_facebook_button).setVisibility(View.GONE);
                     findViewById(R.id.login_google_button).setVisibility(View.GONE);
@@ -337,7 +337,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.makeText(getApplicationContext(), "Usuari logejat  correctament", Toast.LENGTH_SHORT).show();
                         //todo guardar api key en el singleton
                         try {
-                            ul = UserLoggedIn.getUsuariLogejat(response.getString("api_key"), response.getString("email"), "" );
+                            ul = UserLoggedIn.getUsuariLogejat(response.getString("api_key"), response.getString("email"), "","en");
                             ul.setAPI_KEY(response.getString("api_key"));
                             ul.setCorreo_user(response.getString("email"));
 
@@ -419,7 +419,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //facebook = false;
         if (account != null) {
 
-            mStatusTextView.setText(getString(R.string.signed_in_fmt_es, account.getDisplayName()));
+            mStatusTextView.setText(getString(R.string.signed_in_fmt, account.getDisplayName()));
 
             findViewById(R.id.login_facebook_button).setVisibility(View.GONE);
             findViewById(R.id.login_google_button).setVisibility(View.GONE);

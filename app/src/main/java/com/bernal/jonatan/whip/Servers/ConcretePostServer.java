@@ -22,7 +22,7 @@ import java.util.Map;
 public class ConcretePostServer {
 
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
     private String api = ul.getAPI_KEY();
     private RequestQueue requestQueue;
 
@@ -215,9 +215,6 @@ public class ConcretePostServer {
             post.put("post_code", cp);
             post.put("text", text);
             post.put("title", title);
-            // if (tipo.getSelectedItem().toString().equals("Encontrado"))
-            //     post.put("type", "F");
-            // else post.put("type", "L");
             if (tipusPost.equals("Lost")) {
                 if (type.equals("Encontrado")) post.put("type", "F");
                 else post.put("type", "L");

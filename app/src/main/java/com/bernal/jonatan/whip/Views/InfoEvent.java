@@ -33,7 +33,7 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
     String titleEvent = "", datePost = "", dateEvent = "", horaEvent = "", placeEvent = "", idSolicitanteEvent = "";
     private String idEvent;
     private Button acceptarQuedada, rebutjarQuedada;
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

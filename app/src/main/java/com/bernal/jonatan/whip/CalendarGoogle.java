@@ -40,7 +40,7 @@ public class CalendarGoogle {
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
 
     final HttpTransport transport = AndroidHttp.newCompatibleTransport();
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
 
 
 

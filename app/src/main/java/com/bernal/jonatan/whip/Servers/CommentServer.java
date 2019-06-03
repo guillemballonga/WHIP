@@ -24,7 +24,7 @@ import java.util.Map;
 public class CommentServer {
 
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
     private String api = ul.getAPI_KEY();
     private RequestQueue requestQueue;
 
@@ -89,20 +89,7 @@ public class CommentServer {
                             }
 
                             commentPresenter.chargeCommentList(Comments_post);
-                        /*    adapt = new CommentAdapter(Comments_post);
-                            adapt.setOnCommentListener(new OnCommentListener() {
-                                @Override
-                                public void onEliminateClicked(int position, View vista) {
-                                    eliminar_comentari(vista);
-                                }
 
-                                @Override
-                                public void onVerCommentsClicked(View vista) {
-                                }
-                            });
-                            comments.setAdapter(adapt);
-                            comments.setLayoutManager(layout);
-                        */
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

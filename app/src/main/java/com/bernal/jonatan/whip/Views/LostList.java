@@ -36,7 +36,7 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
     RecyclerView contenedor;
     Button organQuedada;
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
     private String api = ul.getAPI_KEY();
     private Spinner spinnerFiltre;
     String selectedItem = "";

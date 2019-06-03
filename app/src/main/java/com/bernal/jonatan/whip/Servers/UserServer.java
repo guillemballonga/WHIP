@@ -25,7 +25,7 @@ import java.util.Map;
 public class UserServer {
 
     static String URL = "https://whip-api.herokuapp.com/users/profile";
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
     private String api = ul.getAPI_KEY();
     private RequestQueue requestQueue;
 
@@ -137,21 +137,7 @@ public class UserServer {
                                 Mis_Posts.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), tipo));
                             }
                             userPresenter.setUserPosts(Mis_Posts);
-            /*                adapt = new PostAdapter(Mis_Posts, "PostPropio");
-                            contenedor.setAdapter(adapt);
-                            contenedor.setLayoutManager(layout);
-                            adapt.setOnListListener(new OnListListener() {
-                                @Override
-                                public void onPostClicked(int position, View vista) {
-                                    String id_post = Mis_Posts.get(contenedor.getChildAdapterPosition(vista)).getId();
-                                    Intent i;
-                                    if (Mis_Posts.get(contenedor.getChildAdapterPosition(vista)).getType().equals("LOST"))
-                                        i = new Intent(getActivity(), InfoPostLost.class);
-                                    else i = new Intent(getActivity(), InfoPostAdoption.class);
-                                    i.putExtra("identificadorPost", id_post);
-                                    startActivity(i);
-                                }
-                            });*/
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

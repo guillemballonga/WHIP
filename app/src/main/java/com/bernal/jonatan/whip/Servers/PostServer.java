@@ -24,7 +24,7 @@ import java.util.Map;
 public class PostServer {
 
     static String URL = "https://whip-api.herokuapp.com/users/profile";
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
     private String api = ul.getAPI_KEY();
     private RequestQueue requestQueue;
 
@@ -47,18 +47,7 @@ public class PostServer {
                                 Posts_adoption.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), "ADOPTION"));
                             }
                             postPresenter.chargeAdoptionList(Posts_adoption);
-                          /*  PostAdapter adapt = new PostAdapter(Posts_adoption, "Adoption");
-                            contenedor_adopt.setAdapter(adapt);
-                            contenedor_adopt.setLayoutManager(layout);
-                            adapt.setOnListListener(new OnListListener() {
-                                @Override
-                                public void onPostClicked(int position, View vista) {
-                                    String id_post = Posts_adoption.get(contenedor_adopt.getChildAdapterPosition(vista)).getId();
-                                    Intent i = new Intent(AdoptionList.this, InfoPostAdoption.class);
-                                    i.putExtra("identificadorPost", id_post);
-                                    startActivity(i);
-                                }
-                            }); */
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

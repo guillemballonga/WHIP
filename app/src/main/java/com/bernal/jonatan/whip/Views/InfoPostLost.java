@@ -58,7 +58,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
 
     private String mail_creador;
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
 
     private Menu menu_fav;
 

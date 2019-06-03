@@ -1,0 +1,236 @@
+<resources>
+    <string name="app_name">WHIP</string>
+
+    <string name="title_text">Whip login</string>
+
+    <!-- Sign-in status messages -->
+    <string name="signed_in_fmt">Has iniciado sesión como: %s</string>
+
+    <string name="signed_in">Iniciar sesión</string>
+
+    <string name="signing_in">Iniciando sesión…</string>
+
+    <string name="signed_out_es">Cerrar sesión</string>
+
+    <string name="signed_in_err">"Error: por favor mira los logs."</string>
+
+    <string name="error_null_person">
+        Error: Plus.PeopleApi.getCurrentPerson devuelve null. Asegurate que la API de Google+ està
+        habilitada para tu proyecto, tienes configurado el archivo google-services.json correctamente
+        y que tu dispositivo tiene una conexión a Internet.
+    </string>
+
+    <string name="loading">Cargando…</string>
+
+    <string name="auth_code_fmt">Código Auth: %s</string>
+
+    <string name="id_token_fmt">ID Token: %s</string>
+
+    <!-- Google Play Services error for Toast -->
+    <string name="play_services_error_fmt">Google Play Services Error: %i</string>
+
+    <!-- Button labels -->
+    <string name="sign_out">Salir</string>
+
+    <string name="disconnect">Desconectar</string>
+
+    <string name="refresh_token">Obtener Token fresco</string>
+
+    <!-- Content Description for images -->
+    <string name="desc_google_icon">Logo de Google</string>
+
+    <!-- Rationale for asking for Contacts -->
+    <string name="contacts_permission_rationale">Se necesita acceso a los contactos para recuperar su cuenta de email.</string>
+
+    <!-- Activity Names and Descriptions -->
+    <string name="name_sign_in_activity">SignInActivity</string>
+
+    <string name="desc_sign_in_activity">Entrar, salir, y anular acceso.</string>
+
+    <string name="desc_sign_in_activity_scopes">Entrar, salir, y anular acceso con los permisos de Google Drive.</string>
+
+    <string name="name_id_token_activity">IdTokenActivity</string>
+
+    <string name="desc_id_token_activity">Recuperando el ID del Token del usuario.</string>
+
+    <string name="desc_auth_code_activity">Demostrar la recuperación de un código de autentificación para autorizar su servidor.</string>
+
+    <string name="name_auth_code_activity">ServerAuthCodeActivity</string>
+
+    <string name="desc_rest_activity">Demostrar usando Google Sign In con Google REST API</string>
+
+    <string name="name_rest_activity">RestApiActivity</string>
+
+    <!-- Messages for the Rest API activity -->
+    <string name="connections_fmt">Conexiones: %1$s</string>
+
+    <string name="msg_contacts_failed">Obtención de los contactos fallida.</string>
+
+    <!-- TODO(user): replace with your real server client ID -->
+    <!-- Server Client ID.  This should be a valid Web OAuth 2.0 Client ID obtained
+         from https://console.developers.google.com/ -->
+    <string name="server_client_id">165813394161-g8paonp3kugst715s14eloh84l9lvneu.apps.googleusercontent.com</string>
+
+    <string name="logo_whip">logo de whip</string>
+
+    <string name="title_activity_info_post_adoption">InfoPostAdoption</string>
+
+    <string name="open">abrir</string>
+
+    <string name="close">cerrar</string>
+
+    <string name="order_by_cat">Ordenado por:</string>
+
+    <string name="a_adir">Añadir</string>
+
+    <string name="notifications">Notificaciones</string>
+
+    <string name="favorito">Favorito</string>
+
+    <string name="delete">Eliminar</string>
+
+    <string name="nombre_real">Nombre real</string>
+
+    <string name="user">Usuario</string>
+
+    <string name="correo">Correo</string>
+
+    <string name="choose">Elige</string>
+
+    <string name="upload">Subir</string>
+
+    <string name="tipo">TIPO:</string>
+
+    <string name="especie">ESPECIE:</string>
+
+    <string name="raza">RAZA:</string>
+
+    <string name="cerrar_post">CERRAR PUBLICACIÓN</string>
+
+    <string name="comentarios_0">Comentarios 0</string>
+
+    <string name="a_ade_un_comentario_es">Añade un comentario…</string>
+
+    <string name="p_rdida">PÉRDIDA</string>
+
+    <string name="adopci_n">ADOPCIÓN</string>
+
+    <string name="eventos">EVENTOS</string>
+
+    <string name="a_ade_el_t_tulo">Añade el título…*</string>
+
+    <string name="a_ade_el_c_p">Añade el C.P…*</string>
+
+    <string name="a_ade_la_raza">Añade la raza…*</string>
+
+    <string name="crear">CREAR</string>
+
+    <string name="cancelar">CANCELAR</string>
+
+    <string name="perfil">PERFIL</string>
+
+    <string name="mensajes">MENSAJES</string>
+
+    <string name="mis_posts">MIS PUBLICACIONES</string>
+
+    <string name="editar_perfil">EDITAR PERFIL</string>
+
+    <string name="c_p">C.P.</string>
+
+    <string name="username">Nombre de usuario</string>
+
+    <string name="apellido">Apellido</string>
+
+    <string name="nombre">Nombre</string>
+
+    <string name="guardar">GUARDAR</string>
+
+    <string name="a_ade_un_comentario_hint">Añade un comentario…</string>
+
+    <string name="a_ade_la_raza_adopt">Añade la raza…*</string>
+
+    <string name="a_ade_el_c_p_hint">Añade el C.P…*</string>
+
+    <string name="a_ade_el_t_tulo_hint">Añade el título…*</string>
+
+    <string name="borrar">Borrar</string>
+
+    <string name="linea_separadora">-------------------------------------------------------------------</string>
+
+    <string name="todo">Que hacer</string>
+
+    <string name="ver_respuestas">Ver respuestas</string>
+
+    <string name="facebook_app_id">2316633415254454</string>
+
+    <string name="fb_login_protocol_scheme">fb2316633415254454</string>
+
+    <string name="logejat_facebook">Entrada con éxito</string>
+
+    <string name="login_facebook_cancelat">Entrada cancelada</string>
+
+    <string name="logged_out_facebook">Desconectado</string>
+
+    <string name="fotmato_fecha">DD/MM/AAAA</string>
+
+    <string name="fecha">Fecha</string>
+
+    <string name="introducir_lugar_para_la_quedada">Introducir lugar para la quedada</string>
+
+    <string name="lugar">Lugar</string>
+
+    <string name="hora">Hora</string>
+
+    <string name="formato_hora">HH:MM</string>
+
+    <string name="enviar_quedada">Enviar Quedada</string>
+
+    <string name="creador_del_post">CREADOR DE LA PUBLICACIÓN:</string>
+
+    <string name="creador">CREADOR:</string>
+
+    <string name="motivo_de_la_adopci_n">Motivo de la Adopción</string>
+
+    <string name="enviar_solicitud">ENVIAR SOLICITUD</string>
+
+    <string name="expon_en_este_espacio_los_motivos_por_los_cuales_quieres_adoptar_al_animal">Expon en este espacio los motivos por los cuales quieres adoptar al animal</string>
+
+    <string name="usuario">Usuario:</string>
+
+    <string name="te_han_propuesto_una_quedada">Te han propuesto una quedada</string>
+
+    <string name="lugar_event">Lugar:</string>
+
+    <string name="hora_events">Hora:</string>
+
+    <string name="calendario">Calendario</string>
+
+    <string name="acceptar">Aceptar</string>
+
+    <string name="aceptar">ACEPTAR</string>
+
+    <string name="rechazar">RECHAZAR</string>
+
+    <string name="fechaMayuscula">FECHA:</string>
+
+    <string name="HORA">HORA:</string>
+
+    <string name="LUGAR">LUGAR:</string>
+
+    <string name="abandono_o_p_rdida">ABANDONO O PÉRDIDA</string>
+
+    <string name="ver_perfil">VER PERFIL</string>
+
+    <string name="log_out">SALIR</string>
+
+    <string name="recent">Recientes</string>
+
+    <string name="dog">Perro</string>
+
+    <string name="cat">Gato</string>
+
+    <string name="other">Otro</string>
+
+    <string name="debe_escribir">Debe escribir un comentario</string>
+
+</resources>

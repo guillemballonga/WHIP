@@ -34,18 +34,7 @@ public class ConcretePostPresenter {
     public void createPost(String URL, String especie, String urls, String race, String cp, String text, String title, String type, String tipuspost) {
         concretePostServer.createPost(this, URL, especie, urls, race, cp, text, title, type, tipuspost);
     }
-/*
- post.put("specie", especie.getSelectedItem().toString());
-                    post.put("urls", k);
-                    post.put("race", raza.getText().toString());
-                    post.put("post_code", cp.getText().toString());
-                    post.put("text", contenido.getText().toString());
-                    post.put("title", titulo.getText().toString());
-                    if (tipo.getSelectedItem().toString().equals("Encontrado"))
-                        post.put("type", "F");
-                    else post.put("type", "L");
 
- */
 
     public View getView() {
         return view;
