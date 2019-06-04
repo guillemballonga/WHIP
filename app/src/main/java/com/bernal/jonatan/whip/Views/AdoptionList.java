@@ -118,9 +118,12 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
         botoBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), getString(R.string.mensaje_buscar), Toast.LENGTH_SHORT).show();
-                /*NECESITO SABER COMO FUNCIONAN LAS LISTAS PARA FILTRAR BIEN*/
-                textBuscarPostAdoption.getText();
+                if (textBuscarPostAdoption.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.mensajeBusquedaVacio), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.mensaje_buscar), Toast.LENGTH_SHORT).show();
+                    postPresenter.searchPost(textBuscarPostAdoption.getText().toString(), URL);
+                }
             }
         });
     }

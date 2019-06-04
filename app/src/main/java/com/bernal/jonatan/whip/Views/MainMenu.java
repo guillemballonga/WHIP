@@ -1,6 +1,8 @@
 package com.bernal.jonatan.whip.Views;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -12,14 +14,39 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bernal.jonatan.whip.Presenters.UserPresenter;
 import com.bernal.jonatan.whip.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.master.glideimageview.GlideImageView;
 
-public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import org.apache.http.conn.MultihomePlainSocketFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, UserPresenter.View {
 
     Button lost, adoption, events;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+
+    static GlideImageView imatge;
+    TextView nom, user, correo;
+
+    String urlFoto, n, u, c;
+
+    UserPresenter userPresenter = new UserPresenter((UserPresenter.View) this);
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +66,8 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        NavigationView nv = findViewById(R.id.navigation_view);
-        nv.setNavigationItemSelectedListener(this);
 
+        userPresenter.getUser();
 
         lost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +80,6 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainMenu.this, AdoptionList.class));
-
             }
         });
 
@@ -104,5 +129,88 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 break;
         }
         return true;
+    }
+
+
+    public static void retrieveImage(String idImageFirebase) {
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
+        StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
+
+        String xxxx = storageReference.getPath();
+        //foto_post = (ImageView) findViewById(R.id.foto_postPerd);
+        try {
+            final File localFile = File.createTempFile("images", "jpg");
+            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                    imatge.setImageBitmap(bitmap);
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                }
+            });
+        } catch (IOException ignored) {
+        }
+
+    }
+
+    @Override
+    public void getUserInfo(String cpt, String email, String family_name, String first_name, String photoURL, String username) {
+        if (username.toString().equals("null")) username = "";
+        if (cpt.toString().equals("null")) cpt = "";
+
+        n=first_name;
+        u=username;
+        c=email;
+        urlFoto=photoURL;
+
+        NavigationView nv = findViewById(R.id.navigation_view);
+
+     //PARÀMETRES DEL NAVIGATION
+     //--------------------------------------------------------------------------------
+        View hView = nv.getHeaderView(0);
+        nom = (TextView) hView.findViewById(R.id.nom_real_barra_lateral);
+        user = (TextView) hView.findViewById(R.id.user_barra_lateral);
+        correo = (TextView) hView.findViewById(R.id.correo_barra_lateral);
+        imatge = (GlideImageView) hView.findViewById(R.id.imagen_perfil_barra_lateral);
+
+        nom.setText(n);
+        user.setText(u);
+        correo.setText(c);
+        if (urlFoto.equals("") || urlFoto.equals("null")) {
+
+        } else if (photoURL.substring(1, 7).equals("images")) {
+            retrieveImage(urlFoto);
+        } else  { //CARREGAR IMATGE DE GOOGLE
+            imatge.loadImageUrl(photoURL);
+        }
+
+
+     //----------------------------------------------------------------------------------
+
+        nv.setNavigationItemSelectedListener(this);
+
+
+
+    }
+
+    @Override
+    public void changeActivity() {
+
+    }
+
+    @Override
+    public void setUserPosts(ArrayList mis_posts) {
+
+    }
+
+    @Override
+    public void sendInfoForChat(ArrayList userInfoForChat) {
+
     }
 }
