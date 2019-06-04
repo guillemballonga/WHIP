@@ -16,13 +16,24 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private float coord1;
+    private float coord2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+
+        //agafo l id del imageview
+
+        coord2 =  getIntent().getFloatExtra("pos2", (float) 2.1597595);
+        coord1 =  getIntent().getFloatExtra("pos1", (float) 41.6956211);
+
+
         int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
+
+
 
         if (status == ConnectionResult.SUCCESS) {
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -54,11 +65,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         UiSettings uiSettings = mMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
+        uiSettings.setMapToolbarEnabled(true);
 
-        float zoomLevel = 40;
+
+        float zoomLevel = 16;
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Ubicació post"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLevel));
+        LatLng post = new LatLng(coord1, coord2);
+        mMap.addMarker(new MarkerOptions().position(post).title("Ubicació post"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(post, zoomLevel));
     }
 }
