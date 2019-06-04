@@ -43,13 +43,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
         if (listaObjetos.get(i).getUserId().equals(ul.getCorreo_user())) {
             messageViewHolder.time_right.setText(listaObjetos.get(i).getTime());
             messageViewHolder.content_right.setText(listaObjetos.get(i).getMessage());
-            messageViewHolder.left.setVisibility(View.INVISIBLE);
+            messageViewHolder.left.setVisibility(View.GONE);
         }
 
         else if (!listaObjetos.get(i).getUserId().equals(ul.getCorreo_user())){
             messageViewHolder.time_left.setText(listaObjetos.get(i).getTime());
             messageViewHolder.content_left.setText(listaObjetos.get(i).getMessage());
-            messageViewHolder.right.setVisibility(View.INVISIBLE);
+            messageViewHolder.right.setVisibility(View.GONE);
         }
 
         messageViewHolder.setId_chatMessage(listaObjetos.get(i).getId());

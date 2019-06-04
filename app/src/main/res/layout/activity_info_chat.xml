@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/boton_comment"
+                android:background="@drawable/botonredondopeq"
                 android:text="@string/crear"
                 android:textColor="@color/blanco"
                 android:textSize="15sp"
