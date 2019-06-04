@@ -58,8 +58,14 @@ public class ConcretePostServer {
                             if (tipo_post.equals("Lost")) {
                                 type = result.getString("type");
                             }
+                            JSONArray arrJson = result.getJSONArray("geolocation");
+                            String[] arr = new String[arrJson.length()];
+                            for(int i = 0; i < arrJson.length(); i++)
+                                arr[i] = arrJson.getString(i);
+                            String coord1 = arr[0];
+                            String coord2 = arr[1];
                             Boolean status = result.getBoolean("status");
-                            Post post = new Post(title, data, specie, race, text, userId, photo_url_1, status, type, username);
+                            Post post = new Post(title, data, specie, race, text, userId, photo_url_1, status, type, username, coord1, coord2);
                             concretePostPresenter.setPost(post);
 
                         } catch (JSONException e) {

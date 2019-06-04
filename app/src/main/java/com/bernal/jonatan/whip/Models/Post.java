@@ -1,7 +1,5 @@
 package com.bernal.jonatan.whip.Models;
 
-import java.util.Date;
-
 public class Post {
 
 
@@ -17,6 +15,8 @@ public class Post {
     private String[] createdAt;
     private Boolean status;
     private String username;
+    private String coord1;
+    private String coord2;
 
 
     public Post(String id, String nombre, String imagen, String contenido, String type) {
@@ -28,7 +28,8 @@ public class Post {
     }
 
 
-    public Post(String title, String[] createdAt, String specie, String race, String contenido, String userId, String imagen, Boolean status, String type, String username) {
+    public Post(String title, String[] createdAt, String specie, String race, String contenido, String userId, String imagen, Boolean status,
+                String type, String username, String coord1, String coord2) {
         this.imagen = imagen;
         this.contenido = contenido;
         this.title = title;
@@ -39,6 +40,8 @@ public class Post {
         this.status = status;
         this.type = type;
         this.username = username;
+        this.coord1 = coord1;
+        this.coord2 = coord2;
     }
 
 
@@ -142,5 +145,11 @@ public class Post {
     }
 
 
+    public String getCoord1() {
+        return coord1;
+    }
 
+    public String getCoord2() {
+        return coord2;
+    }
 }

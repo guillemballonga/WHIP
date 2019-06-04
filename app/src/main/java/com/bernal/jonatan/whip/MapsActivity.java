@@ -27,7 +27,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //agafo l id del imageview
 
-        coord2 =  getIntent().getFloatExtra("pos2", (float) 2.1597595);
+        coord2 =  getIntent().getFloatExtra("pos2", (float) 4);//2.1597595
         coord1 =  getIntent().getFloatExtra("pos1", (float) 41.6956211);
 
 
