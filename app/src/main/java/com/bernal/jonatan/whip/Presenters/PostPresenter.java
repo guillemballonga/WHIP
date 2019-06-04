@@ -1,5 +1,6 @@
 package com.bernal.jonatan.whip.Presenters;
 
+import android.text.Editable;
 import android.view.View;
 
 import com.bernal.jonatan.whip.Models.Post;
@@ -37,6 +38,10 @@ public class PostPresenter {
 
     public View getView() {
         return this.view;
+    }
+
+    public void searchPost(String text, String URL) {
+        postServer.searchPost(this, text, URL);
     }
 
     public interface View {

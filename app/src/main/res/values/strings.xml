@@ -133,6 +133,6 @@
     <string name="buscar_post">Buscar Post</string>
     <string name="mensaje_buscar">Buscando Coincidecias en la lista de Posts</string>
     <string name="title_activity_maps">Map</string>
-
+    <string name="mensajeBusquedaVacio">El campo de búsqueda está vacío</string>
 
 </resources>

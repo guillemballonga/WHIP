@@ -123,8 +123,12 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
         botoBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), getString(R.string.mensaje_buscar), Toast.LENGTH_SHORT).show();
-                /*NECESITO SABER COMO FUNCIONAN LAS LISTAS PARA FILTRAR BIEN*/
+                if (textBuscarPostLost.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.mensajeBusquedaVacio), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.mensaje_buscar), Toast.LENGTH_SHORT).show();
+                    postPresenter.searchPost(textBuscarPostLost.getText().toString(), URL);
+                }
             }
         });
 
