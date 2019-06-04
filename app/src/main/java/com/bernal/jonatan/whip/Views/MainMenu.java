@@ -20,8 +20,11 @@ import android.widget.Toast;
 
 import com.bernal.jonatan.whip.Presenters.UserPresenter;
 import com.bernal.jonatan.whip.R;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -45,7 +48,6 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     String urlFoto, n, u, c;
 
     UserPresenter userPresenter = new UserPresenter((UserPresenter.View) this);
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
 
     @Override
@@ -109,7 +111,9 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(new Intent(MainMenu.this, EventList.class));
                 break;
             case R.id.nav_logout:
-
+                MainActivity.doLogOut(1);
+                startActivity(new Intent(MainMenu.this, MainActivity.class));
+                finish();
                 break;
         }
         return false;
@@ -170,10 +174,11 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         urlFoto=photoURL;
 
         NavigationView nv = findViewById(R.id.navigation_view);
+        View hView = nv.getHeaderView(0);
 
      //PARÀMETRES DEL NAVIGATION
      //--------------------------------------------------------------------------------
-        View hView = nv.getHeaderView(0);
+
         nom = (TextView) hView.findViewById(R.id.nom_real_barra_lateral);
         user = (TextView) hView.findViewById(R.id.user_barra_lateral);
         correo = (TextView) hView.findViewById(R.id.correo_barra_lateral);

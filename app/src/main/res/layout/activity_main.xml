@@ -60,6 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
+            android:gravity="center"
             tools:text="Optional Action"
             tools:visibility="visible" />
 
@@ -76,13 +77,16 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:gravity="center"
         android:background="@color/colorRosaWHIP">
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/login_google_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:paddingTop="50dp"
+            android:paddingBottom="50dp"
+            android:paddingLeft="27dp"
             android:visibility="visible"
             tools:visibility="gone" />
 
@@ -90,7 +94,7 @@
             android:id="@+id/login_facebook_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:gravity="center"
             android:visibility="visible"
             tools:visibility="gone" />
 
@@ -98,7 +102,6 @@
             android:id="@+id/sign_out_and_disconnect"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:orientation="horizontal"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
@@ -111,6 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/sign_out"
+                android:background="@drawable/botoinicio"
                 android:theme="@style/Widget.AppCompat.ButtonBar"
                 tools:ignore="ButtonStyle" />
 
@@ -120,6 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/perfil"
+                android:background="@drawable/botoinicio"
                 android:theme="@style/Widget.AppCompat.ButtonBar"
                 tools:ignore="ButtonStyle" />
         </LinearLayout>

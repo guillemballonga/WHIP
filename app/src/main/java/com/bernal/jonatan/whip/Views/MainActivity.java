@@ -78,11 +78,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LoginButton loginButtonFacebook;
     private boolean facebook = false;
     private String authCode ="";
+    static int logOut=0;
+    static int firstTime=1;
+
+    public static void doLogOut(int i) {
+        logOut=1;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
 
         //facebook
@@ -159,9 +167,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SignInButton loginFacebook = findViewById(R.id.login_google_button);
         loginFacebook.setSize(SignInButton.SIZE_STANDARD);
         loginFacebook.setColorScheme(SignInButton.COLOR_LIGHT);
-        // [END customize_button]
+                // [END customize_button]
 
         printKeyHash();
+
+
+        if(firstTime==1) {
+            signOut();
+            firstTime=0;
+        }
+
+        if (logOut==1) {
+            signOut();
+            logOut=0;
+        }
+
     }
 
     private void printKeyHash() {
@@ -303,13 +323,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             authCode = account.getServerAuthCode();
 
             //dona d alta aqui
-            Toast.makeText(getApplicationContext(), "login  per iniciar ", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "login  per iniciar ", Toast.LENGTH_SHORT).show();
 
             assert account != null;
             userJsonGoogle(account);
 
             // Signed in successfully, show authenticated UI.
-            updateUI(account);
+            //updateUI(account);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -372,6 +392,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onResponse(JSONObject response) {
                         Toast.makeText(getApplicationContext(), "Usuari logejat  correctament", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this, MainMenu.class));
                         //todo guardar api key en el singleton
                         try {
                             ul = UserLoggedIn.getUsuariLogejat(response.getString("api_key"), response.getString("email"), authCode );
@@ -421,6 +442,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivityForResult(signInIntent, RC_SIGN_IN);
 
 
+
+
+
     }
     // [END signIn]
 
@@ -453,10 +477,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    private void updateUI(@Nullable GoogleSignInAccount account) { // GOOGLE
+    public void updateUI(@Nullable GoogleSignInAccount account) { // GOOGLE
         //facebook = false;
         if (account != null) {
-
             mStatusTextView.setText(getString(R.string.signed_in_fmt, account.getDisplayName()));
 
             findViewById(R.id.login_facebook_button).setVisibility(View.GONE);
@@ -464,6 +487,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
 
         } else {
+
             mStatusTextView.setText(R.string.signed_out);
 
             findViewById(R.id.login_facebook_button).setVisibility(View.VISIBLE);
