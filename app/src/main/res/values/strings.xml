@@ -129,6 +129,7 @@
     <string name="fechaMayuscula">FECHA:</string>
     <string name="HORA">HORA:</string>
     <string name="LUGAR">LUGAR:</string>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>

@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.MapsActivity;
 import com.bernal.jonatan.whip.Models.Comment;
 import com.bernal.jonatan.whip.Presenters.CommentPresenter;
 import com.bernal.jonatan.whip.Presenters.ConcretePostPresenter;
@@ -45,7 +46,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     CommentPresenter commentPresenter = new CommentPresenter(this);
     //private static final String  = ;
     TextView titulo, fecha, especie, tipo, raza, contenido, num_comments, idCreador;
-    ImageView foto_post, foto_user, compartirRRSS;
+    ImageView foto_post, foto_user, compartirRRSS, maps;
     EditText box_comment;
     String Identificador;
     Button cerrar_post, crear_comment, borrar_comment, organ_quedada;
@@ -64,6 +65,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     private Menu menu_fav;
     private String titlePost, descriptionPost;
     private String idImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,8 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         organ_quedada = findViewById(R.id.organ_quedadaPerd);
         idCreador = findViewById(R.id.id_Creador_postLost);
 
+        maps = findViewById(R.id.abrir_GmapsPerd);
+
         foto_post = findViewById(R.id.foto_postPerd);
         foto_user = findViewById(R.id.imagen_coment_user);
         compartirRRSS = findViewById(R.id.CompartirRRSSPerd);
@@ -94,6 +98,9 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         cerrar_post = findViewById(R.id.boton_cerrar);
         crear_comment = findViewById(R.id.crear_comment);
         borrar_comment = findViewById(R.id.borrar_comment);
+
+
+
 
 
         comments = findViewById(R.id.contenedor_comments);
@@ -123,6 +130,19 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
                 i.putExtra("titlePost", titlePost);
                 i.putExtra("descriptionPost", descriptionPost);
                 i.putExtra("urlImage", idImage);
+                startActivity(i);
+
+            }
+        });
+        maps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent i = new Intent(InfoPostLost.this, MapsActivity.class);
+                i.putExtra("posLatitud", titlePost);
+                i.putExtra("posLongitud", descriptionPost);
+
                 startActivity(i);
 
             }

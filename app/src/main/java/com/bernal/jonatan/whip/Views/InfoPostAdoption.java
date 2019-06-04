@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.MapsActivity;
 import com.bernal.jonatan.whip.Presenters.ConcretePostPresenter;
 import com.bernal.jonatan.whip.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -35,7 +36,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
 
     ConcretePostPresenter concretePostPresenter = new ConcretePostPresenter(this);
     TextView titulo, fecha, especie, raza, contenido;
-    ImageView foto_post, compartirRRSS, Organ_quedada;
+    ImageView foto_post, compartirRRSS, Organ_quedada, maps;
     String Identificador, correuUsuari;
     Button close_buton, solicitud_adopcion;
     String titlePost = "", descriptionPost = "";
@@ -71,6 +72,8 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         foto_post = findViewById(R.id.foto_postAdoption);
         compartirRRSS = findViewById(R.id.CompartirRRSSAdoption);
         solicitud_adopcion = findViewById(R.id.solicitud_adoption);
+
+        maps = findViewById(R.id.abrir_GmapsAdoption);
 
         close_buton = findViewById(R.id.boton_cerrar_adoption);
 
@@ -119,6 +122,20 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
             }
         });
 
+
+        maps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent i = new Intent(InfoPostAdoption.this, MapsActivity.class);
+                i.putExtra("posLatitud", titlePost);
+                i.putExtra("posLongitud", descriptionPost);
+
+                startActivity(i);
+
+            }
+        });
         close_buton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
