@@ -1,12 +1,14 @@
 package com.bernal.jonatan.whip.Views;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,17 +28,19 @@ import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.model.ShareVideo;
 import com.facebook.share.model.ShareVideoContent;
 import com.facebook.share.widget.ShareDialog;
-import com.google.android.gms.common.internal.service.Common;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-import com.squareup.picasso.Callback;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
-import java.net.URI;
-import java.util.jar.JarFile;
+import java.io.File;
+import java.io.IOException;
 
 public class ShareFacebook extends AppCompatActivity {
 
     private static final int REQUEST_VIDEO_CODE = 1000;
+    private static final int REQUEST_IMAGE_CODE = 1500;
     Button btnShareLink, btnSharePhoto, btnShareVideo, btnSharePost;
     CallbackManager callbackManager;
     ShareDialog shareDialog;
@@ -141,8 +145,10 @@ public class ShareFacebook extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
                 //create callback
 
+                /*
                 shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
                     @Override
                     public void onSuccess(Sharer.Result result) {
@@ -162,15 +168,12 @@ public class ShareFacebook extends AppCompatActivity {
                     }
                 });
 
+                */
 
-                //we will fetch photo from link and convert to bitmap
 
-                if (!idImatge.equals("")){
-                    String pathImatge = getPathImage(idImatge);
-
-                    System.out.println("path image sencer: " + pathImatge);
-                    //Picasso.with(getBaseContext()).load(pathImatge).into(target);
-                }
+                @SuppressLint("IntentReset") Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                gallery.setType("image/");
+                startActivityForResult(gallery.createChooser(gallery, "select PHOTO"), REQUEST_IMAGE_CODE);
 
 
 
@@ -185,7 +188,7 @@ public class ShareFacebook extends AppCompatActivity {
                 //create callback
                 System.out.println("entro a post");
 
-                Bitmap image = ShowImage.retrieveImageBitmap(idImatge);
+                Bitmap image = retrieveImage(idImatge);
 
 
                 SharePhoto photo = new SharePhoto.Builder()
@@ -194,6 +197,10 @@ public class ShareFacebook extends AppCompatActivity {
                 SharePhotoContent content = new SharePhotoContent.Builder()
                         .addPhoto(photo)
                         .build();
+
+
+
+
 
             }
         });
@@ -206,9 +213,10 @@ public class ShareFacebook extends AppCompatActivity {
 
                 //choose video dialog
                 Intent intent = new Intent();
-                intent.setType("video/*");
+                intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "select video"), REQUEST_VIDEO_CODE);
+
             }
         });
 
@@ -231,18 +239,55 @@ public class ShareFacebook extends AppCompatActivity {
                 if (shareDialog.canShow(ShareVideoContent.class))
                     shareDialog.show(videoContent);
             }
+            else if (requestCode == REQUEST_IMAGE_CODE) {
+                Uri selectedImage = data.getData();
+
+                SharePhoto photo = new SharePhoto.Builder().setImageUrl(selectedImage).build();
+
+                SharePhotoContent photoContent = new SharePhotoContent.Builder().addPhoto(photo).build();
+
+
+                if (shareDialog.canShow(SharePhotoContent.class))
+                    shareDialog.show(photoContent);
+            }
         }
     }
 
-    public String getPathImage(String idImatge) {
-
-        String path = ShowImage.retrieveImageUri(idImatge);
-
-        if (path == null) {
-            return "";
-
-        } else return path;
+    @SuppressLint("IntentReset")
+    public void openGallery() {
+        @SuppressLint("IntentReset") Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        gallery.setType("image/");
+        startActivityForResult(gallery.createChooser(gallery, "Seleccione la Aplicación"), 10);
+    }
 
 
+
+    public Bitmap retrieveImage(String idImageFirebase) {
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
+        StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
+
+
+
+        String urlPhoto =  idImageFirebase ;
+
+
+        storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                System.out.println("url download imatge: " + uri);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+
+                System.out.println("url download imatge: ERROR");
+                // Handle any errors
+            }
+        });
+
+        return null;
     }
 }
