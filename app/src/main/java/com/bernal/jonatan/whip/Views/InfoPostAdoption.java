@@ -51,7 +51,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
     private Menu menu_fav;
-    private String idImage;
+    private String idImage, coordenada1, coordenada2;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,8 +129,8 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
 
 
                 Intent i = new Intent(InfoPostAdoption.this, MapsActivity.class);
-                i.putExtra("posLatitud", titlePost);
-                i.putExtra("posLongitud", descriptionPost);
+                i.putExtra("pos1", coordenada1);
+                i.putExtra("pos2", coordenada2);
 
                 startActivity(i);
 
@@ -279,6 +279,8 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         idCreador.setText(username);
 
         idImage = photo_url_1;
+        coordenada1 = coord1;
+        coordenada2 = coord2;
         //Fotografías con Firebase
         String urlFoto1 = photo_url_1; //LAURA->
         if (!urlFoto1.equals("")) retrieveImage(urlFoto1);
