@@ -58,7 +58,9 @@ public class ConcretePostServer {
                             if (tipo_post.equals("Lost")) {
                                 type = result.getString("type");
                             }
-                            JSONArray arrJson = result.getJSONArray("geolocation");
+
+                            JSONObject geo = result.getJSONObject("geolocation");
+                            JSONArray arrJson = geo.getJSONArray("coordinates");
                             String[] arr = new String[arrJson.length()];
                             for(int i = 0; i < arrJson.length(); i++)
                                 arr[i] = arrJson.getString(i);

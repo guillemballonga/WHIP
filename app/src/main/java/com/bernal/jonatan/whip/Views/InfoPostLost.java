@@ -1,6 +1,5 @@
 package com.bernal.jonatan.whip.Views;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -64,7 +63,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
 
     private Menu menu_fav;
     private String titlePost, descriptionPost;
-    private String idImage;
+    private String idImage, coordenada1, coordenada2;
 
 
     @Override
@@ -140,8 +139,8 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
 
 
                 Intent i = new Intent(InfoPostLost.this, MapsActivity.class);
-                i.putExtra("posLatitud", titlePost);
-                i.putExtra("posLongitud", descriptionPost);
+                i.putExtra("pos1", coordenada1);
+                i.putExtra("pos2", coordenada2);
 
                 startActivity(i);
 
@@ -359,7 +358,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     }
 
     @Override
-    public void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status, String type, String username) {
+    public void getPostInfo(String title, String[] data, String specie, String race, String text, String userId, String photo_url_1, Boolean status, String type, String username, String coord1, String coord2) {
         titulo.setText(title);
         fecha.setText(data[0]);
         especie.setText(specie);
@@ -370,6 +369,8 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         titlePost = title;
         descriptionPost = "Lost POST in Whip app ";
         idImage = photo_url_1;
+        coordenada1 = coord1;
+        coordenada2 = coord2;
 
 
         if (type.equals("F")) {

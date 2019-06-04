@@ -27,8 +27,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //agafo l id del imageview
 
-        coord2 =  getIntent().getFloatExtra("pos2", (float) 4);//2.1597595
-        coord1 =  getIntent().getFloatExtra("pos1", (float) 41.6956211);
+        String c2 =  getIntent().getStringExtra("pos2");//2.1597595
+        String c1 =  getIntent().getStringExtra("pos1");
+
+        coord1 = Float.valueOf(c1);
+        coord2 = Float.valueOf(c2);
 
 
         int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
@@ -70,7 +73,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         float zoomLevel = 16;
         // Add a marker in Sydney and move the camera
-        LatLng post = new LatLng(coord1, coord2);
+        LatLng post = new LatLng(coord2, coord1);
         mMap.addMarker(new MarkerOptions().position(post).title("Ubicació post"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(post, zoomLevel));
     }
