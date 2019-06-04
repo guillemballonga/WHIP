@@ -40,10 +40,18 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MessageViewHolder messageViewHolder, int i) {
-        messageViewHolder.date_of_msg.setText(listaObjetos.get(i).getDate());
-        messageViewHolder.time_of_msg.setText(listaObjetos.get(i).getTime());
-        messageViewHolder.chat_message.setText(listaObjetos.get(i).getMessage());
-        messageViewHolder.user_message.setText(listaObjetos.get(i).getUserId());
+        if (listaObjetos.get(i).getUserId().equals(ul.getCorreo_user())) {
+            messageViewHolder.time_right.setText(listaObjetos.get(i).getTime());
+            messageViewHolder.content_right.setText(listaObjetos.get(i).getMessage());
+            messageViewHolder.left.setVisibility(View.INVISIBLE);
+        }
+
+        else if (!listaObjetos.get(i).getUserId().equals(ul.getCorreo_user())){
+            messageViewHolder.time_left.setText(listaObjetos.get(i).getTime());
+            messageViewHolder.content_left.setText(listaObjetos.get(i).getMessage());
+            messageViewHolder.right.setVisibility(View.INVISIBLE);
+        }
+
         messageViewHolder.setId_chatMessage(listaObjetos.get(i).getId());
     }
 

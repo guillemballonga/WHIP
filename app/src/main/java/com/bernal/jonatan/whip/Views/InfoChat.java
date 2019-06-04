@@ -36,7 +36,6 @@ public class InfoChat extends AppCompatActivity implements ChatPresenter.View {
     private Button deleteMessage;
 
     private MessageAdapter adapt;
-    private SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView contenedor_mensajes;
     private ArrayList<ChatMessage> chat_msgs;
     String idChat;
@@ -52,17 +51,8 @@ public class InfoChat extends AppCompatActivity implements ChatPresenter.View {
         setContentView(R.layout.activity_info_chat);
 
         contenedor_mensajes = findViewById(R.id.contenedor_messages);
-        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout_messages);
         send_message = findViewById(R.id.enviar_mensaje);
         messageToSend = findViewById(R.id.box_message);
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                finish();
-                startActivity(getIntent());
-            }
-        });
 
 
         idChat = getIntent().getStringExtra("idChat");
@@ -95,6 +85,7 @@ public class InfoChat extends AppCompatActivity implements ChatPresenter.View {
 
     @Override
     public void recharge() {
+        messageToSend.setText("");
         recreate();
     }
 
@@ -108,8 +99,7 @@ public class InfoChat extends AppCompatActivity implements ChatPresenter.View {
         contenedor_mensajes.setLayoutManager(layout);
         adapt.setOnMessageListener(new OnMessageListener() {
             @Override
-            public void onEliminateClicked(int position, View vista) {
-                //No habría que hacer la comparación del user aquí por q en teoría se haría en el adapter para ver si te saca la papelera o no
+            public void onItemClicked(int position, View vista) {
                 final String id_msg = chat_msgs.get(contenedor_mensajes.getChildAdapterPosition(vista)).getId();
                 AlertDialog.Builder alert = new AlertDialog.Builder(InfoChat.this);
                 alert.setMessage("¿Estás seguro que deseas eliminar este mensaje?")
@@ -130,6 +120,7 @@ public class InfoChat extends AppCompatActivity implements ChatPresenter.View {
                 title.setTitle("ELIMINAR MENSAJE");
                 title.show();
             }
+
         });
     }
 

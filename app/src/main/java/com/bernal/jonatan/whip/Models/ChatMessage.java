@@ -17,7 +17,7 @@ public class ChatMessage {
         this.userId = userId;
         this.message = message;
         this.date = date;
-        this.date = time;
+        this.time = time;
     }
 
     public String getId() {

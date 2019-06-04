@@ -117,7 +117,10 @@ public class ChatServer {
                             JSONObject chat_msg = new JSONObject();
                             for (int i = 0; i < response.length(); ++i) {
                                 chat_msg = response.getJSONObject(i);
-                                chat_messages.add(new ChatMessage(chat_msg.getString("id"), chat_msg.getString("userId"), chat_msg.getString("message"), chat_msg.getString("createdAt").split("T")[0], chat_msg.getString("createdAt").split("T")[1]));
+                                String[] datetime = chat_msg.getString("createdAt").split("T");
+                                String data = datetime[0];
+                                String time = datetime[1];
+                                chat_messages.add(new ChatMessage(chat_msg.getString("id"), chat_msg.getString("userId"), chat_msg.getString("message"), data, time));
                             }
                             chatPresenter.chargeMessages(chat_messages);
                         } catch (JSONException e) {

@@ -1,9 +1,12 @@
 package com.bernal.jonatan.whip.RecyclerViews;
 
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bernal.jonatan.whip.Models.ChatMessage;
@@ -15,43 +18,41 @@ import java.util.List;
 public class MessageViewHolder extends RecyclerView.ViewHolder {
 
 
-    ImageView delete_button;
-    TextView user_message;
-    TextView chat_message;
-    TextView date_of_msg;
-    TextView time_of_msg;
+    LinearLayout left,right;
+    TextView content_left;
+    TextView time_left;
+    TextView content_right;
+    TextView time_right;
+    private String id_chatMessage;
 
     public void setId_chatMessage(String id_chatMessage) {
         this.id_chatMessage = id_chatMessage;
     }
 
-    private String id_chatMessage;
 
-    public MessageViewHolder(@NonNull final View itemView, List<ChatMessage> listaObjetos, final OnMessageListener onMessageListener) {
+    public MessageViewHolder(@NonNull final View itemView, final List<ChatMessage> listaObjetos, final OnMessageListener onMessageListener) {
         super(itemView);
 
-        //text, date y time
-        delete_button = itemView.findViewById(R.id.delete_message);
-        chat_message = itemView.findViewById(R.id.mensaje_message);
-        date_of_msg = itemView.findViewById(R.id.date_message);
-        time_of_msg = itemView.findViewById(R.id.time_message);
-        user_message = itemView.findViewById(R.id.user_message);
-        //text_area
-        //date_of_msg
-        //time_of_msg
+        left = itemView.findViewById(R.id.chat_left);
+        right = itemView.findViewById(R.id.chat_right);
+        content_left = itemView.findViewById(R.id.mensaje_message_left);
+        content_right = itemView.findViewById(R.id.mensaje_message_right);
+        time_left = itemView.findViewById(R.id.date_message_left);
+        time_right = itemView.findViewById(R.id.date_message_right);
 
-        //Jhonny echame un cable con esto xD  if (!user_msg.equals(el user loggeado)) delete_button.setVisibility(View.GONE);
-
-
-        delete_button.setOnClickListener(new View.OnClickListener() {
+        right.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View view) {
+            public boolean onLongClick(View view) {
                 int position = getAdapterPosition();
 
                 if (position != RecyclerView.NO_POSITION) {
-                    onMessageListener.onEliminateClicked(position, itemView);
+                    onMessageListener.onItemClicked(position, itemView);
                 }
+
+                return true;
             }
+
         });
+
     }
 }
