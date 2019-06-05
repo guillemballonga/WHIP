@@ -83,6 +83,11 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View, U
     }
 
     @Override
+    public void notifyChatRelationCreate(String id) {
+
+    }
+
+    @Override
     public void getUserInfo(String cp, String email, String family_name, String first_name, String photoURL, String username) {
 
     }

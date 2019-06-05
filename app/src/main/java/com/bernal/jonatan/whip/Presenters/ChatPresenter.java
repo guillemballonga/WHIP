@@ -59,6 +59,9 @@ public class ChatPresenter {
         chatServer.createChat(this, URL, userId);
     }
 
+    public void notifyChatRelationCreate(String id) {
+        view.notifyChatRelationCreate(id);
+    }
 
 
     public interface View {
@@ -68,6 +71,8 @@ public class ChatPresenter {
         void recharge();
 
         void chargeMessages(ArrayList chat_messages);
+
+        void notifyChatRelationCreate(String id);
     }
 
 

@@ -124,6 +124,11 @@ public class InfoChat extends AppCompatActivity implements ChatPresenter.View {
         });
     }
 
+    @Override
+    public void notifyChatRelationCreate(String id) {
+
+    }
+
 
     private void send_message() {
 

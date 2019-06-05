@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Comment;
+import com.bernal.jonatan.whip.Presenters.ChatPresenter;
 import com.bernal.jonatan.whip.Presenters.CommentPresenter;
 import com.bernal.jonatan.whip.Presenters.ConcretePostPresenter;
 import com.bernal.jonatan.whip.R;
@@ -39,10 +40,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class InfoPostLost extends AppCompatActivity implements ConcretePostPresenter.View, CommentPresenter.View {
+public class InfoPostLost extends AppCompatActivity implements ConcretePostPresenter.View, CommentPresenter.View, ChatPresenter.View {
 
     ConcretePostPresenter concretePostPresenter = new ConcretePostPresenter(this);
     CommentPresenter commentPresenter = new CommentPresenter(this);
+    ChatPresenter chatPresenter = new ChatPresenter(this);
     //private static final String  = ;
     TextView titulo, fecha, especie, tipo, raza, contenido, num_comments, idCreador;
     ImageView foto_post, foto_user, compartirRRSS;
@@ -52,7 +54,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     RecyclerView comments;
 
 
-    private String URL, URL_favs, URL_like, URL_close, URL_comments;
+    private String URL, URL_favs, URL_like, URL_close, URL_comments, URL_chat;
     private CommentAdapter adapt;
     private ArrayList<Comment> Comments_post;
 
@@ -106,6 +108,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         URL_favs = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=lost";
         URL_like = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=lost";
         URL_close = "https://whip-api.herokuapp.com/contributions/close/" + Identificador + "/?type=lost";
+        URL_chat = "https://whip-api.herokuapp.com/chat";
         URL_comments = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador + "/comments";
 
         cerrar_post.setOnClickListener(new View.OnClickListener() {
@@ -146,7 +149,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         chat_privado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //aquí llamaremos al chat presenter
+                chatPresenter.createChat(URL_chat, idCreador.getText().toString());
             }
         });
 
@@ -374,8 +377,26 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     }
 
     @Override
+    public void chargeChats(ArrayList user_chats) {
+
+    }
+
+    @Override
     public void recharge() {
         recreate();
+    }
+
+    @Override
+    public void chargeMessages(ArrayList chat_messages) {
+
+    }
+
+    @Override
+    public void notifyChatRelationCreate(String id) {
+        Intent i = new Intent(InfoPostLost.this, InfoChat.class);
+        i.putExtra("idChat", id);
+        startActivity(i);
+        finish();
     }
 
     @Override

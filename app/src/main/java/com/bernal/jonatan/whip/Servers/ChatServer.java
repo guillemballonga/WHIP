@@ -225,6 +225,12 @@ public class ChatServer {
                     @Override
                     public void onResponse(JSONObject response) {
                         //    chatPresenter.recharge();
+                        try {
+                            String id = response.getString("id");
+                            chatPresenter.notifyChatRelationCreate(id);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         //A la espera de lo q me responda Nico
 
                     }
