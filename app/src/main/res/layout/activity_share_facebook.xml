@@ -12,29 +12,37 @@
         android:layout_centerInParent="true"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center">
 
         <Button
             android:id="@+id/btnSharePost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fondoform"
             android:text="Share Post"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_marginBottom="@dimen/activity_vertical_margin"/>
         <Button
             android:id="@+id/btnShareLink"
             android:text="Share Link"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fondoform"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"/>
 
         <Button
             android:id="@+id/btnSharePhoto"
             android:text="Share Photo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fondoform"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"/>
         <Button
             android:id="@+id/btnShareVideo"
             android:text="Share Video"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fondoform"/>
 
     </LinearLayout>
 
