@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -39,6 +40,9 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_event);
 
+        Toolbar tool = findViewById(R.id.toolbar_info_event);
+        setSupportActionBar(tool);
+        getSupportActionBar().setTitle("EVENTOS");
 
         idEvent = getIntent().getStringExtra("idEvent");
 
