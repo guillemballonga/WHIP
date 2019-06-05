@@ -275,7 +275,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         contenido.setText(text);
         mail_creador = userId;
         titlePost = title;
-        descriptionPost = "Adoption POST in Whip app ";
+        descriptionPost = "WHIP - POST LOST : " +  title + " DATE: " + data[0] + " IN: " + coord2 + "," + coord1;
         idCreador.setText(username);
 
         idImage = photo_url_1;
