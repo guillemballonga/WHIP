@@ -17,6 +17,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.Models.AdoptionRequest;
+import com.bernal.jonatan.whip.Presenters.AdoptionRequestPresenter;
 import com.bernal.jonatan.whip.R;
 
 import org.json.JSONException;
@@ -26,7 +28,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class NewAdoptionRequest extends AppCompatActivity {
+public class NewAdoptionRequest extends AppCompatActivity implements AdoptionRequestPresenter.View {
+
+    AdoptionRequestPresenter adoptionRequestPresenter = new AdoptionRequestPresenter(this);
 
     Button toQuedada;
     static String UsernameFromPost;
@@ -73,65 +77,21 @@ public class NewAdoptionRequest extends AppCompatActivity {
 
     private void envia_dades_back() {
 
-        //Coneixón con la API
         URL = "https://whip-api.herokuapp.com/event/adoptionrequest";
-        requestqueue = Volley.newRequestQueue(this);
 
-        JSONObject adoptionReq = new JSONObject();
-
-        if (cosText.getText().toString().equals("")) {
-            Toast.makeText(getApplicationContext(), "Introduce una descripción", Toast.LENGTH_SHORT).show();
-        }else {
-            //JASON
-            try {
-                adoptionReq.put("adoptionPostId", AdoptionPostID);
-                adoptionReq.put("text", cosText.getText());
-                adoptionReq.put("photo_url", photo_url);
-                adoptionReq.put("userIdFromPost", UsernameFromPost);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            //Guardar los datos del formulario en BACK.
-            JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                    JsonRequest.Method.POST,
-                    URL,
-                    adoptionReq,
-
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            NewQuedada.setPostID(AdoptionPostID, "adoption");
-                            NewQuedada.setUsernameFromPost(UsernameFromPost);
-                            startActivity(new Intent(NewAdoptionRequest.this, NewQuedada.class));
-                            finish();
-                        }
-
-
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-                            error.printStackTrace();
-                        }
-                    }
-            ) {
-                @Override
-                public Map<String, String> getHeaders() {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("Content-Type", "application/json");
-                    params.put("Authorization", api); //valor de V ha de ser el de la var global
-                    return params;
-                }
-            };
-            requestqueue.add(objectJsonrequest);
-//JASON
-        }
+        adoptionRequestPresenter.sendInfo(URL, cosText.getText().toString(), AdoptionPostID, photo_url, UsernameFromPost);
     }
 
+    @Override
+    public void notifyCreate() {
+        NewQuedada.setPostID(AdoptionPostID, "adoption");
+        NewQuedada.setUsernameFromPost(UsernameFromPost);
+        startActivity(new Intent(NewAdoptionRequest.this, NewQuedada.class));
+        finish();
+    }
 
-
-
+    @Override
+    public void notifyEmptyDesc() {
+        Toast.makeText(getApplicationContext(), "Introduce una descripción", Toast.LENGTH_SHORT).show();
+    }
 }
