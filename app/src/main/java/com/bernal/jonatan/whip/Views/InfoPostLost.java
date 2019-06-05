@@ -38,6 +38,7 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class InfoPostLost extends AppCompatActivity implements ConcretePostPresenter.View, CommentPresenter.View {
 
@@ -367,7 +368,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         mail_creador = userId;
         idCreador.setText(username);
         titlePost = title;
-        descriptionPost = "Lost POST in Whip app ";
+        descriptionPost = "WHIP - POST LOST : " +  title + " DATE: " + data[0] + " IN: " + coord2 + "," + coord1;
         idImage = photo_url_1;
         coordenada1 = coord1;
         coordenada2 = coord2;
