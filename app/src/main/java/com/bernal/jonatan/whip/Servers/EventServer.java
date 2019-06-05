@@ -1,6 +1,7 @@
 package com.bernal.jonatan.whip.Servers;
 
 import android.content.Context;
+import android.widget.EditText;
 
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
@@ -8,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Event;
 import com.bernal.jonatan.whip.Presenters.EventPresenter;
@@ -141,6 +143,93 @@ public class EventServer {
             }
         };
         requestQueue.add(jsonObjectRequest);
+    }
+
+    public void newQuedada(final EventPresenter eventPresenter, String postID, int año, String mes, String dia, String horaForm, String minForm, EditText lugar, String usernameFromPost, String type, String URL) {
+        JSONObject quedada = new JSONObject();
+        requestQueue = Volley.newRequestQueue((Context) eventPresenter.getView());
+        try {
+            if (type.equals("adoption")) {
+                quedada.put("adoptionPostId", postID);
+            } else {
+                quedada.put("lostPostId", postID);
+            }
+
+            quedada.put("date", año + "-" + mes + "-" + dia + " " + horaForm + ":" + minForm + ": 00");
+            quedada.put("place", lugar.getText().toString());
+            quedada.put("userIdFromPost", usernameFromPost);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.POST,
+                URL,
+                quedada,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        eventPresenter.notifyNewQuedada();
+                    }
+
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", api); //valor de V ha de ser el de la var global
+                return params;
+            }
+        };
+        requestQueue.add(objectJsonrequest);
+
+
+    }
+
+    public void replanificarQuedada(final EventPresenter eventPresenter, String postID, int año, String mes, String dia, String horaForm, String minForm, EditText lugar, String usernameFromPost, String URL) {
+        JSONObject quedada = new JSONObject();
+        requestQueue = Volley.newRequestQueue((Context) eventPresenter.getView());
+        try {
+            quedada.put("date", año + "-" + mes + "-" + dia + " " + horaForm + ":" + minForm + ": 00");
+            quedada.put("place", lugar.getText().toString());
+            quedada.put("userIdFromPost", usernameFromPost);
+            quedada.put("userId", u1.getCorreo_user());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.PATCH,
+                URL,
+                quedada,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        eventPresenter.notifyReplanificar();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", api); //valor de V ha de ser el de la var global
+                return params;
+            }
+        };
+        requestQueue.add(objectJsonrequest);
     }
 }
 

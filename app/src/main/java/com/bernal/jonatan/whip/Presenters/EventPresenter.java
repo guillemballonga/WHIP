@@ -1,5 +1,7 @@
 package com.bernal.jonatan.whip.Presenters;
 
+import android.widget.EditText;
+
 import com.bernal.jonatan.whip.Models.Event;
 import com.bernal.jonatan.whip.Servers.EventServer;
 
@@ -49,9 +51,29 @@ public class EventPresenter {
         view.recharge();
     }
 
+    public void newQuedada(String postID, int año, String mes, String dia, String horaForm, String minForm, EditText lugar, String usernameFromPost, String type, String URL) {
+        eventServer.newQuedada(this, postID, año, mes, dia, horaForm, minForm, lugar, usernameFromPost, type, URL);
+    }
+
+    public void notifyNewQuedada() {
+        view.notifyNewQuedada();
+    }
+
+    public void replanificarQuedada(String postID, int año, String mes, String dia, String horaForm, String minForm, EditText lugar, String usernameFromPost, String URL) {
+        eventServer.replanificarQuedada(this, postID, año, mes, dia, horaForm, minForm, lugar, usernameFromPost, URL);
+    }
+
+    public void notifyReplanificar() {
+        view.notifyReplanificar();
+    }
+
     public interface View {
         void setEvent(String UserFromPostId, String UserId, String Place, String Date, String Time);
         void chargeEvents(ArrayList events);
         void recharge();
+
+        void notifyNewQuedada();
+
+        void notifyReplanificar();
     }
 }
