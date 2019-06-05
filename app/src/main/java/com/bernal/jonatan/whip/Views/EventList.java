@@ -103,4 +103,14 @@ public class EventList extends AppCompatActivity implements EventPresenter.View 
         recreate();
 
     }
+
+    @Override
+    public void notifyNewQuedada() {
+
+    }
+
+    @Override
+    public void notifyReplanificar() {
+
+    }
 }
