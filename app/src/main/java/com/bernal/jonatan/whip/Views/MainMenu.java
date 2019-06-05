@@ -89,20 +89,4 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         }
         return false;
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_notifications, menu);
-        return true;
-
-    }
-
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.icono_notify:
-                //startActivity(new Intent(MainMenu.this, NewPostLost.class));
-                break;
-        }
-        return true;
-    }
 }
