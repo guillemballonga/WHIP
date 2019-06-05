@@ -63,8 +63,6 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View, U
 
         chatPresenter.getChats(URL_chats+"/chats");
     }
-
-
     @Override
     public void chargeChats(final ArrayList user_chats) {
         //Aquí en realidad debería de llamar de nuevo al presenter, con los ids de user conseguir el username y la foto, y la que vuelva
@@ -77,6 +75,16 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View, U
     @Override
     public void recharge() {
         recreate();
+    }
+
+    @Override
+    public void chargeMessages(ArrayList chat_messages) {
+
+    }
+
+    @Override
+    public void notifyChatRelationCreate(String id) {
+
     }
 
     @Override
@@ -129,12 +137,12 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View, U
 
             @Override
             public void onChatClicked(int position, View vista) {
-                /*ChatRelation chatRelation = (ChatRelation) userInfoForChat.get(contenedor_chats.getChildAdapterPosition(vista));
+                ChatRelation chatRelation = (ChatRelation) userInfoForChat.get(contenedor_chats.getChildAdapterPosition(vista));
                 String idChat = chatRelation.getId();
-                Intent i = new Intent(ChatList.this, InfoEvent.class);
+                Intent i = new Intent(ChatList.this, InfoChat.class);
                 i.putExtra("idChat", idChat);
                 startActivity(i);
-                //llamar a la activity de InfoChat*/
+                //llamar a la activity de InfoChat
             }
         });
     }

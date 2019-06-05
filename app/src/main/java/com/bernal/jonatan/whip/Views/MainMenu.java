@@ -68,6 +68,8 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        NavigationView nv = findViewById(R.id.navigation_view);
+        nv.setNavigationItemSelectedListener(this);
 
         userPresenter.getUser();
 
@@ -118,23 +120,6 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         }
         return false;
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_notifications, menu);
-        return true;
-
-    }
-
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.icono_notify:
-                //startActivity(new Intent(MainMenu.this, NewPostLost.class));
-                break;
-        }
-        return true;
-    }
-
 
     public static void retrieveImage(String idImageFirebase) {
 

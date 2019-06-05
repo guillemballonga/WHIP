@@ -38,12 +38,41 @@ public class ChatPresenter {
         view.recharge();
     }
 
+    public void getMessages(String url) {
+        chatServer.getMessages(this, url);
+    }
+
+    public void chargeMessages(ArrayList chat_messages) {
+        view.chargeMessages(chat_messages);
+    }
+
+    public void deleteMessage(String id_msg) {
+        chatServer.deleteMessage(this, id_msg);
+    }
+
+    public void createMessage(String message, String URL) {
+        chatServer.sendMessage(this, message, URL);
+    }
+
+
+    public void createChat(String URL, String userId) {
+        chatServer.createChat(this, URL, userId);
+    }
+
+    public void notifyChatRelationCreate(String id) {
+        view.notifyChatRelationCreate(id);
+    }
+
 
     public interface View {
 
         void chargeChats(ArrayList user_chats);
 
         void recharge();
+
+        void chargeMessages(ArrayList chat_messages);
+
+        void notifyChatRelationCreate(String id);
     }
 
 

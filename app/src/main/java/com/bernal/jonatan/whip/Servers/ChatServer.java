@@ -10,6 +10,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.bernal.jonatan.whip.Models.ChatMessage;
 import com.bernal.jonatan.whip.Models.ChatRelation;
 import com.bernal.jonatan.whip.Presenters.ChatPresenter;
 import com.bernal.jonatan.whip.Views.UserLoggedIn;
@@ -96,6 +97,155 @@ public class ChatServer {
                 Map<String, String> params = new HashMap<>();
                 params.put("Content-Type", "application/json");
                 params.put("Authorization", api);
+                return params;
+            }
+        };
+        requestQueue.add(objectJsonrequest);
+    }
+
+    public void getMessages(final ChatPresenter chatPresenter, String url) {
+        requestQueue = Volley.newRequestQueue((Context) chatPresenter.getView());
+        JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            ArrayList chat_messages = new ArrayList<>();
+                            JSONObject chat_msg = new JSONObject();
+                            for (int i = 0; i < response.length(); ++i) {
+                                chat_msg = response.getJSONObject(i);
+                                String[] datetime = chat_msg.getString("createdAt").split("T");
+                                String data = datetime[0];
+                                String time = datetime[1];
+                                chat_messages.add(new ChatMessage(chat_msg.getString("id"), chat_msg.getString("userId"), chat_msg.getString("message"), data, time));
+                            }
+                            chatPresenter.chargeMessages(chat_messages);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", api);
+                return params;
+            }
+        };
+        requestQueue.add(arrayJsonrequest);
+    }
+
+    public void deleteMessage(final ChatPresenter chatPresenter, String id_msg) {
+        String URL = "https://whip-api.herokuapp.com/chat/" + id_msg;
+        requestQueue = Volley.newRequestQueue((Context) chatPresenter.getView());
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.DELETE,
+                URL,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        chatPresenter.recharge();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", api);
+                return params;
+            }
+        };
+        requestQueue.add(objectJsonrequest);
+    }
+
+    public void sendMessage(final ChatPresenter chatPresenter, String message, String URL) {
+        JSONObject msg = new JSONObject();
+        try {
+            msg.put("text", message);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        requestQueue = Volley.newRequestQueue((Context) chatPresenter.getView());
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.POST,
+                URL,
+                msg,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        chatPresenter.recharge();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", api); //valor de V ha de ser el de la var global
+                return params;
+            }
+        };
+        requestQueue.add(objectJsonrequest);
+    }
+
+    public void createChat(final ChatPresenter chatPresenter, String URL, String userId) {
+        JSONObject msg = new JSONObject();
+        try {
+            msg.put("userId2", userId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        requestQueue = Volley.newRequestQueue((Context) chatPresenter.getView());
+        JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
+                JsonRequest.Method.POST,
+                URL,
+                msg,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        //    chatPresenter.recharge();
+                        try {
+                            String id = response.getString("id");
+                            chatPresenter.notifyChatRelationCreate(id);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        //A la espera de lo q me responda Nico
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", api); //valor de V ha de ser el de la var global
                 return params;
             }
         };

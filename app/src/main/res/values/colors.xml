@@ -9,6 +9,7 @@
     <color name="blanco">#FFFFFF</color>
     <color name="verde_evento">#77DB</color>
     <color name="verde_chat">#4169E1</color>
+    <color name="cutre_mensaje">#77DD77</color>
 
 
 </resources>

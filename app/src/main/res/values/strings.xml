@@ -53,7 +53,6 @@
     <!-- Server Client ID.  This should be a valid Web OAuth 2.0 Client ID obtained
          from https://console.developers.google.com/ -->
     <string name="server_client_id">165813394161-g8paonp3kugst715s14eloh84l9lvneu.apps.googleusercontent.com</string>
-
     <string name="logo_whip">logo whip</string>
     <string name="title_activity_info_post_adoption">InfoPostAdoption</string>
     <string name="open">open</string>
@@ -102,7 +101,6 @@
 
     <string name="facebook_app_id">2316633415254454</string>
     <string name="fb_login_protocol_scheme">fb2316633415254454</string>
-
     <string name="logejat_facebook">Successfully logged in</string>
     <string name="login_facebook_cancelat">Login canceled</string>
     <string name="logged_out_facebook">Logged out</string>
@@ -134,5 +132,7 @@
     <string name="mensaje_buscar">Buscando Coincidecias en la lista de Posts</string>
     <string name="title_activity_maps">Map</string>
     <string name="mensajeBusquedaVacio">El campo de búsqueda está vacío</string>
+    <string name="a_ade_un_mensaje">Escribe un mensaje aquí</string>
+
 
 </resources>

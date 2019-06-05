@@ -24,6 +24,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.MapsActivity;
 import com.bernal.jonatan.whip.Models.Comment;
+import com.bernal.jonatan.whip.Presenters.ChatPresenter;
 import com.bernal.jonatan.whip.Presenters.CommentPresenter;
 import com.bernal.jonatan.whip.Presenters.ConcretePostPresenter;
 import com.bernal.jonatan.whip.R;
@@ -40,21 +41,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class InfoPostLost extends AppCompatActivity implements ConcretePostPresenter.View, CommentPresenter.View {
+public class InfoPostLost extends AppCompatActivity implements ConcretePostPresenter.View, CommentPresenter.View, ChatPresenter.View {
 
     ConcretePostPresenter concretePostPresenter = new ConcretePostPresenter(this);
     CommentPresenter commentPresenter = new CommentPresenter(this);
+    ChatPresenter chatPresenter = new ChatPresenter(this);
     //private static final String  = ;
     TextView titulo, fecha, especie, tipo, raza, contenido, num_comments, idCreador;
     ImageView foto_post, foto_user, compartirRRSS, maps;
     EditText box_comment;
     String Identificador;
-    Button cerrar_post, crear_comment, borrar_comment, organ_quedada;
+    Button cerrar_post, crear_comment, borrar_comment, organ_quedada, chat_privado;
     RecyclerView comments;
     private RequestQueue requestqueue;
 
 
-    private String URL, URL_favs, URL_like, URL_close, URL_comments;
+    private String URL, URL_favs, URL_like, URL_close, URL_comments, URL_chat;
     private CommentAdapter adapt;
     private ArrayList<Comment> Comments_post;
 
@@ -98,6 +100,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         cerrar_post = findViewById(R.id.boton_cerrar);
         crear_comment = findViewById(R.id.crear_comment);
         borrar_comment = findViewById(R.id.borrar_comment);
+        chat_privado = findViewById(R.id.chat_privado);
 
 
 
@@ -117,6 +120,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         URL_favs = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=lost";
         URL_like = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=lost";
         URL_close = "https://whip-api.herokuapp.com/contributions/close/" + Identificador + "/?type=lost";
+        URL_chat = "https://whip-api.herokuapp.com/chat";
         URL_comments = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador + "/comments";
 
         requestqueue = Volley.newRequestQueue(this);
@@ -181,6 +185,13 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
                     NewQuedada.setUsernameFromPost(mail_creador);
                     startActivity(new Intent(InfoPostLost.this, NewQuedada.class));
                 }
+            }
+        });
+
+        chat_privado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chatPresenter.createChat(URL_chat, mail_creador);
             }
         });
 
@@ -383,6 +394,8 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         if (!urlFoto1.equals("")) retrieveImage(urlFoto1);
         else foto_post.setBackgroundResource(R.drawable.perfilperro);
 
+        if (mail_creador.equals(ul.getCorreo_user())) chat_privado.setVisibility(View.GONE);
+
         if (status) {
             cerrar_post.setVisibility(View.GONE);
             compartirRRSS.setVisibility(View.GONE);
@@ -391,6 +404,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
             box_comment.setVisibility(View.GONE);
             crear_comment.setVisibility(View.GONE);
             borrar_comment.setVisibility(View.GONE);
+            chat_privado.setVisibility(View.GONE);
         }
 
     }
@@ -410,8 +424,26 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     }
 
     @Override
+    public void chargeChats(ArrayList user_chats) {
+
+    }
+
+    @Override
     public void recharge() {
         recreate();
+    }
+
+    @Override
+    public void chargeMessages(ArrayList chat_messages) {
+
+    }
+
+    @Override
+    public void notifyChatRelationCreate(String id) {
+        Intent i = new Intent(InfoPostLost.this, InfoChat.class);
+        i.putExtra("idChat", id);
+        startActivity(i);
+        finish();
     }
 
     @Override

@@ -45,6 +45,7 @@
         <activity android:name=".Views.CommentComment" />
         <activity android:name=".Views.ChatList" />
         <activity android:name=".Views.ShareFacebook" />
+        <activity android:name=".Views.InfoChat"></activity>
         <activity android:name=".Views.InfoEvent" />
         <activity android:name=".Views.NewAdoptionRequest" />
         <activity android:name=".Views.NewQuedada" />
