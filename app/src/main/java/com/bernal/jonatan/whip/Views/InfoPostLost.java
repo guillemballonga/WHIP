@@ -149,7 +149,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         chat_privado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chatPresenter.createChat(URL_chat, idCreador.getText().toString());
+                chatPresenter.createChat(URL_chat, mail_creador);
             }
         });
 
