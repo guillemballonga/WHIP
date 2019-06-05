@@ -55,6 +55,12 @@ public class ChatPresenter {
     }
 
 
+    public void createChat(String URL, String userId) {
+        chatServer.createChat(this, URL, userId);
+    }
+
+
+
     public interface View {
 
         void chargeChats(ArrayList user_chats);

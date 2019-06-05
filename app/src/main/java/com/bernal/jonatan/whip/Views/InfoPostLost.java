@@ -48,7 +48,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     ImageView foto_post, foto_user, compartirRRSS;
     EditText box_comment;
     String Identificador;
-    Button cerrar_post, crear_comment, borrar_comment, organ_quedada;
+    Button cerrar_post, crear_comment, borrar_comment, organ_quedada, chat_privado;
     RecyclerView comments;
 
 
@@ -90,6 +90,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         cerrar_post = findViewById(R.id.boton_cerrar);
         crear_comment = findViewById(R.id.crear_comment);
         borrar_comment = findViewById(R.id.borrar_comment);
+        chat_privado = findViewById(R.id.chat_privado);
 
         comments = findViewById(R.id.contenedor_comments);
 
@@ -139,6 +140,13 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
                     NewQuedada.setUsernameFromPost(mail_creador);
                     startActivity(new Intent(InfoPostLost.this, NewQuedada.class));
                 }
+            }
+        });
+
+        chat_privado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //aquí llamaremos al chat presenter
             }
         });
 
@@ -336,6 +344,8 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         if (!urlFoto1.equals("")) retrieveImage(urlFoto1);
         else foto_post.setBackgroundResource(R.drawable.perfilperro);
 
+        if (mail_creador.equals(ul.getCorreo_user())) chat_privado.setVisibility(View.GONE);
+
         if (status) {
             cerrar_post.setVisibility(View.GONE);
             compartirRRSS.setVisibility(View.GONE);
@@ -344,6 +354,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
             box_comment.setVisibility(View.GONE);
             crear_comment.setVisibility(View.GONE);
             borrar_comment.setVisibility(View.GONE);
+            chat_privado.setVisibility(View.GONE);
         }
 
     }

@@ -85,13 +85,13 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <Button
                         android:id="@+id/chat_privado"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_marginBottom="45dp"
                         android:contentDescription="@string/todo"
-                        android:src="@drawable/chat" />
+                        android:background="@drawable/chat" />
 
                     <ImageView
                         android:id="@+id/abrir_GmapsPerd"
