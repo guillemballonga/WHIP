@@ -289,7 +289,6 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         if (status) {
             close_buton.setVisibility(View.GONE);
             compartirRRSS.setVisibility(View.GONE);
-            Organ_quedada.setVisibility(View.GONE);
             solicitud_adopcion.setVisibility(View.GONE);
         }
 

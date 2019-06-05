@@ -24,7 +24,6 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -46,8 +45,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingLeft="20dp"
-                    android:gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:paddingTop="15dp">
 
                     <EditText
@@ -60,24 +59,6 @@
                         android:gravity="left"
                         android:background="@drawable/fondofromdesc"
                         android:textSize="25dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingLeft="20dp"
-                    android:gravity="right"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:paddingTop="5dp">
-                <Button
-                    android:id="@+id/boton_afegir_foto_motiu_adopcio"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:gravity="right"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:background="@drawable/clipfoto"
-                    android:contentDescription="@string/todo" />
                 </LinearLayout>
 
                 <LinearLayout
