@@ -210,7 +210,7 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
 
     @Override
     public void changeActivity() {
-        startActivity(new Intent(EditProfile.this, MostrarPerfil.class));
+        startActivity(new Intent(EditProfile.this, MainMenu.class));
         finish();
     }
 

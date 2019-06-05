@@ -158,11 +158,17 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         c=email;
         urlFoto=photoURL;
 
+        carregaParametresBarraMenu();
+
+
+    }
+
+    public void carregaParametresBarraMenu() {
         NavigationView nv = findViewById(R.id.navigation_view);
         View hView = nv.getHeaderView(0);
 
-     //PARÀMETRES DEL NAVIGATION
-     //--------------------------------------------------------------------------------
+        //PARÀMETRES DEL NAVIGATION
+        //--------------------------------------------------------------------------------
 
         nom = (TextView) hView.findViewById(R.id.nom_real_barra_lateral);
         user = (TextView) hView.findViewById(R.id.user_barra_lateral);
@@ -174,19 +180,16 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         correo.setText(c);
         if (urlFoto.equals("") || urlFoto.equals("null")) {
 
-        } else if (photoURL.substring(1, 7).equals("images")) {
+        } else if (urlFoto.substring(1, 7).equals("images")) {
             retrieveImage(urlFoto);
         } else  { //CARREGAR IMATGE DE GOOGLE
-            imatge.loadImageUrl(photoURL);
+            imatge.loadImageUrl(urlFoto);
         }
 
 
-     //----------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------
 
         nv.setNavigationItemSelectedListener(this);
-
-
-
     }
 
     @Override
