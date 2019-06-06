@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="15dp"
     android:orientation="vertical"
-    app:cardBackgroundColor="@color/verde_chat">
+    app:cardBackgroundColor="@color/cutre_mensaje">
 
     <LinearLayout
         android:layout_width="wrap_content"
