@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.View;
 
 import com.bernal.jonatan.whip.Models.ChatRelation;
@@ -35,7 +34,6 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View, U
 
 
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
-    private String api = ul.getAPI_KEY();
 
 
     @Override
@@ -61,15 +59,12 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View, U
         setSupportActionBar(tool);
         getSupportActionBar().setTitle("CHATS");
 
-        chatPresenter.getChats(URL_chats+"/chats");
+        chatPresenter.getChats(URL_chats + "/chats");
     }
+
     @Override
     public void chargeChats(final ArrayList user_chats) {
-        //Aquí en realidad debería de llamar de nuevo al presenter, con los ids de user conseguir el username y la foto, y la que vuelva
-        //de esa llamada sí hara esto de aquí, vaya percal xD
         userPresenter.getOthersInfo(user_chats);
-
-
     }
 
     @Override
@@ -120,7 +115,7 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View, U
                         .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                chatPresenter.deleteChat(URL_chats+"/chat", id_chat);
+                                chatPresenter.deleteChat(URL_chats + "/chat", id_chat);
 
                             }
                         })
@@ -142,7 +137,6 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View, U
                 Intent i = new Intent(ChatList.this, InfoChat.class);
                 i.putExtra("idChat", idChat);
                 startActivity(i);
-                //llamar a la activity de InfoChat
             }
         });
     }

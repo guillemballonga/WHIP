@@ -97,53 +97,25 @@ public class Post {
         return username;
     }
 
-    public void setRace(String race) {
-        this.race = race;
-    }
-
-
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-
-    public void setSpecie(String specie) {
-        this.specie = specie;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-
     public void setType(String type) {
         this.type = type;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
-    }
-
-    public void setContenido(String contenido) {
-        this.contenido = contenido;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public void setCreatedAt(String[] createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public void setStatus(Boolean status) {
         this.status = status;
     }
-
 
     public String getCoord1() {
         return coord1;

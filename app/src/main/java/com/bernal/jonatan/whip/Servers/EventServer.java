@@ -14,7 +14,6 @@ import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Event;
 import com.bernal.jonatan.whip.Presenters.EventPresenter;
 import com.bernal.jonatan.whip.Views.UserLoggedIn;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,7 +45,7 @@ public class EventServer {
                                 usr_event = response.getJSONObject(i);
                                 User_events.add(new Event(usr_event.getString("userIdFromPost"), usr_event.getString("userId"),
                                         usr_event.getString("place"), usr_event.getString("date").split("T")[0],
-                                        usr_event.getString("date").split("T")[1], usr_event.getString("id") ));
+                                        usr_event.getString("date").split("T")[1], usr_event.getString("id")));
                             }
                             eventPresenter.chargeEvents(User_events);
                         } catch (JSONException e) {
@@ -117,7 +116,7 @@ public class EventServer {
                         try {
                             Event event = new Event(response.getString("userIdFromPost"), response.getString("userId"),
                                     response.getString("place"), response.getString("date").split("T")[0],
-                                    response.getString("date").split("T")[1], response.getString("id") );
+                                    response.getString("date").split("T")[1], response.getString("id"));
                             eventPresenter.setEvent(event);
                         } catch (JSONException e) {
                             e.printStackTrace();

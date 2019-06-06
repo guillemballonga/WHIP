@@ -2,21 +2,17 @@ package com.bernal.jonatan.whip.Views;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bernal.jonatan.whip.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,6 +58,7 @@ public class ShowImage extends AppCompatActivity {
         } catch (IOException ignored) {
         }
     }
+
     public static Bitmap retrieveImageBitmap(String idImageFirebase) {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -89,12 +86,4 @@ public class ShowImage extends AppCompatActivity {
         }
         return bitmap[0];
     }
-    public static String retrieveImageUri(String idImageFirebase) {
-
-       //TODO
-        return "";
-    }
-
-
-
 }

@@ -9,40 +9,42 @@
 
 
     <LinearLayout
-        android:layout_centerInParent="true"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/btnSharePost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:background="@drawable/fondoform"
-            android:text="Share Post"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+            android:text="Share Post" />
+
         <Button
             android:id="@+id/btnShareLink"
-            android:text="Share Link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:background="@drawable/fondoform"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+            android:text="Share Link" />
 
         <Button
             android:id="@+id/btnSharePhoto"
-            android:text="Share Photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:background="@drawable/fondoform"
+            android:text="Share Photo" />
+
+        <Button
+            android:id="@+id/btnShareVideo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/fondoform"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"/>
-        <Button
-            android:id="@+id/btnShareVideo"
-            android:text="Share Video"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/fondoform"/>
+            android:text="Share Video" />
 
     </LinearLayout>
 

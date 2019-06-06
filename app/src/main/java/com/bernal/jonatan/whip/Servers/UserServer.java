@@ -1,7 +1,6 @@
 package com.bernal.jonatan.whip.Servers;
 
 import android.content.Context;
-import android.support.v7.util.SortedList;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,9 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -132,8 +129,6 @@ public class UserServer {
                     public void onResponse(JSONArray response) {
                         try {
                             ArrayList Mis_Posts = new ArrayList<>();
-                            //            LinearLayoutManager layout = new LinearLayoutManager(getActivity().getApplicationContext());
-                            //            layout.setOrientation(LinearLayoutManager.VERTICAL);
                             JSONObject postite;
                             String tipo;
                             for (int i = 0; i < response.length(); i++) {
@@ -143,21 +138,6 @@ public class UserServer {
                                 Mis_Posts.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), tipo));
                             }
                             userPresenter.setUserPosts(Mis_Posts);
-            /*                adapt = new PostAdapter(Mis_Posts, "PostPropio");
-                            contenedor.setAdapter(adapt);
-                            contenedor.setLayoutManager(layout);
-                            adapt.setOnListListener(new OnListListener() {
-                                @Override
-                                public void onPostClicked(int position, View vista) {
-                                    String id_post = Mis_Posts.get(contenedor.getChildAdapterPosition(vista)).getId();
-                                    Intent i;
-                                    if (Mis_Posts.get(contenedor.getChildAdapterPosition(vista)).getType().equals("LOST"))
-                                        i = new Intent(getActivity(), InfoPostLost.class);
-                                    else i = new Intent(getActivity(), InfoPostAdoption.class);
-                                    i.putExtra("identificadorPost", id_post);
-                                    startActivity(i);
-                                }
-                            });*/
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -180,48 +160,22 @@ public class UserServer {
     }
 
     public void getOthersInfo(final UserPresenter userPresenter, final ArrayList user_chats) {
-  /*      final ArrayList<String> userIds = new ArrayList<>();
-        ArrayList<String> chatIdsNotSorted = new ArrayList<>();
-        int i;
-        for (i = 0; i < user_chats.size(); ++i) {
-            ChatRelation cr = (ChatRelation) user_chats.get(i);
-            userIds.add(cr.getOtherUserId());
-        }
-  */
         Collections.sort(user_chats, new CustomComparator());  //Ahora tengo ordenados los user_chats por orden alfabetico
 
-   /*     Collections.sort(userIds, new Comparator<String>() {
-            @Override
-            public int compare(String s, String t1) {
-                return s.compareTo(t1);
-            }
-        });  */
-        //Users ordenados, ahora hay q relacionarlo con los id's del chat
-
-     /*   final ArrayList chatIds = new ArrayList();
-        for (int k = 0; k < userIds.size(); ++k) {
-            int index = user_chats.indexOf(userIds.get(k)); //Encontramos en que posición del array original estaba
-            chatIds.add(user_chats.get(index));  //guardamos los ids en el mismo orden que los users
-        }  */
         //Tenemos ordenados los ids que vamos a buscar, esto está hecho así para que se corresponda con el orden en el que nos los devolverá
         //back, así nos ahorramos el coste de asociar los ids con los resultados que obtenemos en back
         String URL = "https://whip-api.herokuapp.com/users/profile/list?";
-    /*    if (userIds.size() > 0) URL = URL + "id=" + userIds.get(0);
-        for (int j = 1; j < userIds.size(); ++j) {
-            URL += "&id=" + userIds.get(j);
-        }  */
         ChatRelation cr;
         final ArrayList<String> crNoUser = new ArrayList<>();
-        if (user_chats.size() > 0 ) {
+        if (user_chats.size() > 0) {
             cr = (ChatRelation) user_chats.get(0);
             if (!cr.getOtherUserId().equals("null")) {
                 URL = URL + "id=" + cr.getOtherUserId();
-            }
-            else crNoUser.add(cr.getId());
+            } else crNoUser.add(cr.getId());
             for (int j = 1; j < user_chats.size(); ++j) {
                 cr = (ChatRelation) user_chats.get(j);
                 URL += "&id=" + cr.getOtherUserId();
-                if(cr.getOtherUserId().equals("null")) crNoUser.add(cr.getId());
+                if (cr.getOtherUserId().equals("null")) crNoUser.add(cr.getId());
             }
         }
 
@@ -243,8 +197,8 @@ public class UserServer {
                                 ChatRelation cr = (ChatRelation) user_chats.get(i);
                                 userInfoForChat.add(new ChatRelation(userNP.getString("username"), userNP.getString("photo_url"), cr.getId()));
                             }
-                            for(int j = 0; j < crNoUser.size();++j){
-                                userInfoForChat.add(new ChatRelation("Other User Deleted chat", "", crNoUser.get(j) ));
+                            for (int j = 0; j < crNoUser.size(); ++j) {
+                                userInfoForChat.add(new ChatRelation("Other User Deleted chat", "", crNoUser.get(j)));
                             }
                             userPresenter.sendInfoForChat(userInfoForChat);
                         } catch (JSONException e) {

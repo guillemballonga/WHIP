@@ -36,13 +36,13 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
 
     ConcretePostPresenter concretePostPresenter = new ConcretePostPresenter(this);
     TextView titulo, fecha, especie, raza, contenido;
-    ImageView foto_post, compartirRRSS, Organ_quedada, maps;
+    ImageView foto_post, compartirRRSS, maps;
     String Identificador, correuUsuari;
     Button close_buton, solicitud_adopcion;
     String titlePost = "", descriptionPost = "";
 
     private String URL, URL_favs, URL_like, URL_close;
-    private RequestQueue requestqueue;
+
 
     TextView idCreador;
 
@@ -51,7 +51,8 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
     private Menu menu_fav;
-    private String idImage, coordenada1, coordenada2;;
+    private String idImage, coordenada1, coordenada2;
+    ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,16 +89,14 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         URL_favs = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=adoption";
         URL_like = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=adoption";
         URL_close = "https://whip-api.herokuapp.com/contributions/close/" + Identificador + "/?type=adoption";
-        requestqueue = Volley.newRequestQueue(this);
 
 
         solicitud_adopcion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mail_creador.equals(correuUsuari)){
+                if (mail_creador.equals(correuUsuari)) {
                     Toast.makeText(getApplicationContext(), "No puedes crear una quedada contigo mismo", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     NewAdoptionRequest.setAdoptionPostID(Identificador);
                     NewAdoptionRequest.setUsernameFromPost(mail_creador);
                     startActivity(new Intent(InfoPostAdoption.this, NewAdoptionRequest.class));
@@ -116,7 +115,6 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
                 i.putExtra("descriptionPost", descriptionPost);
                 i.putExtra("urlImage", idImage);
                 startActivity(i);
-
 
 
             }
@@ -147,7 +145,6 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
     }
 
     private void tancar_post() {
-        //Toast.makeText(getApplicationContext(), "Cierro el post", Toast.LENGTH_SHORT).show();
         if (mail_creador.equals(ul.getCorreo_user())) {
             AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostAdoption.this);
             alert.setMessage("¿Estás seguro que deseas cerrar este Post?")
@@ -183,10 +180,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.icono_fav:
-                //comunicacion con back + cambiar color de la estrella
-
                 BackFavs_like();
-
                 break;
             case R.id.icono_fav_rell:
 
@@ -275,7 +269,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         contenido.setText(text);
         mail_creador = userId;
         titlePost = title;
-        descriptionPost = "WHIP - POST LOST : " +  title + " DATE: " + data[0] + " IN: " + coord2 + "," + coord1;
+        descriptionPost = "WHIP - POST LOST : " + title + " DATE: " + data[0] + " IN: " + coord2 + "," + coord1;
         idCreador.setText(username);
 
         idImage = photo_url_1;

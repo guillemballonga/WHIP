@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".NewPostLost">
+    tools:context=".Views.NewPostLost">
 
 
     <include
@@ -45,10 +45,10 @@
                         android:id="@+id/fecha_quedada"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/fondoformlargo"
                         android:layout_marginLeft="20dp"
-                        android:hint="@string/fotmato_fecha"
+                        android:background="@drawable/fondoformlargo"
                         android:gravity="center"
+                        android:hint="@string/fotmato_fecha"
                         tools:ignore="RtlSymmetry" />
                 </LinearLayout>
 
@@ -71,8 +71,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:background="@drawable/fondoformlargo"
-                        android:hint="@string/formato_hora"
                         android:gravity="center"
+                        android:hint="@string/formato_hora"
                         tools:ignore="RtlSymmetry" />
                 </LinearLayout>
 
@@ -95,8 +95,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:background="@drawable/fondoformlargo"
-                        android:hint="@string/introducir_lugar_para_la_quedada"
                         android:gravity="center"
+                        android:hint="@string/introducir_lugar_para_la_quedada"
                         tools:ignore="RtlSymmetry" />
                 </LinearLayout>
 

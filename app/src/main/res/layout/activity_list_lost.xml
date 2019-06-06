@@ -13,8 +13,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         tools:ignore="RtlHardcoded">
 
@@ -22,9 +22,9 @@
             android:id="@+id/boto_buscar_post_lost"
             android:layout_width="@dimen/lupa_buscar_altura"
             android:layout_height="@dimen/lupa_buscar_amplada"
+            android:layout_marginStart="10dp"
             android:layout_marginEnd="@dimen/distancia_lupa_buscar"
             android:background="@drawable/lupabuscar"
-            android:layout_marginStart="10dp"
             tools:ignore="ButtonStyle" />
 
         <EditText
@@ -33,16 +33,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:hint="Buscar Post"
-            android:background="@drawable/perfilblanc" />
+            android:background="@drawable/perfilblanc"
+            android:hint="Buscar Post" />
 
         <Spinner
             android:id="@+id/spinner_filter_lost"
             android:layout_width="43dp"
             android:layout_height="45dp"
+            android:layout_marginStart="50dp"
             android:background="@drawable/filter"
             android:spinnerMode="dropdown"
-            android:layout_marginStart="50dp"
             tools:ignore="RtlSymmetry" />
 
     </LinearLayout>

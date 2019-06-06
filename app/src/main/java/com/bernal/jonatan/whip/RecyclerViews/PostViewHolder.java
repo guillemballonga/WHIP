@@ -31,15 +31,11 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
                 int position = getAdapterPosition();
 
                 if (position != RecyclerView.NO_POSITION) {
-                    onListListener.onPostClicked(position,itemView);
+                    onListListener.onPostClicked(position, itemView);
                 }
             }
         });
 
-    }
-
-    public String getIdentificador() {
-        return id_post;
     }
 
     public void setId(String id) {

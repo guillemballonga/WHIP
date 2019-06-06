@@ -12,20 +12,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.Volley;
-import com.bernal.jonatan.whip.Models.AdoptionRequest;
 import com.bernal.jonatan.whip.Presenters.AdoptionRequestPresenter;
 import com.bernal.jonatan.whip.R;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class NewAdoptionRequest extends AppCompatActivity implements AdoptionRequestPresenter.View {
@@ -35,13 +24,10 @@ public class NewAdoptionRequest extends AppCompatActivity implements AdoptionReq
     Button toQuedada;
     static String UsernameFromPost;
     static String AdoptionPostID;
-    String textRequest;
-    String photo_url="";
+    String photo_url = "";
     EditText cosText;
     private String URL;
-    private RequestQueue requestqueue;
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
-    private String api = ul.getAPI_KEY();
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -67,12 +53,12 @@ public class NewAdoptionRequest extends AppCompatActivity implements AdoptionReq
 
     }
 
-    public static void setAdoptionPostID(String id){
+    public static void setAdoptionPostID(String id) {
         AdoptionPostID = id;
     }
 
-    public static void setUsernameFromPost(String username){
-        UsernameFromPost=username;
+    public static void setUsernameFromPost(String username) {
+        UsernameFromPost = username;
     }
 
     private void envia_dades_back() {

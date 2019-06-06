@@ -25,7 +25,6 @@ public class CommentServer {
 
 
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
-    private String api = ul.getAPI_KEY();
     private RequestQueue requestQueue;
 
     public void createComment(final CommentPresenter commentPresenter, String URL_comments, String boxtext, String id_comment_parent) {
@@ -33,7 +32,7 @@ public class CommentServer {
         try {
             post.put("text", boxtext);
             if (!id_comment_parent.equals("")) {
-                post.put("parentComment",id_comment_parent);
+                post.put("parentComment", id_comment_parent);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -47,7 +46,6 @@ public class CommentServer {
                     @Override
                     public void onResponse(JSONObject response) {
                         commentPresenter.recharge();
-                        //           recreate();
                     }
                 },
                 new Response.ErrorListener() {
@@ -74,14 +72,10 @@ public class CommentServer {
                 URL_comments,
                 null,
                 new Response.Listener<JSONArray>() {
-                    //  @SuppressLint("SetTextI18n")
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            //    num_comments.setText("Comentarios " + response.length());
                             ArrayList Comments_post = new ArrayList<>();
-                            //              LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
-                            //              layout.setOrientation(LinearLayoutManager.VERTICAL);
                             JSONObject comment;
                             for (int i = 0; i < response.length(); i++) {
                                 comment = response.getJSONObject(i);
@@ -89,20 +83,6 @@ public class CommentServer {
                             }
 
                             commentPresenter.chargeCommentList(Comments_post);
-                        /*    adapt = new CommentAdapter(Comments_post);
-                            adapt.setOnCommentListener(new OnCommentListener() {
-                                @Override
-                                public void onEliminateClicked(int position, View vista) {
-                                    eliminar_comentari(vista);
-                                }
-
-                                @Override
-                                public void onVerCommentsClicked(View vista) {
-                                }
-                            });
-                            comments.setAdapter(adapt);
-                            comments.setLayoutManager(layout);
-                        */
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

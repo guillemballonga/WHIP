@@ -1,17 +1,13 @@
 package com.bernal.jonatan.whip.RecyclerViews;
 
-import android.content.DialogInterface;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bernal.jonatan.whip.Models.ChatMessage;
 import com.bernal.jonatan.whip.R;
-import com.bernal.jonatan.whip.Views.InfoChat;
 
 import java.util.List;
 

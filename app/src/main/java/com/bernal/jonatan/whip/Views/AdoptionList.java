@@ -36,8 +36,7 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
     RecyclerView contenedor_adopt;
 
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "" );
-    private String api = ul.getAPI_KEY();
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
     private Spinner spinnerFiltre;
     private TextView orderBy;
     private String selectedItem;
@@ -50,8 +49,8 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
         setContentView(R.layout.activity_list_adoption);
 
 
-        textBuscarPostAdoption=findViewById(R.id.text_buscar_post_adoption);
-        botoBuscar=findViewById(R.id.boto_buscar_post_adoption);
+        textBuscarPostAdoption = findViewById(R.id.text_buscar_post_adoption);
+        botoBuscar = findViewById(R.id.boto_buscar_post_adoption);
 
         contenedor_adopt = findViewById(R.id.contenedor_adoption);
         spinnerFiltre = findViewById(R.id.spinner_filter_adoption);
@@ -113,8 +112,7 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
 
         //Llamada a la API
 
-        postPresenter.getAdoptionPosts(URL); //hagamos sobre URL lo de los filtros y trabajamos sobre URL siempre, así nos ahorramos la repetcion
-
+        postPresenter.getAdoptionPosts(URL);
         botoBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,7 +154,7 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
         adapt.setOnListListener(new OnListListener() {
             @Override
             public void onPostClicked(int position, View vista) {
-                String id_post = ((Post)posts.get(contenedor_adopt.getChildAdapterPosition(vista))).getId();
+                String id_post = ((Post) posts.get(contenedor_adopt.getChildAdapterPosition(vista))).getId();
                 Intent i = new Intent(AdoptionList.this, InfoPostAdoption.class);
                 i.putExtra("identificadorPost", id_post);
                 startActivity(i);

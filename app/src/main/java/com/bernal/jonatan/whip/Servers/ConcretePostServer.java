@@ -11,8 +11,6 @@ import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Post;
 import com.bernal.jonatan.whip.Presenters.ConcretePostPresenter;
 import com.bernal.jonatan.whip.Views.UserLoggedIn;
-import com.facebook.CallbackManager;
-import com.facebook.share.widget.ShareDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,11 +23,8 @@ public class ConcretePostServer {
 
 
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
-    private String api = ul.getAPI_KEY();
     private RequestQueue requestQueue;
 
-    CallbackManager callbackManager;
-    ShareDialog shareDialog;
 
 
     public void getPost(final ConcretePostPresenter concretePostPresenter, String URL, final String tipo_post) {
@@ -43,8 +38,6 @@ public class ConcretePostServer {
                     public void onResponse(JSONObject response) {
 
                         try {
-                            //    Post post = new Post(response.getString(""));
-                            //Aquí irán todos los post.set lo q sea
                             JSONObject result = response.getJSONObject("postInfo");
                             String title = result.getString("title");
                             String[] data = (result.getString("createdAt")).split("T");
@@ -62,7 +55,7 @@ public class ConcretePostServer {
                             JSONObject geo = result.getJSONObject("geolocation");
                             JSONArray arrJson = geo.getJSONArray("coordinates");
                             String[] arr = new String[arrJson.length()];
-                            for(int i = 0; i < arrJson.length(); i++)
+                            for (int i = 0; i < arrJson.length(); i++)
                                 arr[i] = arrJson.getString(i);
                             String coord1 = arr[0];
                             String coord2 = arr[1];
@@ -229,10 +222,7 @@ public class ConcretePostServer {
             post.put("post_code", cp);
             post.put("text", text);
             post.put("title", title);
-            // if (tipo.getSelectedItem().toString().equals("Encontrado"))
-            //     post.put("type", "F");
-            // else post.put("type", "L");
-            if (tipusPost.equals("Lost")) {
+             if (tipusPost.equals("Lost")) {
                 if (type.equals("Encontrado")) post.put("type", "F");
                 else post.put("type", "L");
             }
@@ -271,7 +261,7 @@ public class ConcretePostServer {
         requestQueue.add(objectJsonrequest);
     }
 
-    public void shareFacebook(){
+    public void shareFacebook() {
 
     }
 

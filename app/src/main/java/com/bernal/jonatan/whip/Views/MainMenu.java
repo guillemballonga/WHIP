@@ -153,10 +153,10 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         if (username.toString().equals("null")) username = "";
         if (cpt.toString().equals("null")) cpt = "";
 
-        n=first_name;
-        u=username;
-        c=email;
-        urlFoto=photoURL;
+        n = first_name;
+        u = username;
+        c = email;
+        urlFoto = photoURL;
 
         carregaParametresBarraMenu();
 
@@ -170,10 +170,10 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         //PARÀMETRES DEL NAVIGATION
         //--------------------------------------------------------------------------------
 
-        nom = (TextView) hView.findViewById(R.id.nom_real_barra_lateral);
-        user = (TextView) hView.findViewById(R.id.user_barra_lateral);
-        correo = (TextView) hView.findViewById(R.id.correo_barra_lateral);
-        imatge = (GlideImageView) hView.findViewById(R.id.imagen_perfil_barra_lateral);
+        nom = hView.findViewById(R.id.nom_real_barra_lateral);
+        user = hView.findViewById(R.id.user_barra_lateral);
+        correo = hView.findViewById(R.id.correo_barra_lateral);
+        imatge = hView.findViewById(R.id.imagen_perfil_barra_lateral);
 
         nom.setText(n);
         user.setText(u);
@@ -182,7 +182,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
         } else if (urlFoto.substring(1, 7).equals("images")) {
             retrieveImage(urlFoto);
-        } else  { //CARREGAR IMATGE DE GOOGLE
+        } else { //CARREGAR IMATGE DE GOOGLE
             imatge.loadImageUrl(urlFoto);
         }
 

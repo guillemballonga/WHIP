@@ -69,7 +69,9 @@ public class EventPresenter {
 
     public interface View {
         void setEvent(String UserFromPostId, String UserId, String Place, String Date, String Time);
+
         void chargeEvents(ArrayList events);
+
         void recharge();
 
         void notifyNewQuedada();

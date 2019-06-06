@@ -1,9 +1,5 @@
 package com.bernal.jonatan.whip.Presenters;
 
-import android.text.Editable;
-import android.view.View;
-
-import com.bernal.jonatan.whip.Models.Post;
 import com.bernal.jonatan.whip.Servers.PostServer;
 
 import java.util.ArrayList;

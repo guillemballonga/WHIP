@@ -82,22 +82,13 @@ public class NewPostLost extends AppCompatActivity implements ConcretePostPresen
         tipo.setAdapter(adapterTipo);
 
 
-        //Obrir la galeria d'imatges
         foto.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                //openGallery();
-
-                //Quan cliqui obrir UploadImagesFirebase
-                // startActivity(new Intent(NewPostLost.this, UploadImageFirebase.class));
-
                 Intent i = new Intent(NewPostLost.this, UploadImageFirebase.class);
                 i.putExtra("idActivity", "lost");
-                //i.putExtra("idImageView");
                 startActivity(i);
-
-
             }
         });
 
@@ -111,82 +102,13 @@ public class NewPostLost extends AppCompatActivity implements ConcretePostPresen
 
             @Override
             public void onClick(View view) {
-  /*
-                //jason para comunicación con back
-                JSONObject post = new JSONObject();
-                JSONArray k = new JSONArray();
-
-                //falta afegir imatge FIREBASE
-                String identificadorImatge = UploadImageFirebase.getIdentificadorImatge();
-                UploadImageFirebase.netejaIdentificadorImatge();
-                k.put(identificadorImatge);
-                k.put("");
-                k.put("");
-                k.put("");
-//JASON
-                try {
-                    post.put("specie", especie.getSelectedItem().toString());
-                    post.put("urls", k);
-                    post.put("race", raza.getText().toString());
-                    post.put("post_code", cp.getText().toString());
-                    post.put("text", contenido.getText().toString());
-                    post.put("title", title.getText().toString());
-                    if (tipo.getSelectedItem().toString().equals("Encontrado"))
-                        post.put("type", "F");
-                    else post.put("type", "L");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            */
                 if (titulo.getText().toString().equals("") || cp.getText().toString().equals("") || raza.getText().toString().equals("") || especie.getSelectedItem().toString().equals("") || tipo.getSelectedItem().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Los campos con * son obligatorios", Toast.LENGTH_SHORT).show();
 
                 } else {
                     concretePostPresenter.createPost(URL, especie.getSelectedItem().toString(), UploadImageFirebase.getIdentificadorImatge(), raza.getText().toString(), cp.getText().toString(), contenido.getText().toString(), titulo.getText().toString(), tipo.getSelectedItem().toString(), "Lost");
                 }
-                    //Guardar los datos del formulario en BACK. NOTA: No olvidar guardar la fecha de creación del Post
-         /*           JsonObjectRequest objectJsonrequest = new JsonObjectRequest(
-                            JsonRequest.Method.POST,
-                            URL,
-                            post,
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    try {
-                                        Toast.makeText(getApplicationContext(), "Post guardado correctamente"+response.getString("id"), Toast.LENGTH_SHORT).show();
-                                        Intent i = new Intent(NewPostLost.this, InfoPostLost.class);
-                                        i.putExtra("identificadorPost", response.getString("id"));
-                                        startActivity(i);
-                                        finish();
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
-
-                                }
-                            }
-                    ) {
-                        @Override
-                        public Map<String, String> getHeaders() {
-                            Map<String, String> params = new HashMap<>();
-                            params.put("Content-Type", "application/json");
-                            params.put("Authorization", ul.getAPI_KEY()); //valor de V ha de ser el de la var global
-                            return params;
-                        }
-                    };
-                    requestqueue.add(objectJsonrequest);  */
-//JASON
-
-                    //Ir a ver el post en concreto
-
-
-                }
+            }
 
         });
 
@@ -201,12 +123,6 @@ public class NewPostLost extends AppCompatActivity implements ConcretePostPresen
 
     }
 
-    @SuppressLint("IntentReset")
-    public void openGallery() {
-        @SuppressLint("IntentReset") Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        gallery.setType("image/");
-        startActivityForResult(gallery.createChooser(gallery, "Seleccione la Aplicación"), 10);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -226,7 +142,6 @@ public class NewPostLost extends AppCompatActivity implements ConcretePostPresen
         //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
         StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
 
-        // imageView = (ImageView) findViewById(R.id.imageFirebase);
         try {
             final File localFile = File.createTempFile("images", "jpg");
             storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {

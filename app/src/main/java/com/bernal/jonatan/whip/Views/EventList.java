@@ -28,8 +28,6 @@ public class EventList extends AppCompatActivity implements EventPresenter.View 
     RecyclerView contenedor_events;
 
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "" );
-    private String api = ul.getAPI_KEY();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +89,6 @@ public class EventList extends AppCompatActivity implements EventPresenter.View 
                 Intent i = new Intent(EventList.this, InfoEvent.class);
                 i.putExtra("idEvent", idEvent);
                 startActivity(i);
-                //llamar a la activity de InfoEvent
             }
         });
     }

@@ -1,7 +1,6 @@
 package com.bernal.jonatan.whip.Presenters;
 
 import com.bernal.jonatan.whip.Servers.ChatServer;
-import com.bernal.jonatan.whip.Views.ChatList;
 
 import java.util.ArrayList;
 

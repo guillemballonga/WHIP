@@ -53,7 +53,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
         }
 
         assert vista != null;
-        return new PostViewHolder(vista, listaObjetos,onListListener);
+        return new PostViewHolder(vista, listaObjetos, onListListener);
     }
 
     @Override

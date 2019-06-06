@@ -1,14 +1,9 @@
 package com.bernal.jonatan.whip.Views;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +18,6 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.internal.ImageDownloader;
 import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.model.SharePhoto;
@@ -36,14 +30,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Collections;
 
 public class ShareFacebook extends AppCompatActivity {
@@ -61,7 +49,6 @@ public class ShareFacebook extends AppCompatActivity {
     private String idImatge = "";
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,10 +56,10 @@ public class ShareFacebook extends AppCompatActivity {
         setContentView(R.layout.activity_share_facebook);
 
         //init view
-        btnShareLink = (Button) findViewById(R.id.btnShareLink);
-        btnSharePhoto = (Button) findViewById(R.id.btnSharePhoto);
-        btnShareVideo = (Button) findViewById(R.id.btnShareVideo);
-        btnSharePost = (Button) findViewById(R.id.btnSharePost);
+        btnShareLink = findViewById(R.id.btnShareLink);
+        btnSharePhoto = findViewById(R.id.btnSharePhoto);
+        btnShareVideo = findViewById(R.id.btnShareVideo);
+        btnSharePost = findViewById(R.id.btnSharePost);
 
         //init FB
 
@@ -130,20 +117,11 @@ public class ShareFacebook extends AppCompatActivity {
         btnSharePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-
-
                 //choose video dialog
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "select image"), REQUEST_IMAGE_CODE);
-
-
-
-
             }
         });
 
@@ -185,14 +163,11 @@ public class ShareFacebook extends AppCompatActivity {
             @TargetApi(Build.VERSION_CODES.LOLLIPOP_MR1)
             @Override
             public void onClick(View v) {
-
-
                 //choose video dialog
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "select video"), REQUEST_VIDEO_CODE);
-
             }
         });
 
@@ -203,26 +178,18 @@ public class ShareFacebook extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_VIDEO_CODE) {
                 Uri selectedVideo = data.getData();
-
                 ShareVideo video = new ShareVideo.Builder().setLocalUrl(selectedVideo).build();
-
                 ShareVideoContent videoContent = new ShareVideoContent.Builder()
                         .setContentTitle("this is useful video")
                         .setContentDescription("holi manoli")
                         .setVideo(video)
                         .build();
-
                 if (shareDialog.canShow(ShareVideoContent.class))
                     shareDialog.show(videoContent);
-            }
-            else if (requestCode == REQUEST_IMAGE_CODE) {
+            } else if (requestCode == REQUEST_IMAGE_CODE) {
                 Uri selectedImage = data.getData();
-
                 SharePhoto photo = new SharePhoto.Builder().setImageUrl(selectedImage).build();
-
                 SharePhotoContent photoContent = new SharePhotoContent.Builder().setPhotos(Collections.singletonList(photo)).build();
-
-
                 if (shareDialog.canShow(SharePhotoContent.class))
                     shareDialog.show(photoContent);
             }
@@ -234,14 +201,11 @@ public class ShareFacebook extends AppCompatActivity {
 
         try {
             System.out.println("dins PICASSO: ");
-            //Picasso.with(getBaseContext()).load(urlImageTotal).into();
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
                     .setContentTitle("POST WHIP: " + titlePost)
                     .setContentUrl(Uri.parse("www.whip.com"))
                     .setQuote(descriPost)
-
                     .build();
-
             if (ShareDialog.canShow(ShareLinkContent.class)) {
                 shareDialog.show(linkContent);
             }
@@ -252,9 +216,7 @@ public class ShareFacebook extends AppCompatActivity {
     }
 
 
-
     public void retrieveImage(String idImageFirebase) {
-
 
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -271,7 +233,6 @@ public class ShareFacebook extends AppCompatActivity {
 
                 try {
                     System.out.println("dins PICASSO: ");
-                    //Picasso.with(getBaseContext()).load(urlImageTotal).into();
                     ShareLinkContent linkContent = new ShareLinkContent.Builder()
                             .setContentTitle("POST WHIP: " + titlePost)
                             .setQuote(descriPost)
@@ -286,15 +247,11 @@ public class ShareFacebook extends AppCompatActivity {
                 }
 
 
-
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-
                 System.out.println("url download imatge: ERROR");
-
-                // Handle any errors
             }
         });
 
@@ -307,13 +264,10 @@ public class ShareFacebook extends AppCompatActivity {
 
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
-            // do your stuff
             if (!idImatge.equals(""))
                 retrieveImage(idImatge);
             else {
-
                 sharePostWithoutImage();
-
             }
         } else {
             signInAnonymously(mAuth);
@@ -326,11 +280,11 @@ public class ShareFacebook extends AppCompatActivity {
 
     private void signInAnonymously(FirebaseAuth mAuth) {
 
-        mAuth.signInAnonymously().addOnSuccessListener(this, new  OnSuccessListener<AuthResult>() {
+        mAuth.signInAnonymously().addOnSuccessListener(this, new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
                 System.out.println("signInAnonymously: onSuccess");
-                if (!idImatge.equals(""))retrieveImage(idImatge);
+                if (!idImatge.equals("")) retrieveImage(idImatge);
 
             }
         })

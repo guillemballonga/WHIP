@@ -1,6 +1,5 @@
 package com.bernal.jonatan.whip.Models;
 
-import com.bernal.jonatan.whip.Views.ChatList;
 
 public class ChatRelation {
 
@@ -46,15 +45,4 @@ public class ChatRelation {
         this.id = id;
     }
 
-    public void setOtherUserId(String otherUserId) {
-        this.otherUserId = otherUserId;
-    }
-
-    public void setOtherUserName(String otherUserName) {
-        this.otherUserName = otherUserName;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
-    }
 }

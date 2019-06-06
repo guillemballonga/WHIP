@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="#EA9999"
     android:layout_gravity="center"
+    android:background="#EA9999"
     android:orientation="vertical"
     android:padding="15dp"
     tools:context=".Views.CommentComment">
@@ -14,40 +14,41 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginStart="5dp"
-        android:background="#e88484">
+        android:background="#e88484"
+        android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imagen_comment_comment"
             android:layout_width="75dp"
-            android:layout_height="75dp"/>
+            android:layout_height="75dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/user_comment_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:padding="5dp"
                 android:textColor="#E4D4D4"
                 android:textSize="10sp"
                 android:textStyle="bold"
-                android:layout_marginStart="20dp"
-                tools:ignore="RtlHardcoded,SmallSp"/>
+                tools:ignore="RtlHardcoded,SmallSp" />
 
             <TextView
                 android:id="@+id/date_comment_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:padding="5dp"
                 android:textColor="#E4D4D4"
                 android:textSize="10sp"
                 android:textStyle="bold"
-                android:layout_marginStart="20dp"
-                tools:ignore="RtlHardcoded,SmallSp"/>
+                tools:ignore="RtlHardcoded,SmallSp" />
 
         </LinearLayout>
 
@@ -57,16 +58,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp">
+
         <TextView
             android:id="@+id/Contenido_comment_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#e88484"
             android:paddingLeft="25dp"
             android:paddingBottom="15dp"
             android:textColor="#434040"
             android:textSize="20sp"
-            tools:ignore="RtlHardcoded,RtlSymmetry"
-            android:background="#e88484"/>
+            tools:ignore="RtlHardcoded,RtlSymmetry" />
 
     </LinearLayout>
 
@@ -108,7 +110,7 @@
             android:background="@drawable/boton_comment"
             android:text="@string/crear"
             android:textColor="@color/blanco"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/borrar_comment_comment"
@@ -118,15 +120,14 @@
             android:background="@drawable/boton_comment"
             android:text="@string/borrar"
             android:textColor="@color/blanco"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        >
+        android:layout_marginTop="20dp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/contenedor_comments_comments"

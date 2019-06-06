@@ -10,8 +10,8 @@ import com.bernal.jonatan.whip.R;
 
 public class CommentViewHolder extends RecyclerView.ViewHolder {
 
-    ImageView imagen_comment,delete_button;
-    TextView contenido_comment,user_comment,data_comment,ver_comments;
+    ImageView imagen_comment, delete_button;
+    TextView contenido_comment, user_comment, data_comment, ver_comments;
     private String id_comment;
 
 
@@ -34,7 +34,7 @@ public class CommentViewHolder extends RecyclerView.ViewHolder {
                 int position = getAdapterPosition();
 
                 if (position != RecyclerView.NO_POSITION) {
-                    onCommentListener.onEliminateClicked(position,itemView);
+                    onCommentListener.onEliminateClicked(position, itemView);
                 }
             }
         });
@@ -46,10 +46,6 @@ public class CommentViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
-    }
-
-    public String getId_comment() {
-        return id_comment;
     }
 
     public void setId_comment(String id_comment) {

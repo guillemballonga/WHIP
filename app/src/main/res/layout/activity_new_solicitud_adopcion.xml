@@ -44,20 +44,20 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
+                    android:orientation="vertical"
                     android:paddingTop="15dp">
 
                     <EditText
                         android:id="@+id/descripcion_motivo_adopcion"
                         android:layout_width="wrap_content"
                         android:layout_height="360dp"
+                        android:background="@drawable/fondofromdesc"
+                        android:gravity="left"
+                        android:hint="@string/expon_en_este_espacio_los_motivos_por_los_cuales_quieres_adoptar_al_animal"
                         android:paddingStart="@dimen/activity_horizontal_margin"
                         android:paddingTop="@dimen/activity_horizontal_margin"
-                        android:hint="@string/expon_en_este_espacio_los_motivos_por_los_cuales_quieres_adoptar_al_animal"
-                        android:gravity="left"
-                        android:background="@drawable/fondofromdesc"
                         android:textSize="25dp" />
                 </LinearLayout>
 
@@ -83,10 +83,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-
-
-
 
 
         </LinearLayout>

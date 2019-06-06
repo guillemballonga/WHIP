@@ -1,7 +1,6 @@
 package com.bernal.jonatan.whip.Presenters;
 
 import com.bernal.jonatan.whip.Servers.CommentServer;
-import com.bernal.jonatan.whip.Servers.CommentServer;
 
 import java.util.ArrayList;
 

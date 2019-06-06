@@ -1,7 +1,5 @@
 package com.bernal.jonatan.whip.Presenters;
 
-import android.content.Context;
-
 import com.bernal.jonatan.whip.Models.User;
 import com.bernal.jonatan.whip.Servers.UserServer;
 
@@ -14,17 +12,17 @@ public class UserPresenter {
 
     UserServer userServer;
 
-    public UserPresenter(View view){
+    public UserPresenter(View view) {
         this.view = view;
         this.userServer = new UserServer();
     }
 
-    public void getUser(){
+    public void getUser() {
         userServer.getUser(this);
     }
 
-    public void setUser(User user){
-        view.getUserInfo(user.getCp(),user.getEmail(),user.getFamily_name(),user.getFirst_name(),user.getPhotoURL(),user.getUsername());
+    public void setUser(User user) {
+        view.getUserInfo(user.getCp(), user.getEmail(), user.getFamily_name(), user.getFirst_name(), user.getPhotoURL(), user.getUsername());
     }
 
     public void modifyUser(String cp, String nom, String cognom, String user, String urlFoto) {
@@ -36,7 +34,7 @@ public class UserPresenter {
     }
 
 
-    public View getView(){
+    public View getView() {
         return view;
     }
 
@@ -57,8 +55,9 @@ public class UserPresenter {
     }
 
 
-    public interface View{
-        void getUserInfo(String cp, String email, String family_name, String first_name,String photoURL, String username);
+    public interface View {
+        void getUserInfo(String cp, String email, String family_name, String first_name, String photoURL, String username);
+
         void changeActivity();
 
         void setUserPosts(ArrayList mis_posts);

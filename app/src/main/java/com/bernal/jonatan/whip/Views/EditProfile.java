@@ -122,7 +122,7 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
             @Override
             public void onClick(View view) {
 
-                //AQUI CRIDO PER OBRIR LES FOTOS
+                //Crida per obrir les fotos
                 Intent i = new Intent(EditProfile.this, UploadImageFirebase.class);
                 i.putExtra("idActivity", "edit");
                 startActivity(i);
@@ -168,8 +168,7 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
         //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
         StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
 
-        String xxxx = storageReference.getPath();
-        //foto_post = (ImageView) findViewById(R.id.foto_postPerd);
+        // String xxxx = storageReference.getPath();
         try {
             final File localFile = File.createTempFile("images", "jpg");
             storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
@@ -190,8 +189,8 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
 
     @Override
     public void getUserInfo(String cpt, String email, String family_name, String first_name, String photoURL, String username) {
-        if (username.toString().equals("null")) username = "";
-        if (cpt.toString().equals("null")) cpt = "";
+        if (username.equals("null")) username = "";
+        if (cpt.equals("null")) cpt = "";
         nom.setText(first_name);
         cognom.setText(family_name);
         user.setText(username);

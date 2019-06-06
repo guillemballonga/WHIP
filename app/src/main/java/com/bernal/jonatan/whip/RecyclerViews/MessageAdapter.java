@@ -8,10 +8,8 @@ import android.view.ViewGroup;
 
 import com.bernal.jonatan.whip.Models.ChatMessage;
 import com.bernal.jonatan.whip.R;
-import com.bernal.jonatan.whip.Views.InfoChat;
 import com.bernal.jonatan.whip.Views.UserLoggedIn;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {

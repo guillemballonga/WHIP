@@ -2,12 +2,10 @@ package com.bernal.jonatan.whip.Servers;
 
 import android.content.Context;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Models.Post;
@@ -49,18 +47,6 @@ public class PostServer {
                                 Posts_adoption.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), "ADOPTION"));
                             }
                             postPresenter.chargeAdoptionList(Posts_adoption);
-                          /*  PostAdapter adapt = new PostAdapter(Posts_adoption, "Adoption");
-                            contenedor_adopt.setAdapter(adapt);
-                            contenedor_adopt.setLayoutManager(layout);
-                            adapt.setOnListListener(new OnListListener() {
-                                @Override
-                                public void onPostClicked(int position, View vista) {
-                                    String id_post = Posts_adoption.get(contenedor_adopt.getChildAdapterPosition(vista)).getId();
-                                    Intent i = new Intent(AdoptionList.this, InfoPostAdoption.class);
-                                    i.putExtra("identificadorPost", id_post);
-                                    startActivity(i);
-                                }
-                            }); */
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -69,8 +55,6 @@ public class PostServer {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
-
                     }
                 }
         ) {
@@ -97,7 +81,6 @@ public class PostServer {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            //Toast.makeText(getApplicationContext(), "Listado mostrado correctamente", Toast.LENGTH_SHORT).show();
                             ArrayList Posts_perdidos = new ArrayList<>();
                             JSONObject postite;
                             for (int i = 0; i < response.length(); i++) {
@@ -113,8 +96,6 @@ public class PostServer {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
-
                     }
                 }
         ) {
@@ -129,8 +110,8 @@ public class PostServer {
     }
 
     public void searchPost(final PostPresenter postPresenter, String text, String URL) {
-        text=text.replace(" " , "+");
-        URL+="?text=" + text;
+        text = text.replace(" ", "+");
+        URL += "?text=" + text;
 
         requestQueue = Volley.newRequestQueue((Context) postPresenter.getView());
         JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
@@ -142,7 +123,6 @@ public class PostServer {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            //Toast.makeText(getApplicationContext(), "Listado mostrado correctamente", Toast.LENGTH_SHORT).show();
                             ArrayList Posts_perdidos = new ArrayList<>();
                             JSONObject postite;
                             for (int i = 0; i < response.length(); i++) {
@@ -159,8 +139,6 @@ public class PostServer {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //Toast.makeText(getApplicationContext(), "ERROOOOOOOR", Toast.LENGTH_SHORT).show();
-
                     }
                 }
         ) {

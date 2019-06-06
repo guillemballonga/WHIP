@@ -59,15 +59,10 @@
             style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:gravity="center"
+            android:visibility="gone"
             tools:text="Optional Action"
             tools:visibility="visible" />
-
-
-
-
-
 
 
     </LinearLayout>
@@ -77,16 +72,16 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center"
-        android:background="@color/colorRosaWHIP">
+        android:background="@color/colorRosaWHIP"
+        android:gravity="center">
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/login_google_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="27dp"
             android:paddingTop="50dp"
             android:paddingBottom="50dp"
-            android:paddingLeft="27dp"
             android:visibility="visible"
             tools:visibility="gone" />
 
@@ -113,8 +108,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/sign_out"
                 android:background="@drawable/botoinicio"
+                android:text="@string/sign_out"
                 android:theme="@style/Widget.AppCompat.ButtonBar"
                 tools:ignore="ButtonStyle" />
 
@@ -123,8 +118,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/perfil"
                 android:background="@drawable/botoinicio"
+                android:text="@string/perfil"
                 android:theme="@style/Widget.AppCompat.ButtonBar"
                 tools:ignore="ButtonStyle" />
         </LinearLayout>

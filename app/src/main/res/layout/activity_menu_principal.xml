@@ -27,8 +27,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="40dp"
-                android:src="@drawable/logops"
-                android:contentDescription="@string/todo" />
+                android:contentDescription="@string/todo"
+                android:src="@drawable/logops" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,15 +81,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
-                    android:src="@drawable/esp"
-                    android:contentDescription="@string/todo" />
+                    android:contentDescription="@string/todo"
+                    android:src="@drawable/esp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:src="@drawable/cat"
-                    android:contentDescription="@string/todo" />
+                    android:contentDescription="@string/todo"
+                    android:src="@drawable/cat" />
 
 
             </LinearLayout>

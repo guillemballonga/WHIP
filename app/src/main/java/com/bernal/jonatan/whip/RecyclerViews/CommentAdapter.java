@@ -7,10 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bernal.jonatan.whip.Models.Comment;
-import com.bernal.jonatan.whip.Models.Post;
 import com.bernal.jonatan.whip.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
@@ -34,7 +32,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
 
         View vista = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_item_comment, viewGroup, false);
 
-        return new CommentViewHolder(vista,onCommentListener, type);
+        return new CommentViewHolder(vista, onCommentListener, type);
     }
 
     @Override

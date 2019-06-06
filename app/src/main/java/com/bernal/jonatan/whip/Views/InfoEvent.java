@@ -28,7 +28,6 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
     EventPresenter eventPresenter = new EventPresenter(this);
 
     private String URL, URLUpdateAccept, URLUpdateReject;
-    private RequestQueue requestqueue;
     TextView title, dataPost, dataQuedada, hora, lloc, idSolicitante, id_destinatarioQuedada;
     String titleEvent = "", datePost = "", dateEvent = "", horaEvent = "", placeEvent = "", idSolicitanteEvent = "";
     private String idEvent;
@@ -47,7 +46,6 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
         idEvent = getIntent().getStringExtra("idEvent");
 
 
-        //Toast.makeText(getApplicationContext(), "token usu " + ul.getToken(), Toast.LENGTH_SHORT).show();Post
         Toast.makeText(getApplicationContext(), "token usu " + ul.getToken(), Toast.LENGTH_SHORT).show();
 
         final String  authCode = ul.getToken();
@@ -77,9 +75,7 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
                 try {
                     eventPresenter.updateEvent(URLUpdateAccept);
 
-                    //startActivity(new Intent(InfoEvent.this, EventList.class));
-                    //finish();
-                } catch (JSONException e) {
+                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 

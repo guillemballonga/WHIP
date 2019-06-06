@@ -34,14 +34,8 @@ import java.util.Objects;
 
 public class MostrarPerfil extends AppCompatActivity implements UserPresenter.View {
 
-
-    UserPresenter userPresenter;
-
-    static String nomBack;
-    static String cognomBack;
+    UserPresenter userPresenter = new UserPresenter(this);
     static String userBack;
-    static String cpBack;
-    static String correuBack;
     static String urlFoto;
     Button goToEditarPerfil, goToMisPosts, gotoMessages;
     TextView nom, cognom, user, cp, correu;
@@ -49,33 +43,12 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
     GlideImageView imatge;
 
     //Objectes per JSONGet
-    private String URL;
-    private RequestQueue requestqueue;
-    private JSONArray resultat;
-    private JSONObject result;
 
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
-    private String api = ul.getAPI_KEY();
-
-    public static String getCorreu() {
-        return correuBack;
-    }
-
-    public static String getNom() {
-        return nomBack;
-    }
-
-    public static String getCognom() {
-        return cognomBack;
-    }
 
     public static String getUsername() {
         return userBack;
     }
 
-    public static String getCP() {
-        return cpBack;
-    }
 
     public static String getFoto() {
         return urlFoto;
@@ -90,7 +63,6 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
         goToEditarPerfil = findViewById(R.id.boto_editar_perfil);
         goToMisPosts = findViewById(R.id.boto_mis_posts);
         gotoMessages = findViewById(R.id.boto_mis_mensajes);
-        UserPresenter userPresenter = new UserPresenter(this);
         nom = findViewById(R.id.escr_nom);
         cognom = findViewById(R.id.escr_cognom);
         user = findViewById(R.id.escr_username);
@@ -98,9 +70,6 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
         correu = findViewById(R.id.escr_correu);
         correu.setTextSize(12);
         imatge = findViewById(R.id.imagen_perfil);
-
-
-        //Llamo al presenter, le paso lo q necesita, en el model hago la llamada a la API
 
         userPresenter.getUser();
 
@@ -123,7 +92,6 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
             public void onClick(View v) {
 
                 startActivity(new Intent(MostrarPerfil.this, MyPosts.class));
-                //finish();
             }
         });
 
@@ -138,7 +106,6 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
     public void retrieveImage(String idImageFirebase) {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        //Tot: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
         StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
 
         //foto_post = (ImageView) findViewById(R.id.foto_postPerd);
@@ -162,8 +129,8 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
 
     @Override
     public void getUserInfo(String cpt, String email, String family_name, String first_name, String photoURL, String username) {
-        if(username.toString().equals("null")) username="";
-        if(cpt.toString().equals("null")) cpt="";
+        if (username.equals("null")) username = "";
+        if (cpt.equals("null")) cpt = "";
         nom.setText(first_name);
         cognom.setText(family_name);
         user.setText(username);
@@ -175,7 +142,7 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
 
         } else if (photoURL.substring(1, 7).equals("images")) {
             retrieveImage(photoURL);
-        } else  { //CARREGAR IMATGE DE GOOGLE
+        } else { //CARREGAR IMATGE DE GOOGLE
             imatge.loadImageUrl(photoURL);
         }
     }

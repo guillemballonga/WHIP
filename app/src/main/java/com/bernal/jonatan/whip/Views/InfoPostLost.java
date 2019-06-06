@@ -46,14 +46,12 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     ConcretePostPresenter concretePostPresenter = new ConcretePostPresenter(this);
     CommentPresenter commentPresenter = new CommentPresenter(this);
     ChatPresenter chatPresenter = new ChatPresenter(this);
-    //private static final String  = ;
     TextView titulo, fecha, especie, tipo, raza, contenido, num_comments, idCreador;
     ImageView foto_post, foto_user, compartirRRSS, maps;
     EditText box_comment;
     String Identificador;
     Button cerrar_post, crear_comment, borrar_comment, organ_quedada, chat_privado;
     RecyclerView comments;
-    private RequestQueue requestqueue;
 
 
     private String URL, URL_favs, URL_like, URL_close, URL_comments, URL_chat;
@@ -93,7 +91,6 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         foto_post = findViewById(R.id.foto_postPerd);
         foto_user = findViewById(R.id.imagen_coment_user);
         compartirRRSS = findViewById(R.id.CompartirRRSSPerd);
-        //  organ_quedada = findViewById(R.id.organ_quedadaPerd);
         box_comment = findViewById(R.id.box_comment);
 
 
@@ -101,9 +98,6 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         crear_comment = findViewById(R.id.crear_comment);
         borrar_comment = findViewById(R.id.borrar_comment);
         chat_privado = findViewById(R.id.chat_privado);
-
-
-
 
 
         comments = findViewById(R.id.contenedor_comments);
@@ -123,7 +117,6 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         URL_chat = "https://whip-api.herokuapp.com/chat";
         URL_comments = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador + "/comments";
 
-        requestqueue = Volley.newRequestQueue(this);
 
         compartirRRSS.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,10 +170,9 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         organ_quedada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mail_creador.equals(correuUsuari)){
+                if (mail_creador.equals(correuUsuari)) {
                     Toast.makeText(getApplicationContext(), "No puedes crear una quedada contigo mismo", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     NewQuedada.setPostID(Identificador, "lost");
                     NewQuedada.setUsernameFromPost(mail_creador);
                     startActivity(new Intent(InfoPostLost.this, NewQuedada.class));
@@ -196,7 +188,6 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         });
 
 
-
         concretePostPresenter.getPost(URL, "Lost");
 
         carregar_comments();
@@ -208,7 +199,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         if (box_comment.getText().toString().equals(""))
             Toast.makeText(getApplicationContext(), "Debe escribir un comentario", Toast.LENGTH_SHORT).show();
         else {
-            commentPresenter.createComment(URL_comments, box_comment.getText().toString(),"");
+            commentPresenter.createComment(URL_comments, box_comment.getText().toString(), "");
         }
 
     }
@@ -245,8 +236,6 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     }
 
     private void tancar_post() {
-        //Toast.makeText(getApplicationContext(), "Cierro el post", Toast.LENGTH_SHORT).show();
-
         if (mail_creador.equals(ul.getCorreo_user())) {
             AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostLost.this);
             alert.setMessage("¿Estás seguro que deseas cerrar este Post?")
@@ -284,21 +273,13 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.icono_fav:
-                //comunicacion con back + cambiar color de la estrella
-
                 BackFavs_like();
-
                 break;
             case R.id.icono_fav_rell:
-
                 BackFavs_dislike();
-
                 break;
-
             case R.id.icono_delete:
-
                 BackDelete();
-
                 break;
         }
         return true;
@@ -379,7 +360,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         mail_creador = userId;
         idCreador.setText(username);
         titlePost = title;
-        descriptionPost = "WHIP - POST LOST : " +  title + " DATE: " + data[0] + " IN: " + coord2 + "," + coord1;
+        descriptionPost = "WHIP - POST LOST : " + title + " DATE: " + data[0] + " IN: " + coord2 + "," + coord1;
         idImage = photo_url_1;
         coordenada1 = coord1;
         coordenada2 = coord2;
@@ -478,7 +459,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
                 i.putExtra("userComment", user_comment);
                 i.putExtra("contentComment", content_comment);
                 i.putExtra("fechaComment", fecha_comment);
-                i.putExtra("idPost",Identificador);
+                i.putExtra("idPost", Identificador);
                 startActivity(i);
             }
         });

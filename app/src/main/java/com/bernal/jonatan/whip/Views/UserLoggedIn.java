@@ -21,7 +21,7 @@ public class UserLoggedIn {
 
         if (instancia == null) {
 
-            instancia = new UserLoggedIn(api_key, correo, token );
+            instancia = new UserLoggedIn(api_key, correo, token);
         }
         return instancia;
     }

@@ -26,10 +26,10 @@ public class CommentComment extends AppCompatActivity implements CommentPresente
     CommentPresenter commentPresenter = new CommentPresenter(this);
     ImageView foto_user;
     EditText box_comment_comment;
-    String Identificador_comment,Identificador_post;
+    String Identificador_comment, Identificador_post;
     Button crear_comment, borrar_comment;
     RecyclerView comments_comments;
-    TextView date_comment,user_comment,content_comment;
+    TextView date_comment, user_comment, content_comment;
 
     private String URL_create_comments, URL_list_comments;
     private CommentAdapter adapt;
@@ -87,7 +87,7 @@ public class CommentComment extends AppCompatActivity implements CommentPresente
         if (box_comment_comment.getText().toString().equals(""))
             Toast.makeText(getApplicationContext(), "Debe escribir un comentario", Toast.LENGTH_SHORT).show();
         else {
-            commentPresenter.createComment(URL_create_comments, box_comment_comment.getText().toString(),Identificador_comment);
+            commentPresenter.createComment(URL_create_comments, box_comment_comment.getText().toString(), Identificador_comment);
         }
     }
 
@@ -106,7 +106,8 @@ public class CommentComment extends AppCompatActivity implements CommentPresente
             @Override
             public void onEliminateClicked(int position, View vista) {
                 eliminarComentari(vista);
-;            }
+                ;
+            }
 
             @Override
             public void onVerCommentsClicked(View vista) {

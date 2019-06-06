@@ -39,7 +39,6 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
     Button botoBuscar;
 
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
-    private String api = ul.getAPI_KEY();
     private Spinner spinnerFiltre;
     String selectedItem = "";
     private TextView orderBy;
@@ -52,19 +51,6 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
 
         textBuscarPostLost=findViewById(R.id.text_buscar_post_lost);
         botoBuscar=findViewById(R.id.boto_buscar_post_lost);
-
-        /*
-
-        organQuedada = findViewById(R.id.organ_quedadaPerd);     
-        organQuedada.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LostList.this, NewQuedada.class));
-                finish();
-            }
-        });
-
-        */
 
         contenedor = findViewById(R.id.contenedor);
         spinnerFiltre = findViewById(R.id.spinner_filter_lost);

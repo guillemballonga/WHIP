@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import com.bernal.jonatan.whip.Models.ChatRelation;
 import com.bernal.jonatan.whip.R;
-import com.bernal.jonatan.whip.Views.UserLoggedIn;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -19,14 +18,12 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
 
     private List<ChatRelation> listaObjetos;
     private OnChatListener onChatListener;
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
     public void setOnChatListener(OnChatListener onChatListener) {
         this.onChatListener = onChatListener;
@@ -52,8 +49,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
 
         if (listaObjetos.get(i).getPhotoUrl().equals("") || listaObjetos.get(i).getPhotoUrl() == null) {
             chatViewHolder.imagen_user.setImageResource(R.drawable.icono_usuario);
-        }else if (listaObjetos.get(i).getPhotoUrl().substring(1, 7).equals("images")) {
-            retrieveImage(listaObjetos.get(i).getPhotoUrl(),chatViewHolder);
+        } else if (listaObjetos.get(i).getPhotoUrl().substring(1, 7).equals("images")) {
+            retrieveImage(listaObjetos.get(i).getPhotoUrl(), chatViewHolder);
         } else { //CARREGAR IMATGE DE GOOGLE
             chatViewHolder.imagen_user.loadImageUrl(listaObjetos.get(i).getPhotoUrl());
         }
@@ -90,7 +87,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
         } catch (IOException ignored) {
         }
     }
-
 
 
     @Override

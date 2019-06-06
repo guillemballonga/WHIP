@@ -31,10 +31,6 @@ public class UploadImageFirebase extends AppCompatActivity {
 
     private Button btnChoose, btnUpload;
     private ImageView imageView;
-    private ImageView imageViewPosar;
-
-    // int idImageView;
-
     String idActivity = "";
 
     private Uri filePath;
@@ -154,10 +150,7 @@ public class UploadImageFirebase extends AppCompatActivity {
                                     EditProfile.retrieveImage(xxx);
                                     break;
                             }
-                            //EditProfile.setVistaPreviaImatge(identificadorImatge);
-
                             finish();
-                            // startActivity(new Intent(UploadImageFirebase.this, ShowImage.class));
                         }
                     })
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

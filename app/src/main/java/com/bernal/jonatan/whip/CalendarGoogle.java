@@ -3,31 +3,19 @@ package com.bernal.jonatan.whip;
 
 
 import android.os.StrictMode;
-import android.support.annotation.NonNull;
 
 import com.bernal.jonatan.whip.Views.UserLoggedIn;
-import com.google.android.gms.auth.api.credentials.CredentialRequestResponse;
-import com.google.android.gms.auth.api.credentials.Credentials;
-import com.google.android.gms.auth.api.credentials.CredentialsClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
-import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
-import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventAttendee;
@@ -35,11 +23,7 @@ import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.EventReminder;
 import com.google.api.services.calendar.model.Events;
 
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -57,7 +41,6 @@ public class CalendarGoogle {
 
     final HttpTransport transport = AndroidHttp.newCompatibleTransport();
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
-
 
 
     /**
@@ -89,7 +72,7 @@ public class CalendarGoogle {
 
         GoogleClientSecrets clientSecrets;
         try {
-             clientSecrets = GoogleClientSecrets.load(JacksonFactory.getDefaultInstance(), new InputStreamReader(in));
+            clientSecrets = GoogleClientSecrets.load(JacksonFactory.getDefaultInstance(), new InputStreamReader(in));
 
         } catch (Exception e) {
             throw new Exception("error en getCredentials. clientSecrets");
@@ -133,9 +116,6 @@ public class CalendarGoogle {
         }
 
 
-
-
-
         GoogleCredential credential;
         try {
             credential = new GoogleCredential.Builder()
@@ -147,19 +127,17 @@ public class CalendarGoogle {
             credential.setExpiresInSeconds(expiresInSeconds);
             credential.setRefreshToken(refreshToken);
         } catch (Exception e) {
-            throw new Exception( "error en credentials: " + e.getMessage() );
+            throw new Exception("error en credentials: " + e.getMessage());
         }
 
         return credential;
     }
 
 
-
     public static com.google.api.services.calendar.Calendar apiCalendar(InputStream im, String token) throws GeneralSecurityException, IOException {
 
 
-        if (android.os.Build.VERSION.SDK_INT > 9)
-        {
+        if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
@@ -173,10 +151,9 @@ public class CalendarGoogle {
             e.printStackTrace();
         }
 
-        com.google.api.services.calendar.Calendar service = new com.google.api.services.calendar.Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, credentials )
+        com.google.api.services.calendar.Calendar service = new com.google.api.services.calendar.Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, credentials)
                 .setApplicationName(APPLICATION_NAME)
                 .build();
-
 
 
         createEvent(credentials);
@@ -186,10 +163,6 @@ public class CalendarGoogle {
         return service;
 
     }
-
-
-
-
 
 
     public void listEventsFromPrimaryCalendar(com.google.api.services.calendar.Calendar service) throws IOException {
@@ -215,8 +188,6 @@ public class CalendarGoogle {
             }
         }
     }
-
-
 
 
     public static void createEvent(Credential mCredential) {
@@ -273,8 +244,6 @@ public class CalendarGoogle {
         System.out.printf("Event created: %s\n", event.getHtmlLink());
 
     }
-
-
 
 
 }

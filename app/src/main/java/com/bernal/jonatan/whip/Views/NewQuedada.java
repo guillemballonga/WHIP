@@ -17,22 +17,14 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.DatePickerFragment;
 import com.bernal.jonatan.whip.Presenters.EventPresenter;
 import com.bernal.jonatan.whip.R;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class NewQuedada extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, EventPresenter.View {
@@ -47,12 +39,11 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
     private int hora, min, año;
     String horaForm = "";
     String minForm = "";
-    private RequestQueue requestqueue;
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
     private String api = ul.getAPI_KEY();
     Button selecionar_fecha, crear_quedada, seleccionar_hora;
     EditText lugar;
-    static int replanificar=0;
+    static int replanificar = 0;
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -67,27 +58,11 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
         setSupportActionBar(tool);
         Objects.requireNonNull(getSupportActionBar()).setTitle("QUEDADA");
 
-
-        //JSON
-        /*
-        *  if (type.equals("adoption")) {
-                        quedada.put("adoptionPostId", postID);
-                    } else {
-                        quedada.put("lostPostId", postID);
-                    }
-                    quedada.put("date", año + "-" + mes + "-" + dia + " " + hora + ":" + min + ": 00");
-                    quedada.put("place", place.getText().toString());
-        *
-        * */
-
-
         //Coneixón con la API
         if (replanificar == 0) {
             URL = "https://whip-api.herokuapp.com/contributions/" + postID + "/event?type=" + type;
-            requestqueue = Volley.newRequestQueue(this);
         } else {
             URL = "https://whip-api.herokuapp.com/event/" + idEvento;
-            requestqueue = Volley.newRequestQueue(this);
         }
         seleccionar_hora = findViewById(R.id.hora_quedada);
         seleccionar_hora.setOnClickListener(new View.OnClickListener() {
@@ -185,7 +160,7 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
     }
 
     public static void setIdEvent(String idEvent) {
-        idEvento=idEvent;
+        idEvento = idEvent;
     }
 
     public static void setUsernameFromPost(String username) {

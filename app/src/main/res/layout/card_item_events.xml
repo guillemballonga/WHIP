@@ -19,11 +19,11 @@
             android:id="@+id/texto_informativo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="17dp"
             android:textColor="#434040"
             android:textSize="15sp"
-            android:textStyle="bold"
-            android:layout_gravity="center_horizontal"
-            android:paddingTop="17dp" />
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -33,55 +33,55 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="10dp">
+                android:layout_marginStart="10dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
                     android:layout_marginTop="20dp"
                     android:text="@string/usuario"
                     android:textColor="#FFFFFF"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:layout_marginStart="35dp"
 
                     />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/lugar_event"
                     android:textColor="#FFFFFF"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:layout_marginStart="35dp"
 
                     />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/fecha"
                     android:textColor="#FFFFFF"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:layout_marginStart="35dp"
 
                     />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="25dp"
                     android:text="@string/hora_events"
                     android:textColor="#FFFFFF"
                     android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginBottom="25dp" />
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -92,44 +92,44 @@
 
                 <TextView
                     android:id="@+id/user_event"
-                    android:layout_marginTop="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
                     android:textColor="#434040"
                     android:textSize="12sp"
                     android:textStyle="bold"
-                    android:layout_marginStart="15dp"
                     tools:ignore="SmallSp" />
 
                 <TextView
                     android:id="@+id/place_event"
-                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
                     android:textColor="#434040"
                     android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:layout_marginStart="15dp" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/date_event"
-                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
                     android:textColor="#434040"
                     android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:layout_marginStart="15dp" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/time_event"
-                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
                     android:textColor="#434040"
                     android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:layout_marginStart="15dp" />
+                    android:textStyle="bold" />
 
 
             </LinearLayout>

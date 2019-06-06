@@ -52,10 +52,6 @@ public class ChatViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public String getId_chatRelation() {
-        return id_chatRelation;
-    }
-
     public void setId_chatRelation(String id_chatRelation) {
         this.id_chatRelation = id_chatRelation;
     }
