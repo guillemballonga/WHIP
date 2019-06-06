@@ -103,6 +103,7 @@ public class CalendarGoogle {
         try {
 
             String clientId = clientSecrets.getDetails().getClientId();
+            String clientId2 = "165813394161-mrjtm7dj255ejnm0o64qn5842hq508df.apps.googleusercontent.com";
             String clientSecret = "jFt8NzVu2-gkjxPnzQ14i3dk";
             String authUri = clientSecrets.getDetails().getAuthUri();
             String tokenUri = clientSecrets.getDetails().getTokenUri();

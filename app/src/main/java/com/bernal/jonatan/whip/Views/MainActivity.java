@@ -34,6 +34,7 @@ import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -41,6 +42,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -147,14 +149,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestScopes(new Scope("https://www.googleapis.com/auth/admin.directory.resource.calendar"))
                 .requestScopes(new Scope("https://www.googleapis.com/auth/calendar"))
-
-                // The serverClientId is an OAuth 2.0 web client ID
-                // Details at: https://developers.google.com/identity/sign-in/android/?utm_campaign=android_discussion_server_021116&utm_source=anddev&utm_medium=blogstart step 4
+                .requestScopes(new Scope("https://www.googleapis.com/auth/calendar.events"))
                 .requestServerAuthCode(server_client_id)
                 .requestIdToken(server_client_id)
                 .requestEmail()
                 .build();
+
         // [END configure_signin]
+
+        // The serverClientId is an OAuth 2.0 web client ID
+        // Details at: https://developers.google.com/identity/sign-in/android/?utm_campaign=android_discussion_server_021116&utm_source=anddev&utm_medium=blogstart step 4
 
         // [START build_client]
         // Build a GoogleSignInClient with the options specified by gso.

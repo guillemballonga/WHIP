@@ -88,7 +88,7 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
 
 
 
-                    int idCredentials = R.raw.clientextra;
+                    int idCredentials = R.raw.client_secret_laura;
 
                     InputStream im = credentials(idCredentials);
 
