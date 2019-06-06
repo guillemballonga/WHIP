@@ -111,7 +111,8 @@
                 android:background="@drawable/botoinicio"
                 android:text="@string/sign_out"
                 android:theme="@style/Widget.AppCompat.ButtonBar"
-                tools:ignore="ButtonStyle" />
+                tools:ignore="ButtonStyle"
+                android:layout_marginEnd="5dp"/>
 
             <Button
                 android:id="@+id/perfil_button"
@@ -121,7 +122,8 @@
                 android:background="@drawable/botoinicio"
                 android:text="@string/perfil"
                 android:theme="@style/Widget.AppCompat.ButtonBar"
-                tools:ignore="ButtonStyle" />
+                tools:ignore="ButtonStyle"
+                android:layout_marginStart="5dp"/>
         </LinearLayout>
 
     </RelativeLayout>

@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.android.volley.RequestQueue;
 import com.bernal.jonatan.whip.Presenters.AdoptionRequestPresenter;
 import com.bernal.jonatan.whip.R;
 

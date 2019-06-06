@@ -20,7 +20,7 @@ public class ChatViewHolder extends RecyclerView.ViewHolder {
     GlideImageView imagen_user;
 
 
-    public ChatViewHolder(@NonNull final View itemView, List<ChatRelation> listaObjetos, final OnChatListener onChatListener) {
+    public ChatViewHolder(@NonNull final View itemView, final OnChatListener onChatListener) {
         super(itemView);
 
         imagen_user = itemView.findViewById(R.id.imagen_user);

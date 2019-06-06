@@ -12,7 +12,7 @@ import java.util.List;
 
 public class EventViewHolder extends RecyclerView.ViewHolder {
 
-    TextView user_event, place_event, time_event, date_event, texto_plano;
+    TextView user_event, place_event, time_event, date_event, texto_plano, status_event;
     String id_event;
 
 
@@ -28,6 +28,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         time_event = itemView.findViewById(R.id.time_event);
         date_event = itemView.findViewById(R.id.date_event);
         texto_plano = itemView.findViewById(R.id.texto_informativo);
+        status_event = itemView.findViewById(R.id.status_event);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

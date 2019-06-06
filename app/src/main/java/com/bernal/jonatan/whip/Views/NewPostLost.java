@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,9 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Presenters.ConcretePostPresenter;
 import com.bernal.jonatan.whip.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -43,8 +39,6 @@ public class NewPostLost extends AppCompatActivity implements ConcretePostPresen
 
     //variables para comucicación back
     private String URL;
-    private RequestQueue requestqueue;
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +47,6 @@ public class NewPostLost extends AppCompatActivity implements ConcretePostPresen
 
         //Coneixón con la API
         URL = "https://whip-api.herokuapp.com/contributions/lostposts";
-        requestqueue = Volley.newRequestQueue(this);
 
         //Gestión de toolbar
         Toolbar tool = findViewById(R.id.toolbar_nuevoPostPerd);

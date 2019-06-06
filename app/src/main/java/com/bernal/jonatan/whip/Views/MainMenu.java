@@ -10,28 +10,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bernal.jonatan.whip.Presenters.UserPresenter;
 import com.bernal.jonatan.whip.R;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.master.glideimageview.GlideImageView;
-
-import org.apache.http.conn.MultihomePlainSocketFactory;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,11 +34,11 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     private ActionBarDrawerToggle mToggle;
 
     static GlideImageView imatge;
-    TextView nom, user, correo;
+    TextView nom, user;
 
-    String urlFoto, n, u, c;
+    String urlFoto, n, u;
 
-    UserPresenter userPresenter = new UserPresenter((UserPresenter.View) this);
+    UserPresenter userPresenter = new UserPresenter(this);
 
 
     @Override
@@ -126,9 +117,6 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         FirebaseStorage storage = FirebaseStorage.getInstance();
         //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
         StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
-
-        String xxxx = storageReference.getPath();
-        //foto_post = (ImageView) findViewById(R.id.foto_postPerd);
         try {
             final File localFile = File.createTempFile("images", "jpg");
             storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
@@ -150,17 +138,11 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
     @Override
     public void getUserInfo(String cpt, String email, String family_name, String first_name, String photoURL, String username) {
-        if (username.toString().equals("null")) username = "";
-        if (cpt.toString().equals("null")) cpt = "";
-
+        if (username.equals("null")) username = "";
         n = first_name;
         u = username;
-        c = email;
         urlFoto = photoURL;
-
         carregaParametresBarraMenu();
-
-
     }
 
     public void carregaParametresBarraMenu() {
@@ -172,12 +154,10 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
         nom = hView.findViewById(R.id.nom_real_barra_lateral);
         user = hView.findViewById(R.id.user_barra_lateral);
-        correo = hView.findViewById(R.id.correo_barra_lateral);
         imatge = hView.findViewById(R.id.imagen_perfil_barra_lateral);
 
         nom.setText(n);
         user.setText(u);
-        correo.setText(c);
         if (urlFoto.equals("") || urlFoto.equals("null")) {
 
         } else if (urlFoto.substring(1, 7).equals("images")) {

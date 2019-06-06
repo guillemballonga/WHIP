@@ -32,7 +32,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
     public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View vista = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_item_message, viewGroup, false);
 
-        return new MessageViewHolder(vista, listaObjetos, onMessageListener);
+        return new MessageViewHolder(vista, onMessageListener);
 
     }
 

@@ -36,8 +36,6 @@ public class CalendarGoogle {
 
     private static final String APPLICATION_NAME = "Whip";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-    private static final String TOKENS_DIRECTORY_PATH = "tokens";
-
 
     final HttpTransport transport = AndroidHttp.newCompatibleTransport();
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
@@ -68,7 +66,6 @@ public class CalendarGoogle {
         if (in == null) {
             throw new FileNotFoundException("Resource not found: ");
         }
-        //GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
         GoogleClientSecrets clientSecrets;
         try {

@@ -118,47 +118,6 @@ public class UserServer {
 
     }
 
-    public void getUserPosts(String URL, final UserPresenter userPresenter) {
-        requestQueue = Volley.newRequestQueue((Context) userPresenter.getView());
-        JsonArrayRequest arrayJsonrequest = new JsonArrayRequest(
-                JsonRequest.Method.GET,
-                URL,
-                null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            ArrayList Mis_Posts = new ArrayList<>();
-                            JSONObject postite;
-                            String tipo;
-                            for (int i = 0; i < response.length(); i++) {
-                                postite = response.getJSONObject(i);
-                                if (postite.has("type")) tipo = "LOST";
-                                else tipo = "ADOPTION";
-                                Mis_Posts.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), tipo));
-                            }
-                            userPresenter.setUserPosts(Mis_Posts);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", api); //valor de V ha de ser el de la var global
-                return params;
-            }
-        };
-        requestQueue.add(arrayJsonrequest);
-    }
-
     public void getOthersInfo(final UserPresenter userPresenter, final ArrayList user_chats) {
         Collections.sort(user_chats, new CustomComparator());  //Ahora tengo ordenados los user_chats por orden alfabetico
 
@@ -166,16 +125,12 @@ public class UserServer {
         //back, así nos ahorramos el coste de asociar los ids con los resultados que obtenemos en back
         String URL = "https://whip-api.herokuapp.com/users/profile/list?";
         ChatRelation cr;
-        final ArrayList<String> crNoUser = new ArrayList<>();
         if (user_chats.size() > 0) {
             cr = (ChatRelation) user_chats.get(0);
-            if (!cr.getOtherUserId().equals("null")) {
-                URL = URL + "id=" + cr.getOtherUserId();
-            } else crNoUser.add(cr.getId());
+            URL = URL + "id=" + cr.getOtherUserId();
             for (int j = 1; j < user_chats.size(); ++j) {
                 cr = (ChatRelation) user_chats.get(j);
                 URL += "&id=" + cr.getOtherUserId();
-                if (cr.getOtherUserId().equals("null")) crNoUser.add(cr.getId());
             }
         }
 
@@ -196,9 +151,6 @@ public class UserServer {
                                 userNP = response.getJSONObject(i);
                                 ChatRelation cr = (ChatRelation) user_chats.get(i);
                                 userInfoForChat.add(new ChatRelation(userNP.getString("username"), userNP.getString("photo_url"), cr.getId()));
-                            }
-                            for (int j = 0; j < crNoUser.size(); ++j) {
-                                userInfoForChat.add(new ChatRelation("Other User Deleted chat", "", crNoUser.get(j)));
                             }
                             userPresenter.sendInfoForChat(userInfoForChat);
                         } catch (JSONException e) {

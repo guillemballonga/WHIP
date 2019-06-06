@@ -230,7 +230,6 @@ public class ChatServer {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        //A la espera de lo q me responda Nico
 
                     }
                 },

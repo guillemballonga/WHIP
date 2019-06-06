@@ -42,7 +42,6 @@ public class ShowImage extends AppCompatActivity {
         imageView = findViewById(R.id.imageFirebase);
         try {
             final File localFile = File.createTempFile("images", "jpg");
-            String xxx = storageReference.getPath();
             storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
@@ -57,33 +56,5 @@ public class ShowImage extends AppCompatActivity {
             });
         } catch (IOException ignored) {
         }
-    }
-
-    public static Bitmap retrieveImageBitmap(String idImageFirebase) {
-
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
-        StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
-
-        System.out.println("retrieveImageBitmap: " + storageReference.getPath());
-        final Bitmap[] bitmap = new Bitmap[1];
-
-        try {
-            final File localFile = File.createTempFile("images", "jpg");
-            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    bitmap[0] = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    Bitmap bitmap2 = bitmap[0];
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                }
-            });
-        } catch (IOException ignored) {
-        }
-        return bitmap[0];
     }
 }

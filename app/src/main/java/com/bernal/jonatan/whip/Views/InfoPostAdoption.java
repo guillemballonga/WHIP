@@ -17,8 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.MapsActivity;
 import com.bernal.jonatan.whip.Presenters.ConcretePostPresenter;
 import com.bernal.jonatan.whip.R;
@@ -37,7 +35,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
     ConcretePostPresenter concretePostPresenter = new ConcretePostPresenter(this);
     TextView titulo, fecha, especie, raza, contenido;
     ImageView foto_post, compartirRRSS, maps;
-    String Identificador, correuUsuari;
+    String Identificador;
     Button close_buton, solicitud_adopcion;
     String titlePost = "", descriptionPost = "";
 
@@ -68,7 +66,6 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         raza = findViewById(R.id.raza_postAdoption);
         contenido = findViewById(R.id.contenido_postAdoption);
         idCreador = findViewById(R.id.id_Creador_postAdoption);
-        correuUsuari = ul.getCorreo_user();
 
         foto_post = findViewById(R.id.foto_postAdoption);
         compartirRRSS = findViewById(R.id.CompartirRRSSAdoption);
@@ -90,18 +87,13 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         URL_like = "https://whip-api.herokuapp.com/contributions/" + Identificador + "/like/?type=adoption";
         URL_close = "https://whip-api.herokuapp.com/contributions/close/" + Identificador + "/?type=adoption";
 
-
         solicitud_adopcion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mail_creador.equals(correuUsuari)) {
-                    Toast.makeText(getApplicationContext(), "No puedes crear una quedada contigo mismo", Toast.LENGTH_SHORT).show();
-                } else {
-                    NewAdoptionRequest.setAdoptionPostID(Identificador);
-                    NewAdoptionRequest.setUsernameFromPost(mail_creador);
-                    startActivity(new Intent(InfoPostAdoption.this, NewAdoptionRequest.class));
-                    finish();
-                }
+                NewAdoptionRequest.setAdoptionPostID(Identificador);
+                NewAdoptionRequest.setUsernameFromPost(mail_creador);
+                startActivity(new Intent(InfoPostAdoption.this, NewAdoptionRequest.class));
+                finish();
             }
         });
 
@@ -109,14 +101,11 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         compartirRRSS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(InfoPostAdoption.this, ShareFacebook.class);
                 i.putExtra("titlePost", titlePost);
                 i.putExtra("descriptionPost", descriptionPost);
                 i.putExtra("urlImage", idImage);
                 startActivity(i);
-
-
             }
         });
 
@@ -124,16 +113,13 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         maps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Intent i = new Intent(InfoPostAdoption.this, MapsActivity.class);
                 i.putExtra("pos1", coordenada1);
                 i.putExtra("pos2", coordenada2);
-
                 startActivity(i);
-
             }
         });
+
         close_buton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,28 +131,25 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
     }
 
     private void tancar_post() {
-        if (mail_creador.equals(ul.getCorreo_user())) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostAdoption.this);
-            alert.setMessage("¿Estás seguro que deseas cerrar este Post?")
-                    .setCancelable(false)
-                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            concretePostPresenter.closePost(URL_close);
-                        }
-                    })
-                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    });
-            AlertDialog title = alert.create();
-            title.setTitle("CERRAR POST");
-            title.show();
+        AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostAdoption.this);
+        alert.setMessage("¿Estás seguro que deseas cerrar este Post?")
+                .setCancelable(false)
+                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        concretePostPresenter.closePost(URL_close);
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+        AlertDialog title = alert.create();
+        title.setTitle("CERRAR POST");
+        title.show();
 
-        } else
-            Toast.makeText(getApplicationContext(), "POST NO CREADO POR EL TI, NO PUEDES CERRARLO", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -199,7 +182,6 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
 
     private void BackDelete() {
         if (mail_creador.equals(ul.getCorreo_user())) {
-
             AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostAdoption.this);
             alert.setMessage("¿Estás seguro que deseas eliminar este Post?")
                     .setCancelable(false)
@@ -218,8 +200,8 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
             AlertDialog title = alert.create();
             title.setTitle("ELIMINAR POST");
             title.show();
-        } else
-            Toast.makeText(getApplicationContext(), "POST NO CREADO POR EL TI, NO PUEDES BORRARLO", Toast.LENGTH_SHORT).show();
+        }
+        else  Toast.makeText(getApplicationContext(), "No puedes eliminar un post no creado por ti botarate", Toast.LENGTH_SHORT).show();
     }
 
     private void BackFavs_dislike() {
@@ -286,13 +268,17 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
             solicitud_adopcion.setVisibility(View.GONE);
         }
 
+        if (mail_creador.equals(ul.getCorreo_user())) solicitud_adopcion.setVisibility(View.GONE);
+        if (!mail_creador.equals(ul.getCorreo_user())) close_buton.setVisibility(View.GONE);
+
+
     }
 
 
     @Override
     public void setFavorite(Boolean fav) {
         if (fav) {
-            getMenuInflater().inflate(R.menu.menu_infopostlikeuser, menu_fav); //si paso el menu de parametro se puede pero no sé si eso respeta el MVC
+            getMenuInflater().inflate(R.menu.menu_infopostlikeuser, menu_fav);//si paso el menu de parametro se puede pero no sé si eso respeta el MVC
         } else {
             getMenuInflater().inflate(R.menu.menu_infopostuser, menu_fav);
         }

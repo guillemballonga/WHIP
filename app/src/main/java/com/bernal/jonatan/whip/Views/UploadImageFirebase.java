@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bernal.jonatan.whip.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,14 +35,9 @@ public class UploadImageFirebase extends AppCompatActivity {
     private Uri filePath;
 
     private final int PICK_IMAGE_REQUEST = 71; //is the request code defined as an instance variable.
-    private Task<Uri> xxx;
 
     public static String getIdentificadorImatge() {
         return identificadorImatge;
-    }
-
-    public static void netejaIdentificadorImatge() {
-        identificadorImatge = "";
     }
 
     private static String identificadorImatge = "";
@@ -125,10 +119,7 @@ public class UploadImageFirebase extends AppCompatActivity {
 
             StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
 
-
-
             identificadorImatge = ref.getPath();
-
 
             ref.putFile(filePath)
                     .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -157,15 +148,12 @@ public class UploadImageFirebase extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
-                            Toast.makeText(UploadImageFirebase.this, "Uploaded", Toast.LENGTH_SHORT).show();
-
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(UploadImageFirebase.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {

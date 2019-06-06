@@ -10,7 +10,7 @@ import com.bernal.jonatan.whip.R;
 
 public class CommentViewHolder extends RecyclerView.ViewHolder {
 
-    ImageView imagen_comment, delete_button;
+    ImageView delete_button;
     TextView contenido_comment, user_comment, data_comment, ver_comments;
     private String id_comment;
 
@@ -18,7 +18,6 @@ public class CommentViewHolder extends RecyclerView.ViewHolder {
     public CommentViewHolder(@NonNull final View itemView, final OnCommentListener onCommentListener, String type) {
         super(itemView);
 
-        imagen_comment = itemView.findViewById(R.id.imagen_comment);
         contenido_comment = itemView.findViewById(R.id.Contenido_comment);
         user_comment = itemView.findViewById(R.id.user_comment);
         data_comment = itemView.findViewById(R.id.date_comment);

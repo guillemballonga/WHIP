@@ -1,15 +1,14 @@
 package com.bernal.jonatan.whip.Views;
 
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +23,6 @@ import java.util.ArrayList;
 public class CommentComment extends AppCompatActivity implements CommentPresenter.View {
 
     CommentPresenter commentPresenter = new CommentPresenter(this);
-    ImageView foto_user;
     EditText box_comment_comment;
     String Identificador_comment, Identificador_post;
     Button crear_comment, borrar_comment;
@@ -34,8 +32,6 @@ public class CommentComment extends AppCompatActivity implements CommentPresente
     private String URL_create_comments, URL_list_comments;
     private CommentAdapter adapt;
     private ArrayList<Comment> Comments_comments;
-
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +44,6 @@ public class CommentComment extends AppCompatActivity implements CommentPresente
         date_comment = findViewById(R.id.date_comment_comment);
         user_comment = findViewById(R.id.user_comment_comment);
         content_comment = findViewById(R.id.Contenido_comment_comment);
-        foto_user = findViewById(R.id.imagen_comment_comment);
 
         date_comment.setText(getIntent().getStringExtra("fechaComment"));
         user_comment.setText(getIntent().getStringExtra("userComment"));
@@ -106,12 +101,11 @@ public class CommentComment extends AppCompatActivity implements CommentPresente
             @Override
             public void onEliminateClicked(int position, View vista) {
                 eliminarComentari(vista);
-                ;
             }
 
             @Override
             public void onVerCommentsClicked(View vista) {
-                //Nothing to DO
+
             }
         });
         comments_comments.setAdapter(adapt);
@@ -121,28 +115,23 @@ public class CommentComment extends AppCompatActivity implements CommentPresente
 
     private void eliminarComentari(View view) {
         final String id_comment = Comments_comments.get(comments_comments.getChildAdapterPosition(view)).getId();
-        final String user_comment = Comments_comments.get(comments_comments.getChildAdapterPosition(view)).getUser();
-        if (user_comment.equals(ul.getCorreo_user())) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(CommentComment.this);
-            alert.setMessage("¿Estás seguro que deseas eliminar este Comentario?")
-                    .setCancelable(false)
-                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            commentPresenter.deleteComment(URL_create_comments, id_comment);
-                        }
-                    })
-                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    });
-            AlertDialog title = alert.create();
-            title.setTitle("ELIMINAR COMENTARIO");
-            title.show();
-
-        } else
-            Toast.makeText(getApplicationContext(), "COMENTARIO NO CREADO POR TI, NO PUEDES BORRARLO", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder alert = new AlertDialog.Builder(CommentComment.this);
+        alert.setMessage("¿Estás seguro que deseas eliminar este Comentario?")
+                .setCancelable(false)
+                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        commentPresenter.deleteComment(URL_create_comments, id_comment);
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+        AlertDialog title = alert.create();
+        title.setTitle("ELIMINAR COMENTARIO");
+        title.show();
     }
 }

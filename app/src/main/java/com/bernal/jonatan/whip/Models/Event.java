@@ -9,15 +9,15 @@ public class Event {
     private String time;
     private String state;
     private String place;
-    private String postId;
 
-    public Event(String userIdFromPost, String userId, String place, String date, String time, String idEvent) {
+    public Event(String userIdFromPost, String userId, String place, String date, String time, String idEvent, String state) {
         this.userFromPostId = userIdFromPost;
         this.userId = userId;
         this.place = place;
         this.date = date;
         this.time = time;
         this.id = idEvent;
+        this.state = state;
     }
 
     public String getTime() {
@@ -52,4 +52,7 @@ public class Event {
         return date;
     }
 
+    public String getState() {
+        return state;
+    }
 }

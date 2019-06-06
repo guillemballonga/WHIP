@@ -40,16 +40,13 @@ public class InfoChat extends AppCompatActivity implements ChatPresenter.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_chat);
-
         contenedor_mensajes = findViewById(R.id.contenedor_messages);
         send_message = findViewById(R.id.enviar_mensaje);
         messageToSend = findViewById(R.id.box_message);
 
-
         idChat = getIntent().getStringExtra("idChat");
 
         URL = "https://whip-api.herokuapp.com/chat/" + idChat;
-
 
         messageToSend.setText("");
 
@@ -60,11 +57,9 @@ public class InfoChat extends AppCompatActivity implements ChatPresenter.View {
             }
         });
 
-
         Toolbar tool = findViewById(R.id.toolbar_listadoMessages);
         setSupportActionBar(tool);
         getSupportActionBar().setTitle("MESSAGES");
-
 
         chatPresenter.getMessages(URL);
     }

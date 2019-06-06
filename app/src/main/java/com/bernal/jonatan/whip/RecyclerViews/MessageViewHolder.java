@@ -26,7 +26,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
     }
 
 
-    public MessageViewHolder(@NonNull final View itemView, final List<ChatMessage> listaObjetos, final OnMessageListener onMessageListener) {
+    public MessageViewHolder(@NonNull final View itemView, final OnMessageListener onMessageListener) {
         super(itemView);
 
         left = itemView.findViewById(R.id.chat_left);

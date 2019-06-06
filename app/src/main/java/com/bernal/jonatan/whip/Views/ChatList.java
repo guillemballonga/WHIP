@@ -29,12 +29,7 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View, U
     private ChatAdapter adapt;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-
     RecyclerView contenedor_chats;
-
-
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

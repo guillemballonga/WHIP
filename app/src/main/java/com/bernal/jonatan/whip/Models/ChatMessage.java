@@ -24,10 +24,6 @@ public class ChatMessage {
         return id;
     }
 
-    public String getDate() {
-        return date;
-    }
-
     public String getTime() {
         return time;
     }
@@ -46,17 +42,5 @@ public class ChatMessage {
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 }

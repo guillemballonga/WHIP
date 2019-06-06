@@ -34,15 +34,12 @@ import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -94,10 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
 
-        //facebook
-        //textViewFacebook = findViewById(R.id.profile_email_facebook);
-        loginButtonFacebook = (LoginButton) findViewById(R.id.login_facebook_button);
-        //loginButtonFacebook.setReadPermissions("email");
+        loginButtonFacebook = findViewById(R.id.login_facebook_button);
         callbackManager = CallbackManager.Factory.create();
         facebook = false;
         loginButtonFacebook.setReadPermissions(Arrays.asList("email", "public_profile"));
@@ -208,17 +202,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // the GoogleSignInAccount will be non-null.
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
-        //if (!GoogleSignIn.hasPermissions(account,  new Scope(CalendarScopes.CALENDAR))) {
         GoogleSignIn.requestPermissions(
                 this,
                 RC_REQUEST_PERMISSION_SUCCESS_CONTINUE_FILE_CREATION,
                 account,
 
                 new Scope(CalendarScopes.CALENDAR));
-        /*
-        } else {
-            //saveToDriveAppFolder();
-       }*/
         updateUI(account);
         // [END on_start_sign_in]
     }
@@ -227,8 +216,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        //if (facebook)  Toast.makeText(MainActivity.this,"login FACEBOOK",Toast.LENGTH_LONG).show();
-        //else Toast.makeText(MainActivity.this,"login GOOGLE",Toast.LENGTH_LONG).show();
         if (facebook) {
             callbackManager.onActivityResult(requestCode, resultCode, data);
             super.onActivityResult(requestCode, resultCode, data);
@@ -252,7 +239,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
             //facebook
             if (currentAccessToken == null) {
-                Toast.makeText(MainActivity.this, "User Logged out", Toast.LENGTH_LONG).show();
 
             } else
                 loadUserProfile(currentAccessToken);
@@ -260,7 +246,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     };
 
     private void loadUserProfile(AccessToken newAccessToken) {
-        //facebook = true;
         GraphRequest request = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
@@ -268,13 +253,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try {
 
                     String first_name = object.getString("first_name");
-                    //String email = object.getString("email");
-
-                    Toast.makeText(MainActivity.this, "User facebook Logged IN", Toast.LENGTH_LONG).show();
-                    Toast.makeText(MainActivity.this, first_name, Toast.LENGTH_LONG).show();
-
                     mStatusTextView.setText(getString(R.string.signed_in_fmt, first_name));
-
                     findViewById(R.id.login_facebook_button).setVisibility(View.GONE);
                     findViewById(R.id.login_google_button).setVisibility(View.GONE);
                     findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
@@ -302,7 +281,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             findViewById(R.id.login_facebook_button).setVisibility(View.GONE);
             findViewById(R.id.login_google_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
-            //mStatusTextView.setText(getString(R.string.signed_in_fmt, te));
 
         }
     }
@@ -316,14 +294,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             authCode = account.getServerAuthCode();
 
-            //dona d alta aqui
-            //Toast.makeText(getApplicationContext(), "login  per iniciar ", Toast.LENGTH_SHORT).show();
-
             assert account != null;
             userJsonGoogle(account);
 
             // Signed in successfully, show authenticated UI.
-            //updateUI(account);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -386,7 +360,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(getApplicationContext(), "Usuari logejat  correctament", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(MainActivity.this, MainMenu.class));
                         //todo guardar api key en el singleton
                         try {
@@ -405,8 +378,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "guardarUsuari : ERROOOOOOOR", Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(getApplicationContext(), "Error: Vuelve a loggearte", Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
@@ -418,30 +390,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
         requestqueue.add(objectJsonrequest);
-        //if (!facebook) userPutToken();
-
-
-    }
-
-    private void userPutToken() {
-        //  new RetrieveTokenTask().execute(ul.getCorreo_user()); //nomes amb google
     }
     // [END handleSignInResult]
 
     // [START signIn]
     private void signIn() { //GOOGLE
-        // facebook = false;
-
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
-
-
     }
     // [END signIn]
 
     // [START signOut]
     private void signOut() {
-
         // if (!facebook) {
         //GOOGLE
         mGoogleSignInClient.signOut()
@@ -453,22 +413,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         // [END_EXCLUDE]
                     }
                 });
-        // }
+
         //if (facebook) {
         //loginButtonFacebook.
-
-        //TODO: Fer el logout de facebook
-
         LoginManager.getInstance().logOut();
-
         updateUI(null);
-        //}
     }
     // [END signOut]
 
 
     public void updateUI(@Nullable GoogleSignInAccount account) { // GOOGLE
-        //facebook = false;
         if (account != null) {
             mStatusTextView.setText(getString(R.string.signed_in_fmt, account.getDisplayName()));
 
@@ -488,7 +442,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        //facebook = false;
         switch (v.getId()) {
             case R.id.login_google_button:
                 facebook = false;

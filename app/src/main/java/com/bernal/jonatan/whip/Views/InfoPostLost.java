@@ -20,8 +20,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.MapsActivity;
 import com.bernal.jonatan.whip.Models.Comment;
 import com.bernal.jonatan.whip.Presenters.ChatPresenter;
@@ -39,7 +37,6 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class InfoPostLost extends AppCompatActivity implements ConcretePostPresenter.View, CommentPresenter.View, ChatPresenter.View {
 
@@ -47,7 +44,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     CommentPresenter commentPresenter = new CommentPresenter(this);
     ChatPresenter chatPresenter = new ChatPresenter(this);
     TextView titulo, fecha, especie, tipo, raza, contenido, num_comments, idCreador;
-    ImageView foto_post, foto_user, compartirRRSS, maps;
+    ImageView foto_post, compartirRRSS, maps;
     EditText box_comment;
     String Identificador;
     Button cerrar_post, crear_comment, borrar_comment, organ_quedada, chat_privado;
@@ -74,7 +71,6 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
 
         //Obtengo el ID del post
         Identificador = getIntent().getStringExtra("identificadorPost");
-        final String correuUsuari = ul.getCorreo_user();
 
         titulo = findViewById(R.id.titulo_postPerd);
         fecha = findViewById(R.id.fecha_postPerd);
@@ -89,7 +85,6 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         maps = findViewById(R.id.abrir_GmapsPerd);
 
         foto_post = findViewById(R.id.foto_postPerd);
-        foto_user = findViewById(R.id.imagen_coment_user);
         compartirRRSS = findViewById(R.id.CompartirRRSSPerd);
         box_comment = findViewById(R.id.box_comment);
 
@@ -121,27 +116,20 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         compartirRRSS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Intent i = new Intent(InfoPostLost.this, ShareFacebook.class);
                 i.putExtra("titlePost", titlePost);
                 i.putExtra("descriptionPost", descriptionPost);
                 i.putExtra("urlImage", idImage);
                 startActivity(i);
-
             }
         });
         maps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Intent i = new Intent(InfoPostLost.this, MapsActivity.class);
                 i.putExtra("pos1", coordenada1);
                 i.putExtra("pos2", coordenada2);
-
                 startActivity(i);
-
             }
         });
 
@@ -170,13 +158,9 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         organ_quedada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mail_creador.equals(correuUsuari)) {
-                    Toast.makeText(getApplicationContext(), "No puedes crear una quedada contigo mismo", Toast.LENGTH_SHORT).show();
-                } else {
-                    NewQuedada.setPostID(Identificador, "lost");
-                    NewQuedada.setUsernameFromPost(mail_creador);
-                    startActivity(new Intent(InfoPostLost.this, NewQuedada.class));
-                }
+                NewQuedada.setPostID(Identificador, "lost");
+                NewQuedada.setUsernameFromPost(mail_creador);
+                startActivity(new Intent(InfoPostLost.this, NewQuedada.class));
             }
         });
 
@@ -210,56 +194,46 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
 
     private void eliminar_comentari(View vista) {
         final String id_comment = Comments_post.get(comments.getChildAdapterPosition(vista)).getId();
-        final String user_comment = Comments_post.get(comments.getChildAdapterPosition(vista)).getUser();
-        if (user_comment.equals(ul.getCorreo_user())) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostLost.this);
-            alert.setMessage("¿Estás seguro que deseas eliminar este Comentario?")
-                    .setCancelable(false)
-                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            commentPresenter.deleteComment(URL_comments, id_comment);
-                        }
-                    })
-                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    });
-            AlertDialog title = alert.create();
-            title.setTitle("ELIMINAR COMENTARIO");
-            title.show();
-
-        } else
-            Toast.makeText(getApplicationContext(), "COMENTARIO NO CREADO POR TI, NO PUEDES BORRARLO", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostLost.this);
+        alert.setMessage("¿Estás seguro que deseas eliminar este Comentario?")
+                .setCancelable(false)
+                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        commentPresenter.deleteComment(URL_comments, id_comment);
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+        AlertDialog title = alert.create();
+        title.setTitle("ELIMINAR COMENTARIO");
+        title.show();
     }
 
     private void tancar_post() {
-        if (mail_creador.equals(ul.getCorreo_user())) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostLost.this);
-            alert.setMessage("¿Estás seguro que deseas cerrar este Post?")
-                    .setCancelable(false)
-                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            concretePostPresenter.closePost(URL_close);
+        AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostLost.this);
+        alert.setMessage("¿Estás seguro que deseas cerrar este Post?")
+                .setCancelable(false)
+                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        concretePostPresenter.closePost(URL_close);
 
-                        }
-                    })
-                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    });
-            AlertDialog title = alert.create();
-            title.setTitle("CERRAR POST");
-            title.show();
-
-        } else
-            Toast.makeText(getApplicationContext(), "POST NO CREADO POR EL TI, NO PUEDES BORRARLO", Toast.LENGTH_SHORT).show();
-
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+        AlertDialog title = alert.create();
+        title.setTitle("CERRAR POST");
+        title.show();
     }
 
 
@@ -287,7 +261,6 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
 
     private void BackDelete() {
         if (mail_creador.equals(ul.getCorreo_user())) {
-
             AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostLost.this);
             alert.setMessage("¿Estás seguro que deseas eliminar este Post?")
                     .setCancelable(false)
@@ -375,13 +348,17 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         if (!urlFoto1.equals("")) retrieveImage(urlFoto1);
         else foto_post.setBackgroundResource(R.drawable.perfilperro);
 
-        if (mail_creador.equals(ul.getCorreo_user())) chat_privado.setVisibility(View.GONE);
+        if (mail_creador.equals(ul.getCorreo_user())) {
+            chat_privado.setVisibility(View.GONE);
+            organ_quedada.setVisibility(View.GONE);
+        }
+        if (!mail_creador.equals(ul.getCorreo_user())) cerrar_post.setVisibility(View.GONE);
+
 
         if (status) {
             cerrar_post.setVisibility(View.GONE);
             compartirRRSS.setVisibility(View.GONE);
             organ_quedada.setVisibility(View.GONE);
-            foto_user.setVisibility(View.GONE);
             box_comment.setVisibility(View.GONE);
             crear_comment.setVisibility(View.GONE);
             borrar_comment.setVisibility(View.GONE);

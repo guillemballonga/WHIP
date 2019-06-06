@@ -23,7 +23,6 @@ import java.util.Map;
 
 public class PostServer {
 
-    static String URL = "https://whip-api.herokuapp.com/users/profile";
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
     private String api = ul.getAPI_KEY();
     private RequestQueue requestQueue;

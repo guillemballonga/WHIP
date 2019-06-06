@@ -8,9 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
 import com.bernal.jonatan.whip.CalendarGoogle;
 import com.bernal.jonatan.whip.Presenters.EventPresenter;
 import com.bernal.jonatan.whip.R;
@@ -28,8 +26,8 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
     EventPresenter eventPresenter = new EventPresenter(this);
 
     private String URL, URLUpdateAccept, URLUpdateReject;
-    TextView title, dataPost, dataQuedada, hora, lloc, idSolicitante, id_destinatarioQuedada;
-    String titleEvent = "", datePost = "", dateEvent = "", horaEvent = "", placeEvent = "", idSolicitanteEvent = "";
+    TextView dataQuedada, hora, lloc, idSolicitante, id_destinatarioQuedada;
+    String dateEvent = "", horaEvent = "", placeEvent = "", idSolicitanteEvent = "";
     private String idEvent;
     private Button acceptarQuedada, rebutjarQuedada, replanificarQuedada;
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
@@ -45,9 +43,6 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
 
         idEvent = getIntent().getStringExtra("idEvent");
 
-
-        Toast.makeText(getApplicationContext(), "token usu " + ul.getToken(), Toast.LENGTH_SHORT).show();
-
         final String  authCode = ul.getToken();
 
         acceptarQuedada = findViewById(R.id.boto_acceptar_event);
@@ -56,15 +51,12 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
         URLUpdateAccept = "https://whip-api.herokuapp.com/event/" + idEvent + "/answer?action=accept";
         URLUpdateReject = "https://whip-api.herokuapp.com/event/" + idEvent + "/answer?action=reject";
 
-        title = findViewById(R.id.titulo_post_provinente);
-        dataPost = findViewById(R.id.fecha_post_provinente);
         dataQuedada = findViewById(R.id.fecha_info_quedada);
         hora = findViewById(R.id.hora_info_quedada);
         lloc = findViewById(R.id.lugar_info_quedada);
         idSolicitante = findViewById(R.id.id_creadorQuedada);
         replanificarQuedada = findViewById(R.id.boto_replanificar_event);
         id_destinatarioQuedada = findViewById(R.id.id_destinatarioQuedada);
-
 
 
         acceptarQuedada.setOnClickListener(new View.OnClickListener() {
@@ -74,23 +66,12 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
 
                 try {
                     eventPresenter.updateEvent(URLUpdateAccept);
-
-                 } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                //aqui crido a crear quedada al google calendar
-                try {
-
-
-
                     int idCredentials = R.raw.client_secret_laura;
-
                     InputStream im = credentials(idCredentials);
-
-
                     CalendarGoogle.apiCalendar(im, authCode);
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 } catch (GeneralSecurityException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -99,13 +80,7 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
-                Toast.makeText(getApplicationContext(), "Quedada acceptada", Toast.LENGTH_SHORT).show();
-
-
                 startActivity(new Intent(InfoEvent.this, EventList.class));
-
                 finish();
 
             }
@@ -120,9 +95,6 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
-                Toast.makeText(getApplicationContext(), "Quedada rebutjada", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(InfoEvent.this, EventList.class));
                 finish();
             }
@@ -137,10 +109,6 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
-                Toast.makeText(getApplicationContext(), "Introduce los datos para la nueva propuesta de quedada", Toast.LENGTH_SHORT).show();
-
                 NewQuedada.setReplanificar();
                 NewQuedada.setIdEvent(idEvent);
                 NewQuedada.setUsernameFromPost(idSolicitanteEvent);
@@ -148,41 +116,28 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
                 finish();
             }
         });
-
-
-
         eventPresenter.getEventInfo(URL);
-
-
-
     }
 
     public InputStream credentials(int idCredentials) {
         Resources resources = getApplicationContext().getResources();
         InputStream is = resources.openRawResource(idCredentials);
-
         return is;
     }
 
     @Override
     public void setEvent(String userFromPostId, String userId, String place, String date, String time) {
-        //title = findViewById(R.id.titulo_post_provinente);
-        //dataPost = findViewById(R.id.fecha_post_provinente);
         dataQuedada.setText(date);
         hora.setText(time);
         lloc.setText(place);
         idSolicitante.setText(userId);
         id_destinatarioQuedada.setText(userFromPostId);
-
-
         placeEvent = place;
         horaEvent = time;
-
         dateEvent = date;
         idSolicitanteEvent = userId;
 
         if(idSolicitanteEvent.equals(ul.getCorreo_user())){
-
             acceptarQuedada.setVisibility(View.GONE);
             rebutjarQuedada.setVisibility(View.GONE);
             replanificarQuedada.setVisibility(View.GONE);

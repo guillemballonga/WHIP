@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -18,9 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.Presenters.UserPresenter;
 import com.bernal.jonatan.whip.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,21 +41,14 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
     EditText nom, cognom, user, cp;
     TextView correu;
 
-    UserPresenter userPresenter = new UserPresenter((UserPresenter.View) this);
+    UserPresenter userPresenter = new UserPresenter(this);
     //variables para comucicación back
     private String URL;
     private String urlFoto = ""; //la que agafo si canvio de foto
     private String urlBD = MostrarPerfil.getFoto();
-    private RequestQueue requestqueue;
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
     private String api = ul.getAPI_KEY();
     private Uri path;
-
-    public static void setVistaPreviaImatge(String identificadorImatge) {
-
-        retrieveImage(identificadorImatge);
-
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -87,7 +76,6 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
 
         //Coneixón con la API
         URL = "https://whip-api.herokuapp.com/users/profile";
-        requestqueue = Volley.newRequestQueue(this);
 
 
         goToMostrarPerfilGuardant.setOnClickListener(new View.OnClickListener() {
@@ -141,15 +129,6 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
 
     }
 
-
-    @SuppressLint("IntentReset")
-    private void obrirgaleria() {
-        @SuppressLint("IntentReset") Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        gallery.setType("image/");
-        startActivityForResult(Intent.createChooser(gallery, "Seleccione la Aplicación"), 10);
-    }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -157,18 +136,14 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
             assert data != null;
             path = data.getData();
             fotoperfil.setImageURI(path);
-
-
         }
     }
 
     public static void retrieveImage(String idImageFirebase) {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
         StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
 
-        // String xxxx = storageReference.getPath();
         try {
             final File localFile = File.createTempFile("images", "jpg");
             storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {

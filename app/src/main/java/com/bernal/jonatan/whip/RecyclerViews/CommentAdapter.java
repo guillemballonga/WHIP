@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.bernal.jonatan.whip.Models.Comment;
 import com.bernal.jonatan.whip.R;
+import com.bernal.jonatan.whip.Views.UserLoggedIn;
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
     private List<Comment> listaObjetos;
     private OnCommentListener onCommentListener;
     private String type;
+
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
     public void setOnCommentListener(OnCommentListener onCommentListener) {
         this.onCommentListener = onCommentListener;
@@ -40,8 +43,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
         commentViewHolder.data_comment.setText(listaObjetos.get(i).getFecha());
         commentViewHolder.user_comment.setText(listaObjetos.get(i).getUser());
         commentViewHolder.contenido_comment.setText(listaObjetos.get(i).getContenido());
-        commentViewHolder.imagen_comment.setImageResource(R.drawable.icono_usuario); //Falta poner foto usuario
         commentViewHolder.setId_comment(listaObjetos.get(i).getId());
+
+        if(!listaObjetos.get(i).getUser().equals(ul.getCorreo_user())) {
+            commentViewHolder.delete_button.setVisibility(View.GONE);
+        }
 
     }
 

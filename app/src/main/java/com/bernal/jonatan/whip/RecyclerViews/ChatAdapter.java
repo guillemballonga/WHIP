@@ -39,7 +39,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
 
         View vista = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_item_chat, viewGroup, false);
 
-        return new ChatViewHolder(vista, listaObjetos, onChatListener);
+        return new ChatViewHolder(vista, onChatListener);
     }
 
     @Override

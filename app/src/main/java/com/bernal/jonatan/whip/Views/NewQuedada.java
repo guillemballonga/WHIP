@@ -15,14 +15,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.bernal.jonatan.whip.DatePickerFragment;
 import com.bernal.jonatan.whip.Presenters.EventPresenter;
 import com.bernal.jonatan.whip.R;
-
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
@@ -40,7 +35,6 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
     String horaForm = "";
     String minForm = "";
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
-    private String api = ul.getAPI_KEY();
     Button selecionar_fecha, crear_quedada, seleccionar_hora;
     EditText lugar;
     static int replanificar = 0;
@@ -190,7 +184,6 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
     @Override
     public void notifyNewQuedada() {
         startActivity(new Intent(NewQuedada.this, MainMenu.class));
-        Toast.makeText(getApplicationContext(), "Quedada Creada Correctamente", Toast.LENGTH_SHORT).show();
         finish();
     }
 
@@ -198,7 +191,6 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
     public void notifyReplanificar() {
         replanificar = 0;
         startActivity(new Intent(NewQuedada.this, MainMenu.class));
-        Toast.makeText(getApplicationContext(), "UsernameFromPost= " + UsernameFromPost + " place " + lugar.getText().toString() + " userId " + ul.getCorreo_user(), Toast.LENGTH_SHORT).show();
         finish();
     }
 }

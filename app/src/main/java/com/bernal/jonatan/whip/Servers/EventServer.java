@@ -45,7 +45,7 @@ public class EventServer {
                                 usr_event = response.getJSONObject(i);
                                 User_events.add(new Event(usr_event.getString("userIdFromPost"), usr_event.getString("userId"),
                                         usr_event.getString("place"), usr_event.getString("date").split("T")[0],
-                                        usr_event.getString("date").split("T")[1], usr_event.getString("id")));
+                                        usr_event.getString("date").split("T")[1], usr_event.getString("id"), usr_event.getString("state")));
                             }
                             eventPresenter.chargeEvents(User_events);
                         } catch (JSONException e) {
@@ -116,7 +116,7 @@ public class EventServer {
                         try {
                             Event event = new Event(response.getString("userIdFromPost"), response.getString("userId"),
                                     response.getString("place"), response.getString("date").split("T")[0],
-                                    response.getString("date").split("T")[1], response.getString("id"));
+                                    response.getString("date").split("T")[1], response.getString("id"), response.getString("state"));
                             eventPresenter.setEvent(event);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -169,8 +169,6 @@ public class EventServer {
                     public void onResponse(JSONObject response) {
                         eventPresenter.notifyNewQuedada();
                     }
-
-
                 },
                 new Response.ErrorListener() {
                     @Override

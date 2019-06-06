@@ -78,7 +78,7 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
         Toolbar tool = findViewById(R.id.toolbar_listadoPerd);
         setSupportActionBar(tool);
         getSupportActionBar().setTitle("LOST");
-        Toast.makeText(getApplicationContext(), ul.getAPI_KEY(), Toast.LENGTH_SHORT).show();
+
         String[] itemsSort = new String[]{"", "Recent", "Dog", "Cat", "Other"};
         ArrayAdapter<String> adapterSort = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsSort);
 
@@ -92,11 +92,8 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
                 if (!selectedItem.equals("")) {
                     URL_filtre = URL_filtre + selectedItem;
                     orderBy.setText((getString(R.string.order_by_cat)) + " " + selectedItem);
-                    //TODO: enviar a la funcio
-
                     backFiltres();
                 }
-
             } // to close the onItemSelected
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -112,7 +109,6 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
                 if (textBuscarPostLost.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), getString(R.string.mensajeBusquedaVacio), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), getString(R.string.mensaje_buscar), Toast.LENGTH_SHORT).show();
                     postPresenter.searchPost(textBuscarPostLost.getText().toString(), URL);
                 }
             }
@@ -135,14 +131,12 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
     }
 
     private void back_normal() {
-        //TODO: spinnerFiltre.getSelectedItem().toString()
         postPresenter.getLostPosts(URL);
     }
 
     private void backFiltres() {
         postPresenter.getLostPosts(URL_filtre);
     }
-
 
     @Override
     public void chargeAdoptionList(ArrayList posts) {

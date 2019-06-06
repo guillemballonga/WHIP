@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".Views.UploadImageFirebase">
+    tools:context=".Views.UploadImageFirebase"
+    android:background="@color/colorRosaWHIP">
 
     <LinearLayout
         android:id="@+id/layout_button"
@@ -20,6 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/choose"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/fondoform"
             tools:ignore="ButtonStyle" />
 
         <Button
@@ -27,7 +30,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/fondoform"
             android:text="@string/upload"
+            android:layout_marginStart="5dp"
             tools:ignore="ButtonStyle" />
     </LinearLayout>
 

@@ -29,11 +29,6 @@ public class UserPresenter {
         userServer.modifyUser(this, cp, nom, cognom, user, urlFoto);
     }
 
-    public void getUserPosts(String URL) {
-        userServer.getUserPosts(URL, this);
-    }
-
-
     public View getView() {
         return view;
     }

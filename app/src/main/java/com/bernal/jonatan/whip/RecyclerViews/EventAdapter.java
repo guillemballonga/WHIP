@@ -41,6 +41,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
         eventViewHolder.date_event.setText(listaObjetos.get(i).getDate());
         eventViewHolder.time_event.setText(listaObjetos.get(i).getTime());
         eventViewHolder.place_event.setText(listaObjetos.get(i).getPlace());
+        eventViewHolder.status_event.setText(listaObjetos.get(i).getState());
         if (ul.getCorreo_user().equals(listaObjetos.get(i).getUserId())) {
             eventViewHolder.user_event.setText(listaObjetos.get(i).getUserFromPostId());
             eventViewHolder.texto_plano.setText("Has solicitado una quedada");

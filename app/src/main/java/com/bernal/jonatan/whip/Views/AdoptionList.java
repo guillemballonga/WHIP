@@ -79,9 +79,6 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
         setSupportActionBar(tool);
         getSupportActionBar().setTitle("ADOPCIÓN");
 
-        Toast.makeText(getApplicationContext(), ul.getAPI_KEY(), Toast.LENGTH_SHORT).show();
-
-
         String[] itemsSort = new String[]{"", "Recent", "Dog", "Cat", "Other"};
         ArrayAdapter<String> adapterSort = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsSort);
 
@@ -95,11 +92,7 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
                 selectedItem = spinnerFiltre.getSelectedItem().toString();
                 if (!selectedItem.equals("")) {
                     URL_filtre = URL_filtre + selectedItem;
-
-
                     orderBy.setText((getString(R.string.order_by_cat)) + " " + selectedItem);
-                    //TODO: enviar a la funcio
-
                     backFiltres();
                 }
 
@@ -119,7 +112,6 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
                 if (textBuscarPostAdoption.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), getString(R.string.mensajeBusquedaVacio), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), getString(R.string.mensaje_buscar), Toast.LENGTH_SHORT).show();
                     postPresenter.searchPost(textBuscarPostAdoption.getText().toString(), URL);
                 }
             }

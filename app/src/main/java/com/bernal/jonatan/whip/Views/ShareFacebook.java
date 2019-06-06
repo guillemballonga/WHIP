@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.bernal.jonatan.whip.R;
 import com.facebook.CallbackManager;
@@ -41,10 +40,6 @@ public class ShareFacebook extends AppCompatActivity {
     Button btnShareLink, btnSharePhoto, btnShareVideo, btnSharePost;
     CallbackManager callbackManager;
     ShareDialog shareDialog;
-
-
-    private static String urlImageTotal = "";
-
     private String titlePost = "", descriPost = "";
     private String idImatge = "";
 
@@ -85,19 +80,14 @@ public class ShareFacebook extends AppCompatActivity {
                 shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
                     @Override
                     public void onSuccess(Sharer.Result result) {
-                        Toast.makeText(ShareFacebook.this, "ShareFacebooklink correcta", Toast.LENGTH_SHORT);
                     }
 
                     @Override
                     public void onCancel() {
-                        Toast.makeText(ShareFacebook.this, "ShareFacebooklink CANCEL", Toast.LENGTH_SHORT);
-
                     }
 
                     @Override
                     public void onError(FacebookException error) {
-
-                        Toast.makeText(ShareFacebook.this, "ShareFacebooklink ERROR: " + error.getMessage(), Toast.LENGTH_SHORT);
                     }
                 });
 
@@ -215,7 +205,6 @@ public class ShareFacebook extends AppCompatActivity {
 
     }
 
-
     public void retrieveImage(String idImageFirebase) {
 
 
@@ -227,9 +216,6 @@ public class ShareFacebook extends AppCompatActivity {
 
                 System.out.println("url download imatge: " + uri);
                 System.out.println("url download imatge: " + uri.toString());
-
-                urlImageTotal = uri.toString();
-
 
                 try {
                     System.out.println("dins PICASSO: ");
@@ -272,10 +258,6 @@ public class ShareFacebook extends AppCompatActivity {
         } else {
             signInAnonymously(mAuth);
         }
-
-        //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
-
-
     }
 
     private void signInAnonymously(FirebaseAuth mAuth) {

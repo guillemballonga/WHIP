@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
 import com.bernal.jonatan.whip.Presenters.UserPresenter;
 import com.bernal.jonatan.whip.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,9 +22,6 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.master.glideimageview.GlideImageView;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,10 +35,8 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
     static String urlFoto;
     Button goToEditarPerfil, goToMisPosts, gotoMessages;
     TextView nom, cognom, user, cp, correu;
-    //ImageView imatge;
     GlideImageView imatge;
 
-    //Objectes per JSONGet
 
 
     public static String getUsername() {
@@ -81,7 +75,6 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
         goToEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivity(new Intent(MostrarPerfil.this, EditProfile.class));
                 finish();
             }
@@ -108,7 +101,6 @@ public class MostrarPerfil extends AppCompatActivity implements UserPresenter.Vi
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
 
-        //foto_post = (ImageView) findViewById(R.id.foto_postPerd);
         try {
             final File localFile = File.createTempFile("images", "jpg");
             storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {

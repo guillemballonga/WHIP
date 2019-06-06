@@ -81,7 +81,7 @@
     <string name="a_ade_la_raza">Añade la raza…*</string>
     <string name="crear">CREAR</string>
     <string name="cancelar">CANCELAR</string>
-    <string name="perfil">PERFIL</string>
+    <string name="perfil">MENÚ PRINCIPAL</string>
     <string name="mensajes">MENSAJES</string>
     <string name="mis_posts">MIS POSTS</string>
     <string name="editar_perfil">EDITAR PERFIL</string>
@@ -133,6 +133,7 @@
     <string name="title_activity_maps">Map</string>
     <string name="mensajeBusquedaVacio">El campo de búsqueda está vacío</string>
     <string name="a_ade_un_mensaje">Escribe un mensaje aquí</string>
+    <string name="event_estado">Estado</string>
 
 
 </resources>
