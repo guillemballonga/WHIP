@@ -62,6 +62,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
 
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
+    String correuUsuari = ul.getCorreo_user();
     private Menu menu_fav;
     private String titlePost, descriptionPost;
     private String idImage, coordenada1, coordenada2;
@@ -74,7 +75,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
 
         //Obtengo el ID del post
         Identificador = getIntent().getStringExtra("identificadorPost");
-        final String correuUsuari = ul.getCorreo_user();
+
 
         titulo = findViewById(R.id.titulo_postPerd);
         fecha = findViewById(R.id.fecha_postPerd);
@@ -116,6 +117,8 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         URL_close = "https://whip-api.herokuapp.com/contributions/close/" + Identificador + "/?type=lost";
         URL_chat = "https://whip-api.herokuapp.com/chat";
         URL_comments = "https://whip-api.herokuapp.com/contributions/lostposts/" + Identificador + "/comments";
+
+
 
 
         compartirRRSS.setOnClickListener(new View.OnClickListener() {
@@ -170,13 +173,9 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         organ_quedada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mail_creador.equals(correuUsuari)) {
-                    Toast.makeText(getApplicationContext(), "No puedes crear una quedada contigo mismo", Toast.LENGTH_SHORT).show();
-                } else {
                     NewQuedada.setPostID(Identificador, "lost");
                     NewQuedada.setUsernameFromPost(mail_creador);
                     startActivity(new Intent(InfoPostLost.this, NewQuedada.class));
-                }
             }
         });
 
@@ -386,6 +385,10 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
             crear_comment.setVisibility(View.GONE);
             borrar_comment.setVisibility(View.GONE);
             chat_privado.setVisibility(View.GONE);
+        }
+
+        if (mail_creador.equals(correuUsuari)) {
+            organ_quedada.setVisibility(View.GONE);
         }
 
     }

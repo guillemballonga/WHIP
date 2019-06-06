@@ -7,12 +7,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bernal.jonatan.whip.R;
+import com.bernal.jonatan.whip.Views.UserLoggedIn;
 
 public class CommentViewHolder extends RecyclerView.ViewHolder {
 
     ImageView imagen_comment, delete_button;
     TextView contenido_comment, user_comment, data_comment, ver_comments;
     private String id_comment;
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
+
 
 
     public CommentViewHolder(@NonNull final View itemView, final OnCommentListener onCommentListener, String type) {
@@ -26,6 +29,9 @@ public class CommentViewHolder extends RecyclerView.ViewHolder {
         ver_comments = itemView.findViewById(R.id.ver_comments);
 
         if (type.equals("CommentComment")) ver_comments.setVisibility(View.GONE);
+
+
+        if (!user_comment.equals(ul.getCorreo_user())) delete_button.setVisibility(View.GONE);
 
 
         delete_button.setOnClickListener(new View.OnClickListener() {

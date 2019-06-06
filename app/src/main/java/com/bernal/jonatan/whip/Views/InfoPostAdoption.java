@@ -94,14 +94,11 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         solicitud_adopcion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mail_creador.equals(correuUsuari)) {
-                    Toast.makeText(getApplicationContext(), "No puedes crear una quedada contigo mismo", Toast.LENGTH_SHORT).show();
-                } else {
                     NewAdoptionRequest.setAdoptionPostID(Identificador);
                     NewAdoptionRequest.setUsernameFromPost(mail_creador);
                     startActivity(new Intent(InfoPostAdoption.this, NewAdoptionRequest.class));
                     finish();
-                }
+
             }
         });
 
@@ -283,6 +280,10 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         if (status) {
             close_buton.setVisibility(View.GONE);
             compartirRRSS.setVisibility(View.GONE);
+            solicitud_adopcion.setVisibility(View.GONE);
+        }
+
+        if (mail_creador.equals(correuUsuari)) {
             solicitud_adopcion.setVisibility(View.GONE);
         }
 
