@@ -253,6 +253,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try {
 
                     String first_name = object.getString("first_name");
+
                     mStatusTextView.setText(getString(R.string.signed_in_fmt, first_name));
                     findViewById(R.id.login_facebook_button).setVisibility(View.GONE);
                     findViewById(R.id.login_google_button).setVisibility(View.GONE);
@@ -361,7 +362,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onResponse(JSONObject response) {
                         startActivity(new Intent(MainActivity.this, MainMenu.class));
-                        //todo guardar api key en el singleton
                         try {
                             ul = UserLoggedIn.getUsuariLogejat(response.getString("api_key"), response.getString("email"), authCode);
                             ul.setAPI_KEY(response.getString("api_key"));
@@ -378,7 +378,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "Error: Vuelve a loggearte", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.loggin_error), Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
@@ -432,7 +432,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         } else {
 
-            mStatusTextView.setText(R.string.signed_out);
+            mStatusTextView.setText(R.string.signed_out_es);
 
             findViewById(R.id.login_facebook_button).setVisibility(View.VISIBLE);
             findViewById(R.id.login_google_button).setVisibility(View.VISIBLE);

@@ -51,7 +51,7 @@ public class NewPostLost extends AppCompatActivity implements ConcretePostPresen
         //Gestión de toolbar
         Toolbar tool = findViewById(R.id.toolbar_nuevoPostPerd);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("LOST");
+        getSupportActionBar().setTitle(R.string.p_rdida);
 
         foto = findViewById(R.id.perfil_perroPerd);
 
@@ -65,8 +65,8 @@ public class NewPostLost extends AppCompatActivity implements ConcretePostPresen
 
 
         // Spinner per a seleccionar els items
-        String[] itemsEspecie = new String[]{"Dog", "Cat", "Other"};
-        String[] itemsTipo = new String[]{"Encontrado", "Perdido"};
+        String[] itemsEspecie = new String[]{getString(R.string.dog), getString(R.string.cat), getString(R.string.other)};
+        String[] itemsTipo = new String[]{getString(R.string.found), getString(R.string.lost)};
 
         ArrayAdapter<String> adapterEspecie = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsEspecie);
         ArrayAdapter<String> adapterTipo = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsTipo);
@@ -92,17 +92,15 @@ public class NewPostLost extends AppCompatActivity implements ConcretePostPresen
         cancel = findViewById(R.id.boton_cancelNewPostPerd);
 
         create.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 if (titulo.getText().toString().equals("") || cp.getText().toString().equals("") || raza.getText().toString().equals("") || especie.getSelectedItem().toString().equals("") || tipo.getSelectedItem().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(), "Los campos con * son obligatorios", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.required_fields, Toast.LENGTH_SHORT).show();
 
                 } else {
                     concretePostPresenter.createPost(URL, especie.getSelectedItem().toString(), UploadImageFirebase.getIdentificadorImatge(), raza.getText().toString(), cp.getText().toString(), contenido.getText().toString(), titulo.getText().toString(), tipo.getSelectedItem().toString(), "Lost");
                 }
             }
-
         });
 
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +114,6 @@ public class NewPostLost extends AppCompatActivity implements ConcretePostPresen
 
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -124,8 +121,6 @@ public class NewPostLost extends AppCompatActivity implements ConcretePostPresen
             assert data != null;
             Uri path = data.getData();
             foto.setImageURI(path);
-
-
         }
     }
 

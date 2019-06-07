@@ -50,7 +50,8 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
         //Gestión de las Toolbars
         Toolbar tool = findViewById(R.id.toolbar_nova_quedada);
         setSupportActionBar(tool);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("QUEDADA");
+
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.meeting);
 
         //Coneixón con la API
         if (replanificar == 0) {
@@ -89,7 +90,6 @@ public class NewQuedada extends AppCompatActivity implements DatePickerDialog.On
                 if (selecionar_fecha.getText().toString().equals("") || seleccionar_hora.getText().toString().equals("") || lugar.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
                 } else {
-
                     if (replanificar == 0)
                         eventPresenter.newQuedada(postID, año, mes, dia, horaForm, minForm, lugar, UsernameFromPost, type, URL);
                     else {

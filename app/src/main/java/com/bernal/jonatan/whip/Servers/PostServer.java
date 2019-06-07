@@ -46,6 +46,7 @@ public class PostServer {
                                 Posts_adoption.add(new Post(postite.getString("id"), postite.getString("title"), postite.getString("photo_url_1"), postite.getString("text"), "ADOPTION"));
                             }
                             postPresenter.chargeAdoptionList(Posts_adoption);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

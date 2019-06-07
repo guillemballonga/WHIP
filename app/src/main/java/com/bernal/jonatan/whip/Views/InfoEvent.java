@@ -76,7 +76,6 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

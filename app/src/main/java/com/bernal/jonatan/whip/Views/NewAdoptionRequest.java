@@ -25,8 +25,8 @@ public class NewAdoptionRequest extends AppCompatActivity implements AdoptionReq
     String photo_url = "";
     EditText cosText;
     private String URL;
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -38,7 +38,7 @@ public class NewAdoptionRequest extends AppCompatActivity implements AdoptionReq
         //Gestión de las Toolbars
         Toolbar tool = findViewById(R.id.toolbar_nova_solicitud_adopt);
         setSupportActionBar(tool);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("SOLICITUD DE ADOPCIÓN");
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.abandono_o_p_rdida);
 
         cosText = findViewById(R.id.descripcion_motivo_adopcion);
         toQuedada = findViewById(R.id.boton_enviar_quedada);
@@ -62,7 +62,6 @@ public class NewAdoptionRequest extends AppCompatActivity implements AdoptionReq
     private void envia_dades_back() {
 
         URL = "https://whip-api.herokuapp.com/event/adoptionrequest";
-
         adoptionRequestPresenter.sendInfo(URL, cosText.getText().toString(), AdoptionPostID, photo_url, UsernameFromPost);
     }
 

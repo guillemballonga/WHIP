@@ -17,7 +17,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
     private List<Event> listaObjetos;
     private OnEventListener onEventListener;
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
 
     public void setOnEventListener(OnEventListener onEventListener) {
         this.onEventListener = onEventListener;
@@ -44,10 +44,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
         eventViewHolder.status_event.setText(listaObjetos.get(i).getState());
         if (ul.getCorreo_user().equals(listaObjetos.get(i).getUserId())) {
             eventViewHolder.user_event.setText(listaObjetos.get(i).getUserFromPostId());
-            eventViewHolder.texto_plano.setText("Has solicitado una quedada");
+            eventViewHolder.texto_plano.setText(R.string.solicitar_quedada);
         } else {
             eventViewHolder.user_event.setText(listaObjetos.get(i).getUserId());
-            eventViewHolder.texto_plano.setText("Te han solicitado una quedada");
+            eventViewHolder.texto_plano.setText(R.string.TeHanSolicitado);
         }
         eventViewHolder.setId_event(listaObjetos.get(i).getId());
     }

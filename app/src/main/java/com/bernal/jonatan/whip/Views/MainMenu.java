@@ -1,6 +1,7 @@
 package com.bernal.jonatan.whip.Views;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bernal.jonatan.whip.Presenters.UserPresenter;
@@ -26,12 +28,15 @@ import com.master.glideimageview.GlideImageView;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, UserPresenter.View {
+
 
     Button lost, adoption, events;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+    ImageView idioma_es,idioma_en;
 
     static GlideImageView imatge;
     TextView nom, user;
@@ -50,9 +55,12 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         adoption = findViewById(R.id.boton_adoption);
         events = findViewById(R.id.boton_eventos);
 
+        idioma_en = findViewById(R.id.idioma_ingles);
+        idioma_es = findViewById(R.id.idioma_espanol);
+
         Toolbar tool = findViewById(R.id.toolbar_menuPrincipal);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("MENÚ PRINCIPAL");
+        getSupportActionBar().setTitle(R.string.main_menu);
 
         mDrawerLayout = findViewById(R.id.drawer);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
@@ -84,7 +92,34 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(new Intent(MainMenu.this, EventList.class));
             }
         });
+
+        idioma_es.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Locale localizacion = new Locale("es", "ES");
+                Locale.setDefault(localizacion);
+                Configuration config = new Configuration();
+                config.locale = localizacion;
+                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                recreate();
+            }
+        });
+
+        idioma_en.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Locale localizacion = new Locale("en", "EN");
+                Locale.setDefault(localizacion);
+                Configuration config = new Configuration();
+                config.locale = localizacion;
+                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                recreate();
+            }
+        });
+
     }
+
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -115,7 +150,6 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     public static void retrieveImage(String idImageFirebase) {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
         StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
         try {
             final File localFile = File.createTempFile("images", "jpg");

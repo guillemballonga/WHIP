@@ -52,7 +52,7 @@ public class NewPostAdoption extends AppCompatActivity implements ConcretePostPr
         //Gestión de toolbar
         Toolbar tool = findViewById(R.id.toolbar_nuevoPostAdopcio);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("ADOPCIÓN");
+        getSupportActionBar().setTitle(R.string.adopci_n);
 
         foto = findViewById(R.id.perfil_perroAdopcio);
 
@@ -66,7 +66,7 @@ public class NewPostAdoption extends AppCompatActivity implements ConcretePostPr
 
 
         // Spinner per a seleccionar els items
-        String[] itemsEspecie = new String[]{"Dog", "Cat", "Other"};
+        String[] itemsEspecie = new String[]{getString(R.string.dog), getString(R.string.cat), getString(R.string.other)};
 
         ArrayAdapter<String> adapterEspecie = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsEspecie);
 
@@ -98,7 +98,7 @@ public class NewPostAdoption extends AppCompatActivity implements ConcretePostPr
             public void onClick(View view) {
 
                 if (titulo.getText().toString().equals("") || cp.getText().toString().equals("") || raza.getText().toString().equals("") || especie.getSelectedItem().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(), "Los campos con * son obligatorios", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.required_fields), Toast.LENGTH_SHORT).show();
 
                 } else {
                     concretePostPresenter.createPost(URL, especie.getSelectedItem().toString(), UploadImageFirebase.getIdentificadorImatge(), raza.getText().toString(), cp.getText().toString(), contenido.getText().toString(), titulo.getText().toString(), "", "Adoption");
@@ -110,14 +110,12 @@ public class NewPostAdoption extends AppCompatActivity implements ConcretePostPr
 
             @Override
             public void onClick(View view) {
-
                 finish();
             }
         });
 
 
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

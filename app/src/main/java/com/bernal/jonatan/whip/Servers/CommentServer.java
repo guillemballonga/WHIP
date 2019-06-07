@@ -83,6 +83,7 @@ public class CommentServer {
                             }
 
                             commentPresenter.chargeCommentList(Comments_post);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

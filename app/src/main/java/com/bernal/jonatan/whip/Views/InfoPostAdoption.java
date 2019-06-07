@@ -78,7 +78,7 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         //Gestión toolbar
         Toolbar tool = findViewById(R.id.toolbar_infoPostAdoption);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("ADOPCIÓN");
+        getSupportActionBar().setTitle(R.string.adopci_n);
 
 
         //Recoger los datos de Back y cargarlos en la vista
@@ -149,7 +149,6 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
         AlertDialog title = alert.create();
         title.setTitle("CERRAR POST");
         title.show();
-
     }
 
 
@@ -183,25 +182,26 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
     private void BackDelete() {
         if (mail_creador.equals(ul.getCorreo_user())) {
             AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostAdoption.this);
-            alert.setMessage("¿Estás seguro que deseas eliminar este Post?")
+            alert.setMessage(R.string.delete_post)
                     .setCancelable(false)
-                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             concretePostPresenter.deletePost(URL);
                         }
                     })
-                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.cancel();
                         }
                     });
             AlertDialog title = alert.create();
-            title.setTitle("ELIMINAR POST");
+            title.setTitle(R.string.deletePost);
             title.show();
-        }
-        else  Toast.makeText(getApplicationContext(), "No puedes eliminar un post no creado por ti botarate", Toast.LENGTH_SHORT).show();
+
+        } else
+            Toast.makeText(getApplicationContext(), R.string.delete_post_creator, Toast.LENGTH_SHORT).show();
     }
 
     private void BackFavs_dislike() {

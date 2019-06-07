@@ -27,7 +27,7 @@ public class MyPosts extends AppCompatActivity {
         //Gestión de la toolbar
         Toolbar tool = findViewById(R.id.toolbar_MisPosts);
         setSupportActionBar(tool);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("MIS POSTS");
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.mis_posts);
 
         ViewPager viewPager = findViewById(R.id.viewpager);
         carregaViewPager(viewPager);
@@ -37,17 +37,17 @@ public class MyPosts extends AppCompatActivity {
     }
 
     private void setTitolsTabs() {
-        tabLayout.getTabAt(0).setText("Post Propios");
-        tabLayout.getTabAt(1).setText("Post Comentados");
-        tabLayout.getTabAt(2).setText("Post Favoritos");
+        tabLayout.getTabAt(0).setText(R.string.my_posts);
+        tabLayout.getTabAt(1).setText(R.string.commented_posts);
+        tabLayout.getTabAt(2).setText(R.string.favourite_posts);
     }
 
 
     private void carregaViewPager(ViewPager viewPager) {
         ViewPagerAdaptador adaptador = new ViewPagerAdaptador(getSupportFragmentManager());
-        adaptador.addFragment(newInstance("Post Propios"));
-        adaptador.addFragment(newInstance("Post Comentados"));
-        adaptador.addFragment(newInstance("Post Favoritos"));
+        adaptador.addFragment(newInstance(getString(R.string.my_posts)));
+        adaptador.addFragment(newInstance(getString(R.string.commented_posts)));
+        adaptador.addFragment(newInstance(getString(R.string.favourite_posts)));
         viewPager.setAdapter(adaptador);
     }
 

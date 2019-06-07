@@ -100,7 +100,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
         //Gestión toolbar
         Toolbar tool = findViewById(R.id.toolbar_infoPostPerd);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("LOST");
+        getSupportActionBar().setTitle(R.string.p_rdida);
 
         box_comment.setText("");
 
@@ -181,7 +181,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     private void crear_comment() {
 
         if (box_comment.getText().toString().equals(""))
-            Toast.makeText(getApplicationContext(), "Debe escribir un comentario", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.write_comment, Toast.LENGTH_SHORT).show();
         else {
             commentPresenter.createComment(URL_comments, box_comment.getText().toString(), "");
         }
@@ -195,44 +195,44 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     private void eliminar_comentari(View vista) {
         final String id_comment = Comments_post.get(comments.getChildAdapterPosition(vista)).getId();
         AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostLost.this);
-        alert.setMessage("¿Estás seguro que deseas eliminar este Comentario?")
+        alert.setMessage(R.string.delete_comment)
                 .setCancelable(false)
-                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         commentPresenter.deleteComment(URL_comments, id_comment);
                     }
                 })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
                     }
                 });
         AlertDialog title = alert.create();
-        title.setTitle("ELIMINAR COMENTARIO");
+        title.setTitle(R.string.delete_comment_may);
         title.show();
     }
 
     private void tancar_post() {
         AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostLost.this);
-        alert.setMessage("¿Estás seguro que deseas cerrar este Post?")
+        alert.setMessage(R.string.close_post)
                 .setCancelable(false)
-                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         concretePostPresenter.closePost(URL_close);
 
                     }
                 })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
                     }
                 });
         AlertDialog title = alert.create();
-        title.setTitle("CERRAR POST");
+        title.setTitle(R.string.cerrar_post);
         title.show();
     }
 
@@ -262,9 +262,9 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     private void BackDelete() {
         if (mail_creador.equals(ul.getCorreo_user())) {
             AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostLost.this);
-            alert.setMessage("¿Estás seguro que deseas eliminar este Post?")
+            alert.setMessage(R.string.delete_post)
                     .setCancelable(false)
-                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -272,18 +272,18 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
 
                         }
                     })
-                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.cancel();
                         }
                     });
             AlertDialog title = alert.create();
-            title.setTitle("ELIMINAR POST");
+            title.setTitle(R.string.deletePost);
             title.show();
 
         } else
-            Toast.makeText(getApplicationContext(), "POST NO CREADO POR EL TI, NO PUEDES BORRARLO", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.delete_post_creator, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -301,10 +301,8 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     public void retrieveImage(String idImageFirebase) {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        //TODO: necessito recuperar l objecte desde el json. a child posarhi l indetificador guardat
         StorageReference storageReference = storage.getReferenceFromUrl("gs://whip-1553341713756.appspot.com/").child(idImageFirebase);
 
-        //foto_post = (ImageView) findViewById(R.id.foto_postPerd);
         try {
             final File localFile = File.createTempFile("images", "jpg");
             storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
@@ -340,8 +338,8 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
 
 
         if (type.equals("F")) {
-            tipo.setText("Encontrado");
-        } else tipo.setText("Pérdida");
+            tipo.setText(getString(R.string.found));
+        } else tipo.setText(getString(R.string.lost));
 
         //Fotografías con Firebase
         String urlFoto1 = photo_url_1; //LAURA->
@@ -412,7 +410,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     @Override
     public void chargeCommentList(final ArrayList comments_post) {
         Comments_post = comments_post;
-        num_comments.setText("Comentarios " + comments_post.size());
+        num_comments.setText(R.string.comments + comments_post.size());
         LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         adapt = new CommentAdapter(Comments_post, "CommentPost");

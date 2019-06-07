@@ -222,7 +222,9 @@ public class ConcretePostServer {
             post.put("post_code", cp);
             post.put("text", text);
             post.put("title", title);
-             if (tipusPost.equals("Lost")) {
+
+            if (tipusPost.equals("Lost")) {
+
                 if (type.equals("Encontrado")) post.put("type", "F");
                 else post.put("type", "L");
             }

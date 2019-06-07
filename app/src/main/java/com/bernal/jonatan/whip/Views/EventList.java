@@ -27,8 +27,6 @@ public class EventList extends AppCompatActivity implements EventPresenter.View 
     private SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView contenedor_events;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +47,7 @@ public class EventList extends AppCompatActivity implements EventPresenter.View 
 
         Toolbar tool = findViewById(R.id.toolbar_listadoChats);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("EVENTOS");
+        getSupportActionBar().setTitle(R.string.eventos);
 
         eventPresenter.getEvents(URL_eventos);
     }

@@ -46,8 +46,9 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
     private String URL;
     private String urlFoto = ""; //la que agafo si canvio de foto
     private String urlBD = MostrarPerfil.getFoto();
+
     private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
-    private String api = ul.getAPI_KEY();
+
     private Uri path;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -72,7 +73,7 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
         //Gestión de las Toolbars
         Toolbar tool = findViewById(R.id.toolbar_editarPerfil);
         setSupportActionBar(tool);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("PERFIL");
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.perfil);
 
         //Coneixón con la API
         URL = "https://whip-api.herokuapp.com/users/profile";
@@ -98,7 +99,7 @@ public class EditProfile extends AppCompatActivity implements UserPresenter.View
 
 
                 if (nom.getText().toString().equals("") || cp.getText().toString().equals("") || cognom.getText().toString().equals("") || user.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.fields_required), Toast.LENGTH_SHORT).show();
                 } else {
                     userPresenter.modifyUser(cp.getText().toString(), nom.getText().toString(), cognom.getText().toString(), user.getText().toString(), urlFoto);
                 }

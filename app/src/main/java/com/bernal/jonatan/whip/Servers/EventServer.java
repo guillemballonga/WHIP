@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class EventServer {
 
-    private UserLoggedIn u1 = UserLoggedIn.getUsuariLogejat("", "", "");
+    private UserLoggedIn u1 = UserLoggedIn.getUsuariLogejat("", "", "","");
     private String api = u1.getAPI_KEY();
     private RequestQueue requestQueue;
 

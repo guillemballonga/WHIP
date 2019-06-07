@@ -131,7 +131,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:text="SOLICITADA POR:"
+                        android:text="@string/solicitada_por"
                         android:textColor="@color/blanco"
                         android:textSize="20sp"
                         android:textStyle="bold" />

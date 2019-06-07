@@ -153,6 +153,7 @@ public class UserServer {
                                 userInfoForChat.add(new ChatRelation(userNP.getString("username"), userNP.getString("photo_url"), cr.getId()));
                             }
                             userPresenter.sendInfoForChat(userInfoForChat);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

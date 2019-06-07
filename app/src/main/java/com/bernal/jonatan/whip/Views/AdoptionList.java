@@ -77,9 +77,10 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
 
         Toolbar tool = findViewById(R.id.toolbar_listadoAdopt);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("ADOPCIÓN");
+        getSupportActionBar().setTitle(R.string.adopci_n);
 
-        String[] itemsSort = new String[]{"", "Recent", "Dog", "Cat", "Other"};
+        String[] itemsSort = new String[]{"", getString(R.string.recent), getString(R.string.dog), getString(R.string.cat), getString(R.string.other)};
+
         ArrayAdapter<String> adapterSort = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsSort);
 
         spinnerFiltre.setAdapter(adapterSort);

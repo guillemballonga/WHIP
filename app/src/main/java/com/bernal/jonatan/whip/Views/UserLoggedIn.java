@@ -20,8 +20,8 @@ public class UserLoggedIn {
     public static UserLoggedIn getUsuariLogejat(String api_key, String correo, String token) {
 
         if (instancia == null) {
-
             instancia = new UserLoggedIn(api_key, correo, token);
+
         }
         return instancia;
     }
