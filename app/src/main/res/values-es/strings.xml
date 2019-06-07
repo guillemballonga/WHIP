@@ -281,11 +281,11 @@
 
     <string name="main_menu">MENÚ PRINCIPAL</string>
 
-    <string name="my_posts">Publicaciones Propias</string>
+    <string name="my_posts">Post Propios</string>
 
-    <string name="commented_posts">Publicaciones Comentadas</string>
+    <string name="commented_posts">Post Comentados</string>
 
-    <string name="favourite_posts">Publicaciones Favoritas</string>
+    <string name="favourite_posts">Post Favoritos</string>
 
     <string name="intro_desc">Introduce una descripción</string>
 
