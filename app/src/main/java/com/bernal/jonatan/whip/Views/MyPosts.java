@@ -57,6 +57,7 @@ public class MyPosts extends AppCompatActivity {
         OneFragmentMisPosts fragmentMisPosts = new OneFragmentMisPosts();
         fragmentMisPosts.setArguments(bundle);
 
+
         return fragmentMisPosts;
 
     }
