@@ -410,7 +410,7 @@ public class InfoPostLost extends AppCompatActivity implements ConcretePostPrese
     @Override
     public void chargeCommentList(final ArrayList comments_post) {
         Comments_post = comments_post;
-        num_comments.setText(R.string.comments + comments_post.size());
+        num_comments.setText(getString(R.string.comments) + " "+ comments_post.size());
         LinearLayoutManager layout = new LinearLayoutManager(getApplicationContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         adapt = new CommentAdapter(Comments_post, "CommentPost");
