@@ -132,22 +132,22 @@ public class InfoPostAdoption extends AppCompatActivity implements ConcretePostP
 
     private void tancar_post() {
         AlertDialog.Builder alert = new AlertDialog.Builder(InfoPostAdoption.this);
-        alert.setMessage("¿Estás seguro que deseas cerrar este Post?")
+        alert.setMessage(R.string.cerrar_post_mensaje)
                 .setCancelable(false)
-                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.Si, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         concretePostPresenter.closePost(URL_close);
                     }
                 })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
                     }
                 });
         AlertDialog title = alert.create();
-        title.setTitle("CERRAR POST");
+        title.setTitle(R.string.cerrar_post);
         title.show();
     }
 

@@ -316,5 +316,16 @@
     <string name="a_ade_un_mensaje">Escribe un mensaje aquí</string>
 
     <string name="event_estado">Estado</string>
+    <string name="introducir_mensaje">Introduzca su mensaje</string>
+    <string name="eliminar_mensaje">ELIMINAR MENSAJE</string>
+    <string name="deletion_confirmation">¿Estás seguro que deseas eliminar este mensaje?</string>
+    <string name="Si">Sí</string>
+    <string name="eliminar_chat">¿Estás seguro que deseas eliminar este Chat?</string>
+    <string name="eliminar_chat_titulo">ELIMINAR CHAT</string>
+    <string name="eliminar_comment">¿Estás seguro que deseas eliminar este Comentario?</string>
+    <string name="eliminar_comment_titulo">ELIMINAR COMENTARIO</string>
+    <string name="cerrar_post_mensaje">¿Estás seguro que deseas cerrar este Post?</string>
+    <string name="campost_obligatorios">Todos los campos son obligatorios</string>
+    <string name="introduce_descripcion">Introduce una descripción</string>
 
 </resources>

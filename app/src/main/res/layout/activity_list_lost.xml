@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:background="@drawable/perfilblanc"
-            android:hint="Buscar Post" />
+            android:hint="@string/buscar_post" />
 
         <Spinner
             android:id="@+id/spinner_filter_lost"

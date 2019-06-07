@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class AdoptionList extends AppCompatActivity implements PostPresenter.View {
 
     PostPresenter postPresenter = new PostPresenter(this);
-    private String URL, URL_filtre;
+    private String URL, URL_filtre, URL_filtre_final;
     private PostAdapter adapt;
     private SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView contenedor_adopt;
@@ -85,6 +85,7 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
 
         spinnerFiltre.setAdapter(adapterSort);
 
+        //orderBy.setVisibility(View.GONE);
 
         spinnerFiltre.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint("SetTextI18n")
@@ -92,7 +93,20 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
 
                 selectedItem = spinnerFiltre.getSelectedItem().toString();
                 if (!selectedItem.equals("")) {
-                    URL_filtre = URL_filtre + selectedItem;
+                    switch (selectedItem) {
+                        case "Perro":
+                            URL_filtre_final = URL_filtre + "Dog";
+                            break;
+                        case "Gato":
+                            URL_filtre_final = URL_filtre + "Cat";
+                            break;
+                        case "Otro":
+                            URL_filtre_final = URL_filtre + "Other";
+                            break;
+                        default:
+                            URL_filtre_final = URL_filtre + selectedItem;
+
+                    }
                     orderBy.setText((getString(R.string.order_by_cat)) + " " + selectedItem);
                     backFiltres();
                 }
@@ -134,7 +148,7 @@ public class AdoptionList extends AppCompatActivity implements PostPresenter.Vie
     }
 
     private void backFiltres() {
-        postPresenter.getAdoptionPosts(URL_filtre);
+        postPresenter.getAdoptionPosts(URL_filtre_final);
     }
 
     @Override

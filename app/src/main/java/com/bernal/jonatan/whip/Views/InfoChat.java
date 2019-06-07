@@ -88,22 +88,22 @@ public class InfoChat extends AppCompatActivity implements ChatPresenter.View {
             public void onItemClicked(int position, View vista) {
                 final String id_msg = chat_msgs.get(contenedor_mensajes.getChildAdapterPosition(vista)).getId();
                 AlertDialog.Builder alert = new AlertDialog.Builder(InfoChat.this);
-                alert.setMessage("¿Estás seguro que deseas eliminar este mensaje?")
+                alert.setMessage(R.string.deletion_confirmation)
                         .setCancelable(false)
-                        .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.Si, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 chatPresenter.deleteMessage(id_msg);
                             }
                         })
-                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.cancel();
                             }
                         });
                 AlertDialog title = alert.create();
-                title.setTitle("ELIMINAR MENSAJE");
+                title.setTitle(getString(R.string.eliminar_mensaje));
                 title.show();
             }
 
@@ -119,7 +119,7 @@ public class InfoChat extends AppCompatActivity implements ChatPresenter.View {
     private void send_message() {
 
         if (messageToSend.getText().toString().equals(""))
-            Toast.makeText(getApplicationContext(), "Introduzca su mensaje", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.introducir_mensaje), Toast.LENGTH_SHORT).show();
         else {
             chatPresenter.createMessage(messageToSend.getText().toString(), URL);
         }

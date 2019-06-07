@@ -105,23 +105,23 @@ public class ChatList extends AppCompatActivity implements ChatPresenter.View, U
                 final ChatRelation cr = (ChatRelation) userInfoForChat.get(contenedor_chats.getChildAdapterPosition(vista));
                 final String id_chat = cr.getId();
                 AlertDialog.Builder alert = new AlertDialog.Builder(ChatList.this);
-                alert.setMessage("¿Estás seguro que deseas eliminar este Chat?")
+                alert.setMessage(R.string.eliminar_chat)
                         .setCancelable(false)
-                        .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.Si, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 chatPresenter.deleteChat(URL_chats + "/chat", id_chat);
 
                             }
                         })
-                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.cancel();
                             }
                         });
                 AlertDialog title = alert.create();
-                title.setTitle("ELIMINAR CHAT");
+                title.setTitle(getString(R.string.eliminar_chat_titulo));
                 title.show();
             }
 
