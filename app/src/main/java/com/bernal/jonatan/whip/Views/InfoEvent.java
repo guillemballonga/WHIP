@@ -39,7 +39,7 @@ public class InfoEvent extends AppCompatActivity implements EventPresenter.View 
 
         Toolbar tool = findViewById(R.id.toolbar_info_event);
         setSupportActionBar(tool);
-        getSupportActionBar().setTitle("EVENTOS");
+        getSupportActionBar().setTitle(R.string.eventos);
 
         idEvent = getIntent().getStringExtra("idEvent");
 

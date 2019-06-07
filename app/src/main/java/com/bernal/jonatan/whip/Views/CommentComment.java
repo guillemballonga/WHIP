@@ -116,22 +116,22 @@ public class CommentComment extends AppCompatActivity implements CommentPresente
     private void eliminarComentari(View view) {
         final String id_comment = Comments_comments.get(comments_comments.getChildAdapterPosition(view)).getId();
         AlertDialog.Builder alert = new AlertDialog.Builder(CommentComment.this);
-        alert.setMessage("¿Estás seguro que deseas eliminar este Comentario?")
+        alert.setMessage(R.string.eliminar_comment)
                 .setCancelable(false)
-                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.Si, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         commentPresenter.deleteComment(URL_create_comments, id_comment);
                     }
                 })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
                     }
                 });
         AlertDialog title = alert.create();
-        title.setTitle("ELIMINAR COMENTARIO");
+        title.setTitle(getString(R.string.eliminar_comment_titulo));
         title.show();
     }
 }

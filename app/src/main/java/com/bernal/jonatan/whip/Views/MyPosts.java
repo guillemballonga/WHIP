@@ -37,17 +37,18 @@ public class MyPosts extends AppCompatActivity {
     }
 
     private void setTitolsTabs() {
-        tabLayout.getTabAt(0).setText(R.string.my_posts);
-        tabLayout.getTabAt(1).setText(R.string.commented_posts);
-        tabLayout.getTabAt(2).setText(R.string.favourite_posts);
+        tabLayout.getTabAt(0).setText(getString(R.string.my_posts));
+        tabLayout.getTabAt(1).setText(getString(R.string.commented_posts));
+        tabLayout.getTabAt(2).setText(getString(R.string.favourite_posts));
     }
 
 
     private void carregaViewPager(ViewPager viewPager) {
         ViewPagerAdaptador adaptador = new ViewPagerAdaptador(getSupportFragmentManager());
-        adaptador.addFragment(newInstance(getString(R.string.my_posts)));
-        adaptador.addFragment(newInstance(getString(R.string.commented_posts)));
-        adaptador.addFragment(newInstance(getString(R.string.favourite_posts)));
+        adaptador.addFragment(newInstance("Post Propios"));
+        adaptador.addFragment(newInstance("Post Comentados"));
+        adaptador.addFragment(newInstance("Post Favoritos"));
+
         viewPager.setAdapter(adaptador);
     }
 
@@ -56,6 +57,7 @@ public class MyPosts extends AppCompatActivity {
         bundle.putString("title", title);
         OneFragmentMisPosts fragmentMisPosts = new OneFragmentMisPosts();
         fragmentMisPosts.setArguments(bundle);
+
 
         return fragmentMisPosts;
 

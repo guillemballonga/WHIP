@@ -75,6 +75,6 @@ public class NewAdoptionRequest extends AppCompatActivity implements AdoptionReq
 
     @Override
     public void notifyEmptyDesc() {
-        Toast.makeText(getApplicationContext(), "Introduce una descripción", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), getString(R.string.introduce_descripcion), Toast.LENGTH_SHORT).show();
     }
 }

@@ -31,7 +31,7 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
 
 
     PostPresenter postPresenter = new PostPresenter(this);
-    private String URL, URL_filtre;
+    private String URL, URL_filtre, URL_filtre_final;
     private PostAdapter adapt;
     private SwipeRefreshLayout swipeRefreshLayout;
     EditText textBuscarPostLost;
@@ -89,7 +89,20 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
 
                 selectedItem = spinnerFiltre.getSelectedItem().toString();
                 if (!selectedItem.equals("")) {
-                    URL_filtre = URL_filtre + selectedItem;
+                    switch (selectedItem) {
+                        case "Perro":
+                            URL_filtre_final = URL_filtre + "Dog";
+                            break;
+                        case "Gato":
+                            URL_filtre_final = URL_filtre + "Cat";
+                            break;
+                        case "Otro":
+                            URL_filtre_final = URL_filtre + "Other";
+                            break;
+                        default:
+                            URL_filtre_final = URL_filtre + selectedItem;
+
+                    }
                     orderBy.setText((getString(R.string.order_by_cat)) + " " + selectedItem);
                     backFiltres();
                 }
@@ -134,7 +147,7 @@ public class LostList extends AppCompatActivity implements PostPresenter.View {
     }
 
     private void backFiltres() {
-        postPresenter.getLostPosts(URL_filtre);
+        postPresenter.getLostPosts(URL_filtre_final);
     }
 
     @Override
