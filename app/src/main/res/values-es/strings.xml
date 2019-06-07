@@ -127,7 +127,7 @@
 
     <string name="cancelar">CANCELAR</string>
 
-    <string name="perfil">PERFIL</string>
+    <string name="perfil">MENÚ PRINCIPAL</string>
 
     <string name="mensajes">MENSAJES</string>
 
@@ -304,5 +304,17 @@
     <string name="failed">Fallido</string>
 
     <string name="solicitada_por">SOLICITADA POR:</string>
+
+    <string name="replanificar">REPLANIFICAR</string>
+
+    <string name="buscar_post">Buscar Publicación</string>
+
+    <string name="title_activity_maps">Mapa</string>
+
+    <string name="mensajeBusquedaVacio">El campo de búsqueda está vacío</string>
+
+    <string name="a_ade_un_mensaje">Escribe un mensaje aquí</string>
+
+    <string name="event_estado">Estado</string>
 
 </resources>

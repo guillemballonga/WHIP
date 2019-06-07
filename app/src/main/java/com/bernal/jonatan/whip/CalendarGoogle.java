@@ -38,7 +38,7 @@ public class CalendarGoogle {
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
     final HttpTransport transport = AndroidHttp.newCompatibleTransport();
-    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "","");
+    private UserLoggedIn ul = UserLoggedIn.getUsuariLogejat("", "", "");
 
 
     /**
